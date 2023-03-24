@@ -34,7 +34,7 @@
               <span>3. 碳排放权供给与需求实验</span>
             </el-menu-item>
     
-            <el-menu-item index="4">
+            <el-menu-item index="/exp4_1">
               <span>4. 软件测试成本估算实验</span>
             </el-menu-item>
     
