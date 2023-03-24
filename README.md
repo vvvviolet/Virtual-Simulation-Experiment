@@ -67,15 +67,15 @@ POST /api/experiment/
 ```
 {
     id:number;
-    experiment_id:number;
-    submit_time:number;
+    experimentId:number;
+    submitTime:number;
     report:file;
 }
 ```
 后端返回
 ```
 {
-    success:number;
+    success:boolean;
     errorMessage:string;
 }
 ```
