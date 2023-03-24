@@ -21,58 +21,74 @@ main.js ：使用其他库注册进去
 ## Web API规范
 #### 登录
 POST /api/login/
-// 前端发送 表单格式
+
+前端发送 表单格式
+```
 {
     email:string;
     password:string;
 } 
-// 后端返回 
+```
+后端返回 
+```
 {
     success:boolean;
-    errorMessage:string; // 描述错误信息
+    errorMessage:string; 描述错误信息
     data:{
         token:string;
         id:number;
         name:string;
     }
 }
+```
 
 #### 获取单个实验
-GET /api/experiment/:id // 要获取的实验ID写在url中
-//后端返回
+GET /api/experiment/:id 
+
+要获取的实验ID写在params中
+
+后端返回
+```
 {
     success:boolean;
     errorMessage:string;
     data:{
         title:string;
-        content:string; // 链接 教师编写的实验内容 富文本=>url
-        file:string; //链接 实验附件(获取教师提供的实验指导书) 文件=>url
+        content:string; 链接 教师编写的实验内容 富文本=>url
+        file:string; 链接 实验附件(获取教师提供的实验指导书) 文件=>url
     }
 }
+```
 
 #### 提交报告
 POST /api/experiment/
-//前端发送 表单格式
+
+前端发送 表单格式
+```
 {
     id:number;
     experiment_id:number;
     submit_time:number;
     report:file;
 }
-// 后端返回
+```
+后端返回
+```
 {
     success:number;
     errorMessage:string;
 }
-
+```
 #### 获取实验报告模板
 GET /api/experiment_template/:id
-// 前端发送 无
-// 后端返回
+
+后端返回
+```
 {
-    success:boolean,
-    errorMessage:string,
+    success:boolean;
+    errorMessage:string;
     data:{
-        file:string // 链接
+        file:string; 链接
     }
 }
+```
