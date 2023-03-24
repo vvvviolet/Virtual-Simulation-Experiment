@@ -4,7 +4,7 @@
 ## 前端规范
 统一采用Vue3+ElementUI-plus（https://element-plus.gitee.io/zh-CN/）
 总体平台框架大致如下（每个组写自己实验的一个页面）：
-![layout](https://raw.githubusercontent.com/vvvviolet/Virtual-Simulation-Experiment/main/Images/%E5%89%8D%E7%AB%AF%E5%B8%83%E5%B1%80.png)
+![layout](https://github.com/vvvviolet/Virtual-Simulation-Experiment/blob/main/Images/%E5%89%8D%E7%AB%AF%E5%B8%83%E5%B1%801.png?raw=true)
 
 文件夹 src 中：
 
