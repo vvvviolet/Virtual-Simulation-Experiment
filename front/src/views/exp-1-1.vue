@@ -170,17 +170,16 @@
          </template>
     </el-table-column>
     </el-table>
-    <!-- <p class="secondtitle">系统特征因子为 </p>
-    <el-input v-model="input" placeholder="" /> -->
+    <!--  <p class="secondtitle">系统特征因子为 </p> -->
 
     <el-button  class="button2" type="primary"  round @click="count" >计算</el-button>
-    <p class="secondtitle">本实验未调整功能点总计为：____________ </p>
+    <p class="secondtitle">本实验未调整功能点总计为：____________ </p> 
 
 
     <div>
         <el-button  class="button3" type="primary" round  @click="pdfOutput" >生成pdf</el-button>
     </div>
-</template>
+</template> 
 
 <script >
 export default {
