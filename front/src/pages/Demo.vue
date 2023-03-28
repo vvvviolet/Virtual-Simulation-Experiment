@@ -1,16 +1,4 @@
 <template>
-  <div>
-    <p>query: {{$route.query}}</p>
-    <p>params: {{$route.params}}</p>
-  </div>
+  <div ref="demo" class="demo bg-red-50 p-8 mb-4">demo</div>
 </template>
-
-<script>
-  export default {
-    name: 'Demo'
-  }
-</script>
-
-<style scoped>
-
-</style>
+<script lang="ts" setup></script>
