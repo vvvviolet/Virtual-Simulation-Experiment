@@ -1,36 +1,31 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Template.vue'
-import exp1_1 from '../views/exp-1-1.vue'
-import exp1_2 from '../views/exp-1-2.vue'
-import login from '../views/login'
-import showpdf from '../views/showpdf.vue'
+import Vue from 'vue'
+import Router from 'vue-router'
+import {formatRoutes} from '@/utils/routerUtil'
 
-const routes = [
-  {
-    path: '/',
-    redirect:'/home'
-  },
-  {
-    path: '/home',
-    component: Home,
-    children: [
-      { path:'/exp1_1',component:exp1_1 },
-      { path:'/exp1_2',component:exp1_2 }
-    ]
-  },
-  {
-    path:'/show',
-    component:showpdf
-  },
-  {
-    path:'/login',
-    component:login
+Vue.use(Router)
+
+// 不需要登录拦截的路由配置
+const loginIgnore = {
+  names: ['404', '403'],      //根据路由名称匹配
+  paths: ['/login'],   //根据路由fullPath匹配
+  /**
+   * 判断路由是否包含在该配置中
+   * @param route vue-router 的 route 对象
+   * @returns {boolean}
+   */
+  includes(route) {
+    return this.names.includes(route.name) || this.paths.includes(route.path)
   }
-]
+}
 
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes
-})
-
-export default router
+/**
+ * 初始化路由实例
+ * @param isAsync 是否异步路由模式
+ * @returns {VueRouter}
+ */
+function initRouter(isAsync) {
+  const options = isAsync ? require('./async/config.async').default : require('./config').default
+  formatRoutes(options.routes)
+  return new Router(options)
+}
+export {loginIgnore, initRouter}
