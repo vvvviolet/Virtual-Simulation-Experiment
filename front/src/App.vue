@@ -60,7 +60,7 @@
     name: 'admin',
     avatar: avatar,
     menuList: [
-      { title: '个人中心', key: 'personal', icon: 'UserOutlined', onClick: () => router.push('/profile') },
+      // { title: '个人中心', key: 'personal', icon: 'UserOutlined', onClick: () => router.push('/profile') },
       { title: '设置', key: 'setting', icon: 'SettingOutlined', onClick: () => (showSetting.value = true) },
       { type: 'divider' },
       {

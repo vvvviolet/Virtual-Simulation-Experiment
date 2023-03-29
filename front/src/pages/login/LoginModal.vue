@@ -3,7 +3,7 @@
     width="460px"
     v-model:visible="_visible"
     wrap-class-name="login-modal"
-    :closable="false"
+    :closable="true"
     :footer="null"
     :body-style="{ padding: 0 }"
   >

@@ -28,7 +28,7 @@
           type="password"
         />
       </a-form-item>
-      <a-button htmlType="submit" class="login-button bg-primary-600" type="primary" :loading="loading">
+      <a-button htmlType="submit" class="login-button bg-primary-600" type="primary" :loading="loading" @click="$event=>{login}">
         登录
       </a-button>
       <a-divider></a-divider>
@@ -70,6 +70,7 @@
 
   const accountStore = useAccountStore();
   function login(params: LoginFormProps) {
+    console.log(params)
     loading.value = true;
     accountStore
       .login(params.username, params.password)
@@ -81,6 +82,8 @@
       })
       .finally(() => (loading.value = false));
   }
+
+
 </script>
 <style lang="less" scoped>
   .login-box {

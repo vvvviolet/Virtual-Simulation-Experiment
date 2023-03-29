@@ -10,18 +10,18 @@
 <template>
   <div class="home pt-[140px] text-center">
     <div class="tracking-wide slogan text-[84px] font-extralight">
-      <span class="font-semibold">Develop faster.</span> Custom easier.
+      <span class="font-semibold">Keep.</span> Going.
     </div>
     <p class="text-subtext text-[28px] font-light tracking-wide">
-      The most-loved Vue3 Framework in github.com and gitee.com
+      <!-- The most-loved Vue3 Framework in github.com and gitee.com -->
     </p>
     <button
       @click="signIn"
       class="bg-primary-600 hover:bg-primary-700 cursor-pointer mt-lg shadow border-0 outline-none text-xl px-[64px] py-lg rounded-sm"
     >
-      Sign In and Start Preview
+      Start
       <br />
-      <div class="text-base text-subtext"><GithubFilled /> @iczer</div>
+      <div class="text-base text-subtext"><GithubFilled /> @vvvviolet</div>
     </button>
     <br />
     <div class="inline-block text-blue-200 text-xl mr-lg">Powered by:</div>

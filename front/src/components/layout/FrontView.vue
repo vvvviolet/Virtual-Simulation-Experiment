@@ -8,48 +8,55 @@
   onMounted(() => {
     setPrimaryColor({ DEFAULT: '#1896ff' });
     setBgSeriesColors({ 'bg-base': '#003f8c' }, true, '.front-main');
+    // alert.info(
+    //   `<div class="text-text">
+    //     Stepin is a fast, light framework to Vue3 – try it out today with the
+    //     <span class="underline">Stepin Template Beta</span>.
+    //   </div>`,
+    //   { renderRaw: true, duration: -1 }
+    // );
     alert.info(
       `<div class="text-text">
-        Stepin is a fast, light framework to Vue3 – try it out today with the
-        <span class="underline">Stepin Template Beta</span>.
+       永远相信美好的事情
+        <span class="underline">即将发生</span>.
       </div>`,
       { renderRaw: true, duration: -1 }
     );
   });
 
   const navList = [
-    {
-      title: 'Products',
-      children: [
-        {
-          title: 'Stepin Template',
-          list: ['Stepin Pro', 'Stepin Style', 'Stepin Admin'],
-        },
-        {
-          title: 'Stepin',
-          list: ['Stepin Vue', 'Stepin React', 'Stepin Angular'],
-        },
-      ],
-    },
-    {
-      title: 'Developers',
-      children: [
-        {
-          title: 'Developers',
-          list: ['Docs', 'Get Started', 'UI Library', 'Community', 'Open Source'],
-        },
-      ],
-    },
-    {
-      title: 'Sponsors',
-    },
-    {
-      title: 'Business',
-      children: [{ title: 'Business', list: ['Contact Us', 'Cooperation', 'Support'] }],
-    },
-    {
-      title: 'About Us',
-    },
+    // {
+    //   title: 'Products',
+    //   children: [
+    //     {
+    //       title: 'Stepin Template',
+    //       list: ['Stepin Pro', 'Stepin Style', 'Stepin Admin'],
+    //     },
+    //     {
+    //       title: 'Stepin',
+    //       list: ['Stepin Vue', 'Stepin React', 'Stepin Angular'],
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: 'Developers',
+    //   children: [
+    //     {
+    //       title: 'Developers',
+    //       list: ['Docs', 'Get Started', 'UI Library', 'Community', 'Open Source'],
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: 'Sponsors',
+    // },
+    // {
+    //   title: 'Business',
+    //   children: [{ title: 'Business', list: ['Contact Us', 'Cooperation', 'Support'] }],
+    // },
+    // {
+    //   title: 'About Us',
+    // },
   ];
 
   const showMessage = ref(true);
@@ -97,7 +104,7 @@
           </div>
         </div>
         <div>
-          <router-link
+          <!-- <router-link
             to="/login"
             class="h-[46px] border-transparent hover:text-text hover:border-transparent text-lg text-text"
           >
@@ -108,7 +115,7 @@
             class="ml-md px-lg border-text hover:border-text hover:bg-text border-2 h-[46px] hover:text-bg-container"
             size="large"
             >Get Started</a-button
-          >
+          > -->
         </div>
       </div>
       <div class="front-content px-xl">
