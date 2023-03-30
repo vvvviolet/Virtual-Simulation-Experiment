@@ -1,5 +1,4 @@
 <template>
-
     <h1 class="title" >实验1 基于IFPUG的小型软件项目规模度量实验
       
         <span>  <el-button  class="guidance" type="primary" text  @click="pdfHandle" ><el-icon size="25px"><Document /></el-icon>实验指导书下载</el-button></span> 
