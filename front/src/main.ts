@@ -13,6 +13,11 @@ import '@/theme/index.less';
 import AuthPlugin from '@/plugins/auth-plugin';
 import IconFontPlugin from '@/plugins/iconfont';
 
+// 增加element-plus
+import ElementPlus from 'element-plus';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import 'element-plus/theme-chalk/index.css';
+
 const app = createApp(App);
 
 app.use(pinia);

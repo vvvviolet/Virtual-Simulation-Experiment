@@ -10,7 +10,7 @@
     </div>
     <div class="copyright">
       Copyright
-      <CopyrightOutlined class="icon-copyright" /> 2020 ICZER 工作室出品
+      <CopyrightOutlined class="icon-copyright" /> 2023 cn
     </div>
   </div>
 </template>

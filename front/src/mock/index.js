@@ -2,6 +2,6 @@ import Mock from 'mockjs';
 import './account';
 import './menu';
 
-// Mock.setup({
-//   timeout: '200-600',
-// });
+Mock.setup({
+  timeout: '200-600',
+});
