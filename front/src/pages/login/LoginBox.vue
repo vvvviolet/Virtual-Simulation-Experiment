@@ -2,15 +2,6 @@
   <div class="login-box">
     <a-form :model="form" :wrapperCol="{ span: 24 }" @finish="login" class="login-form">
       <h1>虚拟仿真实验平台</h1>
-      <!-- <div class="third-platform">
-        <div class="third-title">第三方登录：</div>
-        <div class="third-list">
-          <WechatOutlined class="icon wechat" />
-          <TwitterOutlined class="icon twitter" />
-          <QqOutlined class="icon qq" />
-        </div>
-      </div> -->
-      <!-- <a-divider>Or</a-divider> -->
       <a-form-item :required="true" name="username">
         <a-input
           v-model:value="form.username"
@@ -44,6 +35,7 @@
   import { reactive, ref, onMounted } from 'vue';
   import { useAccountStore } from '@/store';
   import useThemeStore from 'stepin/es/theme-editor/store';
+import router from '@/router';
 
   export interface LoginFormProps {
     username: string;
@@ -75,7 +67,11 @@
     accountStore
       .login(params.username, params.password)
       .then((res) => {
+        // console.log('success')
+        // console.log(params)
+
         emit('success', params);
+
       })
       .catch((e) => {
         emit('failure', e.message, params);

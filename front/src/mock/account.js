@@ -13,14 +13,17 @@ function sign(payload, salt, { expiresIn, encode = 'utf8' }) {
   const base64Str =
     base64UrlEncode(CryptoJS.enc.Utf8.parse(header)) + '.' + base64UrlEncode(CryptoJS.enc.Utf8.parse(payloadStr));
   const signature = base64UrlEncode(CryptoJS.HmacSHA256(base64Str, salt));
-  return base64Str + '.' + signature;
+  return base64Str + '.' + signature; 
 }
 
 // Mock.mock('api/login', 'post', ({ body }) => {
 //   const { username, password } = JSON.parse(body ?? '{}');
+//   console.log('mock login',body)
 //   if (username === 'admin' && password === '888888') {
 //     const expiresIn = 24 * 60 * 60 * 1000;
 //     const token = sign({ username: 'admin', role: 'admin' }, 'secret key', { expiresIn });
+//     // return { code: 0, message: 'success', data: { token, expires: expiresIn + new Date().getTime() } };
+//     console.log('mock login',{ code: 0, message: 'success', data: { token, expires: expiresIn + new Date().getTime() } })
 //     return { code: 0, message: 'success', data: { token, expires: expiresIn + new Date().getTime() } };
 //   } else {
 //     return { code: 401, message: '用户名或密码错误' };
