@@ -4,18 +4,20 @@ import exp1_1 from '../views/exp-1-1.vue'
 import exp1_2 from '../views/exp-1-2.vue'
 import login from '../views/login'
 import showpdf from '../views/showpdf.vue'
+import exp4_1 from '../views/exp-4-1.vue'
 
 const routes = [
   {
     path: '/',
-    redirect:'/home'
+    redirect: '/home'
   },
   {
     path: '/home',
     component: Home,
     children: [
-      { path:'/exp1_1',component:exp1_1 },
-      { path:'/exp1_2',component:exp1_2 }
+      { path: '/exp1_1', component: exp1_1 },
+      { path: '/exp1_2', component: exp1_2 },
+      { path: '/exp4_1', component: exp4_1 }
     ]
   },
   {
