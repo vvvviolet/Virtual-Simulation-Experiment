@@ -9,7 +9,7 @@
 
   const router = useRouter();
   function onLoginSuccess() {
-    router.push('/workplace');
+    router.push('/system/menu');
   }
 </script>
 <style scoped lang="less">

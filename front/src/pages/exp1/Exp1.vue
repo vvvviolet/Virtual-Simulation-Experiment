@@ -1,12 +1,15 @@
+<!-- 1.软件规模估算实验（FP方法）
+包括:IFPUG方法、NESMA方法、MARK II方法、COSMIC方法 -->
 <template>
-    <Exp1_IFPUG></Exp1_IFPUG>
-</template>
-
-<script lang="ts" setup>
-    import Exp1_IFPUG from './Exp1_IFPUG.vue';
-</script>
-<style scoped lang="less">
-.Exp1 {
-}
-</style>
+    <li>
+      <RouterLink to="/exp1/ifpug">决策树实验</RouterLink>
+    </li>
+  </template>
   
+  <script lang="ts">
+    export default {
+      name: 'Exp1',
+    };
+  </script>
+  
+  <style scoped lang="less"></style>
