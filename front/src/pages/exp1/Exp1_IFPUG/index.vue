@@ -281,7 +281,7 @@ export default {
             columns.forEach((column,index) => {
                 if(index===0){
                     sums[index]=(()=>{
-                        let el=<p>未调整功能点</p>
+                        // let el=<p>未调整功能点</p>
                     })();
                     return;
                 }
