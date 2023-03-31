@@ -2,7 +2,7 @@ import Mock from 'mockjs';
 
 const presetList = [
   {
-    id: 1,
+    id: 111,
     name: 'system',
     title: '系统配置',
     icon: 'SettingOutlined',
@@ -16,7 +16,7 @@ const presetList = [
     cacheable: true,
     children:[
       {
-        id: 11,
+        id: 1111,
         name: 'menu',
         title: '菜单管理',
         badge: '12',
@@ -31,7 +31,7 @@ const presetList = [
     ]
   },
   {
-    id: 2,
+    id: 112,
     name: 'bilibili',
     title: 'B站',
     icon: 'BoldOutlined',
@@ -45,7 +45,7 @@ const presetList = [
     link: 'https://www.bilibili.com',
   },
   {
-    id: 3,
+    id: 1,
     name: 'exp1',
     title: '软件规模估算实验(FP方法)',
     target: '_self',
@@ -57,7 +57,7 @@ const presetList = [
     cacheable: true,
     children: [
       {
-        id: 41,
+        id: 11,
         name: 'exp6_decision_tree',
         title: '决策树实验',
         target: '_self',
@@ -68,7 +68,31 @@ const presetList = [
         cacheable: true,
       }
     ]
-    
+  },
+  {
+    id: 2,
+    name: 'exp1',
+    title: '软件开发成本估算实验',
+    target: '_self',
+    path: '/exp1',
+    component: '@/pages/exp1',
+    renderMenu: true,
+    parent: null,
+    permission: null,
+    cacheable: true,
+    children: [
+      {
+        id: 21,
+        name: 'exp6_decision_tree',
+        title: '决策树实验',
+        target: '_self',
+        path: '/exp6/decision_tree',
+        component: '@/pages/exp6/Exp6_decision_tree',
+        renderMenu: true,
+        permission: null,
+        cacheable: true,
+      }
+    ]
   },
   {
     id: 6,
@@ -102,12 +126,12 @@ const presetList = [
 function getMenuList() {
   const menuStr = localStorage.getItem('stepin-menu');
   let menuList = [];
-  if (!menuStr) {
+  // if (!menuStr) {
     menuList = presetList;
     localStorage.setItem('stepin-menu', JSON.stringify(menuList));
-  } else {
-    menuList = JSON.parse(menuStr);
-  }
+  // } else {
+    // menuList = JSON.parse(menuStr);
+  // }
   return menuList;
 }
 
