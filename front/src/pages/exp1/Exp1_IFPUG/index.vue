@@ -281,13 +281,13 @@ export default {
             columns.forEach((column,index) => {
                 if(index===0){
                     sums[index]=(()=>{
-                        let el=<p>未调整功能点</p>
+                        // let el=<p>未调整功能点</p>
                     })();
                     return;
                 }
                 if(index===11){
                     sums[index]=(()=>{
-                        let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
+                        // let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
                         return num;
                     })();
                     return;
