@@ -6,19 +6,20 @@
 统一采用Vue3，[ElementUI-plus](https://element-plus.gitee.io/zh-CN/)和[Stepin Template](http://stepui.gitee.io/stepin-template-docs/page.html)
 
 总体平台框架大致如下（每个组写自己实验的一个页面）：
-![layout](https://github.com/vvvviolet/Virtual-Simulation-Experiment/blob/main/Images/%E5%89%8D%E7%AB%AF%E5%B8%83%E5%B1%801.png?raw=true)
 
-文件夹 src 中：
+![1](https://raw.githubusercontent.com/vvvviolet/Virtual-Simulation-Experiment/main/Images/1.png)
 
-router（路由）：index.js 中将每个实验页面注册到主页面children中
+![2](https://raw.githubusercontent.com/vvvviolet/Virtual-Simulation-Experiment/main/Images/2.png)
 
-views（各个具体实验页面）：写各个实验页面
+![3](https://raw.githubusercontent.com/vvvviolet/Virtual-Simulation-Experiment/main/Images/3.png)
 
-components（组件）：需要自己写组件的话放这里
 
-assets：图片等
+每个实验大类对应于src/pages/exp#文件夹
 
-main.js ：使用其他库注册进去
+比如第一个实验大类， 1.软件规模估算实验（FP方法），对应的就是src/pages/exp1文件夹
+
+exp1文件夹里面的Exp1.vue和index.ts为固定的，不用修改，具体开发是在exp1文件夹里面自建文件或者文件夹
+
 
 ## Web API规范
 #### 登录
