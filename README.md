@@ -2,6 +2,16 @@
 每个组一个分支，分支命名格式为组号_组名，例如第一组，小组名欢乐斗地组，那么分支名为1_huanledoudizu
 
 讨论qq群：170106623
+
+
+## 快速开始
+git下载地址：https://git-scm.com/download/win
+
+安装tyarn：npm install yarn tyarn -g
+
+clone项目之后，进入到项目的front文件夹，然后运行tyarn命令安装依赖，最后tyarn dev运行项目
+
+
 ## 前端规范
 统一采用Vue3，[ElementUI-plus](https://element-plus.gitee.io/zh-CN/)和[Stepin Template](http://stepui.gitee.io/stepin-template-docs/page.html)
 
