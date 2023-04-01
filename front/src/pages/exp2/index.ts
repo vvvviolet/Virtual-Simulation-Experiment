@@ -1,2 +1,2 @@
-import Exp1 from './Exp1.vue';
-export default Exp1;
+import Exp2 from './Exp2.vue';
+export default Exp2;

@@ -84,7 +84,7 @@ const presetList = [
       {
         id: 21,
         name: 'exp6_decision_tree',
-        title: '决策树实验',
+        title: '开发成本估算实验1',
         target: '_self',
         path: '/exp6/decision_tree',
         component: '@/pages/exp6/Exp6_decision_tree',
