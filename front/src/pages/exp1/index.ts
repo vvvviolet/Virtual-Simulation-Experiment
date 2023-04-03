@@ -1,2 +1,3 @@
-import Exp1 from './Exp1.vue';
-export default Exp1;
+import IFPUG from './Exp1_IFPUG.vue';
+import NESMA from './Exp1_NESMA.vue';
+export {IFPUG,NESMA};

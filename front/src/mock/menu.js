@@ -66,6 +66,17 @@ const presetList = [
         renderMenu: true,
         permission: null,
         cacheable: true,
+      },
+      {
+        id: 31,
+        name: 'NESMA',
+        title: 'NESMA方法',
+        target: '_self',
+        path: '/exp1/nesma',
+        component: '@/pages/exp1/Exp1_NESMA',
+        renderMenu: true,
+        permission: null,
+        cacheable: true,
       }
     ]
   },
