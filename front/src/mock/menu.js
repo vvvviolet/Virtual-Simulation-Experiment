@@ -31,7 +31,7 @@ const presetList = [
     ]
   },
   {
-    id: 112,
+    id: 222,
     name: 'bilibili',
     title: 'B站',
     icon: 'BoldOutlined',
@@ -57,12 +57,12 @@ const presetList = [
     cacheable: true,
     children: [
       {
-        id: 11,
-        name: 'exp6_decision_tree',
-        title: '决策树实验',
+        id: 31,
+        name: 'IFPUG',
+        title: 'IFPUG方法',
         target: '_self',
-        path: '/exp6/decision_tree',
-        component: '@/pages/exp6/Exp6_decision_tree',
+        path: '/exp1/ifpug',
+        component: '@/pages/exp1/Exp1_IFPUG',
         renderMenu: true,
         permission: null,
         cacheable: true,
@@ -71,7 +71,7 @@ const presetList = [
   },
   {
     id: 2,
-    name: 'exp1',
+    name: 'exp2',
     title: '软件开发成本估算实验',
     target: '_self',
     path: '/exp1',

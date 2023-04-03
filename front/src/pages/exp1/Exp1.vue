@@ -2,7 +2,7 @@
 包括:IFPUG方法、NESMA方法、MARK II方法、COSMIC方法 -->
 <template>
     <li>
-      <RouterLink to="/exp1/ifpug">决策树实验</RouterLink>
+      <RouterLink to="/exp1/ifpug">IFPUG方法</RouterLink>
     </li>
   </template>
   

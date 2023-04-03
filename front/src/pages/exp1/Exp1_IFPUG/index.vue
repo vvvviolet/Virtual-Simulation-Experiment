@@ -58,8 +58,10 @@
 
 </template>
 
-<script >
+<script>
+import { Document } from '@element-plus/icons-vue'
 export default {
+    name: 'Exp1_IFPUG',
     data() {
         return{     
             test:'21111',
@@ -176,11 +178,6 @@ export default {
     }
 }
 </script>
-
-<script setup>
-    import { Document } from '@element-plus/icons-vue'
-</script>
-
 
 <style scoped>
 .title{
