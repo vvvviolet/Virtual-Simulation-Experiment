@@ -21,7 +21,7 @@ clone项目之后，进入到项目的front文件夹，然后运行tyarn命令�
 
 ![2](https://raw.githubusercontent.com/vvvviolet/Virtual-Simulation-Experiment/main/Images/2.png)
 
-![3](https://raw.githubusercontent.com/vvvviolet/Virtual-Simulation-Experiment/main/Images/3.png)
+![3](https://raw.githubusercontent.com/vvvviolet/Virtual-Simulation-Experiment/main/Images/4.png)
 
 
 每个实验大类对应于src/pages/exp#文件夹
