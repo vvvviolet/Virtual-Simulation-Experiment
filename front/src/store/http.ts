@@ -28,6 +28,7 @@ http.interceptors.response.use(
   (rep: AxiosResponse<String>) => {
     const { data } = rep;
     if (isResponse(data)) {
+      console.log(data.code)
       return data.code === 0 ? data : Promise.reject(data);
     }
     return Promise.reject({ message: rep.statusText, code: rep.status, data });
