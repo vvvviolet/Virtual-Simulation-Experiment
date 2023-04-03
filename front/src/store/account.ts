@@ -33,7 +33,8 @@ export const useAccountStore = defineStore('account', {
         .request<TokenResult, Response<TokenResult>>('/login', 'post_json', { username, password, 'school':'同济大学' })
         // .request('/login', 'post_json', { username, password, 'school':'同济大学' })
         .then(async (response) => {
-          if (response.code === 200) {
+          console.log(response)
+          if (response.code === 0) {
             this.logged = true;
             console.log(response)
             http.setAuthorization(`Bearer ${response.data.token}`, new Date(response.data.expires));
@@ -54,7 +55,7 @@ export const useAccountStore = defineStore('account', {
     },
     async profile() {
       return http.request<Account, Response<Profile>>('/account', 'get').then((response) => {
-        if (response.code === 200) {
+        if (response.code === 0) {
           const { account, permissions, role } = response.data;
           this.account = account;
           this.permissions = permissions;
