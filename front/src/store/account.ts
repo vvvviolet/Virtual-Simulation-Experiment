@@ -9,9 +9,11 @@ export interface Profile {
   role: string;
 }
 export interface Account {
-  username: string;
+  name: string;
+  age: number;
   avatar: string;
-  gender: number;
+  gender: string;
+  email: string;
 }
 
 export type TokenResult = {
