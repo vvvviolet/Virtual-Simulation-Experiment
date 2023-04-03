@@ -1,3 +1,6 @@
+# 点颗⭐吧~
+# 如果点的人足够多，到时候你面试的时候就可以说自己曾参与github上过百星的项目了【doge
+
 ## Virtual-Simulation-Experiment（VSE） 项目总规范
 每个组一个分支，分支命名格式为组号_组名，例如第一组，小组名欢乐斗地组，那么分支名为1_huanledoudizu
 
@@ -13,7 +16,7 @@ clone项目之后，进入到项目的front文件夹，然后运行tyarn命令�
 
 
 ## 前端规范
-统一采用Vue3，[ElementUI-plus](https://element-plus.gitee.io/zh-CN/)和[Stepin Template](http://stepui.gitee.io/stepin-template-docs/page.html)
+统一采用Vue3，[AntdV](https://antdv.com/components/overview)和[Stepin Template](http://stepui.gitee.io/stepin-template-docs/page.html)
 
 总体平台框架大致如下（每个组写自己实验的一个页面）：
 
