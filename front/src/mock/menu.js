@@ -128,6 +128,31 @@ const presetList = [
     ]
   },
   {
+    id:5,
+    name: 'exp5',
+      title: '软件工程经济学方法应用',
+    target: '_self',
+    path: '/exp5',
+    component: '@/pages/exp5/Exp5.vue',
+    renderMenu: true,
+    parent: null,
+    permission: null,
+    cacheable: true,
+    children: [
+        {
+            id: 51,
+            name: 'exp5_single_scheme_economic_evaluation',
+            title: '单方案经济评价实验',
+            target: '_self',
+            path: '/exp5/single_scheme_economic_evaluation',
+            component: '@/pages/exp5/Exp5_SINGLE_SCHEME/index.vue',
+            renderMenu: true,
+            permission: null,
+            cacheable: true,
+        }
+    ]
+  },
+  {
     id: 6,
     name: 'exp6',
     title: '软件项目/产品的风险影响与评价实验',
