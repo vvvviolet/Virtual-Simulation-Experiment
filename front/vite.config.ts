@@ -13,8 +13,8 @@ export default ({ command, mode }) => {
     server: {
       proxy: {
         '/api': {
-          target: env.VITE_API_URL,
-          // target: 'http://124.222.191.186:5000/api',
+          // target: env.VITE_API_URL,
+          target: 'http://101.42.17.125:8081/api',
           ws: true,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),

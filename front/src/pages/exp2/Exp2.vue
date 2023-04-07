@@ -2,7 +2,7 @@
 成本估算基础：软件工作量、effort来源于软件FP规模，采用GB国家标准 -->
 <template>
     <li>
-      <RouterLink to="/exp6/decision_tree">决策树实验</RouterLink>
+      <RouterLink to="/exp6/decision_tree">软件工作量</RouterLink>
     </li>
   </template>
   
