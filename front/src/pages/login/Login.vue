@@ -7,9 +7,13 @@
   import LoginBox from './LoginBox.vue';
   import { useRouter } from 'vue-router';
 
+  
   const router = useRouter();
-  function onLoginSuccess() {
+  function onLoginSuccess() { 
+    router.go(0);
     router.push('/system/menu');
+    router.push('/system/menu');
+
   }
 </script>
 <style scoped lang="less">

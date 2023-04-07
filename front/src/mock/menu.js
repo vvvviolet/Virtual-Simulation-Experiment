@@ -222,7 +222,7 @@ Mock.mock('api/menu', 'get', ({}) => {
     }
   });
   return {
-    message: 'success',
+    msg: 'success',
     code: 0,
     data: menuList.filter((menu) => !menu.parent),
   };
@@ -233,7 +233,7 @@ Mock.mock('api/menu', 'put', ({ body }) => {
   saveMenu(menu);
   return {
     code: 0,
-    message: 'success',
+    msg: 'success',
   };
 });
 
@@ -242,7 +242,7 @@ Mock.mock('api/menu', 'post', ({ body }) => {
   saveMenu(menu);
   return {
     code: 0,
-    message: 'success',
+    msg: 'success',
   };
 });
 
@@ -254,7 +254,7 @@ Mock.mock('api/menu', 'delete', ({ body }) => {
   localStorage.setItem('stepin-menu', JSON.stringify(menuList));
   return {
     code: 0,
-    message: 'success',
+    msg: 'success',
     data: removed,
   };
 });

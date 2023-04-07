@@ -16,7 +16,7 @@ clone项目之后，进入到项目的front文件夹，然后运行tyarn命令�
 
 
 ## 前端规范
-统一采用Vue3，[ElementUI-plus](https://element-plus.gitee.io/zh-CN/)和[Stepin Template](http://stepui.gitee.io/stepin-template-docs/page.html)
+统一采用Vue3，[AntdV](https://antdv.com/components/overview)和[Stepin Template](http://stepui.gitee.io/stepin-template-docs/page.html)
 
 总体平台框架大致如下（每个组写自己实验的一个页面）：
 

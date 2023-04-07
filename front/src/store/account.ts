@@ -9,9 +9,11 @@ export interface Profile {
   role: string;
 }
 export interface Account {
-  username: string;
+  name: string;
+  age: number;
   avatar: string;
-  gender: number;
+  gender: string;
+  email: string;
 }
 
 export type TokenResult = {
@@ -30,14 +32,15 @@ export const useAccountStore = defineStore('account', {
   actions: {
     async login(username: string, password: string) {
       return http
-        .request<TokenResult, Response<TokenResult>>('/login', 'post_json', { username, password })
+        .request<TokenResult, Response<TokenResult>>('/login', 'post_json', { username, password, 'school':'同济大学' })
+        // .request('/login', 'post_json', { username, password, 'school':'同济大学' })
         .then(async (response) => {
-          // console.log('resp',response);
+          console.log(response)
           if (response.code === 0) {
-            // console.log('succ')
-            // console.log(response.success)
             this.logged = true;
+            console.log(response)
             http.setAuthorization(`Bearer ${response.data.token}`, new Date(response.data.expires));
+            
             await useMenuStore().getMenuList();
             return response.data;
           } else {
