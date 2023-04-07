@@ -5,11 +5,13 @@
       <RouterLink to="/exp6/decision_tree">决策树实验</RouterLink>
     </li>
   </template>
-  
+
   <script lang="ts">
     export default {
       name: 'Exp6',
     };
   </script>
+
+  <style scoped lang="less">
   
-  <style scoped lang="less"></style>
+  </style>
