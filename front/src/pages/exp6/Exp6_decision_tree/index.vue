@@ -40,20 +40,20 @@
     </div>
   </div>
 
-  <HorizontalTree :dataSource="dataSource"></HorizontalTree>
+  <HorizontalTree1 :dataSource="dataSource"></HorizontalTree1>
 </template>
 
 <script>
   import { cloneDeep } from 'lodash-es';
   import { Table } from 'ant-design-vue';
   import * as d3 from 'd3';
-  import HorizontalTree from '@/pages/exp6/Exp6_decision_tree/HorizontalTree.vue';
+  import HorizontalTree1 from '@/pages/exp6/Exp6_decision_tree/HorizontalTree1.vue';
   import { reactive, ref } from 'vue';
 
   export default {
     components: {
       'a-table': Table,
-      HorizontalTree,
+      HorizontalTree1,
     },
     data() {
       return {
