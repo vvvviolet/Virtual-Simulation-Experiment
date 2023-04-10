@@ -153,7 +153,33 @@ const presetList = [
     ]
 
   },
-  
+  {
+    id: 10,
+    name: 'exp10',
+    title: '软件项目进度监督与控制实验',
+    target: '_self',
+    path: '/exp10',
+    component: '@/pages/exp10/Exp10.vue',
+    renderMenu: true,
+    parent: null,
+    permission: null,
+    cacheable: true,
+    children: [
+      {
+        id: 101,
+        name: 'exp10_eva',
+        title: 'Earnd Value Analysis 挣值分析法',
+        target: '_self',
+        path: '/exp10/decision_tree',
+        component: '@/pages/exp10/Exp10',
+        renderMenu: true,
+        permission: null,
+        cacheable: true,
+      }
+    ]
+
+  },
+
 ];
 
 function getMenuList() {
