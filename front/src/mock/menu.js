@@ -128,6 +128,31 @@ const presetList = [
     ]
   },
   {
+    id: 3,
+    name: 'exp3',
+    title: '碳排放权供需实验',
+    target: '_self',
+    path: '/exp3',
+    component: '@/pages/exp3',
+    renderMenu: true,
+    parent: null,
+    permission: null,
+    cacheable: true,
+    children: [
+      {
+        id: 31,
+        name: '碳排放权供需实验',
+        title: '碳排放权供需方法',
+        target: '_self',
+        path: '/exp3/carbon',
+        component: '@/pages/exp3/Exp3_Carbon/index.vue',
+        renderMenu: true,
+        permission: null,
+        cacheable: true,
+      }
+    ]
+  },
+  {
     id: 6,
     name: 'exp6',
     title: '软件项目/产品的风险影响与评价实验',
