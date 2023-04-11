@@ -168,9 +168,9 @@ const presetList = [
       {
         id: 101,
         name: 'exp10_eva',
-        title: 'Earnd Value Analysis 挣值分析法',
+        title: 'Earned Value Analysis 挣值分析法',
         target: '_self',
-        path: '/exp10/decision_tree',
+        path: '/exp10/Exp10',
         component: '@/pages/exp10/Exp10',
         renderMenu: true,
         permission: null,
