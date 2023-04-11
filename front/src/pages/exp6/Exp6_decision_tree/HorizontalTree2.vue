@@ -52,6 +52,7 @@
           .attr('transform', `translate(${this.margin.left},${this.margin.top})`);
       },
       drawTree() {
+        // TODO:重新修改算法
         function createTree(data) {
           const tree = {
             name: 'Root',
