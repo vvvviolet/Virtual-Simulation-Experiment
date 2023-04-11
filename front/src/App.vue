@@ -38,18 +38,21 @@
   import Setting from './components/setting/Setting.vue';
   import avatar from '@/assets/avatar.png';
   import { userInfo } from 'os';
+import { onMounted } from 'vue';
 
   const { logout, profile } = useAccountStore();
   const { setAuthorities } = useAuthStore();
   
+
+  // onMounted(()=>{console.log(1)}) 
+
   // 获取个人信息
- profile().then((response) => {
+  profile().then((response) => {
     const { permissions, account } = response;
     console.log(account)
     setAuthorities(permissions);
     user.name = account.name;
     // user.avatar = account.avatar;
-    console.log()
     
   });
 
@@ -61,7 +64,7 @@
   const { navigation, useTabs, theme, contentClass } = storeToRefs(useSettingStore());
 
   const user = reactive({
-    name: '...',
+    name: '',
     avatar: avatar,
     menuList: [
       // { title: '个人中心', key: 'personal', icon: 'UserOutlined', onClick: () => router.push('/profile') },
