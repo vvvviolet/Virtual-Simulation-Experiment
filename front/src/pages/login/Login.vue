@@ -10,9 +10,9 @@
   
   const router = useRouter();
   function onLoginSuccess() { 
-    router.go(0);
+    // router.go(0);s
     router.push('/system/menu');
-    router.push('/system/menu');
+    // router.push('/system/menu');
 
   }
 </script>
