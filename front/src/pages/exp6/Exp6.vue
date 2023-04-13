@@ -2,9 +2,7 @@
 包括:加权平均实验、蒙特卡洛实验、决策树实验;以及博弈论实验项目: 纳什均衡实验、不完美信息下的博弈实验. -->
 
 <template>
-    <li>
-      <RouterLink to="/exp6/decision_tree">决策树实验</RouterLink>
-    </li>
+    <RouterView />
   </template>
   
   <script lang="ts">

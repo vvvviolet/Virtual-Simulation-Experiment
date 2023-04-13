@@ -149,6 +149,17 @@ const presetList = [
         renderMenu: true,
         permission: null,
         cacheable: true,
+      },
+      {
+        id: 62,
+        name: 'exp6_SAM',
+        title: '敏感性分析实验',
+        target: '_self',
+        path: '/exp6/SAM',
+        component: '@/pages/exp6/Exp6_SAM',
+        renderMenu: true,
+        permission: null,
+        cacheable: true,
       }
     ]
 
