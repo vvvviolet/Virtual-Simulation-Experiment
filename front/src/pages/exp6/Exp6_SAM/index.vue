@@ -32,7 +32,6 @@ import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LegendComponent, TooltipComponent } from 'echarts/components'
 
-
 // 注册需要使用的 ECharts 组件
 use([CanvasRenderer, LegendComponent, TooltipComponent])
 
