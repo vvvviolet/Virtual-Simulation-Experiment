@@ -35,6 +35,7 @@
     "qs": "^6.10.1",
     "stepin": "2.1.14-beta",
     "vue": "^3.2.45",
+    "vue-easytable": "^2.26.0",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
