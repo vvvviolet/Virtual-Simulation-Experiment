@@ -20,7 +20,8 @@
     <!-- 敏感性分析图表 -->
     <div>
       <h2>敏感性分析结果</h2>
-      <div id="sensitivity-chart"></div>
+      <div id="sensitivity-chart" style="width: 600px; height: 400px">
+      </div>
     </div>
   </div>
 </template>
