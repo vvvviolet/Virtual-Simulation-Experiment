@@ -3,13 +3,13 @@
 
 <template>
     <li>
-      <RouterLink to="/exp6/decision_tree">决策树实验</RouterLink>
+      <RouterView/>
     </li>
   </template>
   
   <script lang="ts">
     export default {
-      name: 'Exp6',
+      name: 'Exp5',
     };
   </script>
   
