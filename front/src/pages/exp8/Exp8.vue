@@ -204,36 +204,38 @@
                 year4: "",
                 year5: "",
                 year6: "",
-              }
+              },
+              {
+                key: '5',
+                number: '5',
+                project: '现值系数',
+                year0: "",
+                year1: "",
+                year2: "",
+                year3: "",
+                year4: "",
+                year5: "",
+                year6: "",
+              },
             ],
             Index: [
               {
                 key: '1',
                 number: '1',
                 project: '净现值 NPY',
-                year1: "",
+                value: "",
               },
               {
                 key: '2',
                 number: '2',
-                project: '独立方案年收入',
-                year1: "",
+                project: '内部收益率 IRR',
+                value: "",
               },
               {
                 key: '3',
                 number: '3',
-                project: '动态投资回收期(年)',
-                year1: "",
-              },
-              {
-                key: '4',
-                number: '4',
-                project: '现值系数',
-                year1: "",
-                year2: "",
-                year3: "",
-                year4: "",
-                year5: "",
+                project: '动态投资回收期(年) DPP',
+                value: "",
               },
             ],  
             columns_1: [
@@ -295,30 +297,10 @@
                 key: 'project',
               },
               {
-                title: '1',
-                dataIndex: 'year1',
-                key: '1',
+                title: '值',
+                dataIndex: 'value',
+                key: 'value',
               },
-              {
-                title: '2',
-                dataIndex: 'year2',
-                key: '2',
-              },
-              {
-                title: '3',
-                dataIndex: 'year3',
-                key: '3',
-              },
-              {
-                title: '4',
-                dataIndex: 'year4',
-                key: '4',
-              },
-              {
-                title: '5',
-                dataIndex: 'year5',
-                key: '5',
-             },
             ]
           };
         },
