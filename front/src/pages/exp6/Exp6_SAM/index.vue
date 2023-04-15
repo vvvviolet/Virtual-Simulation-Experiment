@@ -1,35 +1,33 @@
 <template>
   <div>
-    <form @submit.prevent="handleSubmit">
-      <!-- 参数输入表单 -->
-      <div>
-        <label for="param1">Parameter 1:</label>
-        <input type="number" v-model="params.param1">
-      </div>
-      <div>
-        <label for="param2">Parameter 2:</label>
-        <input type="number" v-model="params.param2">
-      </div>
-      <div>
-        <label for="param3">Parameter 3:</label>
-        <input type="number" v-model="params.param3">
-      </div>
-      <button type="submit">Run Analysis</button>
-    </form>
 
     <InputChart :dataSource="dataSource1" :columns="columns1" @updateData="handleDataSource1Update">
       一、分析变量表
     </InputChart>
 
+    <form style="text-align: center;">
+      <a-button type="primary" @click="handleSubmit">更新敏感性分析结果</a-button>
+    </form>
+
     <!-- 敏感性分析图表 -->
     <div>
-      <h2>敏感性分析结果</h2>
-      <div id="sensitivity-chart" style="width: 600px; height: 400px">
+      <h2>敏感性分析龙卷风图</h2>
+      <div id="sensitivity-chart" style="width: 600px; height: 400px;text-align: center;">
       </div>
     </div>
+
     <InputChart :dataSource="dataSource1" :columns="columns2" @updateData="handleDataSource2Update">
       二、变化幅度表
     </InputChart>
+    <form style="text-align: center;">
+      <a-button type="primary" @click="handleSubmit2">更新敏感性分析结果</a-button>
+    </form>
+    <!-- 折线图 -->
+    <div>
+      <h2>敏感性分析折线图</h2>
+      <div id="line-chart" style="width: 600px; height: 400px;text-align: center;">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -281,8 +279,67 @@ export default {
       // 绘制竖向柱状图
       this.drawSensitivityChart()
     },
+    handleSubmit2() {
+      // 绘制最后的折线图
+      this.drawLineChart()
+    },
     drawSensitivityChart() {
       const chart = echarts.init(document.getElementById("sensitivity-chart"))
+
+      const option = {
+        title: {
+          text: '敏感性分析结果',
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow',
+          },
+        },
+        legend: {
+          data: ['收益', '成本'],
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true,
+        },
+        xAxis: {
+          type: 'value',
+        },
+        yAxis: {
+          type: 'category',
+          data: this.analysisData.map((d) => d.name),
+        },
+        series: [
+          {
+            name: '收益',
+            type: 'bar',
+            stack: '总量',
+            label: {
+              show: true,
+              position: 'insideRight',
+            },
+            data: this.analysisData.map((d) => d.benefit),
+          },
+          {
+            name: '成本',
+            type: 'bar',
+            stack: '总量',
+            label: {
+              show: true,
+              position: 'insideRight',
+            },
+            data: this.analysisData.map((d) => -d.cost),
+          },
+        ],
+      }
+
+      chart.setOption(option)
+    },
+    drawLineChart() {
+      const chart = echarts.init(document.getElementById("line-chart"))
 
       const option = {
         title: {
