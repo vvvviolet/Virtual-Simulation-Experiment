@@ -352,7 +352,7 @@ export default {
           },
         },
         legend: {
-          data: ['收益', '成本'],
+          data: ['A', 'B'],
         },
         grid: {
           left: '3%',
@@ -361,34 +361,24 @@ export default {
           containLabel: true,
         },
         xAxis: {
-          type: 'value',
+          type: 'category',
+          data: ['A', 'B', 'C']
         },
         yAxis: {
-          type: 'category',
-          data: this.analysisData.map((d) => d.name),
+          type: 'value'
         },
         series: [
-          {
-            name: '收益',
-            type: 'bar',
-            stack: '总量',
-            label: {
-              show: true,
-              position: 'insideRight',
-            },
-            data: this.analysisData.map((d) => d.benefit),
-          },
-          {
-            name: '成本',
-            type: 'bar',
-            stack: '总量',
-            label: {
-              show: true,
-              position: 'insideRight',
-            },
-            data: this.analysisData.map((d) => -d.cost),
-          },
-        ],
+        {
+          data: [10, 22, 28, 43, 49],
+          type: 'line',
+          stack: 'A'
+        },
+        {
+          data: [5, 4, 3, 5, 10],
+          type: 'line',
+          stack: 'B'
+        }
+      ],
       }
 
       chart.setOption(option)
