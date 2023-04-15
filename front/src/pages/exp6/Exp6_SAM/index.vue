@@ -17,12 +17,19 @@
       <button type="submit">Run Analysis</button>
     </form>
 
+    <InputChart :dataSource="dataSource1" :columns="columns1" @updateData="handleDataSource1Update">
+      一、分析变量表
+    </InputChart>
+
     <!-- 敏感性分析图表 -->
     <div>
       <h2>敏感性分析结果</h2>
       <div id="sensitivity-chart" style="width: 600px; height: 400px">
       </div>
     </div>
+    <InputChart :dataSource="dataSource1" :columns="columns2" @updateData="handleDataSource2Update">
+      二、变化幅度表
+    </InputChart>
   </div>
 </template>
 
@@ -31,11 +38,15 @@ import * as echarts from 'echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LegendComponent, TooltipComponent } from 'echarts/components'
+import InputChart from '@/pages/exp6/Exp6_SAM/InputChart.vue';
 
 // 注册需要使用的 ECharts 组件
 use([CanvasRenderer, LegendComponent, TooltipComponent])
 
 export default {
+  components: {
+    InputChart
+  },
   data() {
     return {
       params: {
@@ -44,6 +55,222 @@ export default {
         param3: 0,
       },
       analysisData: null,
+      dataSource1: [
+          {
+            key: '0',
+            uncertainty: '投资',
+            value: 4000,
+            change_minus15:123,
+            change_minus10:123,
+            change_minus5:123,
+            change_minus2:123,
+            changeBasicPlan:123,
+            change_2:123,
+            change_5:123,
+            change_10:123,
+            change_15:123,
+          },
+          {
+            key: '1',
+            uncertainty: '投资',
+            value: 4500,
+            change_minus15:123,
+            change_minus10:123,
+            change_minus5:123,
+            change_minus2:123,
+            changeBasicPlan:123,
+            change_2:123,
+            change_5:123,
+            change_10:123,
+            change_15:123,
+          },
+          {
+            key: '2',
+            uncertainty: '年经营成本',
+            value: 1200,
+            change_minus15:123,
+            change_minus10:123,
+            change_minus5:123,
+            change_minus2:123,
+            changeBasicPlan:123,
+            change_2:123,
+            change_5:123,
+            change_10:123,
+            change_15:123,
+          },
+          {
+            key: '3',
+            uncertainty: '年经营成本',
+            value: 1000,
+            change_minus15:123,
+            change_minus10:123,
+            change_minus5:123,
+            change_minus2:123,
+            changeBasicPlan:123,
+            change_2:123,
+            change_5:123,
+            change_10:123,
+            change_15:123,
+          },
+          {
+            key: '4',
+            uncertainty: '年经营成本',
+            value: 900,
+            change_minus15:123,
+            change_minus10:123,
+            change_minus5:123,
+            change_minus2:123,
+            changeBasicPlan:123,
+            change_2:123,
+            change_5:123,
+            change_10:123,
+            change_15:123,
+          },
+          {
+            key: '5',
+            uncertainty: '年销售收入',
+            value: 3500,
+            change_minus15:123,
+            change_minus10:123,
+            change_minus5:123,
+            change_minus2:123,
+            changeBasicPlan:123,
+            change_2:123,
+            change_5:123,
+            change_10:123,
+            change_15:123,
+          },
+          {
+            key: '6',
+            uncertainty: '年销售收入',
+            value: 3000,
+            change_minus15:123,
+            change_minus10:123,
+            change_minus5:123,
+            change_minus2:123,
+            changeBasicPlan:123,
+            change_2:123,
+            change_5:123,
+            change_10:123,
+            change_15:123,
+          },
+          {
+            key: '7',
+            uncertainty: '年销售收入',
+            value: 2700,
+            change_minus15:123,
+            change_minus10:123,
+            change_minus5:123,
+            change_minus2:123,
+            changeBasicPlan:123,
+            change_2:123,
+            change_5:123,
+            change_10:123,
+            change_15:123,
+          },
+        ],
+        columns1: [
+          {
+            title: '不确定因素',
+            dataIndex: 'uncertainty',
+            slots: {
+              customRender: 'uncertainty',
+            },
+          },
+          {
+            title: '取值（万元）',
+            dataIndex: 'value',
+            slots: {
+              customRender: 'value',
+            },
+          },
+          {
+            title: '操作',
+            dataIndex: 'operation',
+            slots: {
+              customRender: 'operation',
+            },
+          },
+        ],
+        columns2: [
+          {
+            title: '不确定因素',
+            dataIndex: 'uncertainty',
+            slots: {
+              customRender: 'uncertainty',
+            },
+          },
+          {
+            title: '-15%',
+            dataIndex: 'change_minus15',
+            slots: {
+              customRender: 'change_minus15',
+            },
+          },
+          {
+            title: '-10%',
+            dataIndex: 'change_minus10',
+            slots: {
+              customRender: 'change_minus10',
+            },
+          },
+          {
+            title: '-5%',
+            dataIndex: 'change_minus5',
+            slots: {
+              customRender: 'change_minus5',
+            },
+          },
+          {
+            title: '-2%',
+            dataIndex: 'change_minus2',
+            slots: {
+              customRender: 'change_minus2',
+            },
+          },
+          {
+            title: '基本方案',
+            dataIndex: 'changeBasicPlan',
+            slots: {
+              customRender: 'changeBasicPlan',
+            },
+          },
+          {
+            title: '2%',
+            dataIndex: 'change_2',
+            slots: {
+              customRender: 'change_2',
+            },
+          },
+          {
+            title: '5%',
+            dataIndex: 'change_5',
+            slots: {
+              customRender: 'change_5',
+            },
+          },
+          {
+            title: '10%',
+            dataIndex: 'change_10',
+            slots: {
+              customRender: 'change_10',
+            },
+          },
+          {
+            title: '15%',
+            dataIndex: 'change_15',
+            slots: {
+              customRender: 'change_15',
+            },
+          },
+          {
+            title: '操作',
+            dataIndex: 'operation',
+            slots: {
+              customRender: 'operation',
+            },
+          },
+        ],
     }
   },
   methods: {
@@ -108,6 +335,12 @@ export default {
       }
 
       chart.setOption(option)
+    },
+    handleDataSource1Update(newData) {
+        this.dataSource1 = newData;
+    },
+    handleDataSource2Update(newData) {
+        this.dataSource2 = newData;
     },
   },
 }
