@@ -175,9 +175,14 @@
     </div>
 </template> 
 
+<<<<<<< HEAD:front/src/pages/exp1/Exp1_NESMA.vue
+<script >
+=======
+</template>
 
 <script lang="tsx">
 import { Document } from '@element-plus/icons-vue'
+>>>>>>> 20ac6f6fb38c33ca00c80f8281d88e088fd4e495:front/src/pages/exp1/Exp1_IFPUG/index.vue
 export default {
     data() {
         return{     
