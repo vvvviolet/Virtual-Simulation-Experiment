@@ -19,10 +19,11 @@
       <Content>
         <a-card style="width: 100%" hoverable>
           <a-row>
+            <!-- 正文部分 -->
             <a-col :span="20">
               <a-row>
                 <a-col :span="24">
-                  <h1>一、实验目的</h1>
+                  <h1 id="one">一、实验目的</h1>
                   <p>
                     本实验旨在通过动态投资回收期的计算方法，评估软件开发项目的投资回收期，并分析项目的经济效益和风险。
                   </p>
@@ -31,7 +32,16 @@
               <a-divider></a-divider>
               <a-row>
                 <a-col :span="24">
-                  <h1>二、实验内容</h1>
+                  <h1 id="two">二、实验内容</h1>
+                  <p>
+                    动态投资回收期（Dynamic Payback Period）是一种用于评估投资回报率的方法，其基本原理是将投资成本与现金流量相比较，计算出从投资开始到投资收回的时间，即投资回收期。动态投资回收期相较于传统的投资回收期更加精细，能够考虑现金流量的时间价值因素，能够更准确地评估投资的回报率和风险。
+                  </p>
+                </a-col>
+              </a-row>
+              <a-divider></a-divider>
+              <a-row>
+                <a-col :span="24">
+                  <h1 id="three">三、实验原理</h1>
                   <p>
                     本实验旨在通过动态投资回收期的计算方法，评估软件开发项目的投资回收期，并分析项目的经济效益和风险。
                   </p>
@@ -40,16 +50,7 @@
               <a-divider></a-divider>
               <a-row>
                 <a-col :span="24">
-                  <h1>三、实验原理</h1>
-                  <p>
-                    本实验旨在通过动态投资回收期的计算方法，评估软件开发项目的投资回收期，并分析项目的经济效益和风险。
-                  </p>
-                </a-col>
-              </a-row>
-              <a-divider></a-divider>
-              <a-row>
-                <a-col :span="24">
-                  <h1>四、实验步骤</h1>
+                  <h1 id="four">四、实验步骤</h1>
                   <p>
                     本实验旨在通过动态投资回收期的计算方法，评估软件开发项目的投资回收期，并分析项目的经济效益和风险。
                   </p>
@@ -58,7 +59,7 @@
               <a-divider></a-divider>
               <a-row>   
                 <a-col :span="24">
-                  <h1>五、实验结果</h1>
+                  <h1 id="five">五、实验结果</h1>
                   <p>
                     本实验旨在通过动态投资回收期的计算方法，评估软件开发项目的投资回收期，并分析项目的经济效益和风险。
                   </p>
@@ -67,7 +68,7 @@
               <a-divider></a-divider>
               <a-row>   
                 <a-col :span="24">
-                  <h1>六、实验思考</h1>
+                  <h1 id="six">六、实验思考</h1>
                   <p>
                     本实验旨在通过动态投资回收期的计算方法，评估软件开发项目的投资回收期，并分析项目的经济效益和风险。
                   </p>
@@ -75,14 +76,15 @@
               </a-row>
               <a-divider></a-divider>   
             </a-col> 
+            <!-- 侧边栏锚点 -->
             <a-col :span="4">
-              <a-anchor>
-                <a-anchor-link href="#h1" title="Basic demo" />
+              <a-anchor @click="handleAnchorClick">
+                <a-anchor-link href="#one" title="Basic demo" />
                 <a-anchor-link href="#components-anchor-demo-static" title="Static demo" />
                 <a-anchor-link
                   href="#components-anchor-demo-basic"
-                  title="Basic demo with Target"
-                  target="_blank"/>
+                  title="Basic demo with Target"/>
+                <a-anchor-link href="#six" title="六、实验思考" />
                 <a-anchor-link href="#API" title="API">
                   <a-anchor-link href="#Anchor-Props" title="Anchor Props" />
                   <a-anchor-link href="#Link-Props" title="Link Props" />
@@ -111,6 +113,14 @@
 <script lang="ts">
 export default {
   name: "Exp5_dongtaitouzihuishou",
+  method:{
+    handleAnchorClick(e,link){
+      // 阻止点击的默认事件修改路由
+      e.preventDefault();
+      var srcolls = document.getElementById(link.href);
+      srcolls.scrollIntoView({block: 'start', behavior: 'smooth'});
+    }
+  },
 };
 </script>
 
