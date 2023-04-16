@@ -1,13 +1,17 @@
 <template lang="">
   <div>
     <Layout>
-      <Header><h1>动态投资回收期</h1></Header>
+      <!-- 头部 -->
+      <Header>
+        <a-row>
+          <a-col :span="16"> </a-col>
+          <a-col :span="4"><a-button type="primary">实验报告指导书下载</a-button></a-col>
+          <a-col :span="4"><a-button type="primary">模版下载</a-button></a-col>
+        </a-row>
+        <h1>动态投资回收期实验</h1>
+      </Header>
+      <!-- 内容部分 -->
       <Layout>
-        <Sider>
-          <div style="">
-
-          </div>
-        </Sider>
         <Content>
           <a-row>
 
@@ -43,10 +47,11 @@
       </Footer>
     </Layout>
   </div>
+
 </template>
 <script lang="ts">
 export default {
-  name: 'Exp5_dongtaitouzihuishou',
+  name: "Exp5_dongtaitouzihuishou",
 };
 </script>
 
