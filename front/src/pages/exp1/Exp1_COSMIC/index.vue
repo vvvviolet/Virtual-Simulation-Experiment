@@ -90,7 +90,7 @@
     <h2 class="title">  实验内容  </h2>
 
     <div>
-        <a-steps v-model:current="current">
+        <a-steps v-model:current="current" size="small">
         <a-step v-for="item in steps" :key="item.title" :title="item.title" />
         </a-steps>
         <div class="steps-content">
@@ -312,6 +312,18 @@
                     得到度量结果
                 </h2>
             </div>
+
+            <div v-if="current==6">
+                <h2>
+                    思考题
+                </h2>
+            </div>
+
+            <div v-if="current==7">
+                <h2>
+                    实验心得
+                </h2>
+            </div>
         </div>
         <div class="steps-action">
         <a-button v-if="current < steps.length - 1" type="primary" style="float: right;" @click="next"><step-forward-outlined />Next</a-button>
@@ -401,11 +413,19 @@ export default {
                 content: 'Fourth-content',
             },
             {
-                title: '进行本土化扩展',
+                title: '进行本土化扩展(选做)',
                 content: 'Fifth-content',
             },
             {
                 title: '得到度量结果',
+                content: 'Sixth-content',
+            },
+            {
+                title: '思考题',
+                content: 'Seventh-content',
+            },
+            {
+                title: '实验心得',
                 content: 'Last-content',
             }],
             tableData: [
