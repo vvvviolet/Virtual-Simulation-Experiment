@@ -62,7 +62,7 @@ const presetList = [
         title: 'IFPUG方法',
         target: '_self',
         path: '/exp1/ifpug',
-        component: '@/pages/exp1/Exp1_IFPUG/index.vue',
+        component: '@/pages/exp1/Exp1_IFPUG.vue',
         renderMenu: true,
         permission: null,
         cacheable: true,
@@ -173,7 +173,7 @@ function getMenuList() {
   // if (!menuStr) {
     menuList = presetList;
     localStorage.setItem('stepin-menu', JSON.stringify(menuList));
-  // } else {
+  // } else {w
     // menuList = JSON.parse(menuStr);
   // }
   return menuList;
