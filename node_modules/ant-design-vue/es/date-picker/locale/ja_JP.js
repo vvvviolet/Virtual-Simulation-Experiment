@@ -1,0 +1,14 @@
+import _objectSpread from "@babel/runtime/helpers/esm/objectSpread2";
+import CalendarLocale from '../../vc-picker/locale/ja_JP';
+import TimePickerLocale from '../../time-picker/locale/ja_JP';
+// Merge into a locale object
+var locale = {
+  lang: _objectSpread({
+    placeholder: '日付を選択',
+    rangePlaceholder: ['開始日付', '終了日付']
+  }, CalendarLocale),
+  timePickerLocale: _objectSpread({}, TimePickerLocale)
+};
+// All settings at:
+// https://github.com/ant-design/ant-design/blob/master/components/date-picker/locale/example.json
+export default locale;
