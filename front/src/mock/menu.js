@@ -258,3 +258,4 @@ Mock.mock('api/menu', 'delete', ({ body }) => {
     data: removed,
   };
 });
+   
