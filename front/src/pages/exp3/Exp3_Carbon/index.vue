@@ -4,7 +4,7 @@
   </h1>
   <hr />
   <h2>一、实验目的  </h2>
-  <p class="content">1位同学</p>
+    <p class="recontent">了解碳排放权和碳排放交易的概念，并通过实验理解供给、需求与市场价格之间的关系，掌握计算供需平衡点的方法。在实验过程中，学生应被分成买家和卖家两组，各自给出报价，并观察报价变化带来的供需曲线变化。本实验学时1学时，完成实验报告1学时。</p>
   <h2>二、实验内容  </h2>
     <p class="content">4. 实施不同政策：通过实验，模拟不同政策下碳排放的需求和供给情况，如碳税、碳交易制度等。通过实施不同政策，并观察碳排放量和碳排放权价格的变化，可以更深入地理解碳排放需求和供给的关系，探究有效的碳排放管理措施。下面是列举出来的一些政策，我们的实验预计会采用其中一种政策应用到实验步骤中。</p>
       <li class="recontent">碳税：碳税是一种通过向碳排放行为征税的政策，可以提高碳排放成本，从而鼓励企业采取更环保的行为。在实验中，可以通过设定不同的碳税税率来模拟不同的碳税政策，然后观察碳排放量和碳排放权价格的变化情况。</li>
@@ -90,6 +90,7 @@ import { message } from 'ant-design-vue';
         number: 0,
         cost: 0,
       }, //卖家表格
+      result: [],//计算结果
     };
   },
   methods: {
@@ -99,30 +100,30 @@ import { message } from 'ant-design-vue';
     pdfHandle() {
       window.open('/#/show',"_blank")
     },
-    maievent() { //卖家事件
+    maievent() { //买家事件
       this.maiform = false;
       this.mainumberarray.push(this.maiformtext.number);
       this.maicostarray.push(this.maiformtext.cost);
       let mai_obj = {
-        num: this.maiformtext.number,
-        cost: this.maiformtext.cost
+        num: Number(this.maiformtext.number),
+        cost: Number(this.maiformtext.cost)
       };
       this.maiinfo.push(mai_obj);
-      // this.calc_balancePoint();
+      //this.calc_balancePoint();
       this.maiformtext.number = 0;
       this.maiformtext.cost = 0;
       message.success('买家信息录入成功');
     },
-    sellevent() { //买家事件
+    sellevent() { //卖家事件
       this.sellform = false;
       this.sellnumberarray.push(this.sellformtext.number);
       this.sellcostarray.push(this.sellformtext.cost);
       let sell_obj = {
-        num: this.sellformtext.number,
-        cost: this.sellformtext.cost
+        num: Number(this.sellformtext.number),
+        cost: Number(this.sellformtext.cost)
       };
       this.sellinfo.push(sell_obj);
-      // this.calc_balancePoint();
+      //this.calc_balancePoint();
       this.sellformtext.number = 0;
       this.sellformtext.cost = 0;
       message.success('卖家信息录入成功');
@@ -133,7 +134,8 @@ import { message } from 'ant-design-vue';
       }, 1000);
     },
     restart() { //开始实验
-        this.nowsitua = "已开始";
+      this.nowsitua = "已开始";
+      
     },
     endtest() { //结束实验
         this.browseTime = 0;
@@ -144,7 +146,54 @@ import { message } from 'ant-design-vue';
         this.sellinfo = [];
         this.maiinfo = [];
         this.nowsitua = "未开始";
-    }
+    },
+    merge_cost() {
+      //合并供给和需求报价，并从小到大排序
+      var setobj = new Set(this.maicostarray);
+      for (var i = 0; i < this.sellcostarray.length; i++) {
+        setobj.add(this.sellcostarray[i]);
+      }
+      var cost = Array.from(setobj).sort(function (a, b) { return a - b });
+      //把去重后的报价填入到result数组中
+      //在这里或许可以加上交易公平判断，目前没写
+      for (var j = 0; j < cost.length; j++) {
+        let res_obj = {
+          value: Number(cost[j]),
+          mai: 0,
+          sell: 0,
+          dist: 0
+        };
+        this.result.push(res_obj);
+      }
+    },
+    calc_balancePoint() {
+      //需求方按照报价从高到低排序
+      this.maiinfo.sort(function (a, b) { return b.cost - a.cost });
+      //供给方按照报价从低到高排序
+      this.sellinfo.sort(function (a, b) { return a.cost - b.cost });
+      this.result.splice(0, this.result.length);
+      this.merge_cost();
+      //遍历result，计算供给方、需求方的供给量和需求量，存入result中
+      for (var i = 0; i < this.result.length; i++) {
+        var value = this.result[i].value;
+        //需求方：报价>=价格时进入市场
+        for (var p_mai = 0; p_mai < this.maiinfo.length; p_mai++) {
+          if (this.maiinfo[p_mai].cost >= value)
+            this.result[i].mai += this.maiinfo[p_mai].num;
+          else
+            break;
+        }
+        //供给方：报价<=价格时进入市场
+        for (var p_sell = 0; p_sell < this.sellinfo.length; p_sell++) {
+          if (this.sellinfo[p_sell].cost <= value)
+            this.result[i].sell += this.sellinfo[p_sell].num;
+          else
+            break;
+        }
+        this.result[i].dist = Math.abs(this.result[i].mai - this.result[i].sell);
+      }
+      console.log(this.result);
+    },
   }
 };
 </script>
