@@ -288,7 +288,7 @@
             </div>
         </div>
         <div class="steps-action">
-        <a-button v-if="current < steps.length - 1" type="primary" @click="next">Next</a-button>
+        <a-button v-if="current < steps.length - 1" type="primary" @click="next"><step-forward-outlined />Next</a-button>
         <a-button
             v-if="current == steps.length - 1"
             type="primary"
@@ -296,7 +296,7 @@
         >
             Done
         </a-button>
-        <a-button v-if="current > 0" style="margin-left: 8px" @click="prev">Previous</a-button>
+        <a-button v-if="current > 0" style="margin-left: 8px" @click="prev"><step-backward-outlined />Previous</a-button>
         </div>
     </div>
 
