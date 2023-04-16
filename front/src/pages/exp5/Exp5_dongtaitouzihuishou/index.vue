@@ -20,7 +20,7 @@
         <a-card style="width: 100%" hoverable>
           <a-row>
             <!-- 正文部分 -->
-            <a-col :span="20">
+            <a-col :span="19">
               <a-row>
                 <a-col :span="24">
                   <h1 id="one">一、实验目的</h1>
@@ -100,17 +100,16 @@
                   <h1 id="five">五、实验结果</h1>
                   <p>
                     本实验旨在通过动态投资回收期的计算方法，评估软件开发项目的投资回收期，并分析项目的经济效益和风险。
-                  </p>
-                  
-    <template>
-  <a-table :columns="columns" :data-source="data" :scroll="{ x: 1500, y: 300 }">
-    <template #bodyCell="{ column }">
-      <template v-if="column.key === 'operation'">
-        <a>action</a>
-      </template>
-    </template>
-  </a-table>
-</template>
+                  </p>  
+                  <template>
+                  <a-table :columns="columns" :data-source="data" :scroll="{ x: 1500, y: 300 }">
+                    <template #bodyCell="{ column }">
+                      <template v-if="column.key === 'operation'">
+                        <a>action</a>
+                      </template>
+                    </template>
+                  </a-table>
+                </template>
                 </a-col>
               </a-row>
               <a-divider></a-divider>
@@ -124,6 +123,7 @@
               </a-row>
               <a-divider></a-divider>   
             </a-col> 
+            <a-col :span="1"></a-col>
             <!-- 侧边栏锚点 -->
             <a-col :span="4">
               <a-anchor @click="handleAnchorClick">
