@@ -142,7 +142,7 @@ const presetList = [
       {
         id: 51,
         name: 'SingleScheme',
-        title: '单方案/软件产品经济性分析实验',
+        title: '单方案经济评价实验',
         target: '_self',
         path: '/exp5/Exp1_SingleScheme',
         component: '@/pages/exp5/Exp1_SingleScheme/index.vue',

@@ -2,7 +2,7 @@
     <div>
     <div>
       <span>
-      <h1 class="title">实验五 单方案/软件产品经济性分析实验</h1>
+      <h1 class="title">实验五 单方案经济评价实验</h1>
         <a-space>
         <a-button class="upload" type="primary" >
     <template #icon>
