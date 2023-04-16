@@ -96,6 +96,9 @@
         <div class="steps-content">
         <!-- {{ steps[current].content }} -->
             <div v-if="current == 0">
+                <h2>
+                    确定度量策略参数
+                </h2>
                 <p>1. 确定 FSM 的目的和范围 
                 </p>
                 <p> - ● - 规则 2：目的和范围：
@@ -174,6 +177,9 @@
                 </a-form> -->
             </div>
             <div v-if="current==1">
+                <h2>
+                    识别功能处理
+                </h2>
                 <p>1. 识别功能处理 
                 </p>
                 <p> - ● - 规则 10：识别功能处理 FSM 范围内识别的每个功能处理应该具备以下特点：
@@ -258,6 +264,9 @@
                 </p>
             </div>
             <div v-if="current==2">
+                <h2>
+                    识别数据则
+                </h2>
                 <p class="content">度量阶段
                 </p>
                 <a-form
@@ -285,6 +294,23 @@
                     <a-button type="primary" html-type="submit">Submit</a-button>
                     </a-form-item>
                 </a-form>
+            </div>
+            <div v-if="current==3">
+                <h2>
+                    计算数据移动
+                </h2>
+            </div>
+
+            <div v-if="current==4">
+                <h2>
+                    进行本土化扩展
+                </h2>
+            </div>
+
+            <div v-if="current==5">
+                <h2>
+                    得到度量结果
+                </h2>
             </div>
         </div>
         <div class="steps-action">
@@ -361,13 +387,25 @@ export default {
                 },
             }),
             steps: [{
-                title: '度量策略阶段',
+                title: '确定度量策略参数',
                 content: 'First-content',
             }, {
-                title: '映射阶段',
+                title: '识别功能处理',
                 content: 'Second-content',
             }, {
-                title: '度量阶段',
+                title: '识别数据组',
+                content: 'Third-content',
+            },
+            {
+                title: '计算数据移动',
+                content: 'Fourth-content',
+            },
+            {
+                title: '进行本土化扩展',
+                content: 'Fifth-content',
+            },
+            {
+                title: '得到度量结果',
                 content: 'Last-content',
             }],
             tableData: [
