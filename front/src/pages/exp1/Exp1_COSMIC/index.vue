@@ -288,10 +288,11 @@
             </div>
         </div>
         <div class="steps-action">
-        <a-button v-if="current < steps.length - 1" type="primary" @click="next"><step-forward-outlined />Next</a-button>
+        <a-button v-if="current < steps.length - 1" type="primary" style="float: right;" @click="next"><step-forward-outlined />Next</a-button>
         <a-button
             v-if="current == steps.length - 1"
             type="primary"
+            style="float: right;"
             @click="message.success('Processing complete!')"
         >
             Done
