@@ -56,7 +56,7 @@
     </a-input-group>
             <h2>3.3 计算项目现金流</h2>
             <p>根据项目计划和预算，计算出项目的现金流量，包括项目开发过程中的各种收益和运营收益。</p>
-             <a-row justify="center">
+             <a-row justify="left">
               <a-col :span="4">项目/年份</a-col>
       <a-col :span="3">0</a-col>
       <a-col :span="3">1</a-col>
@@ -65,15 +65,29 @@
       <a-col :span="3">4</a-col>
       <a-col :span="3">5</a-col>
     </a-row>
-    <a-row justify="center">
-     <a-col :span="4">1. 现金流入</a-col>
+    <a-row justify="left">
+     <a-col :span="2">1.1 营业收入</a-col>
+     <a-col :span="2"></a-col>
      <a-col :span="20"><a-input-group compact>
-      <a-input v-model:value="cash_flow0" style="width: 12%" />
-      <a-input v-model:value="cash_flow1" style="width: 12%" />
-      <a-input v-model:value="cash_flow2" style="width: 12%" />
-      <a-input v-model:value="cash_flow3" style="width: 12%" />
-      <a-input v-model:value="cash_flow4" style="width: 12%" />
-      <a-input v-model:value="cash_flow5" style="width: 12%" />
+      <a-input v-model:value="cash_flow0" style="width: 15%" />
+      <a-input v-model:value="cash_flow1" style="width: 15%" />
+      <a-input v-model:value="cash_flow2" style="width: 15%" />
+      <a-input v-model:value="cash_flow3" style="width: 15%" />
+      <a-input v-model:value="cash_flow4" style="width: 15%" />
+      <a-input v-model:value="cash_flow5" style="width: 15%" />
+    </a-input-group>
+    </a-col>
+  </a-row>
+    <a-row justify="left">
+     <a-col :span="2">1. 现金流入</a-col>
+     <a-col :span="2"></a-col>
+     <a-col :span="20"><a-input-group compact>
+      <a-input v-model:value="cash_flow0" style="width: 15%" />
+      <a-input v-model:value="cash_flow1" style="width: 15%" />
+      <a-input v-model:value="cash_flow2" style="width: 15%" />
+      <a-input v-model:value="cash_flow3" style="width: 15%" />
+      <a-input v-model:value="cash_flow4" style="width: 15%" />
+      <a-input v-model:value="cash_flow5" style="width: 15%" />
     </a-input-group>
     </a-col>
   </a-row>
