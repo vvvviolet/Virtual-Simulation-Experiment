@@ -45,8 +45,38 @@
             <p>根据市场调研和项目需求，公司制定了详细的项目计划和预算，包括项目的开发周期、人力资源投入、硬件和软件设备购置、运营成本等。</p>
             <h2>3.2 计算项目投资成本</h2>
             <p>根据项目计划和预算，计算出项目的总投资成本，包括项目开发过程中的各种成本和运营成本。</p>
+             <a-input-group compact>
+      <a-input v-model:value="cash_flow0" style="width: 12%" />
+      <a-input v-model:value="cash_flow1" style="width: 12%" />
+      <a-input v-model:value="cash_flow2" style="width: 12%" />
+      <a-input v-model:value="cash_flow3" style="width: 12%" />
+      <a-input v-model:value="cash_flow4" style="width: 12%" />
+      <a-input v-model:value="cash_flow5" style="width: 12%" />
+      <a-input v-model:value="cash_flow6" style="width: 12%" />
+    </a-input-group>
             <h2>3.3 计算项目现金流</h2>
             <p>根据项目计划和预算，计算出项目的现金流量，包括项目开发过程中的各种收益和运营收益。</p>
+             <a-row justify="center">
+              <a-col :span="4">项目/年份</a-col>
+      <a-col :span="3">0</a-col>
+      <a-col :span="3">1</a-col>
+      <a-col :span="3">2</a-col>
+      <a-col :span="3">3</a-col>
+      <a-col :span="3">4</a-col>
+      <a-col :span="3">5</a-col>
+    </a-row>
+    <a-row justify="center">
+     <a-col :span="4">1. 现金流入</a-col>
+     <a-col :span="20"><a-input-group compact>
+      <a-input v-model:value="cash_flow0" style="width: 12%" />
+      <a-input v-model:value="cash_flow1" style="width: 12%" />
+      <a-input v-model:value="cash_flow2" style="width: 12%" />
+      <a-input v-model:value="cash_flow3" style="width: 12%" />
+      <a-input v-model:value="cash_flow4" style="width: 12%" />
+      <a-input v-model:value="cash_flow5" style="width: 12%" />
+    </a-input-group>
+    </a-col>
+  </a-row>
             <h2>3.4 计算动态投资回收期</h2>
             <p>根据计算得到的现金流量和投资成本，利用动态投资回收期的计算方法，计算出项目的动态投资回收期。</p>
             <h2>3.5 分析经济效益和风险</h2>
@@ -60,6 +90,16 @@
                   <p>
                     本实验旨在通过动态投资回收期的计算方法，评估软件开发项目的投资回收期，并分析项目的经济效益和风险。
                   </p>
+                  
+    <template>
+  <a-table :columns="columns" :data-source="data" :scroll="{ x: 1500, y: 300 }">
+    <template #bodyCell="{ column }">
+      <template v-if="column.key === 'operation'">
+        <a>action</a>
+      </template>
+    </template>
+  </a-table>
+</template>
                 </a-col>
               </a-row>
               <a-divider></a-divider>
