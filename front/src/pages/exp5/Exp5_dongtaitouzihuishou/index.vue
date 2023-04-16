@@ -44,21 +44,11 @@
                   <h1>三、实验步骤</h1>
                   <h2>3.1 制定项目计划和预算</h2>
                   <p>根据市场调研和项目需求，公司制定了详细的项目计划和预算，包括项目的开发周期、人力资源投入、硬件和软件设备购置、运营成本等。</p>
-                  <h2>3.2 计算项目投资成本</h2>
                   <p>根据项目计划和预算，计算出项目的总投资成本，包括项目开发过程中的各种成本和运营成本。</p>
-                  <a-input-group compact>
-                    <a-input v-model:value="cash_flow0" style="width: 12%" />
-                    <a-input v-model:value="cash_flow1" style="width: 12%" />
-                    <a-input v-model:value="cash_flow2" style="width: 12%" />
-                    <a-input v-model:value="cash_flow3" style="width: 12%" />
-                    <a-input v-model:value="cash_flow4" style="width: 12%" />
-                    <a-input v-model:value="cash_flow5" style="width: 12%" />
-                    <a-input v-model:value="cash_flow6" style="width: 12%" />
-                  </a-input-group>
-                  <h2>3.3 计算项目现金流</h2>
+                  <h2>3.2 计算项目现金流</h2>
                   <p>根据项目计划和预算，计算出项目的现金流量，包括项目开发过程中的各种收益和运营收益。</p>
                   <a-row justify="left">
-                    <a-col :span="4">项目/年份</a-col>
+                    <a-col :span="5">项目/年份</a-col>
                     <a-col :span="3">0</a-col>
                     <a-col :span="3">1</a-col>
                     <a-col :span="3">2</a-col>
@@ -66,35 +56,156 @@
                     <a-col :span="3">4</a-col>
                     <a-col :span="3">5</a-col>
                   </a-row>
-                      <a-row justify="left">
-     <a-col :span="2">1.1 营业收入</a-col>
-     <a-col :span="2"></a-col>
-     <a-col :span="20"><a-input-group compact>
-      <a-input v-model:value="cash_flow0" style="width: 15%" />
-      <a-input v-model:value="cash_flow1" style="width: 15%" />
-      <a-input v-model:value="cash_flow2" style="width: 15%" />
-      <a-input v-model:value="cash_flow3" style="width: 15%" />
-      <a-input v-model:value="cash_flow4" style="width: 15%" />
-      <a-input v-model:value="cash_flow5" style="width: 15%" />
-    </a-input-group>
-    </a-col>
-  </a-row>
+                      
                   <a-row justify="left">
                     <a-col :span="4">1. 现金流入</a-col>
                     <a-col :span="20">
                       <a-input-group compact>
-                        <a-input v-model:value="cash_flow0" style="width: 12%" />
-                        <a-input v-model:value="cash_flow1" style="width: 12%" />
-                        <a-input v-model:value="cash_flow2" style="width: 12%" />
-                        <a-input v-model:value="cash_flow3" style="width: 12%" />
-                        <a-input v-model:value="cash_flow4" style="width: 12%" />
-                        <a-input v-model:value="cash_flow5" style="width: 12%" />
+                        <a-input v-model:value="cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="cash_flow5" style="width: 15%" />
                       </a-input-group>
                     </a-col>
                   </a-row>
-                  <h2>3.4 计算动态投资回收期</h2>
+                  <a-row justify="left">
+                        <a-col :span="4">1.1 营业收入</a-col>
+                        <a-col :span="20"><a-input-group compact>
+                          <a-input v-model:value="cash_flow0" style="width: 15%" />
+                          <a-input v-model:value="cash_flow1" style="width: 15%" />
+                          <a-input v-model:value="cash_flow2" style="width: 15%" />
+                          <a-input v-model:value="cash_flow3" style="width: 15%" />
+                          <a-input v-model:value="cash_flow4" style="width: 15%" />
+                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        </a-input-group>
+                        </a-col>
+                      </a-row>
+                      <a-row justify="left">
+                        <a-col :span="4">1.2 回收固定资产余值</a-col>
+                        <a-col :span="20"><a-input-group compact>
+                          <a-input v-model:value="cash_flow0" style="width: 15%" />
+                          <a-input v-model:value="cash_flow1" style="width: 15%" />
+                          <a-input v-model:value="cash_flow2" style="width: 15%" />
+                          <a-input v-model:value="cash_flow3" style="width: 15%" />
+                          <a-input v-model:value="cash_flow4" style="width: 15%" />
+                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        </a-input-group>
+                        </a-col>
+                      </a-row>
+                       <a-row justify="left">
+                        <a-col :span="4">1.3 回收无形资产余值</a-col>
+                        <a-col :span="20"><a-input-group compact>
+                          <a-input v-model:value="cash_flow0" style="width: 15%" />
+                          <a-input v-model:value="cash_flow1" style="width: 15%" />
+                          <a-input v-model:value="cash_flow2" style="width: 15%" />
+                          <a-input v-model:value="cash_flow3" style="width: 15%" />
+                          <a-input v-model:value="cash_flow4" style="width: 15%" />
+                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        </a-input-group>
+                        </a-col>
+                      </a-row>
+                      <a-row justify="left">
+                        <a-col :span="4">1.4 回收流动资金</a-col>
+                        <a-col :span="20"><a-input-group compact>
+                          <a-input v-model:value="cash_flow0" style="width: 15%" />
+                          <a-input v-model:value="cash_flow1" style="width: 15%" />
+                          <a-input v-model:value="cash_flow2" style="width: 15%" />
+                          <a-input v-model:value="cash_flow3" style="width: 15%" />
+                          <a-input v-model:value="cash_flow4" style="width: 15%" />
+                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        </a-input-group>
+                        </a-col>
+                      </a-row>
+                    <a-divider></a-divider>
+                     <a-row justify="left">
+                    <a-col :span="5">项目/年份</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                      
+                  <a-row justify="left">
+                    <a-col :span="4">2. 现金流出</a-col>
+                    <a-col :span="20">
+                      <a-input-group compact>
+                        <a-input v-model:value="cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                      </a-input-group>
+                    </a-col>
+                  </a-row>
+                  <a-row justify="left">
+                        <a-col :span="4">2.1 建设投资</a-col>
+                        <a-col :span="20"><a-input-group compact>
+                          <a-input v-model:value="cash_flow0" style="width: 15%" />
+                          <a-input v-model:value="cash_flow1" style="width: 15%" />
+                          <a-input v-model:value="cash_flow2" style="width: 15%" />
+                          <a-input v-model:value="cash_flow3" style="width: 15%" />
+                          <a-input v-model:value="cash_flow4" style="width: 15%" />
+                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        </a-input-group>
+                        </a-col>
+                      </a-row>
+                      <a-row justify="left">
+                        <a-col :span="4">2.2 流动资金</a-col>
+                        <a-col :span="20"><a-input-group compact>
+                          <a-input v-model:value="cash_flow0" style="width: 15%" />
+                          <a-input v-model:value="cash_flow1" style="width: 15%" />
+                          <a-input v-model:value="cash_flow2" style="width: 15%" />
+                          <a-input v-model:value="cash_flow3" style="width: 15%" />
+                          <a-input v-model:value="cash_flow4" style="width: 15%" />
+                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        </a-input-group>
+                        </a-col>
+                      </a-row>
+                       <a-row justify="left">
+                        <a-col :span="4">2.3 经营成本</a-col>
+                        <a-col :span="20"><a-input-group compact>
+                          <a-input v-model:value="cash_flow0" style="width: 15%" />
+                          <a-input v-model:value="cash_flow1" style="width: 15%" />
+                          <a-input v-model:value="cash_flow2" style="width: 15%" />
+                          <a-input v-model:value="cash_flow3" style="width: 15%" />
+                          <a-input v-model:value="cash_flow4" style="width: 15%" />
+                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        </a-input-group>
+                        </a-col>
+                      </a-row>
+                      <a-row justify="left">
+                        <a-col :span="4">2.5 维持运营投资</a-col>
+                        <a-col :span="20"><a-input-group compact>
+                          <a-input v-model:value="cash_flow0" style="width: 15%" />
+                          <a-input v-model:value="cash_flow1" style="width: 15%" />
+                          <a-input v-model:value="cash_flow2" style="width: 15%" />
+                          <a-input v-model:value="cash_flow3" style="width: 15%" />
+                          <a-input v-model:value="cash_flow4" style="width: 15%" />
+                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        </a-input-group>
+                        </a-col>
+                      </a-row>
+                      <a-row justify="left">
+                        <a-col :span="4">2.4 营业税金及附加</a-col>
+                        <a-col :span="20"><a-input-group compact>
+                          <a-input v-model:value="cash_flow0" style="width: 15%" />
+                          <a-input v-model:value="cash_flow1" style="width: 15%" />
+                          <a-input v-model:value="cash_flow2" style="width: 15%" />
+                          <a-input v-model:value="cash_flow3" style="width: 15%" />
+                          <a-input v-model:value="cash_flow4" style="width: 15%" />
+                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        </a-input-group>
+                        </a-col>
+                      </a-row>
+                    
+                  <h2>3.3 计算动态投资回收期</h2>
                   <p>根据计算得到的现金流量和投资成本，利用动态投资回收期的计算方法，计算出项目的动态投资回收期。</p>
-                  <h2>3.5 分析经济效益和风险</h2>
+                  <h2>3.4 分析经济效益和风险</h2>
                   <p>根据计算结果，分析项目的经济效益和风险，并对项目的实施进行评估。</p>
                 </a-col>
               </a-row>
