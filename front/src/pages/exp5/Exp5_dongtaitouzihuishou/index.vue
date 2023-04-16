@@ -1,13 +1,17 @@
 <template lang="">
   <div> <Layout> 
+    <Header>
   <a-row>
-    <a-col :span="16"><Header><h1>动态投资回收期实验</h1></Header> </a-col>
+    <a-col :span="16"><h1>动态投资回收期实验</h1></a-col>
     <a-col :span="4"><a-button type="primary">实验报告指导书下载</a-button></a-col>
     <a-col :span="4"><a-button type="primary">模版下载</a-button></a-col>
   </a-row>
-    
-  <Layout> <Sider> <div style="">
-  </div> </Sider> 
+  </Header> 
+  <Layout> 
+    <Sider> 
+      <div style="">
+  </div> 
+    </Sider> 
   <Content> 
     <h1>一、实验目的</h1> 
     <h1>二、实验原理</h1>
