@@ -162,7 +162,7 @@ function getMenuList() {
   // if (!menuStr) {
     menuList = presetList;
     localStorage.setItem('stepin-menu', JSON.stringify(menuList));
-  // } else {
+  // } else {w
     // menuList = JSON.parse(menuStr);
   // }
   return menuList;

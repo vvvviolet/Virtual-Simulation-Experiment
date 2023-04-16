@@ -6,6 +6,11 @@
 
 讨论qq群：170106623
 
+## 2023/4/13
+登陆账号：你的学号@tongji.edu.cn
+
+密码默认：111111
+
 
 ## 快速开始
 git下载地址：https://git-scm.com/download/win
