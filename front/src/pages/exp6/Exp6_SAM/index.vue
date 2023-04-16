@@ -5,6 +5,10 @@
       一、分析变量表
     </InputChart>
 
+    <div class="container" style="margin-top: 20px;">
+      <a-table :dataSource="dataSource" :columns="columns" bordered :pagination="false"/>
+    </div>
+
     <InputChart :dataSource="dataSource1" :columns="columns2" @updateData="handleDataSource2Update">
       二、变化幅度表
     </InputChart>
@@ -34,6 +38,7 @@ import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LegendComponent, TooltipComponent } from 'echarts/components'
 import InputChart from '@/pages/exp6/Exp6_SAM/InputChart.vue';
+import { Table } from 'ant-design-vue';
 
 // 注册需要使用的 ECharts 组件
 use([CanvasRenderer, LegendComponent, TooltipComponent])
@@ -50,6 +55,25 @@ export default {
         param3: 0,
       },
       analysisData: null,
+      dataSource: [
+          {
+            key: '0',
+            name: '收入',
+            value: 100,
+          },
+      ],
+      columns:[
+          {
+            title: '分析对象名',
+            dataIndex: 'name',
+            key: 'name',
+          },
+          {
+            title: '分析对象值',
+            dataIndex: 'value',
+            key: 'value',
+          },
+      ],
       dataSource1: [
           {
             key: '0',
@@ -406,3 +430,9 @@ function doAnalysis(params) {
 return analysisData
 }
 </script>
+
+<style>
+   .ant-table-thead > tr > th {
+    background: #e9ecef !important;
+  }
+</style>
