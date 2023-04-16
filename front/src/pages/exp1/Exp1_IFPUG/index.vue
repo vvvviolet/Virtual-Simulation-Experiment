@@ -90,14 +90,11 @@
     <br/>
 
    
-    
-    
-    <!-- </p> -->
 
 
     <h2>二、实验参数  </h2>
 
-    <el-table :data="tableData" border style="width: 100%"  :summary-method="data=>getSummaries(data,index)" show-summary ref="detailTable">
+    <!-- <el-table :data="tableData" border style="width: 100%"  :summary-method="data=>getSummaries(data,index)" show-summary ref="detailTable">
     <el-table-column prop="component" label="组件" width="80" />
     <el-table-column prop="number" label="数量" width="80" />
     <el-table-column label="复杂度">
@@ -159,36 +156,78 @@
             </el-table-column>
         </el-table-column>
     </el-table-column>
-    <el-table-column prop="nonum" label="未调整功能点数" width="100" >
-         <template v-slot="scope">
-           <el-input v-model="scope.row.nonum" placeholder="" />
-         </template>
+    <el-table-column prop="nonum" label="未调整功能点数" width="100" />
+
+    </el-table> -->
+ <el-table :data="tableData" border style="width: 100%"  :summary-method="data=>getSummaries(data,index)" show-summary ref="detailTable">
+    <el-table-column prop="component" label="组件" width="80" />
+    <el-table-column prop="number" label="数量" width="80" />
+    <el-table-column label="复杂度">
+        <el-table-column label="简单">
+            <el-table-column label="计数">
+                <el-table-column prop="A" label="A"/>\
+            </el-table-column>
+            <el-table-column label="权重">
+                <el-table-column prop="B" label="B"/>
+            </el-table-column>
+            <el-table-column label="功能点数">
+                <el-table-column prop="C" label="C=A*B"/>
+            </el-table-column>
+        </el-table-column>
+        <el-table-column label="平均">
+            <el-table-column label="计数">
+                <el-table-column prop="D" label="D"/>
+            </el-table-column>
+            <el-table-column label="权重">
+                <el-table-column prop="E" label="E"/>
+            </el-table-column>
+            <el-table-column label="功能点数">
+                <el-table-column prop="F" label="F=D*E"/>
+            </el-table-column>
+        </el-table-column>
+        <el-table-column label="复杂">
+            <el-table-column label="计数">
+                <el-table-column prop="G" label="G"/>
+            </el-table-column>
+            <el-table-column label="权重">
+                <el-table-column prop="H" label="H"/>
+            </el-table-column>
+            <el-table-column label="功能点数">
+                <el-table-column prop="I" label="I=G*H"/>
+            </el-table-column>
+        </el-table-column>
     </el-table-column>
+    <el-table-column prop="nonum" label="未调整功能点数" width="80" />
+    <!-- <el-table-column prop="name" label="Name" width="180" />
+    <el-table-column prop="address" label="Address" /> -->
     </el-table>
+
+
+
+
     <!--  <p class="secondtitle">系统特征因子为 </p> -->
 
-    <el-button  class="button2" type="primary"  round @click="count" >计算</el-button>
+    <!-- <el-button  class="button2" type="primary"  round @click="count" >计算</el-button>
     <p class="secondtitle">本实验未调整功能点总计为：____________ </p> 
 
 
     <div>
         <el-button  class="button3" type="primary" round  @click="pdfOutput" >生成pdf</el-button>
-    </div>
+    </div> -->
 </template> 
 
-
-<script lang="tsx">
+<script>
 import { Document } from '@element-plus/icons-vue'
 export default {
+    name: 'Exp1_MARKII',
     data() {
         return{     
-            
             test:'21111',
             sum:'',
             tableData: [
                 {
                     component: 'EI',
-                    number: '',
+                    number: '2',
                     A: '',
                     B: '3',
                     C: '',
@@ -202,7 +241,7 @@ export default {
                 },
                 {
                     component: 'EO',
-                    number: '',
+                    number: '2',
                     A: '',
                     B: '4',
                     C: '',
@@ -216,7 +255,7 @@ export default {
                 },
                 {
                     component: 'EQ',
-                    number: '',
+                    number: '2',
                     A: '',
                     B: '3',
                     C: '',
@@ -230,7 +269,7 @@ export default {
                 },
                 {
                     component: 'ILF',
-                    number: '',
+                    number: '2',
                     A: '',
                     B: '7',
                     C: '',
@@ -244,7 +283,7 @@ export default {
                 },
                 {
                     component: 'EIF',
-                    number: '',
+                    number: '2',
                     A: '',
                     B: '5',
                     C: '',
@@ -284,9 +323,8 @@ export default {
                 }
                 if(index===11){
                     sums[index]=(()=>{
-                        // const num: JSX.Element = <p >￥{this.tableData[val].nonum.toFixed(2)}</p>;
                         // let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
-                        // return num;
+                        return num;
                     })();
                     return;
                 }
@@ -298,7 +336,6 @@ export default {
     }
 }
 </script>
-
 
 <style scoped>
 .title{
@@ -314,21 +351,12 @@ export default {
 }
 .content{
     text-indent: 2em;
-    margin-left: 30px;
-    margin-right: 30px;
-    line-height: 25px;
-  
+    margin-left: 20px;
+    margin-right: 20px;
 }
 .guidance{
     position:absolute;
     right:50px;
     font-weight: bold;
-}
-.button2{
-    margin-top:20px;
-    float:right
-}
-.button3{
-    margin-top:20px;
 }
 </style>
