@@ -95,65 +95,38 @@
         </a-steps>
         <div class="steps-content">
         <!-- {{ steps[current].content }} -->
-            <div v-if="current == 0">
-                <h2>
-                    确定度量策略参数
-                </h2>
-                <p>1. 确定 FSM 的目的和范围 
-                </p>
-                <p> - ● - 规则 2：目的和范围：
-                </p>
-                <p class="content">目的和范围  FSM 的目的和范围应该在进行特定的度量活动前确定。 
-                </p>
-                <p>2. 从软件制品中识别 FUR 
-                </p>
-                <p> - ● - 规则 3：识别 FUR：
-                </p>
-                <p class="content">  在 FSM 的范围内识别的 FUR 应该作为待度量软件功能规模的唯一来源。 
-                </p>
-                <p>3. 非功能性需求 
-                </p> 
-                <p>4. 识别层  
-                </p>
-                <p> - ● - 规则 4：如果度量活动需要，则每一层级都应识别。 
-                </p>
-                <p> - ● - 规则 5：待度量的软件块的范围不应该跨层。
-                </p>
-                <p> - ● - 规则 6：层的特点 在 FSM 范围内识别的层级应该具有以下特点： 
-                </p>
-                <p class="content"> a) 软件的各个层级应向其功能用户交付功能。
-                </p>
-                <p class="content"> b) 下层软件应向使用其服务的软件层ᨀ供功能服务。 
-                </p>
-                <p class="content"> c) 共享数据的软件，如果它们对共享数据的数据属性进行了相同的解释，则不应被识 别不同层级的软件。 
-                </p>
-                <p>5. 识别功能用户  
-                </p>
-                <p> - ● - 规则 7：功能用户 在 FSM 范围内的软件 FUR 中，应该识别所有触发功能处理的功能用户（向功能处理提供信息或从功能处理接收信息）。
-                </p>
-                <p>6. 识别软件边界
-                </p>
-                <p> - ● - 规则 8：应该识别在 FSM 范围内的每个层级的每个软件块的边界。 
-                </p>
-                <p> - ● - 规则 9：识别边界后，FSM 范围内的每个 FUR 应对应至某个软件块。 
-                </p>
-                <p>7. 分解层级 
-                </p>
-                <p class="content">软件块的规模度量只能直接与处于相同分解层级的组件进行对比。这一点很重要，因为根 据第五章的规则，在不同分解层级的软件块的规模不能简单的叠加。因此，在比较开发不同软 件块的项目性能（如：生产率=规模/工作量）时，必须是这些软件块都位于同一分解的层次上 才有可比性。此外，不同软件项目的性能（如生产力=规模/工作量）也只有在处于相同分解层 级时才能比较。
-                </p>
-                <p>8. 环境图 
-                </p>
-                <p class="content">在定义 FSM 的范围和功能用户时，为待度量软件绘制环境图很有帮助。环境图展示了软件 块和功能用户（人类，硬件设备或其他软件）之间的数据流，并展示了软件块和持久性存储介 质之间的数据流。
-                </p>
-                <div class="image-center">
-                    <a-image
-                    src="http://blog.nsfocus.net/wp-content/uploads/2018/06/1-3.png"
-                    /> 
-                </div>
-                <p>9. 识别颗粒度级别
-                </p>
-                <p class="content">COSMIC 方法要求 FUR 以足够详细的程度表示，以便建立 COSMIC 度量模型，这被称为颗粒 度级别。 根据 ISO19761 的规则，使用 COSMIC FSM 方法得到功能规模，需要需求达到可以识别功能 处理和其数据移动的程度。当需求模糊时，可以使用“早期软件规模度量方法：实践者指 南”，进行近似规模度量
-                </p>
+        <div v-if="current == 0">
+              <h2>
+                确定度量策略参数
+              </h2>
+              <p>进行实际度量前，五个关键的测量策略参数需要被确定：
+              </p>
+              <p> - ● - 测量目的：有助于决定其他所有参数
+              </p>
+              <p> - ● - 待测量的软件块规模：一个项目可能包含多个软件块，哪些要被包含而哪些不要应当被加以确定
+              </p>
+              <p> - ● - 待测量的软件块的分解级别：不同的级别可能是“整个应用”、“一个分布式系统的一个组件”等等
+              </p>
+              <p> - ● - 每个待测量软件块的功能用户：包括人或物（硬件设备或其他软件系统），它们是被测软件的数据发送者或接收者。正是他们感知到的功能将要被衡量
+              </p>
+              <p> - ● - 软件在所处软件架构中的层次：一个待测量的软件必须被限制在一个层内
+              </p>
+<!--              输入数据及变量尚未考虑，后面统一处理-->
+              <a-form-item :name="['user', 'name']" label="测量目的" :rules="[{ required: true }]">
+                <a-input v-model:value="formState.user.name" />
+              </a-form-item>
+              <a-form-item :name="['user', 'name']" label="软件块规模" :rules="[{ required: true }]">
+                <a-input v-model:value="formState.user.name" />
+              </a-form-item>
+              <a-form-item :name="['user', 'name']" label="软件块的分解级别" :rules="[{ required: true }]">
+                <a-input v-model:value="formState.user.name" />
+              </a-form-item>
+              <a-form-item :name="['user', 'name']" label="软件块的功能用户" :rules="[{ required: true }]">
+                <a-input v-model:value="formState.user.name" />
+              </a-form-item>
+              <a-form-item :name="['user', 'name']" label="所处软件架构中的层次" :rules="[{ required: true }]">
+                <a-input v-model:value="formState.user.name" />
+              </a-form-item>
                 <!-- <a-form
                     ref="formRef"
                     name="custom-validation"
@@ -177,94 +150,32 @@
                 </a-form> -->
             </div>
             <div v-if="current==1">
-                <h2>
-                    识别功能处理
-                </h2>
-                <p>1. 识别功能处理 
-                </p>
-                <p> - ● - 规则 10：识别功能处理 FSM 范围内识别的每个功能处理应该具备以下特点：
-                </p>
-                <p class="content">  a) 源自至少一个可识别的 FUR。 
-                </p>
-                <p class="content">  b) 由功能用户的输入数据移动触发，以通知功能处理它已检测到触发事件。  
-                </p>
-                <p class="content">  c) 至少包含两个数据移动，通常是一个输入加一个输出或写。  
-                </p>
-                <p class="content">  d) 属于且仅属于一个层级。 
-                </p>
-                <p class="content">  e) 根据其 FUR，当需要达到某个时间点时是已结束的状态。 
-                </p>
-                <div class="image-center">
-                    <a-image
-                        src="http://blog.nsfocus.net/wp-content/uploads/2018/06/3-4.png"
-                    />
-                </div>
-                <p>2. 识别兴趣对象和数据组  
-                </p>
-                <p> - ● -  规则 11：识别兴趣对象和数据组  FSM 范围中识别的每个数据组应该：
-                </p>
-                <p class="content">  a) 通过其独一无二的数据属性的集合而具有唯一性和可区分性 
-                </p>
-                <p class="content">b) 直接关联到软件 FUR 中描述的某个兴趣对象。
-                </p>
-                <p>3. 识别数据移动   
-                </p>
-                <p class="content">此步骤包括识别每个功能处理的数据移动（输入、输出、读、写）。下图展示了四个数据移动类型之间的总体关系，它们所属的功能处理以及待度量软件的边界。
-                </p>
-                <p> - ● - 规则 12：识别数据移动
-                </p>
-                <div class="image-center">
-                    <a-image
-                        src="http://blog.nsfocus.net/wp-content/uploads/2018/06/4-4.png"
-                    />
-                </div>
-                <p> - ● - 规则 13：功能处理，一个输入对于任何一个功能处理，按照 FUR 的要求，输入的描述了同一个兴趣对象的所有数据都应该被识别并计算为一个单独的输入，除非 FUR 明确要求同一个兴趣对象的数据在同一个功能处 理中被多次输入。
-                </p>
-                <p> - ● - 规则 14：功能处理 ， 一个输出、读或写。相似地，对于按照 FUR描述某个兴趣对象的输出、读或写数据移动都应该被识别和计数，除非在 FUR 中明确表示，在同一个功能处理中，需要多次输出、读或写同一个兴趣对象的数据。
-                </p>
-                <p> - ● - 规则 15：功能处理 - 实例  如果一个数据移动类型（输入、输出、读、写），在功能处理执行时多次发生（值不同），在该功能处理中应该只被识别和计数 1 次。
-                </p>
-                <p>4. 数据移动的分类   
-                </p>
-                <p> - ● -  规则 16：输入应该： 
-                </p>
-                <p class="content"> a) 接受来自边界外的功能用户发送的单个数据组。 
-                </p>
-                <p class="content">  b) 在不涉及其他数据移动类型的情况下，包括所有必须的格式化和展示运算，以及与 验证输入数据属性相关的运算。 
-                </p>
-                <p class="content"> c) 包括所有“请求接收输入数据”的功能，无需指定输入什么数据。 
-                </p>
-                <p> - ● -  规则 17：输出应该：
-                </p>
-                <p class="content">    a) 从一个单一数据组向边界外的功能用户发送数据属性。 
-                </p>
-                <p class="content">    b) 在不涉及其他数据移动类型的情况下，包括所有必须的格式化和展示运算，以及需 要向功能用户发送数据属性所需的数据运算。 
-                </p>
-                <p> - ● - 规则 18：读应该：  
-                </p>
-                <p class="content">     a) 从持久性存储介质检索一个单一的数据组。 
-                </p>
-                <p class="content">  b) 在不涉及其他数据移动类型的情况下，包括读取数据所需的所有逻辑处理和/或数 学计算
-                </p>
-                <p class="content">     c) 包括所有“读请求”的功能。 
-                </p>
-                <p> - ● -  规则 19：写应该： 
-                </p>
-                <p class="content">        a) 从一个独立的数据组向持久性存储介质移动数据属性。 
-                </p>
-                <p class="content">        b) 在不涉及其他数据移动类型的情况下，包括所有为了要建立“写”数据属性的逻辑 处理和/或数学计算。
-                </p>
-                <p> - ● - 规则 20：写 - 删除  需要从持久性存储介质中删除一个数据组的需求应被识别为一个写数据移动。
-                </p>
-                <p>5. 度量分布式软件系统的组件
-                </p>
-                <p>6. 软件的复用
-                </p>
-                <p>7. 度量软件变更的规模
-                </p>
+              <h2>
+                识别功能处理
+              </h2>
+              <p>功能规模度量(FSM)范围内识别的每个功能处理应该具备以下特点：
+              </p>
+              <p>1. 源自至少一个可识别的功能用户需求（FUR）
+              </p>
+              <p>2. 由功能用户的输入数据移动触发，以通知功能处理它已检测到触发事件
+              </p>
+              <p>3. 至少包含两个数据移动，通常是一个输入加一个输出或写
+              </p>
+              <p>4. 属于且仅属于一个层级
+              </p>
+              <p>5. 根据其功能用户需求（FUR），当需要达到某个时间点时是已结束的状态。
+              </p>
+<!--              输入数据及变量尚未考虑，后面统一处理  and 理论上需要可变数目的输入项，这儿先用一个大输入框代替，进行分行，后面需要的话再改 -->
+              <a-form-item :name="['user', 'introduction']" label="输入分析得到的功能处理（每行输入一个功能处理项）：">
+                <a-textarea v-model:value="formState.user.introduction" />
+              </a-form-item>
+              <a-form-item :wrapper-col="{ ...layout.wrapperCol, offset: 8 }">
+                <a-button type="primary" html-type="submit">Submit</a-button>
+              </a-form-item>
             </div>
+
             <div v-if="current==2">
-                <h2>
+                <!-- <h2>
                     识别数据则
                 </h2>
                 <p class="content">度量阶段
@@ -293,35 +204,114 @@
                     <a-form-item :wrapper-col="{ ...layout.wrapperCol, offset: 8 }">
                     <a-button type="primary" html-type="submit">Submit</a-button>
                     </a-form-item>
+                </a-form> -->
+                <p>功能规模度量(FSM)范围中识别的每个数据组应该：
+                </p>
+                <p class="content">1. 通过其独一无二的数据属性的集合而具有唯一性和可区分性
+                </p>
+                <p class="content">2. 直接关联到软件功能用户需求（FUR）中描述的某个兴趣对象
+                </p>
+                <p class="content">2. 直接关联到软件功能用户需求（FUR）中描述的某个兴趣对象
+                </p>
+                <p class="content"> ⭕注：兴趣对象可以是任何物理对象，也可以是功能用户世界中的任意概念对象或是概念（包括但不局限于，软件应用、人、传感器或其他硬件）
+                </p>
+                <p class="content"> ⭕注：功能处理内部的常量或变量，或计算过程的中间结果，或是由功能处理直接从实现结果得到而不是从功能用户需求（FUR）中得到而存储的数据，都不是数据组
+                </p>
+                <a-form
+                    :model="formState"
+                    v-bind="layout"
+                    name="nest-messages"
+                    :validate-messages="validateMessages"
+                >
+                    <a-form-item :name="['user', 'shujuxiang']" label="识别到的数据项">
+                    <a-textarea v-model:value="formState.user.shujuxiang" />
+                    </a-form-item>
                 </a-form>
             </div>
             <div v-if="current==3">
-                <h2>
-                    计算数据移动
-                </h2>
+                <p>步骤二中识别的每个功能处理应该分解成部件，即数据移动（包括输入、输出、读、写）。
+                </p>
+                <p class="content">对于任何一个功能处理，按照功能用户需求（FUR）的要求，输入的描述了同一个兴趣对象的所有数据都应该被识别并计算为一个单独的输入，除非FUR明确要求同一个兴趣对象的数据在同一个功能处理中被多次输入。相似地，对于按照功能用户需求（FUR）描述某个兴趣对象的输出、读或写数据移动都应该被一样地识别和计数，除非在FUR中明确表示，在同一个功能处理中，需要多次输出、读或写同一个兴趣对象的数据。
+                </p>
+                <div class="image-center">
+                    <a-image
+                        src="http://blog.nsfocus.net/wp-content/uploads/2018/06/4-4.png"
+                    />
+                </div>
+                <p class="content">数据输入个数分别为：
+                    <a-form
+                    :model="formState"
+                    v-bind="layout"
+                    name="nest-messages"
+                    :validate-messages="validateMessages"
+                    >
+                    <a-form-item :name="['user', 'input']" label="输入" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="formState.user.input" />
+                    </a-form-item>
+                    <a-form-item :name="['user', 'output']" label="输出" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="formState.user.output" />
+                    </a-form-item>
+                    <a-form-item :name="['user', 'write']" label="写" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="formState.user.write" />
+                    </a-form-item>
+                    <a-form-item :name="['user', 'read']" label="读" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="formState.user.read" />
+                    </a-form-item>
+                </a-form>
+                </p>
             </div>
 
             <div v-if="current==4">
-                <h2>
-                    进行本土化扩展
-                </h2>
+                <p class="content"> 对于并非以数据移动为主的软件，如果觉得基本的COSMIC方法有所不足，可以可以为例外的功能（如为了解决复杂算法的度量问题时）设置一个本地化标准。
+                </p>
+                <p class="content"> ----示例：“在我们组织中，诸如《算法示例列表》的数学算法计作1个本地FP。《另一个算法示例列表》计作2个本地FP。”
+                </p>
+                <p class="content"> 可给出一个可加行的列表，每行有三列：本土化规模类别名称、FP记数、出现次数
+                </p>
+                <p class="content"> 得到软件块的功能规模（拓展）为：y LocalFP
+                </p>
+                <a-form-item :name="['user', 'LocalFP']" label="LocalFP" :rules="[{ type: 'LocalFP' }]">
+                    <a-input v-model:value="formState.user.email" />
+                 </a-form-item>
             </div>
 
             <div v-if="current==5">
-                <h2>
-                    得到度量结果
-                </h2>
+                <p class="content"> 基于上述实验过程，得到最终度量结果为：x CFP(5.0)+y LocalFP
+                </p>
+                <a-form-item :name="['user', 'SumFP']" label="CFP + LocalFP" :rules="[{ type: 'SumFP' }]">
+                    <a-input v-model:value="formState.user.email" />
+                </a-form-item>
             </div>
 
             <div v-if="current==6">
                 <h2>
                     思考题
                 </h2>
+                <p>
+                    COSMIC方法是目前功能点度量最先进的方法，也是最简单易用的方法。
+                    但是，也有很多软件工程师在使用功能点方法时，认为该方法需要学习一些规则，需要经过训练，不够简便，因此想寻求一种更简单快速的方法。
+                    这种探索的精神值得提倡，但是自己探索的方法必须要合理且要具备一定的科学性与适用性。
+                    请你思考如何评估一个规模度量方法的合理性与科学性，并给出思路与方法。
+                </p>
+                <p>
+                    答案：判断采用这种方法度量的规模数据与实际工作量数据之间的相关性
+                </p>
             </div>
 
             <div v-if="current==7">
                 <h2>
                     实验心得
+                    <a-form
+                    :model="formState"
+                    v-bind="layout"
+                    name="nest-messages"
+                    :validate-messages="validateMessages"
+                >
+                    <a-form-item :name="['user', 'experience']" label="实验心得" :rules="[{ required: true }]">
+                    <a-textarea v-model:value="formState.user.experience" />
+                    </a-form-item>
+
+                </a-form>
                 </h2>
             </div>
         </div>
@@ -396,6 +386,14 @@ export default {
                     email: '',
                     website: '',
                     introduction: '',
+                    input: undefined,
+                    output: undefined,
+                    write: undefined,
+                    read: undefined,
+                    shujuxiang: '',
+                    experience: '',
+                    LocalFP: '',
+                    SumFP: '',
                 },
             }),
             steps: [{
