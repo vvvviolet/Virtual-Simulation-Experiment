@@ -54,11 +54,9 @@
     <el-table-column prop="address" label="Address" /> -->
     </el-table>
 
-
-
 </template>
 
-<script>
+<script lang="ts">
 import { Document } from '@element-plus/icons-vue'
 export default {
     name: 'Exp1_IFPUG',

@@ -4,7 +4,6 @@
       
         <span>  <el-button  class="guidance" type="primary" text  @click="pdfHandle" ><el-icon size="25px"><Document /></el-icon>实验指导书下载</el-button></span> 
     </h1>
-    <hr />
     <!-- <span> {{ test }}</span> -->
     <!-- <h2>一、实验目的  </h2>
     <p class="content">理解软件项目规模度量功能点法原理，通过实验操作掌握功能点法。 学生应以小组为单位，根据本小组“软件工程管理与经济”课程设计项目架构及组件等设计成果，以功能点方法测量该项目的规模(功能点数量)。 建议选用某一种功能点方法度量课程设计项目的功能点，并采用另外一种功能点方法或其他的软件规模度量方法对前一种方法的度量结果进行验证。 本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
@@ -97,6 +96,7 @@
 
 
     <h2>二、实验参数  </h2>
+<<<<<<< HEAD:front/src/pages/exp1/Exp1_NESMA.vue
     
     <el-table :data="tableData" border style="width: 100%,text-align: center;"  :summary-method="data=>getSummaries(data,index)" show-summary >
     <el-table-column prop="component" label="组件" width="50" />
@@ -105,6 +105,12 @@
           <el-input v-model="scope.row.number" placeholder="" />
         </template>
     </el-table-column>
+=======
+
+    <el-table :data="tableData" border style="width: 100%"  :summary-method="data=>getSummaries(data,index)" show-summary ref="detailTable">
+    <el-table-column prop="component" label="组件" width="80" />
+    <el-table-column prop="number" label="数量" width="80" />
+>>>>>>> 20ac6f6fb38c33ca00c80f8281d88e088fd4e495:front/src/pages/exp1/Exp1_IFPUG/index.vue
     <el-table-column label="复杂度">
         <el-table-column label="简单">
             <el-table-column label="计数">
@@ -181,9 +187,15 @@
     </div>
 </template> 
 
+<<<<<<< HEAD:front/src/pages/exp1/Exp1_NESMA.vue
 <script >
+=======
+</template>
+
+<script lang="tsx">
+import { Document } from '@element-plus/icons-vue'
+>>>>>>> 20ac6f6fb38c33ca00c80f8281d88e088fd4e495:front/src/pages/exp1/Exp1_IFPUG/index.vue
 export default {
-    name: 'Exp1_NESMA',
     data() {
         return{     
             
@@ -282,13 +294,14 @@ export default {
             columns.forEach((column,index) => {
                 if(index===0){
                     sums[index]=(()=>{
-                        // let el=<p>未调整功能点</p>
+                        let el=<p>未调整功能点</p>
                     })();
                     return;
                 }
                 if(index===11){
                     sums[index]=(()=>{
-                        // let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
+                        // const num: JSX.Element = <p >￥{this.tableData[val].nonum.toFixed(2)}</p>;
+                        let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
                         return num;
                     })();
                     return;
@@ -300,10 +313,6 @@ export default {
         }
     }
 }
-</script>
-
-<script setup>
-    import { Document } from '@element-plus/icons-vue'
 </script>
 
 
