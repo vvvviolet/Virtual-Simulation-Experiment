@@ -17,7 +17,7 @@
         dataSourceCopy: this.dataSource,
         container: null,
         margin: { top: 20, right: 130, bottom: 30, left: 90 },
-        
+
         svg: null,
         node: null,
         link: null,
@@ -30,13 +30,17 @@
     },
     // 监听数据源变化，并重新绘制树形图
     watch: {
-      dataSource: function (val) {
-        this.dataSourceCopy = val;
-        console.log(this.dataSourceCopy);
-        // 清空之前的svg内容并重新创建svg元素
-        d3.select(this.container).select('svg').remove();
-        this.initTree();
-        this.drawTree();
+      dataSource: {
+        handler(val) {
+          this.dataSourceCopy = val;
+          console.log('horizontal tree watch dataSource change');
+          // console.log(this.dataSourceCopy);
+          // 清空之前的svg内容并重新创建svg元素
+          d3.select(this.container).select('svg').remove();
+          this.initTree();
+          this.drawTree();
+        },
+        deep: true,
       },
     },
     methods: {
@@ -87,8 +91,6 @@
         }
 
         const treeData = createTree(this.dataSourceCopy);
-
-        console.log(treeData);
 
         const width = 960 - this.margin.left - this.margin.right;
         const height = 500 - this.margin.top - this.margin.bottom;
