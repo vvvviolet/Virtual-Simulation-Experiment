@@ -61,7 +61,7 @@
 <script>
 import { Document } from '@element-plus/icons-vue'
 export default {
-    name: 'Exp1_IFPUG',
+    name: 'Exp1_MARKII',
     data() {
         return{     
             test:'21111',
@@ -202,3 +202,4 @@ export default {
     font-weight: bold;
 }
 </style>
+
