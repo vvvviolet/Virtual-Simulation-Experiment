@@ -151,9 +151,10 @@
           this.tableData[index].FP = ''
           return
         }
-        this.tableData[index].FP = parseInt(this.tableData[index].inputNum)*0.58
+        let fp = parseInt(this.tableData[index].inputNum)*0.58
           + parseInt(this.tableData[index].entityNum)*1.66
           + parseInt(this.tableData[index].outputNum)*0.26
+        this.tableData[index].FP =  fp.toFixed(2)
 
       },
       created() {
