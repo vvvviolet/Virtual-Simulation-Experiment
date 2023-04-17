@@ -13,52 +13,7 @@
     本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
   </p>
   <h2>二、实验参数 </h2>
-
-  <el-table :data="tableData" border style="width: 100%" :summary-method="data=>getSummaries(data,index)" show-summary
-            ref="detailTable">
-    <el-table-column prop="component" label="组件" width="80"/>
-    <el-table-column prop="number" label="数量" width="80"/>
-    <el-table-column label="复杂度">
-      <el-table-column label="简单">
-        <el-table-column label="计数">
-          <el-table-column prop="A" label="A"/>
-          \
-        </el-table-column>
-        <el-table-column label="权重">
-          <el-table-column prop="B" label="B"/>
-        </el-table-column>
-        <el-table-column label="功能点数">
-          <el-table-column prop="C" label="C=A*B"/>
-        </el-table-column>
-      </el-table-column>
-      <el-table-column label="平均">
-        <el-table-column label="计数">
-          <el-table-column prop="D" label="D"/>
-        </el-table-column>
-        <el-table-column label="权重">
-          <el-table-column prop="E" label="E"/>
-        </el-table-column>
-        <el-table-column label="功能点数">
-          <el-table-column prop="F" label="F=D*E"/>
-        </el-table-column>
-      </el-table-column>
-      <el-table-column label="复杂">
-        <el-table-column label="计数">
-          <el-table-column prop="G" label="G"/>
-        </el-table-column>
-        <el-table-column label="权重">
-          <el-table-column prop="H" label="H"/>
-        </el-table-column>
-        <el-table-column label="功能点数">
-          <el-table-column prop="I" label="I=G*H"/>
-        </el-table-column>
-      </el-table-column>
-    </el-table-column>
-    <el-table-column prop="nonum" label="未调整功能点数" width="80"/>
-    <!-- <el-table-column prop="name" label="Name" width="180" />
-    <el-table-column prop="address" label="Address" /> -->
-  </el-table>
-
+  <a-button @click="handleAdd">添加一行</a-button>
   <a-table
       :columns="columns"
       :data-source="tableData"
@@ -66,13 +21,40 @@
       size="middle"
   >
     <template #bodyCell="{column, text, record}">
-      <template v-if="column.dataIndex === 'component'">
+      <template v-if="['name', 'type', 'inputNum', 'outputNum', 'entityNum', 'operation'].includes(column.dataIndex)">
         <div>
           <a-input
-            v-if="column.dataIndex === 'component'"
-            style="margin: -5px 0"
-            v-model:value="record.component"
+            v-if="column.dataIndex === 'name'"
+            style="margin: -5px 0; width: 100px"
+            v-model:value="record.name"
             />
+          <a-select
+            v-if="column.dataIndex === 'type'"
+            style="margin: -5px 0; width: 100px"
+            v-model:value="record.type">
+            <a-select-option value="E">E</a-select-option>
+            <a-select-option value="Q">Q</a-select-option>
+          </a-select>
+          <a-input
+              v-if="column.dataIndex === 'inputNum'"
+              style="margin: -5px 0; width: 100px"
+              v-model:value="record.inputNum"
+          />
+          <a-input
+              v-if="column.dataIndex === 'outputNum'"
+              style="margin: -5px 0; width: 100px"
+              v-model:value="record.outputNum"
+          />
+          <a-input
+              v-if="column.dataIndex === 'entityNum'"
+              style="margin: -5px 0; width: 100px"
+              v-model:value="record.entityNum"
+          />
+          <a-button
+            v-if="column.dataIndex === 'operation'"
+            style="margin: -5px 0; width: 150px"
+            @click="computeFP"
+          >计算功能点指数</a-button>
         </div>
       </template>
 
@@ -84,157 +66,75 @@
 import {Document} from '@element-plus/icons-vue'
 
 export default {
-  name: 'Exp1_IFPUG',
+  name: 'Exp1_MarkII',
   data() {
     return {
-      test: '21111',
-      sum: '',
       columns: [
         {
-          title: '组件',
-          dataIndex: 'component',
-          scopedSlots: {customRender: 'component'}
+          title: '编号',
+          dataIndex: 'index',
+          scopedSlots: {customRender: 'index'}
         },
         {
-          title: '数量',
-          dataIndex: 'num'
+          title: '事务名称',
+          dataIndex: 'name',
+          scopedSlots: {customRender: 'name'}
         },
         {
-          title: '复杂度',
-          children: [
-            {
-              title: '简单',
-              children: [
-                {
-                  title: '计数',
-                  dataIndex: 'eCount'
-                },
-                {
-                  title: '权重',
-                  dataIndex: 'eWeight'
-                },
-                {
-                  title: '功能点数',
-                  dataIndex: 'eNum'
-                }
-              ]
-            },
-            {
-              title: '平均',
-              children: [
-                {
-                  title: '计数',
-                  dataIndex: 'mCount'
-                },
-                {
-                  title: '权重',
-                  dataIndex: 'mWeight'
-                },
-                {
-                  title: '功能点数',
-                  dataIndex: 'mNum'
-                }
-              ]
-            },
-            {
-              title: '复杂',
-              children: [
-                {
-                  title: '计数',
-                  dataIndex: 'cCount'
-                },
-                {
-                  title: '权重',
-                  dataIndex: 'cWeight'
-                },
-                {
-                  title: '功能点数',
-                  dataIndex: 'cNum'
-                }
-              ]
-            }
-          ]
+          title: '事务类型(事件E或查询Q)',
+          dataIndex: 'type',
+          scopedSlots: {customRender: 'type'}
         },
         {
-          title: '未调整功能点数',
-          dataIndex: 'noNum'
+          title: '输入DET数量',
+          dataIndex: 'inputNum',
+          scopedSlots: {customRender: 'input'}
+        },
+        {
+          title: '输出DET数量',
+          dataIndex: 'outputNum',
+          scopedSlots: {customRender: 'output'}
+        },
+        {
+          title: '引用实体数量',
+          dataIndex: 'entityNum',
+          scopedSlots: {customRender: 'entity'}
+        },
+        {
+          title: '功能点指数',
+          dataIndex: 'FP'
+        },
+        {
+          title: '操作',
+          dataIndex: 'operation'
         }
       ],
       tableData: [
         {
-          component: 'EI',
-          num: '2',
-          eCount: '',
-          eWeight: '3',
-          eNum: '',
-          mCount: '',
-          mWeight: '4',
-          mNum: '',
-          cCount: '',
-          cWeight: '6',
-          cNum: '',
-          noNum: ''
-        },
-        {
-          component: 'EO',
-          num: '2',
-          eCount: '',
-          eWeight: '3',
-          eNum: '',
-          mCount: '',
-          mWeight: '4',
-          mNum: '',
-          cCount: '',
-          cWeight: '6',
-          cNum: '',
-          noNum: '',
-        },
-        {
-          component: 'EQ',
-          num: '2',
-          eCount: '',
-          eWeight: '3',
-          eNum: '',
-          mCount: '',
-          mWeight: '4',
-          mNum: '',
-          cCount: '',
-          cWeight: '6',
-          cNum: '',
-          noNum: '',
-        },
-        {
-          component: 'ILF',
-          num: '2',
-          eCount: '',
-          eWeight: '3',
-          eNum: '',
-          mCount: '',
-          mWeight: '4',
-          mNum: '',
-          cCount: '',
-          cWeight: '6',
-          cNum: '',
-          noNum: '',
-        },
-        {
-          component: 'EIF',
-          num: '2',
-          eCount: '',
-          eWeight: '3',
-          eNum: '',
-          mCount: '',
-          mWeight: '4',
-          mNum: '',
-          cCount: '',
-          cWeight: '6',
-          cNum: '',
-          noNum: '',
+          index: 'T001',
+          name: '',
+          type: '',
+          inputNum: '',
+          outputNum: '',
+          entityNum: '',
+          FP: ''
         },
       ],
     }
   },
   methods: {
+    handleAdd() {
+      const newData = {
+        index: `T00${this.tableData.length + 1}`,
+        name: ``,
+        type: '',
+        inputNum: '',
+        outputNum: '',
+        entityNum: '',
+        FP: ''
+      };
+      this.tableData.push(newData);
+    },
     created() {
       this.gettableData()
     },

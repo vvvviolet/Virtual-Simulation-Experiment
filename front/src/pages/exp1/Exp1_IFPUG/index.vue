@@ -1,8 +1,8 @@
 <template>
 
     <h1 class="title" >实验1 基于IFPUG的小型软件项目规模度量实验
-      
-        <span>  <el-button  class="guidance" type="primary" text  @click="pdfHandle" ><el-icon size="25px"><Document /></el-icon>实验指导书下载</el-button></span> 
+
+        <span>  <el-button  class="guidance" type="primary" text  @click="pdfHandle" ><el-icon size="25px"><Document /></el-icon>实验指导书下载</el-button></span>
     </h1>
     <!-- <span> {{ test }}</span> -->
     <!-- <h2>一、实验目的  </h2>
@@ -50,7 +50,7 @@
     <p class="content">外部输入(EI)是应用程序处理来自系统边界以外的数据或控制信息的基本
     过程。EI 的作用是维护一个或多个 ILF 以及通过其处理逻辑来改变系统的行为。<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EI 数量。 </p>
- 
+
 
     <p class="secondtitle">第六步：测量外部输出(EO) </p>
     <p class="content">外部输出(EO)是应用程序向其边界之外提供数据或控制信息的基本处理。
@@ -89,15 +89,13 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：运用 IFPUG 标准规则，计算实验案例的调整后功能点。 </p>
     <br/>
 
-   
-    
-    
+
+
+
     <!-- </p> -->
 
 
     <h2>二、实验参数  </h2>
-<<<<<<< HEAD:front/src/pages/exp1/Exp1_NESMA.vue
-    
     <el-table :data="tableData" border style="width: 100%,text-align: center;"  :summary-method="data=>getSummaries(data,index)" show-summary >
     <el-table-column prop="component" label="组件" width="50" />
     <el-table-column prop="number" label="总数" >
@@ -179,13 +177,13 @@
     <!--  <p class="secondtitle">系统特征因子为 </p> -->
 
     <el-button  class="button2" type="primary"  round @click="count" >计算</el-button>
-    <p class="secondtitle">本实验未调整功能点总计为：____________ </p> 
+    <p class="secondtitle">本实验未调整功能点总计为：____________ </p>
 
 
     <div>
         <el-button  class="button3" type="primary" round  @click="pdfOutput" >生成pdf</el-button>
     </div>
-</template> 
+</template>
 
 <<<<<<< HEAD:front/src/pages/exp1/Exp1_NESMA.vue
 <script >
@@ -197,8 +195,8 @@ import { Document } from '@element-plus/icons-vue'
 >>>>>>> 20ac6f6fb38c33ca00c80f8281d88e088fd4e495:front/src/pages/exp1/Exp1_IFPUG/index.vue
 export default {
     data() {
-        return{     
-            
+        return{
+
             test:'21111',
             sum:'',
             tableData: [
@@ -285,7 +283,7 @@ export default {
         	   this.$refs['detailTable'].doLayout();
         	})
         },
-        pdfHandle(){        
+        pdfHandle(){
             window.open('/#/show',"_blank")
         },
         getSummaries(param,val){
@@ -333,7 +331,7 @@ export default {
     margin-left: 30px;
     margin-right: 30px;
     line-height: 25px;
-  
+
 }
 .guidance{
     position:absolute;
