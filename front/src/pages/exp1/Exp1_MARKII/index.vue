@@ -43,19 +43,22 @@
           <a-input
             v-if="column.dataIndex === 'inputNum'"
             style="margin: -5px 0; width: 100%;text-align: center"
-            v-model:value="record.inputNum"
+            v-model:value="record.inputNum" maxlength='3'
+            @input="record.inputNum = record.inputNum.replace(/[^\d]/g,'')"
             @keyup='computeFP(record.index)'
           />
           <a-input
             v-if="column.dataIndex === 'outputNum'"
             style="margin: -5px 0; width: 100%;text-align: center"
-            v-model:value="record.outputNum"
+            v-model:value="record.outputNum" maxlength='3'
+            @input="record.outputNum = record.outputNum.replace(/[^\d]/g,'')"
             @keyup='computeFP(record.index)'
           />
           <a-input
             v-if="column.dataIndex === 'entityNum'"
             style="margin: -5px 0; width: 100%;text-align: center"
-            v-model:value="record.entityNum"
+            v-model:value="record.entityNum" maxlength='3'
+            @input="record.entityNum = record.entityNum.replace(/[^\d]/g,'')"
             @keyup='computeFP(record.index)'
           />
         </div>
@@ -63,8 +66,13 @@
 
     </template>
   </a-table>
-  <a-button type="primary" style="margin-right: 10px; margin-bottom: 10px" @click="handleAdd">添加一行</a-button>
-  <a-button type="primary" @click="() => {this.tableData.pop()}">删除一行</a-button>
+  <a-button type="primary"
+            style="margin-right: 10px;
+            margin-bottom: 10px" @click="handleAdd"
+            :disabled='tableData.length>=20'>添加一行</a-button>
+  <a-button type="primary"
+            @click="() => {this.tableData.pop()}"
+            :disabled='tableData.length<=1'>删除一行</a-button>
   <h2>六、实验心得 </h2>
   <a-textarea v-model="experience" style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
   <a-button type="primary" @click="submit">提交</a-button>
@@ -128,7 +136,7 @@
         ],
         tableData: [
           {
-            index: 'T001',
+            index: 'T01',
             name: '',
             type: undefined,
             inputNum: '',
@@ -148,8 +156,11 @@
         }
       },
       handleAdd() {
+        let len = this.tableData.length
+        let index = 'T' + (len>8?'':'0') + (len + 1)
+        console.log(index)
         const newData = {
-          index: `T00${this.tableData.length + 1}`,
+          index: index,
           name: ``,
           type: '',
           inputNum: '',
@@ -161,7 +172,6 @@
       },
       computeFP(index){
         index = parseInt(index.substring(1)) - 1
-        console.log(index)
         if(this.tableData[index].inputNum===''){
           this.tableData[index].FP = ''
           return
