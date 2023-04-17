@@ -32,6 +32,7 @@ declare module '@vue/runtime-core' {
     ATable: typeof import('ant-design-vue/es')['Table']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
+    ATextarea: typeof import('ant-design-vue/es')['Textarea']
     ATreeSelect: typeof import('ant-design-vue/es')['TreeSelect']
     AvatarList: typeof import('./src/components/avatar/AvatarList.vue')['default']
     BarChart: typeof import('./src/components/chart/BarChart.vue')['default']

@@ -2,23 +2,26 @@
 
   <h1 class="title">实验1 基于MARKII的小型软件项目规模度量实验
 
-    <span>  <el-button class="guidance" type="primary" text @click="pdfHandle"><el-icon size="25px"><Document/></el-icon>实验指导书下载</el-button></span>
+    <span>  <a-button class="guidance" type="primary" text @click="pdfHandle"><el-icon size="25px"><Document/></el-icon>实验指导书下载</a-button></span>
   </h1>
   <hr/>
   <!-- <span> {{ test }}</span> -->
   <h2>一、实验目的 </h2>
-  <p class="content">理解软件项目规模度量功能点法原理，通过实验操作掌握功能点法。
-    学生应以小组为单位，根据本小组“软件工程管理与经济”课程设计项目架构及组件等设计成果，以功能点方法测量该项目的规模(功能点数量)。
-    建议选用某一种功能点方法度量课程设计项目的功能点，并采用另外一种功能点方法或其他的软件规模度量方法对前一种方法的度量结果进行验证。
-    本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
-  </p>
-  <h2>二、实验参数 </h2>
-  <a-button @click="handleAdd">添加一行</a-button>
+    <a-textarea v-model="purpose" style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
+  <h2>二、实验设备 </h2>
+    <a-textarea v-model="equipment" style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
+  <h2>三、实验原理 </h2>
+    <a-textarea v-model="principal" style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
+  <h2>四、实验步骤 </h2>
+    <a-textarea v-model="steps" style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
+  <h2>五、功能点指数计算 </h2>
   <a-table
     :columns="columns"
     :data-source="tableData"
+    :pagination="false"
     bordered
     size="middle"
+    style="margin-bottom: 10px"
   >
     <template #bodyCell="{column, text, record}">
       <template v-if="['name', 'type', 'inputNum', 'outputNum', 'entityNum', 'operation'].includes(column.dataIndex)">
@@ -65,6 +68,12 @@
 
     </template>
   </a-table>
+  <a-button type="primary" style="margin-right: 10px; margin-bottom: 10px" @click="handleAdd">添加一行</a-button>
+  <a-button type="primary" @click="() => {this.tableData.pop()}">删除一行</a-button>
+  <h2>六、实验心得 </h2>
+  <a-textarea v-model="experience" style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
+
+  <a-button type="primary" @click="submit">提交</a-button>
 </template>
 
 <script>
@@ -74,6 +83,11 @@
     name: 'Exp1_MarkII',
     data() {
       return {
+        principal: '',
+        equipment: '',
+        purpose: '',
+        steps: '',
+        experience: '',
         columns: [
           {
             title: '编号',
