@@ -264,34 +264,42 @@
         }
 
         const updateDPP = () => {
-        var i;
-        //净现金流量
-        const cashFlows = dataSource.value.map((item) => item.income - item.outcome);
-        //类及现金流量和
-        var leijixianjin=cashFlows;
-        for(i=1;i<leijixianjin.length;i++)
-        {
+          var i;
+          //净现金流量
+          const cashFlows = dataSource.value.map((item) => item.income - item.outcome);
+          //类及现金流量和
+          var leijixianjin=cashFlows;
+          for(i=1;i<leijixianjin.length;i++)
+          {
           leijixianjin[i]=leijixianjin[i-1]+cashFlows[i];
-        }
-        //xiancash
-        var xiancash=cashFlows;
-        for(i=1;i<xiancash.length;i++)
-        {
+          }
+          //xiancash
+          var xiancash=cashFlows;
+          for(i=1;i<xiancash.length;i++)
+          {
             xiancash[i]=xiancash[i]/Math.pow(1.1,i);
-        }
-        //xianleiji
-        var xianleiji=leijixianjin;
-        for(i=1;i<leijixianjin.length;i++)
-        {
-          leijixianjin[i]=leijixianjin[i]/Math.pow(1.1,i);
-        }
-        for(var num=1;num<xianleiji.length;num++){
-          if(xianleiji[num]>0)
-              break;
-        }
-        var dpp1=num-1+Math.abs(xianleiji[i-1]/xiancash[1]);
-        dataSource.value[dataSource.value.length-1].dpp = dpp1;
-        };
+          }
+          //xianleiji
+          var xianleiji=leijixianjin;
+          var is=0;
+          for(i=1;i<leijixianjin.length;i++)
+          {
+            leijixianjin[i]=leijixianjin[i]/Math.pow(1.1,i);
+          }
+          for(var num=1;num<xianleiji.length;num++){
+            if(xianleiji[num]>0)
+            {
+             var is=3;
+             break;
+            } 
+          }
+          if(is==3)
+          {var dpp1=num-1+Math.abs(xianleiji[i-1]/xiancash[1]);
+          dataSource.value[dataSource.value.length-1].dpp = dpp1;}
+          else{
+           dataSource.value[dataSource.value.length-1].dpp = 0;
+          }
+          };
         const dataResults=[
           {
             key:'1',
