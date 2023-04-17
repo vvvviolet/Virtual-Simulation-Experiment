@@ -107,73 +107,15 @@
 
     <h2>二、实验参数  </h2>
 
-    <!-- <el-table :data="tableData" border style="width: 100%"  :summary-method="data=>getSummaries(data,index)" show-summary ref="detailTable">
-    <el-table-column prop="component" label="组件" width="80" />
-    <el-table-column prop="number" label="数量" width="80" />
-    <el-table-column label="复杂度">
-        <el-table-column label="简单">
-            <el-table-column label="计数">
-                <el-table-column prop="A" label="A">
-                     <template v-slot="scope">
-                       <el-input v-model="scope.row.A" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-            <el-table-column label="权重">
-                <el-table-column prop="B" label="B" width="50" />
-            </el-table-column>
-            <el-table-column label="功能点数">
-                <el-table-column prop="C" label="C=A*B">
-                    <template v-slot="scope">
-                       <el-input v-model="scope.row.C" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-        </el-table-column>
-        <el-table-column label="平均">
-            <el-table-column label="计数">
-                <el-table-column prop="D" label="D" >
-                     <template v-slot="scope">
-                       <el-input v-model="scope.row.D" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-            <el-table-column label="权重">
-                <el-table-column prop="E" label="E" width="50"/>
-            </el-table-column>
-            <el-table-column label="功能点数">
-                <el-table-column prop="F" label="F=D*E">
-                     <template v-slot="scope">
-                       <el-input v-model="scope.row.F" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-        </el-table-column>
-        <el-table-column label="复杂">
-            <el-table-column label="计数">
-                <el-table-column prop="G" label="G">
-                     <template v-slot="scope">
-                       <el-input v-model="scope.row.G" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-            <el-table-column label="权重">
-                <el-table-column prop="H" label="H" width="50"/>
-            </el-table-column>
-            <el-table-column label="功能点数">
-                <el-table-column prop="I" label="I=G*H">
-                     <template v-slot="scope">
-                       <el-input v-model="scope.row.I" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-        </el-table-column>
-    </el-table-column>
-    <el-table-column prop="nonum" label="未调整功能点数" width="100" />
 
-    </el-table> -->
-
-    <div style="text-align : center;">
+    <a-table
+    :columns="columns"
+    :data-source="data"
+    bordered
+    size="middle"
+    :scroll="{ x: 'calc(700px + 50%)', y: 240 }"
+    />
+    <!-- <div style="text-align : center;">
     <a-table class="maintable" :data-source="tableData" bordered style="title-color: #1890ff" >
         <a-table-column key="component" data-index="component">
         <template #title><span style="color: #1890ff">组件</span></template>
@@ -247,7 +189,7 @@
         <template #title><span style="color: #1890ff">未调整功能点数</span></template>
       </a-table-column>
     </a-table>
-    </div>
+    </div> -->
       <span class="secondtitle">系统特征因子为 
 
        <a-button class="button4" type="primary" shape="round" :size="size"  @click="count">
@@ -278,78 +220,185 @@ export default {
         return{     
             test:'21111',
             sum:'',
-            tableData: [
+            columns: [
                 {
-                    component: 'EI',
-                    number: '2',
-                    A: '',
-                    B: '3',
-                    C: '',
-                    D: '',
-                    E: '4',
-                    F: '',
-                    G: '',
-                    H: '6',
-                    I: '',
-                    nonum:'',
+                 title: '组件',
+                 dataIndex: 'component',
+                 key: 'component',
+                 width: 60,
+                 fixed: 'left',
                 },
                 {
-                    component: 'EO',
-                    number: '2',
-                    A: '',
-                    B: '4',
-                    C: '',
-                    D: '',
-                    E: '5',
-                    F: '',
-                    G: '',
-                    H: '7',
-                    I: '',
-                    nonum:'',
+                 title: '数量',
+                 dataIndex: 'number',
+                 key: 'number',
+                 width: 60,
+                 fixed: 'left',
                 },
                 {
-                    component: 'EQ',
-                    number: '2',
-                    A: '',
-                    B: '3',
-                    C: '',
-                    D: '',
-                    E: '4',
-                    F: '',
-                    G: '',
-                    H: '6',
-                    I: '',
-                    nonum:'',
+                 title: '复杂度',
+                  children: [
+                    {
+                     title: '简单',
+                     children: [{
+                        title: '计数',
+                        children:[{
+                            title: 'A',
+                            width: 60,
+                        }],
+                     },
+                     {
+                        title: '权重',
+                        children:[{
+                            title: 'B',
+                            width: 60,
+                        }],
+                     },
+                     {
+                        title: '功能点数',
+                        children:[{
+                            title: 'C=A*B',
+                            width: 60,
+                        }],
+                     }
+                     ],              
+                    },
+                    {
+                     title: '平均',
+                     children: [{
+                        title: '计数', children:[{
+                            title: 'D',
+                            width: 60,
+                        }],
+                     },
+                     {
+                        title: '权重',
+                         children:[{
+                            title: 'E',
+                            width: 60,
+                        }],
+                     },
+                     {
+                        title: '功能点数',
+                         children:[{
+                            title: 'F=D*E',
+                            width: 60,
+                        }],
+                     }],
+                    },
+                    {
+                     title: '复杂',
+                     children: [{
+                        title: '计数',
+                         children:[{
+                            title: 'G',
+                            width: 60,
+                        }],
+                     },
+                     {
+                        title: '权重',
+                         children:[{
+                            title: 'H',
+                            width: 60,
+                        }],
+                     },
+                     {
+                        title: '功能点数',
+                         children:[{
+                            title: 'I=G*H',
+                            width: 60,
+                        }],
+                     }],
+                    },
+
+                  ]
                 },
                 {
-                    component: 'ILF',
-                    number: '2',
-                    A: '',
-                    B: '7',
-                    C: '',
-                    D: '',
-                    E: '10',
-                    F: '',
-                    G: '',
-                    H: '15',
-                    I: '',
-                    nonum:'',
+                 title: '未调整功能点数',
+                 dataIndex: 'unchanged',
+                 key: 'unchanged',
+                 width: 100,
+                 fixed: 'left',
                 },
-                {
-                    component: 'EIF',
-                    number: '2',
-                    A: '',
-                    B: '5',
-                    C: '',
-                    D: '',
-                    E: '7',
-                    F: '',
-                    G: '',
-                    H: '10',
-                    I: '',
-                    nonum:'',
-                },
-            ],
+            ]
+            //         component: 'EI',
+            //         number: '2',
+            //         children: [{
+            //            title: 'Age',
+            //            dataIndex: 'age',
+            //            key: 'age',
+            //            width: 200,
+            //            sorter: (a, b) => a.age - b.age,
+            //          }, 
+            //         ],
+            //         A: '',
+            //         B: '3',
+            //         C: '',
+            //         D: '',
+            //         E: '4',
+            //         F: '',
+            //         G: '',
+            //         H: '6',
+            //         I: '',
+            //         nonum:'',
+            //     },
+            //     {
+            //         component: 'EO',
+            //         number: '2',
+            //         A: '',
+            //         B: '4',
+            //         C: '',
+            //         D: '',
+            //         E: '5',
+            //         F: '',
+            //         G: '',
+            //         H: '7',
+            //         I: '',
+            //         nonum:'',
+            //     },
+            //     {
+            //         component: 'EQ',
+            //         number: '2',
+            //         A: '',
+            //         B: '3',
+            //         C: '',
+            //         D: '',
+            //         E: '4',
+            //         F: '',
+            //         G: '',
+            //         H: '6',
+            //         I: '',
+            //         nonum:'',
+            //     },
+            //     {
+            //         component: 'ILF',
+            //         number: '2',
+            //         A: '',
+            //         B: '7',
+            //         C: '',
+            //         D: '',
+            //         E: '10',
+            //         F: '',
+            //         G: '',
+            //         H: '15',
+            //         I: '',
+            //         nonum:'',
+            //     },
+            //     {
+            //         component: 'EIF',
+            //         number: '2',
+            //         A: '',
+            //         B: '5',
+            //         C: '',
+            //         D: '',
+            //         E: '7',
+            //         F: '',
+            //         G: '',
+            //         H: '10',
+            //         I: '',
+            //         nonum:'',
+            //     },
+            // ],
         }
     },
     methods:{
