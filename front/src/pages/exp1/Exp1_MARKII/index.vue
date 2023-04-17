@@ -21,8 +21,7 @@
     :pagination="false"
     bordered
     size="middle"
-    style="margin-bottom: 10px"
-  >
+    style="margin-bottom: 10px">
     <template #bodyCell="{column, text, record}">
       <template v-if="['name', 'type', 'inputNum', 'outputNum', 'entityNum', 'operation'].includes(column.dataIndex)">
         <div>
@@ -37,8 +36,8 @@
             style="margin: -5px 0; width: 100%"
             v-model:value="record.type"
             @change='computeFP(record.index)'>
-            <a-select-option value="E">E</a-select-option>
-            <a-select-option value="Q">Q</a-select-option>
+            <a-select-option value="EI">EI</a-select-option>
+            <a-select-option value="EQ">EQ</a-select-option>
           </a-select>
           <a-input
             v-if="column.dataIndex === 'inputNum'"
@@ -58,11 +57,7 @@
             v-model:value="record.entityNum"
             @keyup='computeFP(record.index)'
           />
-          <a-button
-            v-if="column.dataIndex === 'FP'"
-            style="margin: -5px 0; width: 100%"
-            @click="computeFP"
-          ><b>{{ record.FP }}</b></a-button>
+
         </div>
       </template>
 
@@ -72,7 +67,6 @@
   <a-button type="primary" @click="() => {this.tableData.pop()}">删除一行</a-button>
   <h2>六、实验心得 </h2>
   <a-textarea v-model="experience" style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-
   <a-button type="primary" @click="submit">提交</a-button>
 </template>
 
@@ -92,36 +86,44 @@
           {
             title: '编号',
             dataIndex: 'index',
-            scopedSlots: {customRender: 'index'}
+            scopedSlots: {customRender: 'index'},
+            width:"10%"
           },
           {
             title: '事务名称',
             dataIndex: 'name',
-            scopedSlots: {customRender: 'name'}
+            scopedSlots: {customRender: 'name'},
+            width:"16%"
           },
           {
-            title: '事务类型(事件E或查询Q)',
+            title: '事务类型',
             dataIndex: 'type',
-            scopedSlots: {customRender: 'type'}
+            scopedSlots: {customRender: 'type'},
+            width:"10%"
           },
           {
             title: '输入DET数量',
             dataIndex: 'inputNum',
-            scopedSlots: {customRender: 'input'}
+            scopedSlots: {customRender: 'input'},
+            width:"18%"
           },
           {
             title: '输出DET数量',
             dataIndex: 'outputNum',
-            scopedSlots: {customRender: 'output'}
+            scopedSlots: {customRender: 'output'},
+            width:"18%"
           },
           {
             title: '引用实体数量',
             dataIndex: 'entityNum',
-            scopedSlots: {customRender: 'entity'}
+            scopedSlots: {customRender: 'entity'},
+            width:"18%"
           },
           {
             title: '功能点指数',
-            dataIndex: 'FP'
+            dataIndex: 'FP',
+            scopedSlots: {customRender: 'FP'},
+            width:"10%"
           },
         ],
         tableData: [
@@ -222,6 +224,8 @@
   }
   /deep/ .ant-table-tbody{
     font-size: 18px;
+    text-align: center;
+    word-break: break-word;
   }
   /deep/ .ant-table-thead > tr > th{
     font-size: 18px;
