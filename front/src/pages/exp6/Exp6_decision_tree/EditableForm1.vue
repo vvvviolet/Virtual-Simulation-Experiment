@@ -25,7 +25,7 @@
           <!-- <span> -->
           <span v-if="editableData[record.key]">
             <a @click="save(record.key)" style="margin: 10px">保存</a>
-            <a-popconfirm title="确定取消保存吗？" @confirm="cancel(record.key)">
+            <a-popconfirm title="确定取消保存吗？" @confirm="cancel(record.key)" >
               <a>取消</a>
             </a-popconfirm>
           </span>
@@ -48,7 +48,6 @@
 <script>
   import { cloneDeep } from 'lodash-es';
   import { Table } from 'ant-design-vue';
-  import { reactive, ref } from 'vue';
 
   export default {
     components: {
