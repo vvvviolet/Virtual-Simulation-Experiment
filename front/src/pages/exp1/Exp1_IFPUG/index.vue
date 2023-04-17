@@ -1,8 +1,21 @@
 <template>
 
     <h1 class="title" >实验1 基于IFPUG的小型软件项目规模度量实验
+
+       <a-button class="button1" type="primary" shape="round" :size="size">
+           <template #icon>
+             <DownloadOutlined />
+           </template>实验指导书下载
+        </a-button>
+         <a-button class="button2" type="primary" shape="round" :size="size" >
+           <template #icon>
+             <DownloadOutlined />
+           </template>实验报告模板下载
+        </a-button>
+
       
-        <span>  <el-button  class="guidance" type="primary" text  @click="pdfHandle" ><el-icon size="25px"><Document /></el-icon>实验指导书下载</el-button></span> 
+        <!-- <span>  <a-button  class="guidance" type="primary" text  @click="pdfHandle" ><el-icon size="5px"><Document /></el-icon>实验指导书下载</a-button></span>  -->
+        <!-- <span>  <a-button  class="guidance" type="primary" text  @click="pdfHandle2" ><el-icon size="5px"><Document /></el-icon>实验报告模板下载</a-button></span>  -->
     </h1>
     <!-- <span> {{ test }}</span> -->
     <!-- <h2>一、实验目的  </h2>
@@ -159,65 +172,106 @@
     <el-table-column prop="nonum" label="未调整功能点数" width="100" />
 
     </el-table> -->
- <el-table :data="tableData" border style="width: 100%"  :summary-method="data=>getSummaries(data,index)" show-summary ref="detailTable">
-    <el-table-column prop="component" label="组件" width="80" />
-    <el-table-column prop="number" label="数量" width="80" />
-    <el-table-column label="复杂度">
-        <el-table-column label="简单">
-            <el-table-column label="计数">
-                <el-table-column prop="A" label="A"/>\
-            </el-table-column>
-            <el-table-column label="权重">
-                <el-table-column prop="B" label="B"/>
-            </el-table-column>
-            <el-table-column label="功能点数">
-                <el-table-column prop="C" label="C=A*B"/>
-            </el-table-column>
-        </el-table-column>
-        <el-table-column label="平均">
-            <el-table-column label="计数">
-                <el-table-column prop="D" label="D"/>
-            </el-table-column>
-            <el-table-column label="权重">
-                <el-table-column prop="E" label="E"/>
-            </el-table-column>
-            <el-table-column label="功能点数">
-                <el-table-column prop="F" label="F=D*E"/>
-            </el-table-column>
-        </el-table-column>
-        <el-table-column label="复杂">
-            <el-table-column label="计数">
-                <el-table-column prop="G" label="G"/>
-            </el-table-column>
-            <el-table-column label="权重">
-                <el-table-column prop="H" label="H"/>
-            </el-table-column>
-            <el-table-column label="功能点数">
-                <el-table-column prop="I" label="I=G*H"/>
-            </el-table-column>
-        </el-table-column>
-    </el-table-column>
-    <el-table-column prop="nonum" label="未调整功能点数" width="80" />
-    <!-- <el-table-column prop="name" label="Name" width="180" />
-    <el-table-column prop="address" label="Address" /> -->
-    </el-table>
+
+    <div style="text-align : center;">
+    <a-table class="maintable" :data-source="tableData" bordered style="title-color: #1890ff" >
+        <a-table-column key="component" data-index="component">
+        <template #title><span style="color: #1890ff">组件</span></template>
+      </a-table-column>
+      <a-table-column key="number" data-index="number">
+        <template #title><span style="color: #1890ff">数量</span></template>
+      </a-table-column>
+        <a-table-column-group>
+          <template #title><span style="color: #1890ff">复杂度</span></template>
+         
+            <a-table-column-group>
+                <template #title><span style="color: #1890ff">简单</span></template>
+                        
+                        <a-table-column-group>              
+                        <template #title><span style="color: #1890ff">计数</span></template>
+                        <a-table-column key="A" title="A" data-index="A" />
+                        </a-table-column-group>    
+                                                              
+                        <a-table-column-group>  
+                        <template #title><span style="color: #1890ff">权重</span></template>
+                        <a-table-column key="B" title="B" data-index="B" />
+                        </a-table-column-group>
+                     
+                        <a-table-column-group>  
+                        <template #title><span style="color: #1890ff">功能点数</span></template>
+                        <a-table-column key="C" title="C=A*B" data-index="C" />
+                        </a-table-column-group>
+    
+            </a-table-column-group>
+            <a-table-column-group>
+                <template #title><span style="color: #1890ff">平均</span></template>
+                  
+                        <a-table-column-group>              
+                        <template #title><span style="color: #1890ff">计数</span></template>
+                        <a-table-column key="A" title="A" data-index="A" />
+                        </a-table-column-group>    
+                                                         
+                        <a-table-column-group>  
+                        <template #title><span style="color: #1890ff">权重</span></template>
+                        <a-table-column key="B" title="B" data-index="B" />
+                        </a-table-column-group>
+                     
+                        <a-table-column-group>  
+                        <template #title><span style="color: #1890ff">功能点数</span></template>
+                        <a-table-column key="C" title="C=A*B" data-index="C" />
+                        </a-table-column-group>
+                       
+            </a-table-column-group>
+            <a-table-column-group>
+                <template #title><span style="color: #1890ff">复杂</span></template>
+    
+                <a-table-column-group>              
+                <template #title><span style="color: #1890ff">计数</span></template>
+                <a-table-column key="A" title="A" data-index="A" />
+                </a-table-column-group>                           
+                                
+                <a-table-column-group>  
+                <template #title><span style="color: #1890ff">权重</span></template>
+                <a-table-column key="B" title="B" data-index="B" />
+                </a-table-column-group>
+                                <a-table-column-group>  
+                <template #title><span style="color: #1890ff">功能点数</span></template>
+                <a-table-column key="C" title="C=A*B" data-index="C" />
+                </a-table-column-group>
+                    
+            </a-table-column-group>
+    
+    
+        </a-table-column-group>
+        <a-table-column key="unconverted" data-index="unconverted">
+        <template #title><span style="color: #1890ff">未调整功能点数</span></template>
+      </a-table-column>
+    </a-table>
+    </div>
+      <span class="secondtitle">系统特征因子为 
+
+       <a-button class="button4" type="primary" shape="round" :size="size"  @click="count">
+              计算
+         </a-button>
+         </span>
+      <span class="secondtitle">本实验未调整功能点总计为：____________ </span> 
 
 
 
+    <a-button class="button3" type="primary" shape="round" :size="size">
+           <template #icon>
+             <DownloadOutlined />
+           </template>实验报告提交
+    </a-button>
+    
 
-    <!--  <p class="secondtitle">系统特征因子为 </p> -->
-
-    <!-- <el-button  class="button2" type="primary"  round @click="count" >计算</el-button>
-    <p class="secondtitle">本实验未调整功能点总计为：____________ </p> 
+</template>
 
 
-    <div>
-        <el-button  class="button3" type="primary" round  @click="pdfOutput" >生成pdf</el-button>
-    </div> -->
-</template> 
 
 <script>
 import { Document } from '@element-plus/icons-vue'
+import { defineComponent } from 'vue'
 export default {
     name: 'Exp1_MARKII',
     data() {
@@ -311,6 +365,9 @@ export default {
         pdfHandle(){        
             window.open('/#/show',"_blank")
         },
+         pdfHandle2(){        
+            window.open('/#/show',"_blank")
+        },
         getSummaries(param,val){
             const {columns, data}=param;
             const sums=[];
@@ -349,6 +406,29 @@ export default {
     margin-left: 30px;
     margin-right: 30px;
 }
+.maintable{
+    text-align: center;
+    font-family: sans-serif;
+    font-size:30px;
+}
+.button1{
+    margin-left: 25px;
+}
+.button2{
+    margin-left: 15px;
+}
+.button3{
+   
+    float:right;
+    margin-top:10px;
+    margin-right:50px;
+
+}
+.button4{
+   
+    margin-left:250px;
+
+}
 .content{
     text-indent: 2em;
     margin-left: 20px;
@@ -359,4 +439,4 @@ export default {
     right:50px;
     font-weight: bold;
 }
-</style>
+</style> 
