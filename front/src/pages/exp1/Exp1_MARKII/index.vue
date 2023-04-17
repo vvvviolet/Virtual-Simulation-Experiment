@@ -1,10 +1,13 @@
 <template>
   <a-card>
-    <h1 class="title">实验1 基于MARKII的小型软件项目规模度量实验
-
-      <span>  <a-button class="guidance" type="primary" text @click="pdfHandle"><el-icon size="25px"><Document/></el-icon>实验指导书下载</a-button></span>
+    <h1 class="title">实验1 基于MARK II的小型软件项目规模度量实验
+      <span>
+        <a-button class="guidance" type="primary" text @click="pdfHandle">
+          <el-icon size="25px">
+          </el-icon>实验指导书下载
+        </a-button>
+      </span>
     </h1>
-    <!-- <span> {{ test }}</span> -->
     <h2>一、实验目的 </h2>
     <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
                 style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
@@ -19,7 +22,6 @@
                 style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
     <h2>五、功能点指数计算 </h2>
     <a-table
-      :customHeaderRow="customHeaderRow"
       :columns="columns"
       :data-source="tableData"
       :pagination="false"
@@ -48,26 +50,25 @@
               v-if="column.dataIndex === 'inputNum'"
               style="margin: -5px 0; width: 100%;text-align: center"
               v-model:value="record.inputNum" :maxlength='3'
-              @input="record.inputNum = record.inputNum.replace(/[^\d]/g,'')"
+              @input="record.inputNum = record.inputNum.replace(/\D/g,'')"
               @keyup='computeFP(record.index)'
             />
             <a-input
               v-if="column.dataIndex === 'outputNum'"
               style="margin: -5px 0; width: 100%;text-align: center"
               v-model:value="record.outputNum" :maxlength='3'
-              @input="record.outputNum = record.outputNum.replace(/[^\d]/g,'')"
+              @input="record.outputNum = record.outputNum.replace(/\D/g,'')"
               @keyup='computeFP(record.index)'
             />
             <a-input
               v-if="column.dataIndex === 'entityNum'"
               style="margin: -5px 0; width: 100%;text-align: center"
               v-model:value="record.entityNum" :maxlength='3'
-              @input="record.entityNum = record.entityNum.replace(/[^\d]/g,'')"
+              @input="record.entityNum = record.entityNum.replace(/\D/g,'')"
               @keyup='computeFP(record.index)'
             />
           </div>
         </template>
-
       </template>
     </a-table>
     <a-button type="primary"
@@ -82,11 +83,10 @@
                 style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
     <a-button type="primary" @click="submit">提交</a-button>
   </a-card>
-
 </template>
 
 <script>
-  import {Document} from '@element-plus/icons-vue'
+  // import {Document} from '@element-plus/icons-vue'
   import { message } from 'ant-design-vue';
   export default {
     name: 'Exp1_MarkII',
@@ -208,7 +208,6 @@
           message.warning('请填写实验步骤');
           return
         }
-
         if(this.experience===''){
           message.warning('请填写实验心得');
           return
@@ -224,42 +223,12 @@
           }
         }
 
-
-      },
-      created() {
-        this.gettableData()
-      },
-      updated() {
-        // 用于防止表格合计行不显示
-        this.$nextTick(() => {
-          this.$refs['detailTable'].doLayout();
-        })
+        // 将报告转为pdf
+        // 调用接口传递pdf
       },
       pdfHandle() {
         window.open('/#/show', "_blank")
       },
-      getSummaries(param, val) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = (() => {
-              // let el=<p>未调整功能点</p>
-            })();
-            return;
-          }
-          if (index === 11) {
-            sums[index] = (() => {
-              // let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
-              return num;
-            })();
-            return;
-          }
-        });
-        return sums;
-      },
-      count() {
-      }
     }
   }
 </script>
@@ -280,20 +249,6 @@
     font-family: sans-serif;
     font-size: 30px;
   }
-
-  .secondtitle {
-    text-indent: 2em;
-    font-weight: bold;
-    margin-left: 30px;
-    margin-right: 30px;
-  }
-
-  .content {
-    text-indent: 2em;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-
   .guidance {
     position: absolute;
     right: 50px;
