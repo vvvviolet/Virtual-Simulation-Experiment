@@ -139,19 +139,16 @@
       computeFP(index){
         index = parseInt(index.substring(1)) - 1
         console.log(index)
-        if(this.tableData[index].name===''){
-          return
-        }
-        if(this.tableData[index].type===''){
-          return
-        }
         if(this.tableData[index].inputNum===''){
+          this.tableData[index].FP = ''
           return
         }
         if(this.tableData[index].outputNum===''){
+          this.tableData[index].FP = ''
           return
         }
         if(this.tableData[index].entityNum===''){
+          this.tableData[index].FP = ''
           return
         }
         this.tableData[index].FP = parseInt(this.tableData[index].inputNum)*0.58
