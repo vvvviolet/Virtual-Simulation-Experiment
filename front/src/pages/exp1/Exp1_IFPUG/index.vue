@@ -96,7 +96,6 @@
 
 
     <h2>二、实验参数  </h2>
-<<<<<<< HEAD:front/src/pages/exp1/Exp1_NESMA.vue
     
     <el-table :data="tableData" border style="width: 100%,text-align: center;"  :summary-method="data=>getSummaries(data,index)" show-summary >
     <el-table-column prop="component" label="组件" width="50" />
@@ -105,12 +104,6 @@
           <el-input v-model="scope.row.number" placeholder="" />
         </template>
     </el-table-column>
-=======
-
-    <el-table :data="tableData" border style="width: 100%"  :summary-method="data=>getSummaries(data,index)" show-summary ref="detailTable">
-    <el-table-column prop="component" label="组件" width="80" />
-    <el-table-column prop="number" label="数量" width="80" />
->>>>>>> 20ac6f6fb38c33ca00c80f8281d88e088fd4e495:front/src/pages/exp1/Exp1_IFPUG/index.vue
     <el-table-column label="复杂度">
         <el-table-column label="简单">
             <el-table-column label="计数">
@@ -187,14 +180,7 @@
     </div>
 </template> 
 
-<<<<<<< HEAD:front/src/pages/exp1/Exp1_NESMA.vue
 <script >
-=======
-</template>
-
-<script lang="tsx">
-import { Document } from '@element-plus/icons-vue'
->>>>>>> 20ac6f6fb38c33ca00c80f8281d88e088fd4e495:front/src/pages/exp1/Exp1_IFPUG/index.vue
 export default {
     data() {
         return{     
