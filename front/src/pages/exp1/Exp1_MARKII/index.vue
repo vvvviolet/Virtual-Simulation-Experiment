@@ -27,37 +27,37 @@
         <div>
           <a-input
             v-if="column.dataIndex === 'name'"
-            style="margin: -5px 0; width: 100%"
+            style="margin: -5px 0; width: 100%;text-align: center"
             v-model:value="record.name"
             @keyup='computeFP(record.index)'
           />
           <a-select
             v-if="column.dataIndex === 'type'"
-            style="margin: -5px 0; width: 100%"
+            placeholder="请选择"
+            style="margin: -5px 0; width: 100%;text-align: center"
             v-model:value="record.type"
             @change='computeFP(record.index)'>
-            <a-select-option value="EI">EI</a-select-option>
-            <a-select-option value="EQ">EQ</a-select-option>
+            <a-select-option value="EI" style='text-align: center'>EI</a-select-option>
+            <a-select-option value="EQ" style='text-align: center'>EQ</a-select-option>
           </a-select>
           <a-input
             v-if="column.dataIndex === 'inputNum'"
-            style="margin: -5px 0; width: 100%"
+            style="margin: -5px 0; width: 100%;text-align: center"
             v-model:value="record.inputNum"
             @keyup='computeFP(record.index)'
           />
           <a-input
             v-if="column.dataIndex === 'outputNum'"
-            style="margin: -5px 0; width: 100%"
+            style="margin: -5px 0; width: 100%;text-align: center"
             v-model:value="record.outputNum"
             @keyup='computeFP(record.index)'
           />
           <a-input
             v-if="column.dataIndex === 'entityNum'"
-            style="margin: -5px 0; width: 100%"
+            style="margin: -5px 0; width: 100%;text-align: center"
             v-model:value="record.entityNum"
             @keyup='computeFP(record.index)'
           />
-
         </div>
       </template>
 
@@ -93,7 +93,7 @@
             title: '事务名称',
             dataIndex: 'name',
             scopedSlots: {customRender: 'name'},
-            width:"16%"
+            width:"19%"
           },
           {
             title: '事务类型',
@@ -105,32 +105,32 @@
             title: '输入DET数量',
             dataIndex: 'inputNum',
             scopedSlots: {customRender: 'input'},
-            width:"18%"
+            width:"16%"
           },
           {
             title: '输出DET数量',
             dataIndex: 'outputNum',
             scopedSlots: {customRender: 'output'},
-            width:"18%"
+            width:"16%"
           },
           {
             title: '引用实体数量',
             dataIndex: 'entityNum',
             scopedSlots: {customRender: 'entity'},
-            width:"18%"
+            width:"16%"
           },
           {
             title: '功能点指数',
             dataIndex: 'FP',
             scopedSlots: {customRender: 'FP'},
-            width:"10%"
+            width:"13%"
           },
         ],
         tableData: [
           {
             index: 'T001',
             name: '',
-            type: '',
+            type: undefined,
             inputNum: '',
             outputNum: '',
             entityNum: '',
