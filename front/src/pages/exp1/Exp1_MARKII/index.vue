@@ -4,7 +4,6 @@
 
     <span>  <a-button class="guidance" type="primary" text @click="pdfHandle"><el-icon size="25px"><Document/></el-icon>实验指导书下载</a-button></span>
   </h1>
-  <hr/>
   <!-- <span> {{ test }}</span> -->
   <h2>一、实验目的 </h2>
     <a-textarea v-model="purpose" style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
@@ -16,6 +15,7 @@
     <a-textarea v-model="steps" style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
   <h2>五、功能点指数计算 </h2>
   <a-table
+    :customHeaderRow="customHeaderRow"
     :columns="columns"
     :data-source="tableData"
     :pagination="false"
@@ -28,13 +28,13 @@
         <div>
           <a-input
             v-if="column.dataIndex === 'name'"
-            style="margin: -5px 0; width: 100px"
+            style="margin: -5px 0; width: 100%"
             v-model:value="record.name"
             @keyup='computeFP(record.index)'
           />
           <a-select
             v-if="column.dataIndex === 'type'"
-            style="margin: -5px 0; width: 100px"
+            style="margin: -5px 0; width: 100%"
             v-model:value="record.type"
             @change='computeFP(record.index)'>
             <a-select-option value="E">E</a-select-option>
@@ -42,25 +42,25 @@
           </a-select>
           <a-input
             v-if="column.dataIndex === 'inputNum'"
-            style="margin: -5px 0; width: 100px"
+            style="margin: -5px 0; width: 100%"
             v-model:value="record.inputNum"
             @keyup='computeFP(record.index)'
           />
           <a-input
             v-if="column.dataIndex === 'outputNum'"
-            style="margin: -5px 0; width: 100px"
+            style="margin: -5px 0; width: 100%"
             v-model:value="record.outputNum"
             @keyup='computeFP(record.index)'
           />
           <a-input
             v-if="column.dataIndex === 'entityNum'"
-            style="margin: -5px 0; width: 100px"
+            style="margin: -5px 0; width: 100%"
             v-model:value="record.entityNum"
             @keyup='computeFP(record.index)'
           />
           <a-button
             v-if="column.dataIndex === 'FP'"
-            style="margin: -5px 0; width: 150px"
+            style="margin: -5px 0; width: 100%"
             @click="computeFP"
           ><b>{{ record.FP }}</b></a-button>
         </div>
@@ -138,6 +138,13 @@
       }
     },
     methods: {
+      customHeaderRow() {
+        return {
+          style: {
+            'font-size': '20px'
+          }
+        }
+      },
       handleAdd() {
         const newData = {
           index: `T00${this.tableData.length + 1}`,
@@ -210,6 +217,17 @@
 </script>
 
 <style scoped>
+  .a-input {
+    width: 100%;
+  }
+  /deep/ .ant-table-tbody{
+    font-size: 18px;
+  }
+  /deep/ .ant-table-thead > tr > th{
+    font-size: 18px;
+    background-color: rgba(250, 248, 248, 0.85);
+    text-align: center
+  }
   .title {
     text-align: center;
     font-family: sans-serif;
