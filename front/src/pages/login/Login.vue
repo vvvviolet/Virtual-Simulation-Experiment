@@ -15,13 +15,13 @@
 
   function onLoginSuccess() { 
     router.push('/system/menu');
-    profile().then((response) => {
-    const { account } = response;
-    console.log('login',account)
+    // profile().then((response) => {
+    // const { account } = response;
+    // console.log('login',account)
 
-    // TODO: 更新顶部菜单栏的状态信息，这一句没用
-    user.name = account.name;
-  }) 
+    // // TODO: 更新顶部菜单栏的状态信息，这一句没用
+    // user.name = account.name; 
+  // }) 
   }
   const { navigation, useTabs, theme, contentClass } = storeToRefs(useSettingStore());
   const showSetting = ref(false);
