@@ -64,9 +64,20 @@
       :data-source="tableData"
       bordered
       size="middle"
-  />
+  >
+    <template #bodyCell="{column, text, record}">
+      <template v-if="column.dataIndex === 'component'">
+        <div>
+          <a-input
+            v-if="column.dataIndex === 'component'"
+            style="margin: -5px 0"
+            v-model:value="record.component"
+            />
+        </div>
+      </template>
 
-
+    </template>
+  </a-table>
 </template>
 
 <script>
@@ -81,7 +92,8 @@ export default {
       columns: [
         {
           title: '组件',
-          dataIndex: 'component'
+          dataIndex: 'component',
+          scopedSlots: {customRender: 'component'}
         },
         {
           title: '数量',
