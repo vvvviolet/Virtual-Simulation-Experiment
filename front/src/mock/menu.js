@@ -1,48 +1,84 @@
 import Mock from 'mockjs';
 
 const presetList = [
+  // {
+  //   id: 111,
+  //   name: 'system',
+  //   title: '系统配置',
+  //   icon: 'SettingOutlined',
+  //   badge: '',
+  //   target: '_self',
+  //   path: '/system',
+  //   component: '@/components/layout/BlankView.vue',
+  //   renderMenu: true,
+  //   parent: null,
+  //   permission: null,
+  //   cacheable: true,
+  //   children:[
+  //     {
+  //       id: 1111,
+  //       name: 'menu',
+  //       title: '菜单管理',
+  //       badge: '12',
+  //       target: '_self',
+  //       path: '/system/menu',
+  //       component: '@/pages/system',
+  //       renderMenu: true,
+  //       parent: 'system',
+  //       permission: null,
+  //       cacheable: true,
+  //     }
+  //   ]
+  // },
+  // {
+  //   id: 222,
+  //   name: 'bilibili',
+  //   title: 'B站',
+  //   icon: 'BoldOutlined',
+  //   badge: 'iframe',
+  //   target: '_self',
+  //   path: '/bilibili',
+  //   component: 'iframe',
+  //   renderMenu: true,
+  //   permission: 'edit',
+  //   cacheable: true,
+  //   link: 'https://www.bilibili.com',
+  // },
   {
-    id: 111,
-    name: 'system',
-    title: '系统配置',
-    icon: 'SettingOutlined',
-    badge: '',
+    id: 99990,
+    name: 'exp0',
+    title: '实验模板',
     target: '_self',
-    path: '/system',
-    component: '@/components/layout/BlankView.vue',
+    path: '/exp0',
+    component: '@/pages/exp0',
     renderMenu: true,
     parent: null,
     permission: null,
     cacheable: true,
-    children:[
+    children: [
       {
-        id: 1111,
-        name: 'menu',
-        title: '菜单管理',
-        badge: '12',
+        id: 99991,
+        name: 'exp0_TEST0',
+        title: '测试0',
         target: '_self',
-        path: '/system/menu',
-        component: '@/pages/system',
+        path: '/exp0/test0',
+        component: '@/pages/exp0/Exp0_TEST0',
         renderMenu: true,
-        parent: 'system',
+        permission: null,
+        cacheable: true,
+      },
+      {
+        id: 99992,
+        name: 'exp0_TEST1',
+        title: '测试1',
+        target: '_self',
+        path: '/exp0/test1',
+        component: '@/pages/exp0/Exp0_TEST1',
+        renderMenu: true,
         permission: null,
         cacheable: true,
       }
     ]
-  },
-  {
-    id: 222,
-    name: 'bilibili',
-    title: 'B站',
-    icon: 'BoldOutlined',
-    badge: 'iframe',
-    target: '_self',
-    path: '/bilibili',
-    component: 'iframe',
-    renderMenu: true,
-    permission: 'edit',
-    cacheable: true,
-    link: 'https://www.bilibili.com',
   },
   {
     id: 1,
@@ -127,6 +163,7 @@ const presetList = [
       }
     ]
   },
+  
   {
     id: 6,
     name: 'exp6',
