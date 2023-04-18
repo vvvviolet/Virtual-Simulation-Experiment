@@ -16,12 +16,12 @@
 <script lang="ts">
   export default {
     name: 'Exp1',
-    mounted() {
-      this.$router.afterEach((to) => {
-        console.log(to);
-        document.title = to.title || '实验一';
-      });
-    },
+    // mounted() {
+    //   this.$router.afterEach((to) => {
+    //     console.log(to);
+    //     document.title = to.meta.title || '实验一';
+    //   });
+    // },
   };
 </script>
 
