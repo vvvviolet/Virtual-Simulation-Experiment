@@ -11,21 +11,157 @@
 <!--  </p>-->
 <!--  <h2>二、实验参数  </h2>-->
   <div>
+    <a-space direction="vertical">
+      <div>
+        请输入预算每日成本：
+        <a-input-number v-model:value="value2">
+          <template #addonAfter>
+            <a-select v-model:value="addonAfterValue" style="width: 60px">
+              <a-select-option value="CNY">¥</a-select-option>
+              <a-select-option value="USD">$</a-select-option>
+              <a-select-option value="EUR">€</a-select-option>
+              <a-select-option value="GBP">£</a-select-option>
+            </a-select>
+          </template>
+        </a-input-number>
+      </div>
+      <div>
+      请输入估计开发时间：
+      <a-input-number id="inputNumber" v-model:value="value" :min="1" :max="10" /> 天
+      </div>
+      <div>
+        项目评估
+        <a-form
+            ref="formRef"
+            name="dynamic_form_item"
+            :model="dynamicValidateForm"
+            v-bind="formItemLayoutWithOutLabel"
+        >
+          <a-form-item
+              v-for="(domain, index) in dynamicValidateForm.domains"
+              :key="domain.key"
+              v-bind="index === 0 ? formItemLayout : {}"
+              :label="index === 0 ? 'Domains' : ''"
+              :name="['domains', index, 'value']"
+              :rules="{
+              required: true,
+              message: 'domain can not be null',
+              trigger: 'change',
+            }"
+          >
+            <a-input
+                v-model:value="domain.value"
+                placeholder="please input domain"
+                style="width: 60%; margin-right: 8px"
+            />
+            <MinusCircleOutlined
+                v-if="dynamicValidateForm.domains.length > 1"
+                class="dynamic-delete-button"
+                :disabled="dynamicValidateForm.domains.length === 1"
+                @click="removeDomain(domain)"
+            />
+          </a-form-item>
+          <a-form-item v-bind="formItemLayoutWithOutLabel">
+            <a-button type="dashed" style="width: 60%" @click="addDomain">
+              <PlusOutlined />
+              Add field
+            </a-button>
+          </a-form-item>
+          <a-form-item v-bind="formItemLayoutWithOutLabel">
+            <a-button type="primary" html-type="submit" @click="submitForm">Submit</a-button>
+            <a-button style="margin-left: 10px" @click="resetForm">Reset</a-button>
+          </a-form-item>
+        </a-form>
+      </div>
+    </a-space>
     <div ref="myChart" style="width: 600px;height:400px;"></div>
   </div>
-
-
-
 </template>
 
 
 <script>
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
+import { defineComponent, reactive, ref, watch } from 'vue';
 import { Document } from '@element-plus/icons-vue'
+import { SettingOutlined } from '@ant-design/icons-vue';
 import * as echarts from 'echarts';
-export default {
+export default defineComponent({
   name: 'Exp10',
-  data() {
+  components: { SettingOutlined,MinusCircleOutlined, PlusOutlined},
+  setup() {
+    const value = ref<Number>(3);
+
+    const formRef = ref();
+    const formItemLayout = {
+      labelCol: {
+        xs: {
+          span: 24,
+        },
+        sm: {
+          span: 4,
+        },
+      },
+      wrapperCol: {
+        xs: {
+          span: 24,
+        },
+        sm: {
+          span: 20,
+        },
+      },
+    };
+    const formItemLayoutWithOutLabel = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
+        },
+        sm: {
+          span: 20,
+          offset: 4,
+        },
+      },
+    };
+    const dynamicValidateForm = reactive({
+      domains: [],
+    });
+    const submitForm = () => {
+      formRef.value.validate().then(() => {
+        console.log('values', dynamicValidateForm.domains);
+      }).catch(error => {
+        console.log('error', error);
+      });
+    };
+    const resetForm = () => {
+      formRef.value.resetFields();
+    };
+    const removeDomain = item => {
+      let index = dynamicValidateForm.domains.indexOf(item);
+      if (index !== -1) {
+        dynamicValidateForm.domains.splice(index, 1);
+      }
+    };
+    const addDomain = () => {
+      dynamicValidateForm.domains.push({
+        value: '',
+        key: Date.now(),
+      });
+    };
+
     return{
+      value: ref(10),
+      value2: ref(100),
+      addonAfterValue: ref('CNY'),
+
+      formRef,
+      formItemLayout,
+      formItemLayoutWithOutLabel,
+      dynamicValidateForm,
+      submitForm,
+      resetForm,
+      removeDomain,
+      addDomain,
+
       options: {
         xAxis: {
           data: ['A', 'B', 'C', 'D', 'E']
@@ -51,7 +187,7 @@ export default {
 
   },
 
-}
+})
 </script>
 
 <style scoped>
@@ -76,4 +212,19 @@ export default {
   right:50px;
   font-weight: bold;
 }
+.dynamic-delete-button {
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  font-size: 24px;
+  color: #999;
+  transition: all 0.3s;
+}
+.dynamic-delete-button:hover {
+  color: #777;
+}
+.dynamic-delete-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}.
 </style>
