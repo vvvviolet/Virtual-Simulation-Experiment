@@ -1,5 +1,4 @@
-<!-- 1.软件规模估算实验（FP方法）
-包括:IFPUG方法、NESMA方法、MARK II方法、COSMIC方法 -->
+<!-- 0.实验报告模板 -->
 <template>
   <!-- <h1 class="title">
     {{ $route.meta.title }}
@@ -15,7 +14,7 @@
 
 <script lang="ts">
   export default {
-    name: 'Exp1',
+    name: 'Exp0',
     // mounted() {
     //   this.$router.afterEach((to) => {
     //     console.log(to);
