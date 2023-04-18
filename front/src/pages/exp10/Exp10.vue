@@ -33,48 +33,58 @@
         项目评估
         <a-form
             ref="formRef"
-            name="dynamic_form_item"
+            name="dynamic_form_nest_item"
             :model="dynamicValidateForm"
-            v-bind="formItemLayoutWithOutLabel"
+            @finish="onFinish"
         >
-          <a-form-item
-              v-for="(domain, index) in dynamicValidateForm.domains"
-              :key="domain.key"
-              v-bind="index === 0 ? formItemLayout : {}"
-              :label="index === 0 ? 'Domains' : ''"
-              :name="['domains', index, 'value']"
-              :rules="{
-              required: true,
-              message: 'domain can not be null',
-              trigger: 'change',
-            }"
+          <a-space
+              v-for="(timePoint, index) in dynamicValidateForm.timePoints"
+              :key="timePoint.id"
+              style="display: flex; margin-bottom: 8px"
+              align="baseline"
           >
-            <a-input
-                v-model:value="domain.value"
-                placeholder="please input domain"
-                style="width: 60%; margin-right: 8px"
-            />
-            <MinusCircleOutlined
-                v-if="dynamicValidateForm.domains.length > 1"
-                class="dynamic-delete-button"
-                :disabled="dynamicValidateForm.domains.length === 1"
-                @click="removeDomain(domain)"
-            />
-          </a-form-item>
-          <a-form-item v-bind="formItemLayoutWithOutLabel">
-            <a-button type="dashed" style="width: 60%" @click="addDomain">
+            <a-form-item
+                :name="['timePoints', index, 'currentDay']"
+                :rules="{
+                required: true,
+                message: '缺少当前天数',
+              }"
+            >
+              <a-input v-model:value="timePoint.currentDay" placeholder="当前天数" />
+            </a-form-item>
+            <a-form-item
+                :name="['timePoints', index, 'EV']"
+                :rules="{
+                required: true,
+                message: '缺少挣值',
+              }"
+            >
+              <a-input v-model:value="timePoint.EV" placeholder="挣值" />
+            </a-form-item>
+            <a-form-item
+                :name="['timePoints', index, 'AC']"
+                :rules="{
+                required: true,
+                message: '缺少实际成本',
+              }"
+            >
+              <a-input v-model:value="timePoint.AC" placeholder="实际成本" />
+            </a-form-item>
+            <MinusCircleOutlined @click="removeTimePoint(timePoint)" />
+          </a-space>
+          <a-form-item>
+            <a-button type="dashed" block @click="addTimePoint">
               <PlusOutlined />
-              Add field
+              添加时间点
             </a-button>
           </a-form-item>
-          <a-form-item v-bind="formItemLayoutWithOutLabel">
-            <a-button type="primary" html-type="submit" @click="submitForm">Submit</a-button>
-            <a-button style="margin-left: 10px" @click="resetForm">Reset</a-button>
+          <a-form-item>
+            <a-button type="primary" html-type="submit">提交</a-button>
           </a-form-item>
         </a-form>
       </div>
     </a-space>
-    <div ref="myChart" style="width: 600px;height:400px;"></div>
+    <div ref="myChart" style="width: 600px;height:400px;" id="chart"></div>
   </div>
 </template>
 
@@ -82,7 +92,6 @@
 <script>
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { defineComponent, reactive, ref, watch } from 'vue';
-import { Document } from '@element-plus/icons-vue'
 import { SettingOutlined } from '@ant-design/icons-vue';
 import * as echarts from 'echarts';
 export default defineComponent({
@@ -90,77 +99,55 @@ export default defineComponent({
   components: { SettingOutlined,MinusCircleOutlined, PlusOutlined},
   setup() {
     const value = ref<Number>(3);
-
     const formRef = ref();
-    const formItemLayout = {
-      labelCol: {
-        xs: {
-          span: 24,
-        },
-        sm: {
-          span: 4,
-        },
-      },
-      wrapperCol: {
-        xs: {
-          span: 24,
-        },
-        sm: {
-          span: 20,
-        },
-      },
-    };
-    const formItemLayoutWithOutLabel = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 20,
-          offset: 4,
-        },
-      },
-    };
     const dynamicValidateForm = reactive({
-      domains: [],
+      timePoints: [],
     });
-    const submitForm = () => {
-      formRef.value.validate().then(() => {
-        console.log('values', dynamicValidateForm.domains);
-      }).catch(error => {
-        console.log('error', error);
-      });
-    };
-    const resetForm = () => {
-      formRef.value.resetFields();
-    };
-    const removeDomain = item => {
-      let index = dynamicValidateForm.domains.indexOf(item);
+    const removeTimePoint = item => {
+      let index = dynamicValidateForm.timePoints.indexOf(item);
       if (index !== -1) {
-        dynamicValidateForm.domains.splice(index, 1);
+        dynamicValidateForm.timePoints.splice(index, 1);
       }
     };
-    const addDomain = () => {
-      dynamicValidateForm.domains.push({
-        value: '',
-        key: Date.now(),
+    const addTimePoint = () => {
+      dynamicValidateForm.timePoints.push({
+        currentDay: '',
+        EV: '',
+        AC: '',
+        id: Date.now(),
       });
     };
-
+    const onFinish = values => {
+      const myChart = echarts.init(document.getElementById("chart"));
+      var newDataArr = [1,2,3,4,5]
+      var options = {
+        xAxis: {
+          data: ['A', 'B', 'C', 'D', 'E']
+        },
+        yAxis: {},
+        series: [
+          {
+            data: newDataArr,
+            type: 'line',
+            smooth: true
+          }
+        ]
+      }
+      myChart.setOption(options);
+      console.log(options)
+      console.log('Received values of form:', values);
+      console.log('dynamicValidateForm.timePoints:', dynamicValidateForm.timePoints);
+    };
     return{
       value: ref(10),
       value2: ref(100),
       addonAfterValue: ref('CNY'),
 
       formRef,
-      formItemLayout,
-      formItemLayoutWithOutLabel,
       dynamicValidateForm,
-      submitForm,
-      resetForm,
-      removeDomain,
-      addDomain,
+      onFinish,
+      removeTimePoint,
+      addTimePoint,
 
       options: {
         xAxis: {
@@ -178,11 +165,22 @@ export default defineComponent({
     }
   },
   mounted() {
-      // 获取 DOM 节点，进行初始化
-      const myChart = echarts.init(this.$refs.myChart);
-      // 使用ECharts设置选项
-      myChart.setOption(this.options);
-    },
+    // 获取 DOM 节点，进行初始化
+    const myChart = echarts.init(this.$refs.myChart);
+    // 使用ECharts设置选项
+    myChart.setOption(this.options);
+  },
+  // watch: {
+  //   /* 如果图表数据是后台获取的，监听父组件中的数据变化，重新触发Echarts */
+  //   options: {
+  //     deep: true,
+  //     handler (val) {
+  //       console.log(val)
+  //       // this.setOptions(val)
+  //       this.myChart.setOption(val, true)
+  //     }
+  //   },
+  // },
   methods: {
 
   },
@@ -226,5 +224,5 @@ export default defineComponent({
 .dynamic-delete-button[disabled] {
   cursor: not-allowed;
   opacity: 0.5;
-}.
+}
 </style>
