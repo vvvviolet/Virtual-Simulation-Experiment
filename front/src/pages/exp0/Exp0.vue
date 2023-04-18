@@ -1,7 +1,6 @@
-<!-- 1.软件规模估算实验（FP方法）
-包括:IFPUG方法、NESMA方法、MARK II方法、COSMIC方法 -->
+<!-- 0.实验报告模板 -->
 <template>
-  <!-- <h1 class="title">
+  <h1 class="title">
     {{ $route.meta.title }}
     <a-button class="button1" type="primary" shape="round">
       <template #icon> <DownloadOutlined /> </template>实验指导书下载
@@ -9,13 +8,13 @@
     <a-button class="button2" type="primary" shape="round">
       <template #icon> <DownloadOutlined /> </template>实验报告模板下载
     </a-button>
-    </h1> -->
+    </h1>
   <RouterView />
 </template>
 
 <script lang="ts">
   export default {
-    name: 'Exp1',
+    name: 'Exp0',
     // mounted() {
     //   this.$router.afterEach((to) => {
     //     console.log(to);
