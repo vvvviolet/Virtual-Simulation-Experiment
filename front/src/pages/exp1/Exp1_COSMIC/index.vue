@@ -416,7 +416,7 @@
 
 </template>
 
-<script>
+<script lang="ts">
 import { Document } from '@element-plus/icons-vue'
 import { ref } from 'vue';
 import { message } from 'ant-design-vue';
@@ -425,7 +425,7 @@ import { message } from 'ant-design-vue';
 import { reactive } from 'vue';
 
 export default {
-    name: 'Exp1_IFPUG',
+    name: 'Exp1_COSMIC',
     data() {
         return{     
             test:'21111',
@@ -659,7 +659,7 @@ export default {
                 if(index===11){
                     sums[index]=(()=>{
                         // let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
-                        return num;
+                        // return num;
                     })();
                     return;
                 }
