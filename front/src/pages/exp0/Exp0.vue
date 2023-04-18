@@ -1,6 +1,6 @@
 <!-- 0.实验报告模板 -->
 <template>
-  <!-- <h1 class="title">
+  <h1 class="title">
     {{ $route.meta.title }}
     <a-button class="button1" type="primary" shape="round">
       <template #icon> <DownloadOutlined /> </template>实验指导书下载
@@ -8,7 +8,7 @@
     <a-button class="button2" type="primary" shape="round">
       <template #icon> <DownloadOutlined /> </template>实验报告模板下载
     </a-button>
-    </h1> -->
+    </h1>
   <RouterView />
 </template>
 

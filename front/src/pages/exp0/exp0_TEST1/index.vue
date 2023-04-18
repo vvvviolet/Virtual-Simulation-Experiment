@@ -1,6 +1,6 @@
 <template>
 
-    <h1 class="title" >实验1 基于IFPUG的小型软件项目规模度量实验
+    <h1 class="title" >实验0 TEST1
 
        <a-button class="button1" type="primary" shape="round" :size="size">
            <template #icon>
