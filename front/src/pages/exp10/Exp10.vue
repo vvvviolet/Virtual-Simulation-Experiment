@@ -14,7 +14,7 @@
     <a-space direction="vertical">
       <div>
         请输入预算每日成本：
-        <a-input-number v-model:value="value2">
+        <a-input-number v-model:value="plannedDailyCost">
           <template #addonAfter>
             <a-select v-model:value="addonAfterValue" style="width: 60px">
               <a-select-option value="CNY">¥</a-select-option>
@@ -27,7 +27,7 @@
       </div>
       <div>
       请输入估计开发时间：
-      <a-input-number id="inputNumber" v-model:value="value" :min="1" :max="10" /> 天
+      <a-input-number id="inputNumber" v-model:value="plannedDays" :min="1" :max="10" /> 天
       </div>
       <div>
         项目评估
@@ -56,10 +56,10 @@
                 :name="['timePoints', index, 'EV']"
                 :rules="{
                 required: true,
-                message: '缺少挣值',
+                message: '缺少当前完成的工作量（天）',
               }"
             >
-              <a-input v-model:value="timePoint.EV" placeholder="挣值" />
+              <a-input v-model:value="timePoint.EV" placeholder="当前完成的工作量（天）" />
             </a-form-item>
             <a-form-item
                 :name="['timePoints', index, 'AC']"
@@ -84,7 +84,7 @@
         </a-form>
       </div>
     </a-space>
-    <div ref="myChart" style="width: 600px;height:400px;" id="chart"></div>
+    <div ref="myChart" style="width: 1120px;height:630px;" id="chart"></div>
   </div>
 </template>
 
@@ -98,6 +98,9 @@ export default defineComponent({
   name: 'Exp10',
   components: { SettingOutlined,MinusCircleOutlined, PlusOutlined},
   setup() {
+    const plannedDays=ref(10);
+    const plannedDailyCost=ref(100);
+
     const value = ref<Number>(3);
     const formRef = ref();
     const dynamicValidateForm = reactive({
@@ -119,28 +122,78 @@ export default defineComponent({
     };
     const onFinish = values => {
       const myChart = echarts.init(document.getElementById("chart"));
-      var newDataArr = [1,2,3,4,5]
-      var options = {
-        xAxis: {
-          data: ['A', 'B', 'C', 'D', 'E']
+      let Min = 0
+      let Max = 50
+      let Intv = 10
+
+      //PV数据处理
+      const objPV = new Object();
+      for (let i=Min;i<=Max;i+=Intv){
+        objPV[i]=i*plannedDailyCost.value
+      }
+      const PVData = Object.entries(objPV);
+
+      //EV数据处理
+      const objEV = new Object();
+      objEV[0] = 0
+      for (let i=0;i<values.timePoints.length;i++){
+        let tmp = values.timePoints[i]
+        objEV[tmp.currentDay] = tmp.EV*plannedDailyCost.value
+      }
+      const EVData = Object.entries(objEV);
+
+      //AC数据处理
+      const objAC = new Object();
+      objAC[0] = 0
+      for (let i=0;i<values.timePoints.length;i++){
+        let tmp = values.timePoints[i]
+        objAC[tmp.currentDay] = tmp.AC
+      }
+      const ACData = Object.entries(objAC);
+      console.log(ACData)
+
+      let options = {
+        legend: {
+          data: ['PV', 'EV', 'AC']
         },
-        yAxis: {},
+        xAxis: {
+          interval:Intv, // 步长
+          min:Min, // 起始
+          max:Max // 终止
+        },
+        yAxis: {
+          interval:1000, // 步长
+          min:Min, // 起始
+          max:5000 // 终止
+        },
         series: [
           {
-            data: newDataArr,
+            name: 'PV',
+            data: PVData,
+            type: 'line',
+            smooth: true
+          },
+          {
+            name: 'EV',
+            data: EVData,
+            type: 'line',
+            smooth: true
+          },
+          {
+            name: 'AC',
+            data: ACData,
             type: 'line',
             smooth: true
           }
         ]
       }
       myChart.setOption(options);
-      console.log(options)
-      console.log('Received values of form:', values);
-      console.log('dynamicValidateForm.timePoints:', dynamicValidateForm.timePoints);
+      console.log('Received values of form:', values.timePoints[0]);
+      console.log('dynamicValidateForm.timePoints:', dynamicValidateForm.timePoints[0]);
     };
     return{
-      value: ref(10),
-      value2: ref(100),
+      plannedDays,
+      plannedDailyCost,
       addonAfterValue: ref('CNY'),
 
       formRef,
@@ -150,13 +203,18 @@ export default defineComponent({
       addTimePoint,
 
       options: {
+        legend: {
+          data: ['PV', 'EV', 'AC']
+        },
         xAxis: {
-          data: ['A', 'B', 'C', 'D', 'E']
+          interval:10, // 步长
+          min:0, // 起始
+          max:50 // 终止
         },
         yAxis: {},
         series: [
           {
-            data: [10, 22, 28, 23, 19],
+            data: [[1,1],[2,1],[3,4],[4,7],[5,2],[6,2],[7,4],[8,3],[10,1],[11,1],[12,1],[13,1],[14,4],[15,3],[16,1],[18,1],[20,2],[22,2],[23,1],[25,1],[26,1],[27,4],[29,2],[30,1],[31,1],[32,2],[34,2],[35,3],[36,5],[37,3],[38,2],[42,2],[43,1],[46,1],[47,1],[48,3],[51,1],[53,1],[56,1],[62,2],[63,2],[65,3],[66,1],[67,1],[68,2],[69,1],[70,1],[71,1],[75,1],[77,1],[83,1],[85,2],[86,1],[88,1],[91,1],[96,1],[104,1],[106,1]],
             type: 'line',
             smooth: true
           }
@@ -168,7 +226,7 @@ export default defineComponent({
     // 获取 DOM 节点，进行初始化
     const myChart = echarts.init(this.$refs.myChart);
     // 使用ECharts设置选项
-    myChart.setOption(this.options);
+    // myChart.setOption(this.options);
   },
   // watch: {
   //   /* 如果图表数据是后台获取的，监听父组件中的数据变化，重新触发Echarts */
