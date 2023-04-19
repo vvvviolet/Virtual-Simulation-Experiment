@@ -1,10 +1,6 @@
 <template>
 
-    <h1 class="title" >实验1 基于COSMIC的小型软件项目规模度量实验
-      
-        <span>  <el-button  class="guidance" type="primary" text  @click="pdfHandle" ><el-icon size="25px"><Document /></el-icon>实验指导书下载</el-button></span> 
-    </h1>
-    <hr />
+    
     <!-- <span> {{ test }}</span> -->
     <h2>一、实验目的  </h2>
     <p class="content">理解软件项目规模度量功能点法原理，通过实验操作掌握功能点法。 学生应以小组为单位，根据本小组“软件工程管理与经济”课程设计项目架构及组件等设计成果，以功能点方法测量该项目的规模(功能点数量)。 建议选用某一种功能点方法度量课程设计项目的功能点，并采用另外一种功能点方法或其他的软件规模度量方法对前一种方法的度量结果进行验证。 本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
@@ -54,14 +50,12 @@
     <el-table-column prop="address" label="Address" /> -->
     </el-table>
 
-
-
 </template>
 
-<script>
+<script lang="ts">
 import { Document } from '@element-plus/icons-vue'
 export default {
-    name: 'Exp1_IFPUG',
+    name: 'Exp1_COSMIC',
     data() {
         return{     
             test:'21111',
@@ -166,7 +160,7 @@ export default {
                 if(index===11){
                     sums[index]=(()=>{
                         // let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
-                        return num;
+                        // return num;
                     })();
                     return;
                 }
