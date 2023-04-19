@@ -1,52 +1,89 @@
 import Mock from 'mockjs';
 
 const presetList = [
+  // {
+  //   id: 111,
+  //   name: 'system',
+  //   title: '系统配置',
+  //   icon: 'SettingOutlined',
+  //   badge: '',
+  //   target: '_self',
+  //   path: '/system',
+  //   component: '@/components/layout/BlankView.vue',
+  //   renderMenu: true,
+  //   parent: null,
+  //   permission: null,
+  //   cacheable: true,
+  //   children:[
+  //     {
+  //       id: 1111,
+  //       name: 'menu',
+  //       title: '菜单管理',
+  //       badge: '12',
+  //       target: '_self',
+  //       path: '/system/menu',
+  //       component: '@/pages/system',
+  //       renderMenu: true,
+  //       parent: 'system',
+  //       permission: null,
+  //       cacheable: true,
+  //     }
+  //   ]
+  // },
+  // {
+  //   id: 222,
+  //   name: 'bilibili',
+  //   title: 'B站',
+  //   icon: 'BoldOutlined',
+  //   badge: 'iframe',
+  //   target: '_self',
+  //   path: '/bilibili',
+  //   component: 'iframe',
+  //   renderMenu: true,
+  //   permission: 'edit',
+  //   cacheable: true,
+  //   link: 'https://www.bilibili.com',
+  // },
   {
-    id: 111,
-    name: 'system',
-    title: '系统配置',
-    icon: 'SettingOutlined',
-    badge: '',
+    id: 99990,
+    name: 'exp0',
+    title: '实验模板',
     target: '_self',
-    path: '/system',
-    component: '@/components/layout/BlankView.vue',
+    path: '/exp0',
+    component: '@/pages/exp0', 
     renderMenu: true,
     parent: null,
     permission: null,
     cacheable: true,
-    children:[
+    children: [
       {
-        id: 1111,
-        name: 'menu',
-        title: '菜单管理',
-        badge: '12',
+        id: 99991,
+        name: 'exp0_TEST0',
+        title: '测试实验0-子标题',
         target: '_self',
-        path: '/system/menu',
-        component: '@/pages/system',
+        path: '/exp0/test0',
+        component: '@/pages/exp0/Exp0_TEST0/index.vue',
         renderMenu: true,
-        parent: 'system',
+        permission: null,
+        cacheable: true,
+      },
+      {
+        id: 99992,
+        name: 'exp0_TEST1',
+        title: '测试实验1-子标题',
+        target: '_self',
+        path: '/exp0/test1',
+        component: '@/pages/exp0/Exp0_TEST1/index.vue',
+        renderMenu: true,
         permission: null,
         cacheable: true,
       }
     ]
   },
   {
-    id: 222,
-    name: 'bilibili',
-    title: 'B站',
-    icon: 'BoldOutlined',
-    badge: 'iframe',
-    target: '_self',
-    path: '/bilibili',
-    component: 'iframe',
-    renderMenu: true,
-    permission: 'edit',
-    cacheable: true,
-    link: 'https://www.bilibili.com',
-  },
-  {
     id: 1,
     name: 'exp1',
+    // title: '软件规模估算实验(FP方法)',
     title: '软件规模估算实验(FP方法)',
     target: '_self',
     path: '/exp1',
@@ -92,7 +129,7 @@ const presetList = [
       {
         id: 14,
         name: 'COSMIC',
-        title: 'IFPUG方法',
+        title: 'COSMIC方法',
         target: '_self',
         path: '/exp1/cosmic',
         component: '@/pages/exp1/Exp1_COSMIC/index.vue',
@@ -127,6 +164,7 @@ const presetList = [
       }
     ]
   },
+  
   {
     id: 3,
     name: 'exp3',
@@ -158,7 +196,7 @@ const presetList = [
     title: '软件项目/产品的风险影响与评价实验',
     target: '_self',
     path: '/exp6',
-    component: '@/pages/exp6/Exp6.vue',
+    component: '@/pages/exp6',
     renderMenu: true,
     parent: null,
     permission: null,
@@ -170,7 +208,7 @@ const presetList = [
         title: '决策树实验',
         target: '_self',
         path: '/exp6/decision_tree',
-        component: '@/pages/exp6/Exp6_decision_tree',
+        component: '@/pages/exp6/Exp6_decision_tree/index.vue',
         renderMenu: true,
         permission: null,
         cacheable: true,
@@ -187,7 +225,7 @@ function getMenuList() {
   // if (!menuStr) {
     menuList = presetList;
     localStorage.setItem('stepin-menu', JSON.stringify(menuList));
-  // } else {
+  // } else {w
     // menuList = JSON.parse(menuStr);
   // }
   return menuList;
