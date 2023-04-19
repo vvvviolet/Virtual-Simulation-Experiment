@@ -1,264 +1,171 @@
 <template>
-    <p class="FirstTitle">三、计算动态评价指标</p>
-    <p class="content">现给出某软件项目的现金流表，
-        请根据现金流表计算以下三个动态评价指标：</p>
-        <a-table :dataSource="dynamic_indicators" :columns="dynamic_columns" />
-    <p class="SecondTitle">3.1 净现值(NPV)</p>
-    <p class="content">净现值是指按一定的折现率（一般采用基准收益率ic
-），将各年的净现金流量折现到同一时点（通常是期初时点）的现值之和。</p>
+    <p class="FirstTitle">二、计算静态评价指标</p>
+    <p class="content">现给出关于单方案静态评价指标实验的案例：</p>
+    <p class="content">某企业计划采用云平台方案建设业务信息系统，项目总投资20亿元，
+        其中企业投入资本金7亿元，贷款13亿元。项目设计开发期为一年，预计第二年投产后的五年内，
+        年平均可获息税前利润(EBIT)3亿元，年平均可获净利润1.5亿元。该项目的年净现金流量如下表所示。</p>
+    <a-table :dataSource="static_indicators" :columns="static_columns" bordered />
+    <p class="SecondTitle">1.1 总投资收益率(ROI)</p>
+    <p class="content">项目运营期内年平均息税前利润（EBIT）与项目总投资（TI）的比率。
+        总投资收益率高于同行业的收益率参考值，表明该项目盈利能力达到要求。</p>
+    <p class="content">评价指标：若ROI大于Rb,则项目可以考虑；
+       反之,则项目不满足要求,Rb为基准投资收益率。</p>
     <div class="pictures">
-        <img :src="formula_3_1">
+      <img :src="formula_2_1">
     </div>
-    <p class="content">其中，NPV为净现值，(CI - CO)t为第t年的净现金流量，n为方案寿命期，ic
-为设定的折现率（基准收益率）。这里基准收益率的含义是项目建设方投资开发项目时
-，所期望的最低财务盈利水平，即对项目投资收益的期望水平，也称作最低期望收益率（MARR）。</p>
-    <p class="SecondTitle">3.2 内部收益率(IRR)</p>
-    <p class="content">内部收益率是指
-      项目在整个计算期内净现值等于零时所对应的折现率。</p>
+    <p class="content"></p>
+    <p class="SecondTitle">1.2 资本金净利润率(ROE)</p>
+    <p class="content">项目运营期内年平均净利润（NP）与项目资本金（EC）的比率
+      。资本金净利润率高于同行业的净利润率参考值，表明该项目的盈利能力满足要求。</p>
+      <p class="content">评价指标：若ROE大于Rb,则项目可以考虑；
+         反之,则项目不满足要求,Rb为基准净利润率。</p>
     <div class="pictures">
-      <img :src="formula_3_2">
+      <img :src="formula_2_2">
     </div>
-    <p class="content">其中，IRR为内部收益率，(CI - CO)t
-为第t年净现金流量，n为方案寿命期。</p>
-    <p class="content">当IRR≥i0时，表明项目可行；
-      反之，则表明项目不可行。i0为基准收益率。</p>
-    <p class="SecondTitle">3.3 动态投资回收期(DPP)</p>
-    <p class="content">动态投资回收期是指按照
-      设定的基准收益率ic收回全部投资所需的时间。</p>
+    <p class="SecondTitle">1.3 投资回收期(Pt)</p>
+    <p class="content">以项目净收益回收项目投资所需的时间，以年为单位。
+      投资回收期一般从项目建设或开发的起始年起算，若从项目投产年起算，应予以注明。</p>
     <div class="pictures">
-      <img :src="formula_3_3">
+      <img :src="formula_2_3">
     </div>
-    <p class="content">其中，DPP为动态投资回收期、(CI - CO)t
-为第t年的净现金流量，ic为设定的基准收益率。</p>
-    <p class="content">评价指标：若DPP小于等于DPPb，则可以接受；
-      反之，则项目不可接受。基准动态投资回收期为DPPb</p>
-    <p class="SecondTitle">3.4 填写动态指标计算表</p>
-    <a-table :dataSource="dataSource" :columns="columns" bordered/>
+    <p class="content">其中，CI为现金流入量，CO为现金流出量，Pt
+为投资回收期。</p>
+    <p class="content">静态投资回收期亦可根据全部投资的财务现金流
+      量表中累计净现金流量计算求得，其详细计算公式为：</p>
+    <div class="pictures">
+      <img :src="formula_2_3_2">
+    </div>
+    <p class="content">评价指标：若Pt小于或等于Pc,则项目可以考虑； 
+        反之，则项目不满足要求,Pc为基准投资回收期。</p>
+    <p class="SecondTitle">2.4 填写静态指标计算表</p>
+    <a-table :dataSource="static_data" :columns="static_table" bordered>
+      <template #title>静态指标计算</template>
+    </a-table>
 </template>
 
 <script lang="ts">
-import formula_3_1 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_31.png";
-import formula_3_2 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_32.png";
-import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png";
+import formula_2_1 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_21.png";
+import formula_2_2 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_22.png";
+import formula_2_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_23.png";
+import formula_2_3_2 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_232.png";
   export default {
     setup() {
       return {
-        formula_3_1,
-        formula_3_2,
-        formula_3_3,
-        dynamic_indicators: [
+        formula_2_1,
+        formula_2_2,
+        formula_2_3,
+        formula_2_3_2,
+        static_indicators: [
           {
-            column1: '各年净现金流量（元）',
-            column2: "-1M",
-            column3: "50k",
-            column4: "50k",
-            column5: "208k",
-            column6: "373k",
-            column7: "547k",
-            column8: "729k",
+            column1: '净现金流量（亿元）',
+            column2: -20,
+            column3: -2,
+            column4: 3,
+            column5: 9,
+            column6: 12,
+            column7: 12,
+          },
+          {
+            column1: '累计净现金流量（亿元）',
+            column2: -20,
+            column3: -22,
+            column4: -19,
+            column5: -10,
+            column6: 2,
+            column7: 14,
           },
         ],
 
-        dynamic_columns: [
+        static_columns: [
           {
             title: '年',
             dataIndex: 'column1',
             key: 'column1',
           },
           {
-            title: '0',
+            title: '1',
             dataIndex: 'column2',
             key: 'column2',
           },
           {
-            title: '1',
+            title: '2',
             dataIndex: 'column3',
             key: 'column3',
           },
           {
-            title: '2',
+            title: '3',
             dataIndex: 'column4',
             key: 'column4',
           },
           {
-            title: '3',
+            title: '4',
             dataIndex: 'column5',
             key: 'column5',
           },
           {
-            title: '4',
+            title: '5',
             dataIndex: 'column6',
             key: 'column6',
           },
           {
-            title: '5',
+            title: '6',
             dataIndex: 'column7',
             key: 'column7',
           },
-          {
-            title: '6',
-            dataIndex: 'column8',
-            key: 'column8',
-          },
         ],
-        dataSource: [
+
+        static_data:[
           {
-            key: '1',
-            number: '1',
-            desc: '现金流入',
-            year_0:0,
-            year_1:550,
-            year_2:550,
-            year_3:708,
-            year_4:873,
-            year_5:1047,
-            year_6:1229,
+            column1:"ROI=(Param1)/(Param2) *100%",
+            column2:"",
+            column3:"",
+            column4:"",
+            column5:"",
           },
           {
-            key: '2',
-            number: '2',
-            desc: '现金留出',
-            year_0:1000,
-            year_1:500,
-            year_2:500,
-            year_3:500,
-            year_4:500,
-            year_5:500,
-            year_6:500,
+            column1:"ROE=(Param1)/(Param2) *100%",
+            column2:"",
+            column3:"",
+            column4:"",
+            column5:"",
           },
           {
-            key: '3',
-            number: '3',
-            desc: '净现金流量',
-            year_0:'',
-            year_1:'',
-            year_2:'',
-            year_3:'',
-            year_4:'',
-            year_5:'',
-            year_6:'',
-          },
-          {
-            key: '4',
-            number: '4',
-            desc: '累计净现金流量',
-            year_0:'',
-            year_1:'',
-            year_2:'',
-            year_3:'',
-            year_4:'',
-            year_5:'',
-            year_6:'',
-          },
-          {
-            key: '5',
-            number: '5',
-            desc: '净现金流量(现值)',
-            year_0:'',
-            year_1:'',
-            year_2:'',
-            year_3:'',
-            year_4:'',
-            year_5:'',
-            year_6:'',
-          },
-          {
-            key: '6',
-            number: '6',
-            desc: '累积净现金流量(现值)',
-            year_0:'',
-            year_1:'',
-            year_2:'',
-            year_3:'',
-            year_4:'',
-            year_5:'',
-            year_6:'',
-          },
-          {
-            key: '7',
-            number: '7',
-            desc: '内部收益率IRR',
-            year_0:'',
-          },
-           {
-            key: '8',
-            number: '8',
-            desc: '净现值NPV(10%)',
-            year_0:'',
-          },
-           {
-            key: '9',
-            number: '9',
-            desc: '动态投资回收期(年)',
-            year_0:'',
-          },
-          {
-            key: '10',
-            number: '10',
-            desc: '现值系数',
-            year_0:'1.00',
-            year_1:'0.9091',
-            year_2:'0.8264',
-            year_3:'0.7513',
-            year_4:'0.583',
-            year_5:'0.6209',
-            year_6:'0.5645',
-          },
+            column1:"Pt=(Param1)-1+(Param2)/(Param3)",
+            column2:"",
+            column3:"",
+            column4:"",
+            column5:"",
+          }
         ],
-        columns: [
+        static_table:[
           {
-            title: '序号',
-            dataIndex: 'number',
-            key: 'number',
+            title:"指标及公式",
+            dataIndex: 'column1',
+            key: 'column1',
           },
           {
-            title: '时点年份',
-            dataIndex: 'desc',
-            key: 'desc',
+            title:"Param1",
+            dataIndex: 'column2',
+            key: 'column2',
           },
           {
-            title: '0',
-            dataIndex: 'year_0',
-            key: 'year_0',
+            title:"Param2",
+            dataIndex: 'column3',
+            key: 'column3',
           },
           {
-            title: '1',
-            dataIndex: 'year_1',
-            key: 'year_1',
+            title:"Param3",
+            dataIndex: 'column4',
+            key: 'column4',
           },
           {
-            title: '2',
-            dataIndex: 'year_2',
-            key: 'year_2',
+            title:"结果",
+            dataIndex: 'column5',
+            key: 'column5',
           },
-          {
-            title: '3',
-            dataIndex: 'year_3',
-            key: 'year_3',
-          },
-          {
-            title: '4',
-            dataIndex: 'year_4',
-            key: 'year_4',
-          },
-          {
-            title: '5',
-            dataIndex: 'year_5',
-            key: 'year_5',
-          },
-          {
-            title: '6',
-            dataIndex: 'year_6',
-            key: 'year_6',
-          },
-        ],
+        ]
       };
     },
-    beforeMount(){
-
-
-    }
-    
   };
 </script>
 
