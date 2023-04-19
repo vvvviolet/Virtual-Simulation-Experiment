@@ -28,8 +28,7 @@
         <a-menu-item key="2">实验内容与步骤</a-menu-item>
         <a-menu-item key="3">静态评价指标</a-menu-item>
         <a-menu-item key="4">动态评价指标</a-menu-item>
-        <a-menu-item key="5">实验结果</a-menu-item>
-        <a-menu-item key="6">实验思考</a-menu-item>
+        <a-menu-item key="5">实验心得</a-menu-item>
         </a-menu>
 
       </a-layout-header>
@@ -44,6 +43,9 @@
             <div v-else-if="selectedKeys=='3'">
                 <Head3/>
             </div>
+            <div v-else-if="selectedKeys=='4'">
+                <Head4/>
+            </div>
         </div> 
       </a-layout-content>
       <a-layout-footer>
@@ -55,6 +57,7 @@
   import Head1 from './Head1.vue';
   import Head2 from './Head2.vue';
   import Head3 from './Head3.vue';
+  import Head4 from './Head4.vue';
   import { defineComponent, ref } from 'vue';
   export default defineComponent({
     setup() {
@@ -64,7 +67,7 @@
 
         };
     },
-    components: { Head1 ,Head2, Head3}
+    components: { Head1, Head2, Head3, Head4 }
 });
   </script>
   <style>
