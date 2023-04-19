@@ -9,8 +9,8 @@
           :style="{ lineHeight: '64px' }"
         >
           <a-menu-item key="1">实验目的和原理</a-menu-item>
-          <a-menu-item key="2">实验内容与步骤</a-menu-item>
-          <a-menu-item key="3">nav 3</a-menu-item>
+          <a-menu-item key="2">实验内容与静态指标</a-menu-item>
+          <a-menu-item key="3">动态指标</a-menu-item>
         </a-menu>
 
       </a-layout-header>
@@ -23,7 +23,7 @@
                 <Head2/>
             </div>
             <div v-else-if="selectedKeys=='3'">
-                3
+                <Head3/>
             </div>
         </div>
       </a-layout-content>
@@ -34,7 +34,8 @@
   </template>
   <script lang="ts" >
   import Head1 from './Head1.vue';
-  import Head2 from './Head2.vue'
+  import Head2 from './Head2.vue';
+  import Head3 from './Head3.vue';
   import { defineComponent, ref } from 'vue';
   export default defineComponent({
     setup() {
@@ -42,7 +43,7 @@
             selectedKeys: ref<string>("1"),
         };
     },
-    components: { Head1 ,Head2}
+    components: { Head1 ,Head2, Head3}
 });
   </script>
   <style>
