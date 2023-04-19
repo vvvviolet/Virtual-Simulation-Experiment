@@ -1,14 +1,39 @@
 <!-- 0.实验报告模板 -->
 <template>
-  <h1 class="title">
+    <a-row  type="flex" justify-content="center" > 
+    <a-col :span="10"><h1>{{ $route.meta.title }}</h1></a-col>   
+    <a-col :span="10"></a-col>  
+    <a-col :span="2">
+      <a-button class="button1" type="primary" shape="round" >
+            <template #icon>
+                <DownloadOutlined />
+            </template>指导书下载
+        </a-button>
+      </a-col>
+    <a-col :span="2">
+      <a-button class="button1" type="primary" shape="round" >
+            <template #icon>
+                <DownloadOutlined />
+            </template>报告模板下载
+        </a-button>
+      </a-col>
+  </a-row>
+  <hr />
+
+  <a-row bordered>
+    内容
+  </a-row>
+
+  <!-- <h1 class="title">
     {{ $route.meta.title }}
+    <card></card>
     <a-button class="button1" type="primary" shape="round">
       <template #icon> <DownloadOutlined /> </template>实验指导书下载
     </a-button>
     <a-button class="button2" type="primary" shape="round">
       <template #icon> <DownloadOutlined /> </template>实验报告模板下载
     </a-button>
-    </h1>
+    </h1> -->
   <RouterView />
 </template>
 

@@ -1,15 +1,25 @@
 <!-- 1.软件规模估算实验（FP方法）
 包括:IFPUG方法、NESMA方法、MARK II方法、COSMIC方法 -->
 <template>
-  <!-- <h1 class="title">
-    {{ $route.meta.title }}
-    <a-button class="button1" type="primary" shape="round">
-      <template #icon> <DownloadOutlined /> </template>实验指导书下载
-    </a-button>
-    <a-button class="button2" type="primary" shape="round">
-      <template #icon> <DownloadOutlined /> </template>实验报告模板下载
-    </a-button>
-    </h1> -->
+  <a-row  type="flex" justify-content="center" > 
+    <a-col :span="10"><h1>{{ $route.meta.title }}</h1></a-col>   
+    <a-col :span="10"></a-col>  
+    <a-col :span="2">
+      <a-button class="button1" type="primary" shape="round" >
+            <template #icon>
+                <DownloadOutlined />
+            </template>指导书下载
+        </a-button>
+      </a-col>
+    <a-col :span="2">
+      <a-button class="button1" type="primary" shape="round" >
+            <template #icon>
+                <DownloadOutlined />
+            </template>报告模板下载
+        </a-button>
+      </a-col>
+  </a-row>
+  <hr />
   <RouterView />
 </template>
 
