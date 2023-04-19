@@ -83,6 +83,7 @@ const presetList = [
   {
     id: 1,
     name: 'exp1',
+    // title: '软件规模估算实验(FP方法)',
     title: '软件规模估算实验(FP方法)',
     target: '_self',
     path: '/exp1',
