@@ -1,5 +1,21 @@
 <template>
-      <h1 class="title" style="border-bottom:1px solid #CCC">实验5 单方案经济评价实验  </h1>
+        <a-layout>
+          <a-layout-header class="title">实验5 单方案经济评价实验 </a-layout-header>
+          <a-layout-header style="border-bottom:2px solid #CCC " >
+          <a-button type="primary" size='large' shape="round" :style="{ position: 'relative',float: 'right',left:'10px'}">
+            <template #icon>
+            <DownloadOutlined />
+            </template>
+              实验报告书
+          </a-button>
+         <a-button type="primary" size='large' shape="round" :style="{ position: 'relative',float: 'right'}">
+            <template #icon>
+           <DownloadOutlined />
+           </template>
+             实验模板
+          </a-button>
+          </a-layout-header>
+        </a-layout>
       <a-layout>
       <a-layout-header :style="{ position: 'relative', zIndex: 1, width: '100%'}">
         <div class="logo"/>
@@ -8,9 +24,12 @@
           mode="horizontal"
           :style="{ lineHeight: '64px' }"
         >
-          <a-menu-item key="1">实验目的和原理</a-menu-item>
-          <a-menu-item key="2">实验内容与静态指标</a-menu-item>
-          <a-menu-item key="3">动态指标</a-menu-item>
+        <a-menu-item key="1">实验目的和原理</a-menu-item>
+        <a-menu-item key="2">实验内容与步骤</a-menu-item>
+        <a-menu-item key="3">静态评价指标</a-menu-item>
+        <a-menu-item key="4">动态评价指标</a-menu-item>
+        <a-menu-item key="5">实验结果</a-menu-item>
+        <a-menu-item key="6">实验思考</a-menu-item>
         </a-menu>
 
       </a-layout-header>
@@ -28,7 +47,7 @@
         </div>
       </a-layout-content>
       <a-layout-footer>
-        ......
+        By 41_pgdg
       </a-layout-footer>
     </a-layout>
   </template>
