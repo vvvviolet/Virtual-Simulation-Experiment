@@ -13,7 +13,26 @@
 为设定的折现率（基准收益率）。这里基准收益率的含义是项目建设方投资开发项目时
 ，所期望的最低财务盈利水平，即对项目投资收益的期望水平，也称作最低期望收益率（MARR）。</p>
     <p class="SecondTitle">3.2 内部收益率(IRR)</p>
+    <p class="content">内部收益率是指
+      项目在整个计算期内净现值等于零时所对应的折现率。</p>
+    <div class="pictures">
+      <img :src="formula_3_2">
+    </div>
+    <p class="content">其中，IRR为内部收益率，(CI - CO)t
+为第t年净现金流量，n为方案寿命期。</p>
+    <p class="content">当IRR≥i0时，表明项目可行；
+      反之，则表明项目不可行。i0为基准收益率。</p>
     <p class="SecondTitle">3.3 动态投资回收期(DPP)</p>
+    <p class="content">动态投资回收期是指按照
+      设定的基准收益率ic收回全部投资所需的时间。</p>
+    <div class="pictures">
+      <img :src="formula_3_3">
+    </div>
+    <p class="content">其中，DPP为动态投资回收期、(CI - CO)t
+为第t年的净现金流量，ic为设定的基准收益率。</p>
+    <p class="content">评价指标：若DPP小于等于DPPb，则可以接受；
+      反之，则项目不可接受。基准动态投资回收期为DPPb</p>
+    <p class="SecondTitle">3.4 填写动态指标计算表</p>
     <a-table :dataSource="dataSource" :columns="columns" bordered/>
 </template>
 
