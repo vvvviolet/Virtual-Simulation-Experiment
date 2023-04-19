@@ -1,7 +1,7 @@
 <template>
       <h1 class="title" style="border-bottom:1px solid #CCC">实验5 单方案经济评价实验  </h1>
       <a-layout>
-      <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%',marginTop: '-15px' }">
+      <a-layout-header :style="{ position: 'relative', zIndex: 1, width: '100%'}">
         <div class="logo"/>
         <a-menu
           v-model:selectedKeys="selectedKeys"
@@ -15,12 +15,12 @@
 
       </a-layout-header>
       <a-layout-content :style="{ padding: '0 50px', marginTop: '64px' ,height:'100%'}">
-        <div :style="{ background: '#fff', padding: '24px', maxHeight: '1200px',minHeight:'600px'}">
+        <div :style="{ background: '#fff', padding: '24px',minHeight:'600px'}">
             <div v-if="selectedKeys=='1'">
                 <Head1/>
             </div>
             <div v-else-if="selectedKeys=='2'">
-                2
+                <Head2/>
             </div>
             <div v-else-if="selectedKeys=='3'">
                 3
@@ -34,6 +34,7 @@
   </template>
   <script lang="ts" >
   import Head1 from './Head1.vue';
+  import Head2 from './Head2.vue'
   import { defineComponent, ref } from 'vue';
   export default defineComponent({
     setup() {
@@ -41,7 +42,7 @@
             selectedKeys: ref<string>("1"),
         };
     },
-    components: { Head1 }
+    components: { Head1 ,Head2}
 });
   </script>
   <style>
