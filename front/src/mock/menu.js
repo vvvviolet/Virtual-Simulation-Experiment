@@ -50,7 +50,7 @@ const presetList = [
     title: '实验模板',
     target: '_self',
     path: '/exp0',
-    component: '@/pages/exp0',
+    component: '@/pages/exp0', 
     renderMenu: true,
     parent: null,
     permission: null,
@@ -59,7 +59,7 @@ const presetList = [
       {
         id: 99991,
         name: 'exp0_TEST0',
-        title: '测试0',
+        title: '测试实验0-子标题',
         target: '_self',
         path: '/exp0/test0',
         component: '@/pages/exp0/Exp0_TEST0/index.vue',
@@ -70,7 +70,7 @@ const presetList = [
       {
         id: 99992,
         name: 'exp0_TEST1',
-        title: '测试1',
+        title: '测试实验1-子标题',
         target: '_self',
         path: '/exp0/test1',
         component: '@/pages/exp0/Exp0_TEST1/index.vue',
@@ -83,6 +83,7 @@ const presetList = [
   {
     id: 1,
     name: 'exp1',
+    // title: '软件规模估算实验(FP方法)',
     title: '软件规模估算实验(FP方法)',
     target: '_self',
     path: '/exp1',
@@ -128,7 +129,7 @@ const presetList = [
       {
         id: 14,
         name: 'COSMIC',
-        title: 'IFPUG方法',
+        title: 'COSMIC方法',
         target: '_self',
         path: '/exp1/cosmic',
         component: '@/pages/exp1/Exp1_COSMIC/index.vue',
