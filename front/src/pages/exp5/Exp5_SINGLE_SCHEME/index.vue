@@ -44,7 +44,7 @@
             <div v-else-if="selectedKeys=='3'">
                 <Head3/>
             </div>
-        </div>
+        </div> 
       </a-layout-content>
       <a-layout-footer>
         By 41_pgdg
@@ -60,6 +60,8 @@
     setup() {
         return {
             selectedKeys: ref<string>("1"),
+            
+
         };
     },
     components: { Head1 ,Head2, Head3}

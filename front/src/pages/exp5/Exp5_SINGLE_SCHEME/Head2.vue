@@ -30,23 +30,36 @@
     <p class="SecondTitle">2.3 投资回收期(Pt)</p>
     <p class="content">以项目净收益回收项目投资所需的时间，以年为单位。
       投资回收期一般从项目建设或开发的起始年起算，若从项目投产年起算，应予以注明。</p>
-      <p class="content">评价指标：若Pt小于或等于Pc,则项目可以考虑； 
-        反之，则项目不满足要求,Pc为基准投资回收期。</p>
     <div class="pictures">
       <img :src="formula_2_3">
     </div>
+    <p class="content">其中，CI为现金流入量，CO为现金流出量，Pt
+为投资回收期。</p>
+    <p class="content">静态投资回收期亦可根据全部投资的财务现金流
+      量表中累计净现金流量计算求得，其详细计算公式为：</p>
+    <div class="pictures">
+      <img :src="formula_2_3_2">
+    </div>
+    <p class="content">评价指标：若Pt小于或等于Pc,则项目可以考虑； 
+        反之，则项目不满足要求,Pc为基准投资回收期。</p>
+    <p class="SecondTitle">2.4 填写静态指标计算表</p>
+    <a-table :dataSource="static_data" :columns="static_table" bordered>
+      <template #title>静态指标计算</template>
+    </a-table>
 </template>
 
 <script lang="ts">
 import formula_2_1 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_21.png";
 import formula_2_2 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_22.png";
 import formula_2_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_23.png";
+import formula_2_3_2 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_232.png";
   export default {
     setup() {
       return {
         formula_2_1,
         formula_2_2,
         formula_2_3,
+        formula_2_3_2,
         static_indicators: [
           {
             column1: '净现金流量（亿元）',
@@ -105,6 +118,57 @@ import formula_2_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_23.png
             key: 'column7',
           },
         ],
+
+        static_data:[
+          {
+            column1:"ROI=(Param1)/(Param2) *100%",
+            column2:"",
+            column3:"",
+            column4:"",
+            column5:"",
+          },
+          {
+            column1:"ROE=(Param1)/(Param2) *100%",
+            column2:"",
+            column3:"",
+            column4:"",
+            column5:"",
+          },
+          {
+            column1:"Pt=(Param1)-1+(Param2)/(Param3)",
+            column2:"",
+            column3:"",
+            column4:"",
+            column5:"",
+          }
+        ],
+        static_table:[
+          {
+            title:"指标及公式",
+            dataIndex: 'column1',
+            key: 'column1',
+          },
+          {
+            title:"Param1",
+            dataIndex: 'column2',
+            key: 'column2',
+          },
+          {
+            title:"Param2",
+            dataIndex: 'column3',
+            key: 'column3',
+          },
+          {
+            title:"Param3",
+            dataIndex: 'column4',
+            key: 'column4',
+          },
+          {
+            title:"结果",
+            dataIndex: 'column5',
+            key: 'column5',
+          },
+        ]
       };
     },
   };
