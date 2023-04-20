@@ -9,33 +9,44 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    ABadge: typeof import('ant-design-vue/es')['Badge']
     AButton: typeof import('ant-design-vue/es')['Button']
     ACol: typeof import('ant-design-vue/es')['Col']
-    AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADivider: typeof import('ant-design-vue/es')['Divider']
-    AEmpty: typeof import('ant-design-vue/es')['Empty']
+    ADropdown: typeof import('ant-design-vue/es')['Dropdown']
     AForm: typeof import('ant-design-vue/es')['Form']
     AFormItem: typeof import('ant-design-vue/es')['FormItem']
-    AFormItemRest: typeof import('ant-design-vue/es')['FormItemRest']
     AInput: typeof import('ant-design-vue/es')['Input']
+<<<<<<< HEAD
     AInputGroup: typeof import('ant-design-vue/es')['InputGroup']
+=======
+    ALayout: typeof import('ant-design-vue/es')['Layout']
+    ALayoutContent: typeof import('ant-design-vue/es')['LayoutContent']
+    ALayoutFooter: typeof import('ant-design-vue/es')['LayoutFooter']
+    ALayoutHeader: typeof import('ant-design-vue/es')['LayoutHeader']
+>>>>>>> bf70a43366b366252552ef715428cd3ca276786f
+    AMenu: typeof import('ant-design-vue/es')['Menu']
+    AMenuDivider: typeof import('ant-design-vue/es')['MenuDivider']
+    AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
+<<<<<<< HEAD
+=======
+    AInputNumber: typeof import('ant-design-vue/es')['InputNumber']
+>>>>>>> bf70a43366b366252552ef715428cd3ca276786f
     AModal: typeof import('ant-design-vue/es')['Modal']
-    APagination: typeof import('ant-design-vue/es')['Pagination']
     APopconfirm: typeof import('ant-design-vue/es')['Popconfirm']
     APopover: typeof import('ant-design-vue/es')['Popover']
-    ARadio: typeof import('ant-design-vue/es')['Radio']
     ARadioButton: typeof import('ant-design-vue/es')['RadioButton']
     ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
     ARow: typeof import('ant-design-vue/es')['Row']
     ASelect: typeof import('ant-design-vue/es')['Select']
     ASelectOption: typeof import('ant-design-vue/es')['SelectOption']
+<<<<<<< HEAD
+=======
     ASpin: typeof import('ant-design-vue/es')['Spin']
+    ASpace: typeof import('ant-design-vue/es')['Space']
+>>>>>>> bf70a43366b366252552ef715428cd3ca276786f
     ASwitch: typeof import('ant-design-vue/es')['Switch']
-    ATable: typeof import('ant-design-vue/es')['Table']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
-    ATreeSelect: typeof import('ant-design-vue/es')['TreeSelect']
     AvatarList: typeof import('./src/components/avatar/AvatarList.vue')['default']
     BarChart: typeof import('./src/components/chart/BarChart.vue')['default']
     BlankView: typeof import('./src/components/layout/BlankView.vue')['default']
