@@ -1,7 +1,7 @@
 <template>
     <!-- <h1 class="title">实验1 基于IFPUG的小型软件项目规模度量实验
 
-        <a-button class="button1" type="primary" shape="round" >
+        <a-button class="button1" type="primary" shape="round" @click="click_button1">
             <template #icon>
                 <DownloadOutlined />
             </template>实验指导书下载
@@ -135,81 +135,18 @@
         </template> 
     </a-table>
     
-    <!-- <div style="text-align : center;">
-    <a-table class="maintable" :data-source="tableData" bordered style="title-color: #1890ff" >
-        <a-table-column key="component" data-index="component">
-        <template #title><span style="color: #1890ff">组件</span></template>
-      </a-table-column>
-      <a-table-column key="number" data-index="number">
-        <template #title><span style="color: #1890ff">数量</span></template>
-      </a-table-column>
-        <a-table-column-group>
-          <template #title><span style="color: #1890ff">复杂度</span></template>
-         
-            <a-table-column-group>
-                <template #title><span style="color: #1890ff">简单</span></template>
-                        
-                        <a-table-column-group>              
-                        <template #title><span style="color: #1890ff">计数</span></template>
-                        <a-table-column key="A" title="A" data-index="A" />
-                        </a-table-column-group>    
-                                                              
-                        <a-table-column-group>  
-                        <template #title><span style="color: #1890ff">权重</span></template>
-                        <a-table-column key="B" title="B" data-index="B" />
-                        </a-table-column-group>
-                     
-                        <a-table-column-group>  
-                        <template #title><span style="color: #1890ff">功能点数</span></template>
-                        <a-table-column key="C" title="C=A*B" data-index="C" />
-                        </a-table-column-group>
+
+
+ 
+     <a-table
+       :columns="columnsadjust"
+       :data-source="dataadjust"
+       bordered
+       size="middle"
+       
+     />
     
-            </a-table-column-group>
-            <a-table-column-group>
-                <template #title><span style="color: #1890ff">平均</span></template>
-                  
-                        <a-table-column-group>              
-                        <template #title><span style="color: #1890ff">计数</span></template>
-                        <a-table-column key="A" title="A" data-index="A" />
-                        </a-table-column-group>    
-                                                         
-                        <a-table-column-group>  
-                        <template #title><span style="color: #1890ff">权重</span></template>
-                        <a-table-column key="B" title="B" data-index="B" />
-                        </a-table-column-group>
-                     
-                        <a-table-column-group>  
-                        <template #title><span style="color: #1890ff">功能点数</span></template>
-                        <a-table-column key="C" title="C=A*B" data-index="C" />
-                        </a-table-column-group>
-                       
-            </a-table-column-group>
-            <a-table-column-group>
-                <template #title><span style="color: #1890ff">复杂</span></template>
-    
-                <a-table-column-group>              
-                <template #title><span style="color: #1890ff">计数</span></template>
-                <a-table-column key="A" title="A" data-index="A" />
-                </a-table-column-group>                           
-                                
-                <a-table-column-group>  
-                <template #title><span style="color: #1890ff">权重</span></template>
-                <a-table-column key="B" title="B" data-index="B" />
-                </a-table-column-group>
-                                <a-table-column-group>  
-                <template #title><span style="color: #1890ff">功能点数</span></template>
-                <a-table-column key="C" title="C=A*B" data-index="C" />
-                </a-table-column-group>
-                    
-            </a-table-column-group>
-    
-    
-        </a-table-column-group>
-        <a-table-column key="unconverted" data-index="unconverted">
-        <template #title><span style="color: #1890ff">未调整功能点数</span></template>
-      </a-table-column>
-    </a-table>
-    </div> -->
+
     <span class="secondtitle">系统特征因子为
 
         <a-button class="button4" type="primary" shape="round"  @click="count">
@@ -237,10 +174,12 @@ export default {
     setup()
     {
         return {
-            value
+            value,
+            data,
+      columns,
         }
     },
-    name: 'Exp1_MARKII',
+    name: 'Exp1_IFPUG',
     data() {
         return {
             test: '21111',
@@ -378,6 +317,32 @@ export default {
                     // fixed: 'right',
                 },
             ],
+            columnsadjust:[
+                {
+                    title: '序号',
+                    dataIndex: 'index',
+                    key: 'component',
+                    align: 'center',
+                    width: 100
+                    // fixed: 'left',
+                },
+                 {
+                    title: '因子',
+                    dataIndex: 'title',
+                    key: 'component',
+                    align: 'center',
+                    width: 900,
+                    // fixed: 'left',
+                },
+                 {
+                    title: '等级',
+                    dataIndex: 'grade',
+                    key: 'component',
+                    align: 'center'
+                    // width: 30,
+                    // fixed: 'left',
+                },
+            ],
             tableData: [
                 {
                     component: 'EI',
@@ -448,6 +413,92 @@ export default {
                     H: '10',
                     I: '',
                     unchanged: '',
+                },
+            ],
+            dataadjust:[
+                {
+                   index: '1',
+                   title: 'Requirement for reliable backup and recovery ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '2',
+                   title: 'Requirement for data communication',
+                   grade: ''
+                   
+                },
+                {
+                   index: '3',
+                   title: 'Extent of distributed processing ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '4',
+                   title: 'Performance requirements ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '5',
+                   title: 'Expected operational environment ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '6',
+                   title: 'Extent of online data entries ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '7',
+                   title: 'Extent of multi-screen or multi-operation online data input ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '8',
+                   title: 'Extent of online updating of master files ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '9',
+                   title: 'Extent of complex inputs, outputs, online queries and files ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '10',
+                   title: 'Extent of complex data processing ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '11',
+                   title: 'Extent that currently developed code can be designed for reuse ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '12',
+                   title: 'Extent of conversion and installation included in the design ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '13',
+                   title: 'Extent of multiple installations in an organization and variety of customer organizations ',
+                   grade: ''
+                   
+                },
+                {
+                   index: '14',
+                   title: 'Extent of change and focus on ease of use ',
+                   grade: ''
+                   
                 },
             ]
         }
