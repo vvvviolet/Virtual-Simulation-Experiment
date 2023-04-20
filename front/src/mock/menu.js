@@ -62,7 +62,7 @@ const presetList = [
         title: 'IFPUG方法',
         target: '_self',
         path: '/exp1/ifpug',
-        component: '@/pages/exp1/Exp1_IFPUG.vue',
+        component: '@/pages/exp1/Exp1_IFPUG/index.vue',
         renderMenu: true,
         permission: null,
         cacheable: true,

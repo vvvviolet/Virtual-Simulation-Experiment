@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+"jsx": "react",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
@@ -9,7 +10,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "strict": false,
-    "jsx": "preserve",
+    // "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
