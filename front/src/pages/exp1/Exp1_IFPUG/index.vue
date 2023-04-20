@@ -1,12 +1,6 @@
 <template>
     <!-- <h1 class="title">实验1 基于IFPUG的小型软件项目规模度量实验
 
-<<<<<<< HEAD
-    <h1 class="title" >实验1 基于IFPUG的小型软件项目规模度量实验
-
-        <span>  <el-button  class="guidance" type="primary" text  @click="pdfHandle" ><el-icon size="25px"><Document /></el-icon>实验指导书下载</el-button></span>
-    </h1>
-=======
         <a-button class="button1" type="primary" shape="round" @click="click_button1">
             <template #icon>
                 <DownloadOutlined />
@@ -20,7 +14,6 @@
 
 
     </h1> -->
->>>>>>> main
     <!-- <span> {{ test }}</span> -->
     <!-- <h2>一、实验目的  </h2>
     <p class="content">理解软件项目规模度量功能点法原理，通过实验操作掌握功能点法。 学生应以小组为单位，根据本小组“软件工程管理与经济”课程设计项目架构及组件等设计成果，以功能点方法测量该项目的规模(功能点数量)。 建议选用某一种功能点方法度量课程设计项目的功能点，并采用另外一种功能点方法或其他的软件规模度量方法对前一种方法的度量结果进行验证。 本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
@@ -66,13 +59,8 @@
 
     <p class="secondtitle">第五步：测量外部输入(EI)</p>
     <p class="content">外部输入(EI)是应用程序处理来自系统边界以外的数据或控制信息的基本
-<<<<<<< HEAD
-    过程。EI 的作用是维护一个或多个 ILF 以及通过其处理逻辑来改变系统的行为。<br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EI 数量。 </p>
-=======
         过程。EI 的作用是维护一个或多个 ILF 以及通过其处理逻辑来改变系统的行为。<br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EI 数量。 </p>
->>>>>>> main
 
 
     <p class="secondtitle">第六步：测量外部输出(EO) </p>
@@ -115,104 +103,6 @@
 
 
 
-<<<<<<< HEAD
-    <!-- </p> -->
-
-
-    <h2>二、实验参数  </h2>
-    <el-table :data="tableData" border style="width: 100%,text-align: center;"  :summary-method="data=>getSummaries(data,index)" show-summary >
-    <el-table-column prop="component" label="组件" width="50" />
-    <el-table-column prop="number" label="总数" >
-        <template v-slot="scope">
-          <el-input v-model="scope.row.number" placeholder="" />
-        </template>
-    </el-table-column>
-=======
-
-    <el-table :data="tableData" border style="width: 100%"  :summary-method="data=>getSummaries(data,index)" show-summary ref="detailTable">
-    <el-table-column prop="component" label="组件" width="80" />
-    <el-table-column prop="number" label="数量" width="80" />
->>>>>>> 20ac6f6fb38c33ca00c80f8281d88e088fd4e495:front/src/pages/exp1/Exp1_IFPUG/index.vue
-    <el-table-column label="复杂度">
-        <el-table-column label="简单">
-            <el-table-column label="计数">
-                <el-table-column prop="A" label="A">
-                     <template v-slot="scope">
-                       <el-input v-model="scope.row.A" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-            <el-table-column label="权重">
-                <el-table-column prop="B" label="B" width="50" />
-            </el-table-column>
-            <el-table-column label="功能点数">
-                <el-table-column prop="C" label="C=A*B">
-                    <template v-slot="scope">
-                       <el-input v-model="scope.row.C" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-        </el-table-column>
-        <el-table-column label="平均">
-            <el-table-column label="计数">
-                <el-table-column prop="D" label="D" >
-                     <template v-slot="scope">
-                       <el-input v-model="scope.row.D" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-            <el-table-column label="权重">
-                <el-table-column prop="E" label="E" width="50"/>
-            </el-table-column>
-            <el-table-column label="功能点数">
-                <el-table-column prop="F" label="F=D*E">
-                     <template v-slot="scope">
-                       <el-input v-model="scope.row.F" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-        </el-table-column>
-        <el-table-column label="复杂">
-            <el-table-column label="计数">
-                <el-table-column prop="G" label="G">
-                     <template v-slot="scope">
-                       <el-input v-model="scope.row.G" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-            <el-table-column label="权重">
-                <el-table-column prop="H" label="H" width="50"/>
-            </el-table-column>
-            <el-table-column label="功能点数">
-                <el-table-column prop="I" label="I=G*H">
-                     <template v-slot="scope">
-                       <el-input v-model="scope.row.I" placeholder="" />
-                     </template>
-                </el-table-column>
-            </el-table-column>
-        </el-table-column>
-    </el-table-column>
-    <el-table-column prop="nonum" label="未调整功能点数" width="100" >
-         <template v-slot="scope">
-           <el-input v-model="scope.row.nonum" placeholder="" />
-         </template>
-    </el-table-column>
-    </el-table>
-    <!--  <p class="secondtitle">系统特征因子为 </p> -->
-
-    <el-button  class="button2" type="primary"  round @click="count" >计算</el-button>
-    <p class="secondtitle">本实验未调整功能点总计为：____________ </p>
-
-
-    <div>
-        <el-button  class="button3" type="primary" round  @click="pdfOutput" >生成pdf</el-button>
-    </div>
-</template>
-
-<<<<<<< HEAD:front/src/pages/exp1/Exp1_NESMA.vue
-<script >
-=======
-=======
     <h2>二、实验参数 </h2>
 
 
@@ -242,20 +132,20 @@
             <template v-if="column.dataIndex === 'unchanged'">
                 {{unchanged(index)}}
             </template>
-        </template> 
+        </template>
     </a-table>
-    
 
 
- 
-     <a-table
-       :columns="columnsadjust"
-       :data-source="dataadjust"
-       bordered
-       size="middle"
-       
-     />
-    
+
+
+    <a-table
+        :columns="columnsadjust"
+        :data-source="dataadjust"
+        bordered
+        size="middle"
+
+    />
+
 
     <span class="secondtitle">系统特征因子为
 
@@ -272,7 +162,6 @@
             <DownloadOutlined />
         </template>实验报告提交
     </a-button>
->>>>>>> main
 </template>
 
 
@@ -287,17 +176,11 @@ export default {
         return {
             value,
             data,
-      columns,
+            columns,
         }
     },
     name: 'Exp1_IFPUG',
     data() {
-<<<<<<< HEAD
-        return{
-
-            test:'21111',
-            sum:'',
-=======
         return {
             test: '21111',
             sum: '',
@@ -334,26 +217,26 @@ export default {
                                     align: 'center'
                                 }],
                             },
-                            {
-                                title: '权重',
-                                align: 'center',
-                                children: [{
-                                    title: 'B',
-                                    dataIndex: 'B',
+                                {
+                                    title: '权重',
                                     align: 'center',
-                                    // width: 30,
-                                }],
-                            },
-                            {
-                                title: '功能点数',
-                                align: 'center',
-                                children: [{
-                                    title: 'C=A*B',
+                                    children: [{
+                                        title: 'B',
+                                        dataIndex: 'B',
+                                        align: 'center',
+                                        // width: 30,
+                                    }],
+                                },
+                                {
+                                    title: '功能点数',
                                     align: 'center',
-                                    dataIndex: 'C',
-                                    // width: 30,
-                                }],
-                            }
+                                    children: [{
+                                        title: 'C=A*B',
+                                        align: 'center',
+                                        dataIndex: 'C',
+                                        // width: 30,
+                                    }],
+                                }
                             ],
                         },
                         {
@@ -367,26 +250,26 @@ export default {
                                     // width: 30,
                                 }],
                             },
-                            {
-                                title: '权重',
-                                align: 'center',
-                                children: [{
-                                    dataIndex: 'E',
+                                {
+                                    title: '权重',
                                     align: 'center',
-                                    title: 'E',
-                                    // width: 30,
-                                }],
-                            },
-                            {
-                                title: '功能点数',
-                                align: 'center',
-                                children: [{
-                                    dataIndex: 'F',
-                                    title: 'F=D*E',
+                                    children: [{
+                                        dataIndex: 'E',
+                                        align: 'center',
+                                        title: 'E',
+                                        // width: 30,
+                                    }],
+                                },
+                                {
+                                    title: '功能点数',
                                     align: 'center',
-                                    // width: 30,
+                                    children: [{
+                                        dataIndex: 'F',
+                                        title: 'F=D*E',
+                                        align: 'center',
+                                        // width: 30,
+                                    }],
                                 }],
-                            }],
                         },
                         {
                             title: '复杂',
@@ -401,26 +284,26 @@ export default {
                                     // width: 30,
                                 }],
                             },
-                            {
-                                title: '权重',
-                                align: 'center',
-                                children: [{
-                                    dataIndex: 'H',
+                                {
+                                    title: '权重',
                                     align: 'center',
-                                    title: 'H',
-                                    // width: 30,
-                                }],
-                            },
-                            {
-                                title: '功能点数',
-                                align: 'center',
-                                children: [{
-                                    dataIndex: 'I',
-                                    title: 'I=G*H',
+                                    children: [{
+                                        dataIndex: 'H',
+                                        align: 'center',
+                                        title: 'H',
+                                        // width: 30,
+                                    }],
+                                },
+                                {
+                                    title: '功能点数',
                                     align: 'center',
-                                    // width: 30,
+                                    children: [{
+                                        dataIndex: 'I',
+                                        title: 'I=G*H',
+                                        align: 'center',
+                                        // width: 30,
+                                    }],
                                 }],
-                            }],
                         },
 
                     ]
@@ -443,7 +326,7 @@ export default {
                     width: 100
                     // fixed: 'left',
                 },
-                 {
+                {
                     title: '因子',
                     dataIndex: 'title',
                     key: 'component',
@@ -451,7 +334,7 @@ export default {
                     width: 900,
                     // fixed: 'left',
                 },
-                 {
+                {
                     title: '等级',
                     dataIndex: 'grade',
                     key: 'component',
@@ -460,7 +343,6 @@ export default {
                     // fixed: 'left',
                 },
             ],
->>>>>>> main
             tableData: [
                 {
                     component: 'EI',
@@ -535,88 +417,88 @@ export default {
             ],
             dataadjust:[
                 {
-                   index: '1',
-                   title: 'Requirement for reliable backup and recovery ',
-                   grade: ''
-                   
+                    index: '1',
+                    title: 'Requirement for reliable backup and recovery ',
+                    grade: ''
+
                 },
                 {
-                   index: '2',
-                   title: 'Requirement for data communication',
-                   grade: ''
-                   
+                    index: '2',
+                    title: 'Requirement for data communication',
+                    grade: ''
+
                 },
                 {
-                   index: '3',
-                   title: 'Extent of distributed processing ',
-                   grade: ''
-                   
+                    index: '3',
+                    title: 'Extent of distributed processing ',
+                    grade: ''
+
                 },
                 {
-                   index: '4',
-                   title: 'Performance requirements ',
-                   grade: ''
-                   
+                    index: '4',
+                    title: 'Performance requirements ',
+                    grade: ''
+
                 },
                 {
-                   index: '5',
-                   title: 'Expected operational environment ',
-                   grade: ''
-                   
+                    index: '5',
+                    title: 'Expected operational environment ',
+                    grade: ''
+
                 },
                 {
-                   index: '6',
-                   title: 'Extent of online data entries ',
-                   grade: ''
-                   
+                    index: '6',
+                    title: 'Extent of online data entries ',
+                    grade: ''
+
                 },
                 {
-                   index: '7',
-                   title: 'Extent of multi-screen or multi-operation online data input ',
-                   grade: ''
-                   
+                    index: '7',
+                    title: 'Extent of multi-screen or multi-operation online data input ',
+                    grade: ''
+
                 },
                 {
-                   index: '8',
-                   title: 'Extent of online updating of master files ',
-                   grade: ''
-                   
+                    index: '8',
+                    title: 'Extent of online updating of master files ',
+                    grade: ''
+
                 },
                 {
-                   index: '9',
-                   title: 'Extent of complex inputs, outputs, online queries and files ',
-                   grade: ''
-                   
+                    index: '9',
+                    title: 'Extent of complex inputs, outputs, online queries and files ',
+                    grade: ''
+
                 },
                 {
-                   index: '10',
-                   title: 'Extent of complex data processing ',
-                   grade: ''
-                   
+                    index: '10',
+                    title: 'Extent of complex data processing ',
+                    grade: ''
+
                 },
                 {
-                   index: '11',
-                   title: 'Extent that currently developed code can be designed for reuse ',
-                   grade: ''
-                   
+                    index: '11',
+                    title: 'Extent that currently developed code can be designed for reuse ',
+                    grade: ''
+
                 },
                 {
-                   index: '12',
-                   title: 'Extent of conversion and installation included in the design ',
-                   grade: ''
-                   
+                    index: '12',
+                    title: 'Extent of conversion and installation included in the design ',
+                    grade: ''
+
                 },
                 {
-                   index: '13',
-                   title: 'Extent of multiple installations in an organization and variety of customer organizations ',
-                   grade: ''
-                   
+                    index: '13',
+                    title: 'Extent of multiple installations in an organization and variety of customer organizations ',
+                    grade: ''
+
                 },
                 {
-                   index: '14',
-                   title: 'Extent of change and focus on ease of use ',
-                   grade: ''
-                   
+                    index: '14',
+                    title: 'Extent of change and focus on ease of use ',
+                    grade: ''
+
                 },
             ]
         }
@@ -671,13 +553,8 @@ export default {
         pdfHandle() {
             window.open('/#/show', "_blank")
         },
-<<<<<<< HEAD
-        pdfHandle(){
-            window.open('/#/show',"_blank")
-=======
         pdfHandle2() {
             window.open('/#/show', "_blank")
->>>>>>> main
         },
         getSummaries(param, val) {
             const { columns, data } = param;
@@ -749,15 +626,8 @@ export default {
 
 .content {
     text-indent: 2em;
-<<<<<<< HEAD
-    margin-left: 30px;
-    margin-right: 30px;
-    line-height: 25px;
-
-=======
     margin-left: 20px;
     margin-right: 20px;
->>>>>>> main
 }
 
 .guidance {
@@ -769,8 +639,4 @@ export default {
 :deep(.ant-table .ant-table-thead > tr > th) {
     border-width: 1px;
 }
-<<<<<<< HEAD
 </style>
-=======
-</style> 
->>>>>>> main
