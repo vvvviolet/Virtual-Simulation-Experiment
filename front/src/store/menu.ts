@@ -21,6 +21,13 @@ export interface MenuProps {
   children?: MenuProps[];
   cacheable: boolean;
 }
+ 
+export interface Experiment{
+  id:number; // id 建议用十进制表示法 
+  title:string; // 中文标题
+  name:string; // 英文标题
+  class:string; // 大类名称
+}
 
 export const useMenuStore = defineStore('menu', () => {
   const menuList = ref<MenuProps[]>([]);
@@ -42,15 +49,60 @@ export const useMenuStore = defineStore('menu', () => {
       },
     }));
   };
+  const toMenu = (list: Experiment[]): MenuProps[] =>{
+    let prevClass = 0
+    const tmp = []
+    list.map((item)=>{
+
+      if(Math.round(item.id/10)!=prevClass){
+        
+        tmp.push({
+          id: prevClass,
+          name: `exp${prevClass}`,
+          title: item.class,
+          path:  `/exp${prevClass}`,
+          component: `@/pages/exp${prevClass}`,
+          target: '_blank',
+          renderMenu: true,
+          permission: null,
+          children: [],
+          cacheable: true,
+        })    
+        prevClass = Math.round(item.id/10)
+      }
+        tmp[tmp.length-1].children.push({
+          id: item.id,
+          name: item.name,
+          title:item.title,
+          path:  `/exp${item.id}/${item.name}`,
+          component: `@/pages/exp0/${item.name.toUpperCase()}/index.vue`,
+          target: '_self',
+          renderMenu: true,
+          cacheable: true,
+        })
+      })
+    console.log(tmp)
+    return tmp
+  }
   async function getMenuList() {
-    return http.request<MenuProps, Response<MenuProps[]>>('/menu', 'GET').then((res) => {
+    return http.request<Experiment, Response<Experiment[]>>('/experiments', 'GET').then((res) => {
       const { data } = res;
-      // console.log(res)
-      menuList.value = data;
-      addRoutes(toRoutes(data));
+      console.log(data)
+      menuList.value = toMenu(data);
+      // console.log(menuList.value)
+      addRoutes(toRoutes(toMenu(data)));
       return data;
     });
   }
+  // async function getMenuList() {
+  //   return http.request<MenuProps, Response<MenuProps[]>>('/menu', 'GET').then((res) => {
+  //     const { data } = res;
+  //     console.log(res)
+  //     menuList.value = data;
+  //     addRoutes(toRoutes(data));
+  //     return data;
+  //   });
+  // }
 
   async function addMenu(menu: MenuProps) {
     return http
