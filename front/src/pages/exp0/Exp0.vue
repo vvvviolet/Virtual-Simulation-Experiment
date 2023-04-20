@@ -33,7 +33,7 @@ import { useExperimentStore } from '@/store/experiment';
     mounted() {
       const rt = useRoute()
       console.log(rt.meta)
-      const d = getExperimentInfo(rt.meta.title)
+      // const d = getExperimentInfo(rt.meta)
       // console.log(d)
     },    
   };

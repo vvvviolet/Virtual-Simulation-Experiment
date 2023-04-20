@@ -77,7 +77,7 @@ Mock.mock('api/experiments', 'get', ({ body }) => {
     };
   });
   
-Mock.mock(`api/experiment/`, 'get', ({ url }) => {
-    return url
-});
+// Mock.mock(`api/experiment/`, 'get', ({ url }) => {
+//     return url
+// });
   

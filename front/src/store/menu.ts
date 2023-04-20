@@ -38,6 +38,7 @@ export const useMenuStore = defineStore('menu', () => {
       component: item.component,
       children: item.children && toRoutes(item.children),
       meta: {
+        id: item.id,
         title: item.title,
         permission: item.permission,
         icon: item.icon,
@@ -54,7 +55,7 @@ export const useMenuStore = defineStore('menu', () => {
     const tmp = []
     list.map((item)=>{
       // prevClass=Math.round(item.id/10)
-      console.log(prevClass)
+      // console.log(prevClass)
       if(Math.round(item.id/10)!=prevClass){
         prevClass = Math.round(item.id/10)
         tmp.push({
@@ -81,7 +82,7 @@ export const useMenuStore = defineStore('menu', () => {
           cacheable: true,
         })
       })
-    console.log('tmp',tmp)
+    // console.log('tmp',tmp)
     return tmp
   }
   async function getMenuList() {

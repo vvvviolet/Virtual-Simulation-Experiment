@@ -32,7 +32,31 @@
     //     document.title = to.meta.title || '实验一';
     //   });
     // },
+    mounted() {
+      const rt = useRoute()
+      console.log(rt.meta)
+      const d = getExperimentInfo(rt.meta.id)
+      // console.log(d)
+    },    
   };
+  import { useExperimentStore } from '@/store/experiment';
+  import { useMenuStore } from '@/store/menu';
+  import { useRoute } from 'vue-router';
+  const { getExperiment, getExperimentList } = useExperimentStore();
+  const { getMenuList } = useMenuStore();
+  
+  function getExperimentInfo(id:number) {
+    getExperiment(id)
+    .then((res) => {
+        console.log(res)
+        return res.data
+      })
+    // getExperimentList()
+    // .then((res) => {
+    //     // console.log(res)
+    //     return res.data
+    //   })
+  }
 </script>
 
 <style scoped lang="less">

@@ -8,7 +8,7 @@ export const useExperimentStore = defineStore('experiment', {
             return http
               .request<any, Response<any>>(`/experiment/${id}`, 'GET')
               .then((res) => {
-                // console.log(res.data)
+                console.log(res)
                 return res.data;
               })
           },
