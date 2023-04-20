@@ -53,9 +53,7 @@ export const useMenuStore = defineStore('menu', () => {
     let prevClass = 0
     const tmp = []
     list.map((item)=>{
-
       if(Math.round(item.id/10)!=prevClass){
-        
         tmp.push({
           id: prevClass,
           name: `exp${prevClass}`,
@@ -74,14 +72,14 @@ export const useMenuStore = defineStore('menu', () => {
           id: item.id,
           name: item.name,
           title:item.title,
-          path:  `/exp${item.id}/${item.name}`,
-          component: `@/pages/exp0/${item.name.toUpperCase()}/index.vue`,
+          path:  `/exp${prevClass}/${item.name}`,
+          component: `@/pages/exp${prevClass}/${item.name.toUpperCase()}/index.vue`,
           target: '_self',
           renderMenu: true,
           cacheable: true,
         })
       })
-    console.log(tmp)
+    console.log('tmp',tmp)
     return tmp
   }
   async function getMenuList() {

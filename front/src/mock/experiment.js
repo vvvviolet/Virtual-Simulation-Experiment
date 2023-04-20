@@ -10,7 +10,7 @@ Mock.mock('api/experiments', 'get', ({ body }) => {
       data:[
         {
           id:11,
-          title: "软件规模估算实验——IFPUG方法",
+          title: "IFPUG方法",
           name:"ifpug",
           class:"软件规模估算",
           content: null,
@@ -18,7 +18,7 @@ Mock.mock('api/experiments', 'get', ({ body }) => {
         },
         {
           id:12,
-          title: "软件规模估算实验——COSMIC方法",
+          title: "COSMIC方法",
           name:"cosmic",
           class:"软件规模估算",
           content: null,
@@ -26,33 +26,41 @@ Mock.mock('api/experiments', 'get', ({ body }) => {
         },
         {
           id:13,
-          title: "软件规模估算实验——MARKII方法",
+          title: "MARKII方法",
           name:"markii",
           class:"软件规模估算",
           content: null,
           file: "https://virtual-experiment-system.oss-cn-shanghai.aliyuncs.com/13-04-2023/8e5fea8ae0584f038534fd2c8e0430db/2023SEME_Slides%20Lesson12%20Contract%20management.pdf"
         },
         {
+          id:14,
+          title: "NESMA方法",
+          name:"nesma",
+          class:"软件规模估算",
+          content: null,
+          file: "https://virtual-experiment-system.oss-cn-shanghai.aliyuncs.com/13-04-2023/8e5fea8ae0584f038534fd2c8e0430db/2023SEME_Slides%20Lesson12%20Contract%20management.pdf"
+        },
+        {
           id:21,
-          title: "软件成本估算实验——1",
-          name:"ifpug",
+          title: "成本估算实验",
+          name:"chengbengusuan",
           class:"软件成本估算",
           content: null,
           file: "https://virtual-experiment-system.oss-cn-shanghai.aliyuncs.com/13-04-2023/8e5fea8ae0584f038534fd2c8e0430db/2023SEME_Slides%20Lesson12%20Contract%20management.pdf"
         },
         {
-          id:22,
-          title: "软件成本估算实验——2",
-          name:"cosmic",
-          class:"软件成本估算",
+          id:31,
+          title: "碳排放需求与供给",
+          name:"tanpaifang",
+          class:"碳排放需求与供给",
           content: null,
           file: "https://virtual-experiment-system.oss-cn-shanghai.aliyuncs.com/13-04-2023/8e5fea8ae0584f038534fd2c8e0430db/2023SEME_Slides%20Lesson12%20Contract%20management.pdf"
         },
         {
-          id:23,
-          title: "软件成本估算实验——3",
-          name:"markii",
-          class:"软件成本估算",
+          id:41,
+          title: "软件测试成本估算",
+          name:"ceshichengben",
+          class:"软件测试成本估算",
           content: null,
           file: "https://virtual-experiment-system.oss-cn-shanghai.aliyuncs.com/13-04-2023/8e5fea8ae0584f038534fd2c8e0430db/2023SEME_Slides%20Lesson12%20Contract%20management.pdf"
         },
