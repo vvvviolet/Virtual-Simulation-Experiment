@@ -190,7 +190,7 @@ const presetList = [
         }
     ]
   },
-  {
+/*   {
     id: 6,
     name: 'exp6',
     title: '软件项目/产品的风险影响与评价实验',
@@ -215,7 +215,7 @@ const presetList = [
       }
     ]
 
-  },
+  }, */
   {
     id: 10,
     name: 'exp10',
@@ -240,6 +240,19 @@ const presetList = [
         cacheable: true,
       }
     ]
+
+  },
+  {
+    id: 8,
+    name: 'exp8',
+    title: '软件项目/产品的财务评价实验',
+    target: '_self',
+    path: '/exp8',
+    component: '@/pages/exp8/Exp8.vue',
+    renderMenu: true,
+    parent: null,
+    permission: null,
+    cacheable: true,
 
   },
 

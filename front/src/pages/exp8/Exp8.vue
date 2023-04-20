@@ -81,6 +81,18 @@
                 year5: 500,
                 year6: 500,
               },
+              {
+                key: '2',
+                number: '1.2',
+                project: '其他',
+                year0: "",
+                year1: "",
+                year2: "",
+                year3: "",
+                year4: "",
+                year5: "",
+                year6: "",
+              },
             ],
             Output: [
               {
@@ -98,7 +110,7 @@
               {
                 key: '2',
                 number: '2.1',
-                project: '直接人员成本',
+                project: '直接人力成本',
                 year0: "",
                 year1: "",
                 year2: "",
@@ -110,7 +122,7 @@
               {
                 key: '3',
                 number: '2.2',
-                project: '非直接人员成本',
+                project: '间接人力成本',
                 year0: "",
                 year1: "",
                 year2: "",
@@ -134,7 +146,7 @@
               {
                 key: '5',
                 number: '2.4',
-                project: '非直接运维成本',
+                project: '间接运维成本',
                 year0: "",
                 year1: "",
                 year2: "",
@@ -220,20 +232,20 @@
             ],
             Index: [
               {
-                key: '1',
-                number: '1',
+                key: '6',
+                number: '6',
                 project: '净现值 NPY',
                 value: "",
               },
               {
-                key: '2',
-                number: '2',
+                key: '7',
+                number: '7',
                 project: '内部收益率 IRR',
                 value: "",
               },
               {
-                key: '3',
-                number: '3',
+                key: '8',
+                number: '8',
                 project: '动态投资回收期(年) DPP',
                 value: "",
               },
