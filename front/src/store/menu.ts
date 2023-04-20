@@ -53,7 +53,10 @@ export const useMenuStore = defineStore('menu', () => {
     let prevClass = 0
     const tmp = []
     list.map((item)=>{
+      // prevClass=Math.round(item.id/10)
+      console.log(prevClass)
       if(Math.round(item.id/10)!=prevClass){
+        prevClass = Math.round(item.id/10)
         tmp.push({
           id: prevClass,
           name: `exp${prevClass}`,
@@ -66,7 +69,6 @@ export const useMenuStore = defineStore('menu', () => {
           children: [],
           cacheable: true,
         })    
-        prevClass = Math.round(item.id/10)
       }
         tmp[tmp.length-1].children.push({
           id: item.id,
