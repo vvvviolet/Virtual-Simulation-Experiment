@@ -1,0 +1,15 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+.vscode
+.history
+.idea
+*.log
+*session.sql
+package-lock.json
+yarn.lock
+stepin-template.session.sql
+docs/.vitepress/cache
+*.lock
