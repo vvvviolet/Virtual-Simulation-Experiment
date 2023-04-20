@@ -64,6 +64,14 @@ Mock.mock('api/experiments', 'get', ({ body }) => {
           content: null,
           file: "https://virtual-experiment-system.oss-cn-shanghai.aliyuncs.com/13-04-2023/8e5fea8ae0584f038534fd2c8e0430db/2023SEME_Slides%20Lesson12%20Contract%20management.pdf"
         },
+        {
+          id:61,
+          title: "决策树",
+          name:"jueceshu",
+          class:"风险影响与评价实验",
+          content: null,
+          file: "https://virtual-experiment-system.oss-cn-shanghai.aliyuncs.com/13-04-2023/8e5fea8ae0584f038534fd2c8e0430db/2023SEME_Slides%20Lesson12%20Contract%20management.pdf"
+        },
        
         ]
     };

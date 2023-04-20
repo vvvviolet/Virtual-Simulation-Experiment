@@ -36,6 +36,8 @@
   import EditableForm1 from '@/pages/exp6/Exp6_decision_tree/EditableForm1.vue';
   import EditableForm2 from '@/pages/exp6/Exp6_decision_tree/EditableForm2.vue';
   export default {
+    name: 'JUECESHU',
+
     components: {
       'a-table': Table,
       HorizontalTree,
