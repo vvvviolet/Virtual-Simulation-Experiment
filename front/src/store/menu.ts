@@ -45,7 +45,7 @@ export const useMenuStore = defineStore('menu', () => {
   async function getMenuList() {
     return http.request<MenuProps, Response<MenuProps[]>>('/menu', 'GET').then((res) => {
       const { data } = res;
-      console.log(res)
+      // console.log(res)
       menuList.value = data;
       addRoutes(toRoutes(data));
       return data;
