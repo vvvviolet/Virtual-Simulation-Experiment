@@ -42,36 +42,36 @@
   <li class="recontent">实验的应用前景：探讨实验的应用前景，例如实验结果对于碳排放政策的指导意义、对于碳排放市场的运作规则的启示等。</li>
   <br>
   <h2>三、实验原理 </h2>
-    <h3 class="subtitle-content">1.需求规律</h3>
-      <h4 class="content">1.1  概念</h4>
-        <p class="content">需求数量（需求量）：消费者在一定时期内愿意并能够购买的这种商品的数量</p>
-        <p class="content">需求：一种商品的需求是指在其他因素不变的条件下，消费者在一定时期内各种可能的价格水平愿意并且能够购买的商品的数量。</p>
-      <h4 class="content">1.2  需求曲线</h4>
-        <p class="content">需求曲线：以几何图形来表示商品的价格和需求量的函数关系</p>
-        <p class="content">横坐标:需求量 纵坐标:价格</p>
-        <img class="content" style = "margin-left: 100px;" src="../assets/demand.png" alt="需求曲线">
-        <br>
-        <br>
-      <h4 class="content">1.3  需求定理</h4>
-        <p class="content">需求定理：在其他因素不变的条件下，一种商品的价格上升，则对该商品的需求量减少</p>
-    <h3 class="subtitle-content">2.供给规律</h3>
-      <h4 class="content">2.1  概念</h4>
-        <p class="content">供给数量：生产者在一定时期内愿意并且能够提供出售的这种商品的数量。</p>
-        <p class="content">供给：一种商品的供给是指在其他因素不变的条件下，生产者在一定时期内在各种可能的价格水平愿意并且能够提供出售的该商品的数量。</p>
-      <h4 class="content">2.2  供给曲线</h4>
-        <p class="content">类似地，供给曲线表示了供给量与价格的函数关系</p>
-        <p class="content">横坐标:需求量 纵坐标:价格</p>
-        <img class="content" style = "margin-left: 100px;" src="../assets/supply.png" alt="供给曲线">
-        <br>
-        <br>
-      <h4 class="content">2.3  供给定理</h4>
-        <p class="content">供给定理：在其他因素保持不变的条件下，一种商品的价格上升，该商品的供给量增加。</p>
-    <h3 class="subtitle-content">3.均衡价格</h3>
-      <p class="content">需求曲线说明了消费者对某种商品在每一价格水平的需求量;供给曲线说明了生产者对某种商品在每一价格水平的供给量</p>
-      <p class="content">微观经济学中，商品价格指的是商品的均衡价格。商品的均衡价格是在商品的市场需求和市场供给这两种相反力量的相互作用下形成的。</p>
-      <p class="content">均衡价格：市场需求量与供给量相同时的价格</p>
-      <img src="../assets/equal.png" style = "margin-left: 100px;" alt="均衡价格">
-      <br>
+  <h3 class="subtitle-content">1.需求规律</h3>
+  <h4 class="content">1.1 概念</h4>
+  <p class="content">需求数量（需求量）：消费者在一定时期内愿意并能够购买的这种商品的数量</p>
+  <p class="content">需求：一种商品的需求是指在其他因素不变的条件下，消费者在一定时期内各种可能的价格水平愿意并且能够购买的商品的数量。</p>
+  <h4 class="content">1.2 需求曲线</h4>
+  <p class="content">需求曲线：以几何图形来表示商品的价格和需求量的函数关系</p>
+  <p class="content">横坐标：需求量 纵坐标：价格</p>
+  <img class="content" style="margin-left: 100px;" src="../assets/demand.png" alt="需求曲线">
+  <br>
+  <br>
+  <h4 class="content">1.3 需求定理</h4>
+  <p class="content">需求定理：在其他因素不变的条件下，一种商品的价格上升，则对该商品的需求量减少</p>
+  <h3 class="subtitle-content">2.供给规律</h3>
+  <h4 class="content">2.1 概念</h4>
+  <p class="content">供给数量：生产者在一定时期内愿意并且能够提供出售的这种商品的数量。</p>
+  <p class="content">供给：一种商品的供给是指在其他因素不变的条件下，生产者在一定时期内在各种可能的价格水平愿意并且能够提供出售的该商品的数量。</p>
+  <h4 class="content">2.2 供给曲线</h4>
+  <p class="content">类似地，供给曲线表示了供给量与价格的函数关系</p>
+  <p class="content">横坐标：需求量 纵坐标：价格</p>
+  <img class="content" style="margin-left: 100px;" src="../assets/supply.png" alt="供给曲线">
+  <br>
+  <br>
+  <h4 class="content">2.3 供给定理</h4>
+  <p class="content">供给定理：在其他因素保持不变的条件下，一种商品的价格上升，该商品的供给量增加。</p>
+  <h3 class="subtitle-content">3.均衡价格</h3>
+  <p class="content">需求曲线说明了消费者对某种商品在每一价格水平的需求量;供给曲线说明了生产者对某种商品在每一价格水平的供给量</p>
+  <p class="content">微观经济学中，商品价格指的是商品的均衡价格。商品的均衡价格是在商品的市场需求和市场供给这两种相反力量的相互作用下形成的。</p>
+  <p class="content">均衡价格：市场需求量与供给量相同时的价格</p>
+  <img src="../assets/equal.png" style="margin-left: 100px;" alt="均衡价格">
+  <br>
 
 
   <h2>四、实验步骤 </h2>
@@ -107,6 +107,11 @@
     <a-descriptions-item label="买家数量">{{ mainumberarray.length }}</a-descriptions-item>
     <a-descriptions-item label="卖家数量">{{ sellnumberarray.length }}</a-descriptions-item>
   </a-descriptions>
+  <p class="table-title">市场交易记录</p>
+  <a-table :dataSource="marketData" :columns="marketColumn" bordered/>
+  <hr />
+  <p class="table-title">我的交易记录</p>
+  <a-table :dataSource="myData" :columns="myColumn" bordered/>
   <h2>五、实验结果 </h2>
   <p class="content">暂时不写</p>
   <h2>六、实验思考 </h2>
@@ -132,6 +137,71 @@ export default {
         number: 0,
         cost: 0,
       }, //买家表格
+      marketColumn: [
+        {
+          title: '交易id',
+          dataIndex: 'id',
+          key: 'id',
+        },
+        {
+          title: '交易类型',
+          dataIndex: 'type',
+          key: 'type',
+        },
+        {
+          title: '价格',
+          dataIndex: 'price',
+          key: 'price',
+        },
+        {
+          title: '数量',
+          dataIndex: 'num',
+          key: 'num',
+        },
+        {
+          title: '交易时间',
+          dataIndex: 'time',
+          key: 'time',
+        },
+      ],//市场表格列
+      myColumn: [
+        {
+          title: '交易id',
+          dataIndex: 'id',
+          key: 'id',
+        },
+        {
+          title: '交易类型',
+          dataIndex: 'type',
+          key: 'type',
+        },
+        {
+          title: '价格',
+          dataIndex: 'price',
+          key: 'price',
+        },
+        {
+          title: '数量',
+          dataIndex: 'num',
+          key: 'num',
+        },
+        {
+          title: '交易时间',
+          dataIndex: 'time',
+          key: 'time',
+        },
+      ],//我的表格列
+      marketData: [
+        { id: 1, type: "买入", num: 1, price: 100, time: "2023/4/4" },
+        { id: 2, type: "卖出", num: 3, price: 90, time: "2023/4/4" },
+        { id: 3, type: "卖出", num: 2, price: 80, time: "2023/4/4" },
+        { id: 4, type: "买入", num: 2, price: 800, time: "2023/4/4" },
+      ], //市场交易记录
+      myData: [
+        { id: 2, type: "卖出", num: 3, price: 90, time: "2023/4/4" },
+        { id: 3, type: "卖出", num: 2, price: 80, time: "2023/4/4" },
+      ], //我的交易记录
+
       sellformtext: {
         number: 0,
         cost: 0,
@@ -264,6 +334,14 @@ export default {
   font-size: large;
   font-weight: bold;
 }
+.table-title {
+  text-indent: 2em;
+  margin-left: 10px;
+  margin-right: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 20px;
+}
 
 .guidance {
   position: absolute;
@@ -280,4 +358,5 @@ export default {
 .recontent {
   margin-left: 60px;
   margin-right: 20px;
-}</style>
+}
+</style>
