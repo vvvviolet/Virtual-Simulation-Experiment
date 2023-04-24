@@ -33,7 +33,17 @@
     <p class="content">评价指标：若DPP小于等于DPPb，则可以接受；
       反之，则项目不可接受。基准动态投资回收期为DPPb</p>
     <p class="SecondTitle">3.4 填写动态指标计算表</p>
-    <a-table :dataSource="dataSource" :columns="columns" bordered/>
+    <a-table :dataSource="dataSource" :columns="columns" bordered>
+       <template #bodyCell="{ column, text, record }">
+        <template v-if="column.dataIndex!='number'&&column.dataIndex!='desc'">
+        <a-input v-model:value="dataSource[record.key][column.dataIndex]">
+
+        </a-input>
+        </template>
+       
+
+       </template>
+    </a-table>
 </template>
 
 <script lang="ts">
