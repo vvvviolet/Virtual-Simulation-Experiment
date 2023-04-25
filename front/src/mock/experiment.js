@@ -72,7 +72,14 @@ Mock.mock('api/experiments', 'get', ({ body }) => {
           content: null,
           file: "https://virtual-experiment-system.oss-cn-shanghai.aliyuncs.com/13-04-2023/8e5fea8ae0584f038534fd2c8e0430db/2023SEME_Slides%20Lesson12%20Contract%20management.pdf"
         },
-       
+        {
+          id:101,
+          title: "挣值分析法",
+          name:"zhengzhifenxi",
+          class:"项目进度监督与控制",
+          content: null,
+          file: "https://virtual-experiment-system.oss-cn-shanghai.aliyuncs.com/13-04-2023/8e5fea8ae0584f038534fd2c8e0430db/2023SEME_Slides%20Lesson12%20Contract%20management.pdf"
+        },
         ]
     };
   });
