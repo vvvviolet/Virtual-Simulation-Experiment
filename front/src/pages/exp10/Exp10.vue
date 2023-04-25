@@ -14,67 +14,79 @@
     <a-space direction="vertical">
       <div>
         请输入预算每日成本：
-        <a-input-number v-model:value="value2">
-          <template #addonAfter>
-            <a-select v-model:value="addonAfterValue" style="width: 60px">
-              <a-select-option value="CNY">¥</a-select-option>
-              <a-select-option value="USD">$</a-select-option>
-              <a-select-option value="EUR">€</a-select-option>
-              <a-select-option value="GBP">£</a-select-option>
-            </a-select>
-          </template>
-        </a-input-number>
+        <a-input-number v-model:value="plannedDailyCost">
+<!--          <template #addonAfter>-->
+<!--            <a-select v-model:value="addonAfterValue" style="width: 60px">-->
+<!--              <a-select-option value="CNY">¥</a-select-option>-->
+<!--              <a-select-option value="USD">$</a-select-option>-->
+<!--              <a-select-option value="EUR">€</a-select-option>-->
+<!--              <a-select-option value="GBP">£</a-select-option>-->
+<!--            </a-select>-->
+<!--          </template>-->
+        </a-input-number> 元
       </div>
       <div>
       请输入估计开发时间：
-      <a-input-number id="inputNumber" v-model:value="value" :min="1" :max="10" /> 天
+      <a-input-number id="inputNumber" v-model:value="plannedDays" :min="1" :max="10" /> 天
       </div>
       <div>
         项目评估
         <a-form
             ref="formRef"
-            name="dynamic_form_item"
+            name="dynamic_form_nest_item"
             :model="dynamicValidateForm"
-            v-bind="formItemLayoutWithOutLabel"
+            @finish="onFinish"
         >
-          <a-form-item
-              v-for="(domain, index) in dynamicValidateForm.domains"
-              :key="domain.key"
-              v-bind="index === 0 ? formItemLayout : {}"
-              :label="index === 0 ? 'Domains' : ''"
-              :name="['domains', index, 'value']"
-              :rules="{
-              required: true,
-              message: 'domain can not be null',
-              trigger: 'change',
-            }"
+          <a-space
+              v-for="(timePoint, index) in dynamicValidateForm.timePoints"
+              :key="timePoint.id"
+              style="display: flex; margin-bottom: 8px"
+              align="baseline"
           >
-            <a-input
-                v-model:value="domain.value"
-                placeholder="please input domain"
-                style="width: 60%; margin-right: 8px"
-            />
-            <MinusCircleOutlined
-                v-if="dynamicValidateForm.domains.length > 1"
-                class="dynamic-delete-button"
-                :disabled="dynamicValidateForm.domains.length === 1"
-                @click="removeDomain(domain)"
-            />
-          </a-form-item>
-          <a-form-item v-bind="formItemLayoutWithOutLabel">
-            <a-button type="dashed" style="width: 60%" @click="addDomain">
+            <a-form-item
+                :name="['timePoints', index, 'currentDay']"
+                :rules="{
+                required: true,
+                message: '缺少当前天数',
+              }"
+            >
+              <a-input v-model:value="timePoint.currentDay" placeholder="当前天数" />
+            </a-form-item>
+            <a-form-item
+                :name="['timePoints', index, 'EV']"
+                :rules="{
+                required: true,
+                message: '缺少当前完成的工作量（天）',
+              }"
+            >
+              <a-input v-model:value="timePoint.EV" placeholder="当前完成的工作量（天）" />
+            </a-form-item>
+            <a-form-item
+                :name="['timePoints', index, 'AC']"
+                :rules="{
+                required: true,
+                message: '缺少实际成本',
+              }"
+            >
+              <a-input v-model:value="timePoint.AC" placeholder="实际成本" />
+            </a-form-item>
+            <MinusCircleOutlined v-if="!timePoint.disabled" @click="removeTimePoint(timePoint)" />
+            <MinusCircleOutlined v-else style="color: #ccc; cursor: not-allowed;" />
+          </a-space>
+          <a-form-item>
+            <a-button type="dashed" block @click="addTimePoint">
               <PlusOutlined />
-              Add field
+              添加时间点
             </a-button>
           </a-form-item>
-          <a-form-item v-bind="formItemLayoutWithOutLabel">
-            <a-button type="primary" html-type="submit" @click="submitForm">Submit</a-button>
-            <a-button style="margin-left: 10px" @click="resetForm">Reset</a-button>
+          <a-form-item>
+            <a-button type="primary" html-type="submit">提交</a-button>
           </a-form-item>
         </a-form>
       </div>
     </a-space>
-    <div ref="myChart" style="width: 600px;height:400px;"></div>
+    <a-table v-if="dataSource.length!==0" :dataSource="dataSource" :columns="columns" bordered/>
+    <div ref="myChart" style="width: 1200px;height:675px;" id="chart"></div>
   </div>
 </template>
 
@@ -82,111 +94,251 @@
 <script>
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { defineComponent, reactive, ref, watch } from 'vue';
-import { Document } from '@element-plus/icons-vue'
 import { SettingOutlined } from '@ant-design/icons-vue';
 import * as echarts from 'echarts';
+
 export default defineComponent({
   name: 'Exp10',
   components: { SettingOutlined,MinusCircleOutlined, PlusOutlined},
   setup() {
-    const value = ref<Number>(3);
+    const plannedDays=ref(10);
+    const plannedDailyCost=ref(100);
 
+    const value = ref<Number>(3);
     const formRef = ref();
-    const formItemLayout = {
-      labelCol: {
-        xs: {
-          span: 24,
-        },
-        sm: {
-          span: 4,
-        },
-      },
-      wrapperCol: {
-        xs: {
-          span: 24,
-        },
-        sm: {
-          span: 20,
-        },
-      },
-    };
-    const formItemLayoutWithOutLabel = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 20,
-          offset: 4,
-        },
-      },
-    };
     const dynamicValidateForm = reactive({
-      domains: [],
+      timePoints: [],
     });
-    const submitForm = () => {
-      formRef.value.validate().then(() => {
-        console.log('values', dynamicValidateForm.domains);
-      }).catch(error => {
-        console.log('error', error);
-      });
-    };
-    const resetForm = () => {
-      formRef.value.resetFields();
-    };
-    const removeDomain = item => {
-      let index = dynamicValidateForm.domains.indexOf(item);
+
+    let dataSource = reactive([]);
+    const removeTimePoint = item => {
+      let index = dynamicValidateForm.timePoints.indexOf(item);
       if (index !== -1) {
-        dynamicValidateForm.domains.splice(index, 1);
+        dynamicValidateForm.timePoints.splice(index, 1);
       }
     };
-    const addDomain = () => {
-      dynamicValidateForm.domains.push({
-        value: '',
-        key: Date.now(),
+    const addTimePoint = () => {
+      dynamicValidateForm.timePoints.push({
+        currentDay: '',
+        EV: '',
+        AC: '',
+        disabled: false,
+        id: Date.now(),
       });
     };
+    const onFinish = values => {
+      const myChart = echarts.init(document.getElementById("chart"));
+      let Min = 0
+      let Max = 50
+      let Intv = 10
 
-    return{
-      value: ref(10),
-      value2: ref(100),
-      addonAfterValue: ref('CNY'),
+      //PV数据处理
+      const objPV = new Object();
+      for (let i=Min;i<=Max;i+=Intv){
+        objPV[i]=i*plannedDailyCost.value
+      }
+      const PVData = Object.entries(objPV);
 
-      formRef,
-      formItemLayout,
-      formItemLayoutWithOutLabel,
-      dynamicValidateForm,
-      submitForm,
-      resetForm,
-      removeDomain,
-      addDomain,
+      //EV和AC数据处理
+      const objEV = new Object();
+      const objAC = new Object();
+      objEV[0] = 0
+      objAC[0] = 0
+      for (let i=0;i<values.timePoints.length;i++){
+        const tmp = values.timePoints[i]
+        objEV[tmp.currentDay] = tmp.EV*plannedDailyCost.value
+        objAC[tmp.currentDay] = tmp.AC
+        let item = {
+          days:tmp.currentDay,
+          sv:tmp.EV*plannedDailyCost.value-tmp.currentDay*plannedDailyCost.value,
+          cv:tmp.EV*plannedDailyCost.value-tmp.AC,
+          spi:(tmp.EV*plannedDailyCost.value)/(tmp.currentDay*plannedDailyCost.value),
+          cpi:(tmp.EV*plannedDailyCost.value)/(tmp.AC)
+        }
+        if(item.sv>0)
+          item.svMeaning="实际消耗时间小于预算值，进度提前"
+        else if(item.sv==0)
+          item.svMeaning="实际消耗时间等于预算值"
+        else if(item.sv<0)
+          item.svMeaning="实际消耗时间大于预算值，进度滞后"
 
-      options: {
-        xAxis: {
-          data: ['A', 'B', 'C', 'D', 'E']
+        if(item.cv>0)
+          item.cvMeaning="实际消耗成本小于预算值，预算结余"
+        else if(item.cv==0)
+          item.cvMeaning="实际消耗成本等于预算值"
+        else if(item.cv<0)
+          item.cvMeaning="实际消耗成本大于预算值，预算超支"
+
+        if(item.spi>1)
+          item.spiMeaning="实际消耗时间小于预算值，进度提前"
+        else if(item.spi==1)
+          item.spiMeaning="实际消耗时间等于预算值"
+        else if(item.spi<1)
+          item.spiMeaning="实际消耗时间大于预算值，进度滞后"
+
+        if(item.cpi>1)
+          item.cpiMeaning="实际消耗成本小于预算值，预算结余"
+        else if(item.cpi==1)
+          item.cpiMeaning="实际消耗成本等于预算值"
+        else if(item.cpi<1)
+          item.cpiMeaning="实际消耗成本大于预算值，预算超支"
+        dataSource.splice(i,1,item)
+        // dataSource[i].SV=tmp.EV*plannedDailyCost.value-objPV[i]
+      }
+      const EVData = Object.entries(objEV);
+      const ACData = Object.entries(objAC);
+console.log(dataSource[0])
+
+      let options = {
+        legend: {
+          data: ['PV', 'EV', 'AC']
         },
-        yAxis: {},
+        xAxis: {
+          interval:Intv, // 步长
+          min:Min, // 起始
+          max:Max // 终止
+        },
+        yAxis: {
+          interval:1000, // 步长
+          min:Min, // 起始
+          max:5000 // 终止
+        },
         series: [
           {
-            data: [10, 22, 28, 23, 19],
+            name: 'PV',
+            data: PVData,
+            type: 'line',
+            smooth: true
+          },
+          {
+            name: 'EV',
+            data: EVData,
+            type: 'line',
+            smooth: true
+          },
+          {
+            name: 'AC',
+            data: ACData,
             type: 'line',
             smooth: true
           }
         ]
       }
+      myChart.setOption(options);
+      console.log('Received values of form:', values.timePoints[0]);
+      console.log('dynamicValidateForm.timePoints:', dynamicValidateForm.timePoints[0]);
+    };
+    return{
+      plannedDays,
+      plannedDailyCost,
+      // addonAfterValue: ref('CNY'),
+
+      formRef,
+      dynamicValidateForm,
+      onFinish,
+      removeTimePoint,
+      addTimePoint,
+
+      dataSource,
+
+      columns: [
+        {
+          title: '天数',
+          dataIndex: 'days',
+          key: 'days',
+        },
+        {
+          title: 'SV',
+          dataIndex: 'sv',
+          key: 'sv',
+        },
+        {
+          title: 'SV含义',
+          dataIndex: 'svMeaning',
+          key: 'svMeaning',
+        },
+        {
+          title: 'CV',
+          dataIndex: 'cv',
+          key: 'cv',
+        },
+        {
+          title: 'CV含义',
+          dataIndex: 'cvMeaning',
+          key: 'cvMeaning',
+        },
+        {
+          title: 'SPI',
+          dataIndex: 'spi',
+          key: 'spi',
+        },
+        {
+          title: 'SPI含义',
+          dataIndex: 'spiMeaning',
+          key: 'spiMeaning',
+        },
+        {
+          title: 'CPI',
+          dataIndex: 'cpi',
+          key: 'cpi',
+        },
+        {
+          title: 'CPI含义',
+          dataIndex: 'cpiMeaning',
+          key: 'cpiMeaning',
+        },
+      ],
+
+      options: {
+        legend: {
+          data: ['PV', 'EV', 'AC']
+        },
+        xAxis: {
+          interval:10, // 步长
+          min:0, // 起始
+          max:50 // 终止
+        },
+        yAxis: {},
+        series: [
+          {
+            data: [[1,1],[2,1],[3,4],[4,7],[5,2],[6,2],[7,4],[8,3],[10,1],[11,1],[12,1],[13,1],[14,4],[15,3],[16,1],[18,1],[20,2],[22,2],[23,1],[25,1],[26,1],[27,4],[29,2],[30,1],[31,1],[32,2],[34,2],[35,3],[36,5],[37,3],[38,2],[42,2],[43,1],[46,1],[47,1],[48,3],[51,1],[53,1],[56,1],[62,2],[63,2],[65,3],[66,1],[67,1],[68,2],[69,1],[70,1],[71,1],[75,1],[77,1],[83,1],[85,2],[86,1],[88,1],[91,1],[96,1],[104,1],[106,1]],
+            type: 'line',
+            smooth: true
+          }
+        ]
+      },
     }
   },
   mounted() {
-      // 获取 DOM 节点，进行初始化
-      const myChart = echarts.init(this.$refs.myChart);
-      // 使用ECharts设置选项
-      myChart.setOption(this.options);
-    },
+    // 获取 DOM 节点，进行初始化
+    const myChart = echarts.init(this.$refs.myChart);
+    // 使用ECharts设置选项
+    // myChart.setOption(this.options);
+    console.log(this.dynamicValidateForm.timePoints)
+    if (this.dynamicValidateForm.timePoints.length === 0) {
+      this.dynamicValidateForm.timePoints.push({
+        currentDay: '',
+        EV: '',
+        AC: '',
+        id: Date.now(),
+        disabled: true // 添加一个 disabled 属性，防止该时间点被删除
+      });
+    }
+  },
+  // watch: {
+  //   /* 如果图表数据是后台获取的，监听父组件中的数据变化，重新触发Echarts */
+  //   options: {
+  //     deep: true,
+  //     handler (val) {
+  //       console.log(val)
+  //       // this.setOptions(val)
+  //       this.myChart.setOption(val, true)
+  //     }
+  //   },
+  // },
   methods: {
 
   },
-
 })
 </script>
 
@@ -226,5 +378,12 @@ export default defineComponent({
 .dynamic-delete-button[disabled] {
   cursor: not-allowed;
   opacity: 0.5;
-}.
+}
+:deep().ant-table-thead > tr > th {
+  text-align: center;
+}
+
+:deep().ant-table-tbody > tr > td {
+  text-align: center;
+}
 </style>
