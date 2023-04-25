@@ -15,15 +15,15 @@
       <div>
         请输入预算每日成本：
         <a-input-number v-model:value="plannedDailyCost">
-          <template #addonAfter>
-            <a-select v-model:value="addonAfterValue" style="width: 60px">
-              <a-select-option value="CNY">¥</a-select-option>
-              <a-select-option value="USD">$</a-select-option>
-              <a-select-option value="EUR">€</a-select-option>
-              <a-select-option value="GBP">£</a-select-option>
-            </a-select>
-          </template>
-        </a-input-number>
+<!--          <template #addonAfter>-->
+<!--            <a-select v-model:value="addonAfterValue" style="width: 60px">-->
+<!--              <a-select-option value="CNY">¥</a-select-option>-->
+<!--              <a-select-option value="USD">$</a-select-option>-->
+<!--              <a-select-option value="EUR">€</a-select-option>-->
+<!--              <a-select-option value="GBP">£</a-select-option>-->
+<!--            </a-select>-->
+<!--          </template>-->
+        </a-input-number> 元
       </div>
       <div>
       请输入估计开发时间：
@@ -70,7 +70,8 @@
             >
               <a-input v-model:value="timePoint.AC" placeholder="实际成本" />
             </a-form-item>
-            <MinusCircleOutlined @click="removeTimePoint(timePoint)" />
+            <MinusCircleOutlined v-if="!timePoint.disabled" @click="removeTimePoint(timePoint)" />
+            <MinusCircleOutlined v-else style="color: #ccc; cursor: not-allowed;" />
           </a-space>
           <a-form-item>
             <a-button type="dashed" block @click="addTimePoint">
@@ -84,7 +85,8 @@
         </a-form>
       </div>
     </a-space>
-    <div ref="myChart" style="width: 1120px;height:630px;" id="chart"></div>
+    <a-table v-if="dataSource.length!==0" :dataSource="dataSource" :columns="columns" bordered/>
+    <div ref="myChart" style="width: 1200px;height:675px;" id="chart"></div>
   </div>
 </template>
 
@@ -94,6 +96,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { defineComponent, reactive, ref, watch } from 'vue';
 import { SettingOutlined } from '@ant-design/icons-vue';
 import * as echarts from 'echarts';
+
 export default defineComponent({
   name: 'Exp10',
   components: { SettingOutlined,MinusCircleOutlined, PlusOutlined},
@@ -106,6 +109,8 @@ export default defineComponent({
     const dynamicValidateForm = reactive({
       timePoints: [],
     });
+
+    let dataSource = reactive([]);
     const removeTimePoint = item => {
       let index = dynamicValidateForm.timePoints.indexOf(item);
       if (index !== -1) {
@@ -117,6 +122,7 @@ export default defineComponent({
         currentDay: '',
         EV: '',
         AC: '',
+        disabled: false,
         id: Date.now(),
       });
     };
@@ -133,24 +139,55 @@ export default defineComponent({
       }
       const PVData = Object.entries(objPV);
 
-      //EV数据处理
+      //EV和AC数据处理
       const objEV = new Object();
-      objEV[0] = 0
-      for (let i=0;i<values.timePoints.length;i++){
-        let tmp = values.timePoints[i]
-        objEV[tmp.currentDay] = tmp.EV*plannedDailyCost.value
-      }
-      const EVData = Object.entries(objEV);
-
-      //AC数据处理
       const objAC = new Object();
+      objEV[0] = 0
       objAC[0] = 0
       for (let i=0;i<values.timePoints.length;i++){
-        let tmp = values.timePoints[i]
+        const tmp = values.timePoints[i]
+        objEV[tmp.currentDay] = tmp.EV*plannedDailyCost.value
         objAC[tmp.currentDay] = tmp.AC
+        let item = {
+          days:tmp.currentDay,
+          sv:tmp.EV*plannedDailyCost.value-tmp.currentDay*plannedDailyCost.value,
+          cv:tmp.EV*plannedDailyCost.value-tmp.AC,
+          spi:(tmp.EV*plannedDailyCost.value)/(tmp.currentDay*plannedDailyCost.value),
+          cpi:(tmp.EV*plannedDailyCost.value)/(tmp.AC)
+        }
+        if(item.sv>0)
+          item.svMeaning="实际消耗时间小于预算值，进度提前"
+        else if(item.sv==0)
+          item.svMeaning="实际消耗时间等于预算值"
+        else if(item.sv<0)
+          item.svMeaning="实际消耗时间大于预算值，进度滞后"
+
+        if(item.cv>0)
+          item.cvMeaning="实际消耗成本小于预算值，预算结余"
+        else if(item.cv==0)
+          item.cvMeaning="实际消耗成本等于预算值"
+        else if(item.cv<0)
+          item.cvMeaning="实际消耗成本大于预算值，预算超支"
+
+        if(item.spi>1)
+          item.spiMeaning="实际消耗时间小于预算值，进度提前"
+        else if(item.spi==1)
+          item.spiMeaning="实际消耗时间等于预算值"
+        else if(item.spi<1)
+          item.spiMeaning="实际消耗时间大于预算值，进度滞后"
+
+        if(item.cpi>1)
+          item.cpiMeaning="实际消耗成本小于预算值，预算结余"
+        else if(item.cpi==1)
+          item.cpiMeaning="实际消耗成本等于预算值"
+        else if(item.cpi<1)
+          item.cpiMeaning="实际消耗成本大于预算值，预算超支"
+        dataSource.splice(i,1,item)
+        // dataSource[i].SV=tmp.EV*plannedDailyCost.value-objPV[i]
       }
+      const EVData = Object.entries(objEV);
       const ACData = Object.entries(objAC);
-      console.log(ACData)
+console.log(dataSource[0])
 
       let options = {
         legend: {
@@ -194,13 +231,63 @@ export default defineComponent({
     return{
       plannedDays,
       plannedDailyCost,
-      addonAfterValue: ref('CNY'),
+      // addonAfterValue: ref('CNY'),
 
       formRef,
       dynamicValidateForm,
       onFinish,
       removeTimePoint,
       addTimePoint,
+
+      dataSource,
+
+      columns: [
+        {
+          title: '天数',
+          dataIndex: 'days',
+          key: 'days',
+        },
+        {
+          title: 'SV',
+          dataIndex: 'sv',
+          key: 'sv',
+        },
+        {
+          title: 'SV含义',
+          dataIndex: 'svMeaning',
+          key: 'svMeaning',
+        },
+        {
+          title: 'CV',
+          dataIndex: 'cv',
+          key: 'cv',
+        },
+        {
+          title: 'CV含义',
+          dataIndex: 'cvMeaning',
+          key: 'cvMeaning',
+        },
+        {
+          title: 'SPI',
+          dataIndex: 'spi',
+          key: 'spi',
+        },
+        {
+          title: 'SPI含义',
+          dataIndex: 'spiMeaning',
+          key: 'spiMeaning',
+        },
+        {
+          title: 'CPI',
+          dataIndex: 'cpi',
+          key: 'cpi',
+        },
+        {
+          title: 'CPI含义',
+          dataIndex: 'cpiMeaning',
+          key: 'cpiMeaning',
+        },
+      ],
 
       options: {
         legend: {
@@ -219,7 +306,7 @@ export default defineComponent({
             smooth: true
           }
         ]
-      }
+      },
     }
   },
   mounted() {
@@ -227,6 +314,16 @@ export default defineComponent({
     const myChart = echarts.init(this.$refs.myChart);
     // 使用ECharts设置选项
     // myChart.setOption(this.options);
+    console.log(this.dynamicValidateForm.timePoints)
+    if (this.dynamicValidateForm.timePoints.length === 0) {
+      this.dynamicValidateForm.timePoints.push({
+        currentDay: '',
+        EV: '',
+        AC: '',
+        id: Date.now(),
+        disabled: true // 添加一个 disabled 属性，防止该时间点被删除
+      });
+    }
   },
   // watch: {
   //   /* 如果图表数据是后台获取的，监听父组件中的数据变化，重新触发Echarts */
@@ -281,5 +378,12 @@ export default defineComponent({
 .dynamic-delete-button[disabled] {
   cursor: not-allowed;
   opacity: 0.5;
+}
+:deep().ant-table-thead > tr > th {
+  text-align: center;
+}
+
+:deep().ant-table-tbody > tr > td {
+  text-align: center;
 }
 </style>
