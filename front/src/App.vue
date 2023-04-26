@@ -37,24 +37,19 @@
   import HeaderActions from './components/layout/HeaderActions.vue';
   import Setting from './components/setting/Setting.vue';
   import avatar from '@/assets/avatar.png';
-  import { userInfo } from 'os';
-import { onMounted } from 'vue';
 
   const { logout, profile } = useAccountStore();
   const { setAuthorities } = useAuthStore();
   
-
   // onMounted(()=>{console.log(1)}) 
 
   // 获取个人信息
   profile().then((response) => {
     const { permissions, account } = response;
-    console.log(account)
     setAuthorities(permissions);
     user.name = account.name;
-    // user.avatar = account.avatar;
-    
-  });
+    user.avatar = account.avatar;
+  }).catch((e)=>{console.log(e)});
 
   const showSetting = ref(false);
   const router = useRouter();
@@ -67,7 +62,6 @@ import { onMounted } from 'vue';
     name: '',
     avatar: avatar,
     menuList: [
-      // { title: '个人中心', key: 'personal', icon: 'UserOutlined', onClick: () => router.push('/profile') },
       { title: '设置', key: 'setting', icon: 'SettingOutlined', onClick: () => (showSetting.value = true) },
       { type: 'divider' },
       {
