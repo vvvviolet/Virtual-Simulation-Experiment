@@ -7,6 +7,7 @@
           </el-icon>实验指导书下载
         </a-button>
       </span>
+        
     </h1>
     <h2>一、实验目的 </h2>
     <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
