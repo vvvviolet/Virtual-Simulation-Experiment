@@ -467,8 +467,7 @@
                     <a-col :span="3">4</a-col>
                     <a-col :span="3">5</a-col>
                   </a-row>
-
-
+                  <a-divider></a-divider>
                   <h2>4.2 根据公式计算动态投资回收期</h2>
                   <div style="display: flex">
                   <p style="white-space: nowrap">累计净现金流量现值由负值转变到正值的年份是：</p>
