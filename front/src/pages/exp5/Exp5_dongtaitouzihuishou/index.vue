@@ -47,6 +47,7 @@
                   <p>根据项目计划和预算，计算出项目的总投资成本，包括项目开发过程中的各种成本和运营成本。</p>
                   <h2>3.2 计算项目现金流</h2>
                   <p>根据项目计划和预算，计算出项目的现金流量，包括项目开发过程中的各种收益和运营收益。</p>
+                  <p>时点0表示项目开始的时间，时点1-时点6代表各年终止时点。单位：千元。</p>
                   <a-row justify="left">
                     <a-col :span="5">项目/年份</a-col>
                     <a-col :span="3">0</a-col>
@@ -179,7 +180,7 @@
                         </a-col>
                       </a-row>
                       <a-row justify="left">
-                        <a-col :span="4">2.5 维持运营投资</a-col>
+                        <a-col :span="4">2.4 维持运营投资</a-col>
                         <a-col :span="20"><a-input-group compact>
                           <a-input v-model:value="cash_flow0" style="width: 15%" />
                           <a-input v-model:value="cash_flow1" style="width: 15%" />
@@ -191,7 +192,7 @@
                         </a-col>
                       </a-row>
                       <a-row justify="left">
-                        <a-col :span="4">2.4 营业税金及附加</a-col>
+                        <a-col :span="4">2.5 营业税金及附加</a-col>
                         <a-col :span="20"><a-input-group compact>
                           <a-input v-model:value="cash_flow0" style="width: 15%" />
                           <a-input v-model:value="cash_flow1" style="width: 15%" />
@@ -202,20 +203,283 @@
                         </a-input-group>
                         </a-col>
                       </a-row>
-                    
-                  <h2>3.3 计算动态投资回收期</h2>
-                  <p>根据计算得到的现金流量和投资成本，利用动态投资回收期的计算方法，计算出项目的动态投资回收期。</p>
-                  <h2>3.4 分析经济效益和风险</h2>
-                  <p>根据计算结果，分析项目的经济效益和风险，并对项目的实施进行评估。</p>
+                  <a-divider></a-divider>
+                  <h2>3.3 计算净现金流量</h2>
+                  <p>根据现金流入和现金流出，</p>
+                  <p>净现金流量=现金流入-现金流出。</p>
+                  <p>累计净现金流量=年初净现金流量+当年产生的净现金流量。</p>
+                  <a-row justify="left">
+                    <a-col :span="5">项目/年份</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="4">净现金流量</a-col>
+                    <a-col :span="20">
+                      <a-input-group compact>
+                        <a-input v-model:value="cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                      </a-input-group>
+                    </a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="4">累计净现金流量</a-col>
+                    <a-col :span="20">
+                      <a-input-group compact>
+                        <a-input v-model:value="cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                      </a-input-group>
+                    </a-col>
+                  </a-row>
+                  <a-divider></a-divider>
+                  <h2>3.4 计算净现金流量现值</h2>
+                  <p>根据净现金流量和现值系数，</p>
+                  <p>净现金流量现值=各时点净现金流量✖️现值系数。</p>
+                  <p>累计净现金流量现值=年初净现金流量现值+当年产生的净现金流量现值。</p>
+                  <a-row justify="left">
+                    <a-col :span="5">项目/年份</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="4">现值系数</a-col>
+                    <a-col :span="20">
+                      <a-input-group compact>
+                        <a-input v-model:value="cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                      </a-input-group>
+                    </a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="4">净现金流量(现值)</a-col>
+                    <a-col :span="20">
+                      <a-input-group compact>
+                        <a-input v-model:value="cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                      </a-input-group>
+                    </a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="4">累计净现金流量(现值)</a-col>
+                    <a-col :span="20">
+                      <a-input-group compact>
+                        <a-input v-model:value="cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                      </a-input-group>
+                    </a-col>
+                  </a-row>
                 </a-col>
               </a-row>
+              
               <a-divider></a-divider>
               <a-row>
                 <a-col :span="24">
                   <h1 id="four">四、实验内容</h1>
-                  <p>
-                    动态投资回收期（Dynamic Payback Period）是一种用于评估投资回报率的方法，其基本原理是将投资成本与现金流量相比较，计算出从投资开始到投资收回的时间，即投资回收期。动态投资回收期相较于传统的投资回收期更加精细，能够考虑现金流量的时间价值因素，能够更准确地评估投资的回报率和风险。
-                  </p>
+                  <h2>4.1 完成数据统计计算</h2>
+                  <p>依照实验步骤，计算得出累计净现值现值。</p>
+                <a-row justify="left">
+                    <a-col :span="5">项目/年份</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">1. 现金流入</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">1.1 营业收入</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">1.2 回收固定资产余值</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">1.3 回收无形资产余值</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">1.4 回收流动资金</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">2. 现金流出</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">2.1 建设投资</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">2.2 流动资金</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">2.3 经营成本</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">2.3 经营成本</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">2.4 维持运营投资</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">2.5 营业税金及附加</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">净现金流量</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">累计净现金流量</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">现值系数</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">净现金流量(现值)</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+                  <a-row justify="left">
+                    <a-col :span="5">累计净现金流量(现值)</a-col>
+                    <a-col :span="3">0</a-col>
+                    <a-col :span="3">1</a-col>
+                    <a-col :span="3">2</a-col>
+                    <a-col :span="3">3</a-col>
+                    <a-col :span="3">4</a-col>
+                    <a-col :span="3">5</a-col>
+                  </a-row>
+
+
+                  <h2>4.2 根据公式计算动态投资回收期</h2>
+                  <div style="display: flex">
+                  <p style="white-space: nowrap">累计净现金流量现值由负值转变到正值的年份是：</p>
+                 <a-input-number id="inputNumber" v-model:value="year" :min="1" :max="6" />
+                  </div>
+                  <p>动态投资回收期计算公式：DPP=（累计折现值出现正值的年数-1）+上年累计折现值的绝对值/当年净现金流量的折现值。</p>
+                   <div style="display: flex">
+                  <p style="white-space: nowrap">DPP=</p>
+                 <a-input-number id="inputNumber" v-model:value="dpp" :min="1" :max="6" />
+                  </div>
+             
                 </a-col>
               </a-row>
               <a-divider></a-divider>
@@ -283,7 +547,18 @@
 
 </template>
 <script lang="ts">
+import { ref } from 'vue';
+
 export default {
+  setup() {
+    const year = ref<number>(3);
+    const dpp = ref<number>(3);
+
+    return {
+      year,
+      dpp
+    };
+  },
   name: "Exp5_dongtaitouzihuishou",
   method: {
     handleAnchorClick(e, link) {
