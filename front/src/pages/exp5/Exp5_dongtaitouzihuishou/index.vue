@@ -503,9 +503,7 @@
               <a-row>   
                 <a-col :span="24">
                   <h1 id="six">六、实验思考</h1>
-                  <p>
-                    本实验旨在通过动态投资回收期的计算方法，评估软件开发项目的投资回收期，并分析项目的经济效益和风险。
-                  </p>
+                  <a-textarea v-model:value="thoughts" placeholder="请输入..." :rows="4" />
                 </a-col>
               </a-row>
               <a-divider></a-divider>   
@@ -552,10 +550,12 @@ export default {
   setup() {
     const year = ref<number>(3);
     const dpp = ref<number>(3);
+    const thoughts = ref<string>('');
 
     return {
       year,
-      dpp
+      dpp,
+      thoughts
     };
   },
   name: "Exp5_dongtaitouzihuishou",
