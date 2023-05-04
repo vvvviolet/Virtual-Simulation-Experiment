@@ -1,7 +1,7 @@
 <template>
     <!-- <h1 class="title">实验1 基于IFPUG的小型软件项目规模度量实验
 
-        <a-button class="button1" type="primary" shape="round" >
+        <a-button class="button1" type="primary" shape="round" @click="click_button1">
             <template #icon>
                 <DownloadOutlined />
             </template>实验指导书下载
@@ -49,7 +49,9 @@
         并按照下表的参数并赋值(简单、平均或复杂)。 <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：复杂度为简单的 ILF 数量和复杂的 ILF 数量各占 50%。EIF 的复
         杂度均为复杂。填写下表。</p>
-
+    <h2 style="text-align: center">ILF 和 EIF 数据复杂度认定表</h2>
+    <a-table :pagination="false" :columns="columns1" :data-source="tableData1" bordered size="middle" style="word-break: break-all;" />
+    <br>
 
     <p class="secondtitle">第五步：测量外部输入(EI)</p>
     <p class="content">外部输入(EI)是应用程序处理来自系统边界以外的数据或控制信息的基本
@@ -84,7 +86,13 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：复杂度为简单的 EI 数量和复杂的 EI 数量各占 50%。复杂度为平
         均的 EO 数量占 2/3，复杂度为复杂的 EO 数量占 1/3。复杂度为简单、平均和复
         杂的 EQ 数量各占 1/3。</p>
+    <h2 style="text-align: center">EI 复杂度认定表</h2>
+    <a-table :pagination="false" :columns="columns2" :data-source="tableData2" bordered size="middle" style="word-break: break-all;" />
+    <br>
 
+    <h2 style="text-align: center">EO 和 EQ 复杂度认定表</h2>
+    <a-table :pagination="false" :columns="columns3" :data-source="tableData3" bordered size="middle" style="word-break: break-all;" />
+    <br>
 
     <p class="secondtitle">第九步：计算未调整功能点 </p>
     <p class="content"> 按照 IFPUG 功能点计算实践手册(4.1 版)组件复杂度等级与功能点数对应关
@@ -99,128 +107,86 @@
         点计算公式，计算得到本实验案例的功能点为_____________。 <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：运用 IFPUG 标准规则，计算实验案例的调整后功能点。 </p>
     <br />
-
+    <h2 style="text-align: center">每个组件复杂度等级与功能点数对应关系表 </h2>
+    <a-table :pagination="false" :columns="columns4" :data-source="tableData4" bordered size="middle" style="word-break: break-all;" />
+    <br>
 
 
 
     <h2>二、实验参数 </h2>
 
-
-    <a-table :columns="columns" :data-source="tableData" bordered size="middle" style="word-break: break-all;">
-        <template #bodyCell="{ column,record,index}">
+    <h2 style="text-align: center;">表1：未调整功能点计算表 </h2>
+    <a-table :pagination="false" :columns="columns" :data-source="tableData" bordered size="middle" style="word-break: break-all;">
+        <template #bodyCell="{ column, record, index }">
             <template v-if="column.dataIndex === 'A'">
-                <a-input v-model:value="record.A" style="width:100px; "/>
+                <a-input v-model:value="record.A" style="width:100px; " />
             </template>
             <template v-if="column.dataIndex === 'D'">
-                <a-input v-model:value="record.D" style="width:100px;"/>
+                <a-input v-model:value="record.D" style="width:100px;" />
             </template>
             <template v-if="column.dataIndex === 'G'">
-                <a-input v-model:value="record.G" style="width:100px;"/>
+                <a-input v-model:value="record.G" style="width:100px;" />
             </template>
             <template v-if="column.dataIndex === 'C'">
-                {{c(index)}}
+                {{ c(index) }}
             </template>
             <template v-if="column.dataIndex === 'F'">
-                {{f(index)}}
+                {{ f(index) }}
             </template>
             <template v-if="column.dataIndex === 'I'">
-                {{i(index)}}
+                {{ i(index) }}
             </template>
             <template v-if="column.dataIndex === 'number'">
-                {{number(index)}}
+                {{ number(index) }}
             </template>
             <template v-if="column.dataIndex === 'unchanged'">
-                {{unchanged(index)}}
+                {{ unchanged(index) }}
             </template>
-        </template> 
+        </template>
     </a-table>
-    
-    <!-- <div style="text-align : center;">
-    <a-table class="maintable" :data-source="tableData" bordered style="title-color: #1890ff" >
-        <a-table-column key="component" data-index="component">
-        <template #title><span style="color: #1890ff">组件</span></template>
-      </a-table-column>
-      <a-table-column key="number" data-index="number">
-        <template #title><span style="color: #1890ff">数量</span></template>
-      </a-table-column>
-        <a-table-column-group>
-          <template #title><span style="color: #1890ff">复杂度</span></template>
-         
-            <a-table-column-group>
-                <template #title><span style="color: #1890ff">简单</span></template>
-                        
-                        <a-table-column-group>              
-                        <template #title><span style="color: #1890ff">计数</span></template>
-                        <a-table-column key="A" title="A" data-index="A" />
-                        </a-table-column-group>    
-                                                              
-                        <a-table-column-group>  
-                        <template #title><span style="color: #1890ff">权重</span></template>
-                        <a-table-column key="B" title="B" data-index="B" />
-                        </a-table-column-group>
-                     
-                        <a-table-column-group>  
-                        <template #title><span style="color: #1890ff">功能点数</span></template>
-                        <a-table-column key="C" title="C=A*B" data-index="C" />
-                        </a-table-column-group>
-    
-            </a-table-column-group>
-            <a-table-column-group>
-                <template #title><span style="color: #1890ff">平均</span></template>
-                  
-                        <a-table-column-group>              
-                        <template #title><span style="color: #1890ff">计数</span></template>
-                        <a-table-column key="A" title="A" data-index="A" />
-                        </a-table-column-group>    
-                                                         
-                        <a-table-column-group>  
-                        <template #title><span style="color: #1890ff">权重</span></template>
-                        <a-table-column key="B" title="B" data-index="B" />
-                        </a-table-column-group>
-                     
-                        <a-table-column-group>  
-                        <template #title><span style="color: #1890ff">功能点数</span></template>
-                        <a-table-column key="C" title="C=A*B" data-index="C" />
-                        </a-table-column-group>
-                       
-            </a-table-column-group>
-            <a-table-column-group>
-                <template #title><span style="color: #1890ff">复杂</span></template>
-    
-                <a-table-column-group>              
-                <template #title><span style="color: #1890ff">计数</span></template>
-                <a-table-column key="A" title="A" data-index="A" />
-                </a-table-column-group>                           
-                                
-                <a-table-column-group>  
-                <template #title><span style="color: #1890ff">权重</span></template>
-                <a-table-column key="B" title="B" data-index="B" />
-                </a-table-column-group>
-                                <a-table-column-group>  
-                <template #title><span style="color: #1890ff">功能点数</span></template>
-                <a-table-column key="C" title="C=A*B" data-index="C" />
-                </a-table-column-group>
-                    
-            </a-table-column-group>
-    
-    
-        </a-table-column-group>
-        <a-table-column key="unconverted" data-index="unconverted">
-        <template #title><span style="color: #1890ff">未调整功能点数</span></template>
-      </a-table-column>
+    <br>
+
+    <div style="width:100%;text-align:right" >
+        <span  style="width:30%;display:inline-block" class="secondtitle">本实验未调整功能点总计为 </span>
+        <span style="display:inline-block;font-size:20px;" >{{ SUM }}</span>
+    </div>
+    <br>
+    <br>
+
+    <h2 style="text-align: center;">表2：系统特征因子表及计算表 </h2>
+    <a-table :columns="columnsadjust" :pagination="false" :data-source="dataadjust" bordered size="middle" style="word-break: break-all;">
+        <template #bodyCell="{ column, record }">
+            <template v-if="column.dataIndex === 'grade'">
+                <a-input-group compact>
+                    <a-select v-model:value="record.grade">
+                        <a-select-option value="0">0</a-select-option>
+                        <a-select-option value="1">1</a-select-option>
+                        <a-select-option value="2">2</a-select-option>
+                        <a-select-option value="3">3</a-select-option>
+                        <a-select-option value="4">4</a-select-option>
+                        <a-select-option value="5">5</a-select-option>
+                    </a-select>
+
+                </a-input-group>
+
+            </template>
+        </template>
     </a-table>
-    </div> -->
-    <span class="secondtitle">系统特征因子为
+    <br>
+    <div style="width:100%;text-align:right" >
+        <span  style="width:30%;display:inline-block" class="secondtitle">合计数 </span>
+        <span style="display:inline-block;font-size:20px;" >{{ SUM_A }}</span>
+    </div>
+    <br>
+    <br>
 
-        <a-button class="button4" type="primary" shape="round"  @click="count">
-            计算
-        </a-button>
-    </span>
-    <span class="secondtitle">本实验未调整功能点总计为：____________ </span>
-
-
-
-    <a-button class="button3" type="primary" shape="round" >
+    <span class="secondtitle">功能点调整因子(VAF)为 </span>
+    <span style="font-size:20px">{{ VAF }}</span>
+    <br /><br />
+    <span class="secondtitle">本实验案例的功能点为</span>
+    <span style="font-size:20px">{{ ALL }}</span>
+    <br /><br />
+    <a-button class="button3" type="primary" shape="round">
         <template #icon>
             <DownloadOutlined />
         </template>实验报告提交
@@ -234,17 +200,176 @@ import { Document } from '@element-plus/icons-vue'
 import { defineComponent } from 'vue'
 export default {
 
-    setup()
-    {
+    setup() {
         return {
-            value
+            value,
+            data,
+            columns,
         }
     },
-    name: 'Exp1_MARKII',
+    name: 'Exp1_IFPUG',
     data() {
         return {
             test: '21111',
-            sum: '',
+            SUM: 0,
+            VAF: 0,
+            SUM_A: 0,
+            columns1: [
+                {
+                    title: '记录元素类型(RET) ',
+                    dataIndex: 'RET',
+                    key: 'type',
+                    align: 'center',
+                    width: 400,
+                    // fixed: 'left',
+                },
+                {
+                    title: '数据元素类型(DET)',
+                    children: [
+                        {
+                            title: '1-19',
+                            dataIndex: 'left',
+                            key: '1-19',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                        {
+                            title: '20-50',
+                            dataIndex: 'mide',
+                            key: '20-50',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                        {
+                            title: '>50',
+                            key: '50',
+                            dataIndex: 'right',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                    ]
+                }
+
+            ],
+            columns2: [{
+                title: '引用的文件类型个数(FTR) ',
+                dataIndex: 'FTR',
+                key: 'type',
+                align: 'center',
+                width: 400,
+                // fixed: 'left',
+            },
+            {
+                title: '数据元素类型(DET)',
+                children: [
+                    {
+                        title: '1-4',
+                        dataIndex: 'left',
+                        key: 'type',
+                        align: 'center'
+                        // width: 30,
+                        // fixed: 'left',
+                    },
+                    {
+                        title: '5-15',
+                        dataIndex: 'mide',
+                        key: 'type',
+                        align: 'center'
+                        // width: 30,
+                        // fixed: 'left',
+                    },
+                    {
+                        title: '>15',
+                        dataIndex: 'right',
+                        key: 'type',
+                        align: 'center'
+                        // width: 30,
+                        // fixed: 'left',
+                    },
+                ]
+            }
+            ],
+            columns3: [
+                {
+                    title: '引用的文件类型个数(FTR) ',
+                    dataIndex: 'FTR',
+                    key: 'type',
+                    align: 'center',
+                    width: 400,
+                    // fixed: 'left',
+                },
+                {
+                    title: '数据元素类型(DET)',
+                    children: [
+                        {
+                            title: '1-5',
+                            dataIndex: 'left',
+                            key: 'type',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                        {
+                            title: '6-19',
+                            dataIndex: 'mide',
+                            key: 'type',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                        {
+                            title: '>19',
+                            dataIndex: 'right',
+                            key: 'type',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                    ]
+                }
+            ],
+            columns4: [
+                {
+                    title: '类型 ',
+                    dataIndex: 'type',
+                    key: 'type',
+                    align: 'center',
+                    width: 400,
+                    // fixed: 'left',
+                },
+                {
+                    title: '复杂度级别',
+                    children: [
+                        {
+                            title: '简单',
+                            dataIndex: 'easy',
+                            key: 'type',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                        {
+                            title: '平均',
+                            dataIndex: 'mide',
+                            key: 'type',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                        {
+                            title: '复杂',
+                            dataIndex: 'complex',
+                            key: 'type',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                    ]
+                }
+            ],
             columns: [
                 {
                     title: '组件',
@@ -378,6 +503,128 @@ export default {
                     // fixed: 'right',
                 },
             ],
+            columnsadjust: [
+                {
+                    title: '序号',
+                    dataIndex: 'index',
+                    key: 'component',
+                    align: 'center',
+                    width: 100
+                    // fixed: 'left',
+                },
+                {
+                    title: '因子',
+                    dataIndex: 'title',
+                    key: 'component',
+                    align: 'center',
+                    width: 900,
+                    // fixed: 'left',
+                },
+                {
+                    title: '等级',
+                    dataIndex: 'grade',
+                    key: 'component',
+                    align: 'center'
+                    // width: 30,
+                    // fixed: 'left',
+                },
+            ],
+            tableData1: [
+                {
+                    RET: '1',
+                    left: '简单',
+                    mide: '简单',
+                    right: '平均'
+
+                },
+                {
+                    RET: '2~4',
+                    left: '简单',
+                    mide: '平均',
+                    right: '复杂'
+
+                },
+                {
+                    RET: '>5',
+                    left: '平均',
+                    mide: '复杂',
+                    right: '复杂'
+
+                }
+            ],
+            tableData2: [
+                {
+                    FTR: '0~1',
+                    left: '简单',
+                    mide: '简单',
+                    right: '平均'
+                },
+                {
+                    FTR: '2',
+                    left: '简单',
+                    mide: '平均',
+                    right: '复杂'
+                },
+                {
+                    FTR: '>2',
+                    left: '平均',
+                    mide: '复杂',
+                    right: '复杂'
+                }
+
+            ],
+            tableData3: [
+                {
+                    FTR: '0~1',
+                    left: '简单',
+                    mide: '简单',
+                    right: '平均'
+                },
+                {
+                    FTR: '2~3',
+                    left: '简单',
+                    mide: '平均',
+                    right: '复杂'
+                },
+                {
+                    FTR: '>3',
+                    left: '平均',
+                    mide: '复杂',
+                    right: '复杂'
+                }
+            ],
+            tableData4: [
+                {
+                    type: 'ILF',
+                    easy: 'X7',
+                    mide: 'X10',
+                    complex: 'X15'
+                },
+                {
+                    type: 'EIF',
+                    easy: 'X5',
+                    mide: 'X7',
+                    complex: 'X10'
+                },
+                {
+                    type: 'EI',
+                    easy: 'X3',
+                    mide: 'X4',
+                    complex: 'X6'
+                },
+                {
+                    type: 'EO',
+                    easy: 'X4',
+                    mide: 'X5',
+                    complex: 'X7'
+                },
+                {
+                    type: 'EQ',
+                    easy: 'X3',
+                    mide: 'X4',
+                    complex: 'X6'
+                }
+            ],
             tableData: [
                 {
                     component: 'EI',
@@ -449,45 +696,151 @@ export default {
                     I: '',
                     unchanged: '',
                 },
+            ],
+            dataadjust: [
+                {
+                    index: '1',
+                    title: 'Requirement for reliable backup and recovery ',
+                    grade: ''
+
+                },
+                {
+                    index: '2',
+                    title: 'Requirement for data communication',
+                    grade: ''
+
+                },
+                {
+                    index: '3',
+                    title: 'Extent of distributed processing ',
+                    grade: ''
+
+                },
+                {
+                    index: '4',
+                    title: 'Performance requirements ',
+                    grade: ''
+
+                },
+                {
+                    index: '5',
+                    title: 'Expected operational environment ',
+                    grade: ''
+
+                },
+                {
+                    index: '6',
+                    title: 'Extent of online data entries ',
+                    grade: ''
+
+                },
+                {
+                    index: '7',
+                    title: 'Extent of multi-screen or multi-operation online data input ',
+                    grade: ''
+
+                },
+                {
+                    index: '8',
+                    title: 'Extent of online updating of master files ',
+                    grade: ''
+
+                },
+                {
+                    index: '9',
+                    title: 'Extent of complex inputs, outputs, online queries and files ',
+                    grade: ''
+
+                },
+                {
+                    index: '10',
+                    title: 'Extent of complex data processing ',
+                    grade: ''
+
+                },
+                {
+                    index: '11',
+                    title: 'Extent that currently developed code can be designed for reuse ',
+                    grade: ''
+
+                },
+                {
+                    index: '12',
+                    title: 'Extent of conversion and installation included in the design ',
+                    grade: ''
+
+                },
+                {
+                    index: '13',
+                    title: 'Extent of multiple installations in an organization and variety of customer organizations ',
+                    grade: ''
+
+                },
+                {
+                    index: '14',
+                    title: 'Extent of change and focus on ease of use ',
+                    grade: ''
+
+                },
             ]
         }
     },
-    computed:{
-        c(){
-            return function(index)
-            {
-                this.tableData[index].C = (parseInt(this.tableData[index].A)? parseInt(this.tableData[index].A):0)*parseInt(this.tableData[index].B)
+    computed: {
+        c() {
+            return function (index) {
+                this.tableData[index].C = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) * parseInt(this.tableData[index].B)
                 return this.tableData[index].C
             }
         },
-        f(){
-            return function(index)
-            {
-                this.tableData[index].F = (parseInt(this.tableData[index].D)? parseInt(this.tableData[index].D):0)*parseInt(this.tableData[index].E)
+        f() {
+            return function (index) {
+                this.tableData[index].F = (parseInt(this.tableData[index].D) ? parseInt(this.tableData[index].D) : 0) * parseInt(this.tableData[index].E)
                 return this.tableData[index].F
             }
         },
-        i(){
-            return function(index)
-            {
-                this.tableData[index].I = (parseInt(this.tableData[index].G)? parseInt(this.tableData[index].G):0)*parseInt(this.tableData[index].H)
+        i() {
+            return function (index) {
+                this.tableData[index].I = (parseInt(this.tableData[index].G) ? parseInt(this.tableData[index].G) : 0) * parseInt(this.tableData[index].H)
                 return this.tableData[index].I
             }
         },
-        number(){
-            return function(index)
-            {
-                this.tableData[index].number = (parseInt(this.tableData[index].A)? parseInt(this.tableData[index].A):0)+(parseInt(this.tableData[index].D)? parseInt(this.tableData[index].D):0)+(parseInt(this.tableData[index].G)? parseInt(this.tableData[index].G):0)
+        number() {
+            return function (index) {
+                this.tableData[index].number = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) + (parseInt(this.tableData[index].D) ? parseInt(this.tableData[index].D) : 0) + (parseInt(this.tableData[index].G) ? parseInt(this.tableData[index].G) : 0)
                 return this.tableData[index].number
             }
         },
-        unchanged(){
-            return function(index)
-            {
-                this.tableData[index].unchanged = (parseInt(this.tableData[index].C)? parseInt(this.tableData[index].C):0)+(parseInt(this.tableData[index].F)? parseInt(this.tableData[index].F):0)+(parseInt(this.tableData[index].I)? parseInt(this.tableData[index].I):0)
+        unchanged() {
+            return function (index) {
+                this.tableData[index].unchanged = (parseInt(this.tableData[index].C) ? parseInt(this.tableData[index].C) : 0) + (parseInt(this.tableData[index].F) ? parseInt(this.tableData[index].F) : 0) + (parseInt(this.tableData[index].I) ? parseInt(this.tableData[index].I) : 0)
+
+                var sum = 0
+                for (var i = 0; i < 5; i++)
+                    sum += (parseInt(this.tableData[i].unchanged) ? parseInt(this.tableData[i].unchanged) : 0)
+                this.$data.SUM = sum
+
                 return this.tableData[index].unchanged
             }
         },
+        VAF() {
+            var vaf = 0
+            // console.log('111',this.$data.tableData)
+            for (var i = 0; i < 14; i++)
+                vaf += (parseInt(this.dataadjust[i].grade) ? parseInt(this.dataadjust[i].grade) : 0)
+            
+            vaf = vaf*0.01 + 0.65
+            this.$data.VAF = vaf.toFixed(2)
+            return vaf
+        },
+        SUM_A(){
+            var sum = 0
+            for (var i = 0; i < 14; i++)
+                sum += (parseInt(this.dataadjust[i].grade) ? parseInt(this.dataadjust[i].grade) : 0)
+            return sum
+        },
+        ALL() {
+            return (this.$data.SUM * this.$data.VAF).toFixed(2)
+        }
     },
     methods: {
         created() {
