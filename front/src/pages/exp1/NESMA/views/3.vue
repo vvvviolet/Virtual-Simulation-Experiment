@@ -118,13 +118,9 @@
   import table6 from '../components/table6.vue';
 
   const { SUM, VAF, ALL } = storeToRefs(useExp1Store());
-  onMounted(() => {
-    // gettableData()
-  });
+  onMounted(() => {});
   onUpdated(() => {
-    nextTick(() => {
-      // refs['detailTable'].doLayout();
-    });
+    nextTick(() => {});
   });
 </script>
 

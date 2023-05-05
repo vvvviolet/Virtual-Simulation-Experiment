@@ -20,7 +20,6 @@
       key: 'type',
       align: 'center',
       width: 400,
-      // fixed: 'left',
     },
     {
       title: '复杂度级别',
@@ -30,28 +29,23 @@
           dataIndex: 'easy',
           key: 'type',
           align: 'center',
-          // width: 30,
-          // fixed: 'left',
         },
         {
           title: '平均',
           dataIndex: 'mide',
           key: 'type',
           align: 'center',
-          // width: 30,
-          // fixed: 'left',
         },
         {
           title: '复杂',
           dataIndex: 'complex',
           key: 'type',
           align: 'center',
-          // width: 30,
-          // fixed: 'left',
         },
       ],
     },
   ]);
+
   const tableData4 = ref([
     {
       type: 'ILF',

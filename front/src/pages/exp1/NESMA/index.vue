@@ -1,6 +1,6 @@
 <template>
   <a-tabs v-model:activeKey="activeKey" :tabBarGutter="100">
-    <a-tab-pane key="1" tab="预估功能点分析方法">Content of Tab Pane 1</a-tab-pane>
+    <a-tab-pane key="1" tab="预估功能点分析方法"><One></One></a-tab-pane>
     <a-tab-pane key="2" tab="估算功能点分析方法" force-render><Two></Two></a-tab-pane>
     <a-tab-pane key="3" tab="详细功能点分析方法"><Three></Three></a-tab-pane>
   </a-tabs>
