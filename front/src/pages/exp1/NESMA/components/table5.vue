@@ -10,16 +10,26 @@
   >
     <template #bodyCell="{ column, record, index }">
       <template v-if="column.dataIndex === 'A'">
-        <template v-if="record.component === 'EI' || record.component === 'EO' || record.component === 'EQ'">
-          <a-input disabled v-model:value="record.A" style="width: 100px" />
+        <template v-if="second === 'two'">
+          <template v-if="record.component === 'EI' || record.component === 'EO' || record.component === 'EQ'">
+            <a-input disabled v-model:value="record.A" style="width: 100px" />
+          </template>
+          <template v-else>
+            <a-input v-model:value="record.A" style="width: 100px" />
+          </template>
         </template>
         <template v-else>
           <a-input v-model:value="record.A" style="width: 100px" />
         </template>
       </template>
       <template v-if="column.dataIndex === 'D'">
-        <template v-if="record.component === 'ILF' || record.component === 'EIF'">
-          <a-input disabled v-model:value="record.D" style="width: 100px" />
+        <template v-if="second === 'two'">
+          <template v-if="record.component === 'ILF' || record.component === 'EIF'">
+            <a-input disabled v-model:value="record.D" style="width: 100px" />
+          </template>
+          <template v-else>
+            <a-input v-model:value="record.D" style="width: 100px" />
+          </template>
         </template>
         <template v-else>
           <a-input v-model:value="record.D" style="width: 100px" />
