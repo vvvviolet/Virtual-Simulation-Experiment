@@ -67,4 +67,8 @@
   ]);
 </script>
 
-<style scoped></style>
+<style scoped>
+  :deep(.ant-table .ant-table-thead > tr > th) {
+    border-width: 1px;
+  }
+</style>

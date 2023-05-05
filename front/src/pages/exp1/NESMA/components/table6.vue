@@ -37,7 +37,6 @@
       key: 'component',
       align: 'center',
       width: 100,
-      // fixed: 'left',
     },
     {
       title: '因子',
@@ -45,17 +44,18 @@
       key: 'component',
       align: 'center',
       width: 900,
-      // fixed: 'left',
     },
     {
       title: '等级',
       dataIndex: 'grade',
       key: 'component',
       align: 'center',
-      // width: 30,
-      // fixed: 'left',
     },
   ]);
 </script>
 
-<style scoped></style>
+<style scoped>
+  :deep(.ant-table .ant-table-thead > tr > th) {
+    border-width: 1px;
+  }
+</style>

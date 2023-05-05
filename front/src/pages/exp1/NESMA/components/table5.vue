@@ -38,7 +38,7 @@
   import { ref } from 'vue';
   import { useExp1Store } from '../stores';
   import { storeToRefs } from 'pinia';
-  
+
   const { tableData5, c, f, i, unchanged } = storeToRefs(useExp1Store());
   const columns5 = ref([
     {
@@ -60,7 +60,6 @@
               children: [
                 {
                   title: 'A',
-                  // width: 30,
                   dataIndex: 'A',
                   align: 'center',
                 },
@@ -74,7 +73,6 @@
                   title: 'B',
                   dataIndex: 'B',
                   align: 'center',
-                  // width: 30,
                 },
               ],
             },
@@ -86,7 +84,6 @@
                   title: 'C=A*B',
                   align: 'center',
                   dataIndex: 'C',
-                  // width: 30,
                 },
               ],
             },
@@ -103,7 +100,6 @@
                   align: 'center',
                   dataIndex: 'D',
                   title: 'D',
-                  // width: 30,
                 },
               ],
             },
@@ -115,7 +111,6 @@
                   dataIndex: 'E',
                   align: 'center',
                   title: 'E',
-                  // width: 30,
                 },
               ],
             },
@@ -127,7 +122,6 @@
                   dataIndex: 'F',
                   title: 'F=D*E',
                   align: 'center',
-                  // width: 30,
                 },
               ],
             },
@@ -145,7 +139,6 @@
                   dataIndex: 'G',
                   align: 'center',
                   title: 'G',
-                  // width: 30,
                 },
               ],
             },
@@ -157,7 +150,6 @@
                   dataIndex: 'H',
                   align: 'center',
                   title: 'H',
-                  // width: 30,
                 },
               ],
             },
@@ -169,7 +161,6 @@
                   dataIndex: 'I',
                   title: 'I=G*H',
                   align: 'center',
-                  // width: 30,
                 },
               ],
             },
@@ -186,4 +177,8 @@
   ]);
 </script>
 
-<style scoped></style>
+<style scoped>
+  :deep(.ant-table .ant-table-thead > tr > th) {
+    border-width: 1px;
+  }
+</style>

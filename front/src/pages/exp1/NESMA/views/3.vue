@@ -34,7 +34,7 @@
 
     <p class="title">第五步：测量外部输入(EI)</p>
     <p class="content">
-      外部输入(EI)是应用程序处理来自系统边界以外的数据或控制信息的基本 过程。EI 的作用是维护一个或多个 ILF
+      外部输入(EI)是应用程序处理来自系统边界以外的数据或控制信息的基本过程。EI 的作用是维护一个或多个 ILF
       以及通过其处理逻辑来改变系统的行为。
     </p>
     <p class="content italic">实验操作：清点实验案例中 EI 数量。</p>
@@ -42,8 +42,7 @@
 
     <p class="title">第六步：测量外部输出(EO)</p>
     <p class="content">
-      外部输出(EO)是应用程序向其边界之外提供数据或控制信息的基本处理。
-      EO的作用是向用户提供经过处理逻辑加工的，除了检索信息或控制信息之外的信息或附加信息。处理逻辑中必须至少包含一个数学公式或者计算，创建导出数据或者维护一个或多个
+      外部输出(EO)是应用程序向其边界之外提供数据或控制信息的基本处理。EO的作用是向用户提供经过处理逻辑加工的，除了检索信息或控制信息之外的信息或附加信息。处理逻辑中必须至少包含一个数学公式或者计算，创建导出数据或者维护一个或多个
       ILF，并且改变系统的行为。
     </p>
     <p class="content italic">实验操作：清点实验案例中 EO 数量。</p>
@@ -85,9 +84,8 @@
 
     <p class="title">第十步：计算调整后功能点</p>
     <p class="content">
-      考虑本实验案例的非功能性，从系统特征因子表及计算表采集相对复杂度调整因子(标红数值)，
-      得到本实验案例的功能点调整因子(VAF)为 41。将 VAF 数值代入(IFPUG 法)功能
-      点计算公式，计算得到本实验案例的功能点为_____________。
+      考虑本实验案例的非功能性，从系统特征因子表及计算表采集相对复杂度调整因子(标红数值)，得到本实验案例的功能点调整因子(VAF)为
+      41。将 VAF 数值代入(IFPUG 法)功能 点计算公式，计算得到本实验案例的功能点为_____________。
     </p>
     <p class="content italic">实验操作：运用 IFPUG 标准规则，计算实验案例的调整后功能点。</p>
     <table6></table6>
@@ -99,7 +97,7 @@
     <span style="margin-left: 220px" class="title">本实验案例的功能点为 </span>
     <span style="font-size: 20px">{{ ALL }}</span>
     <br /><br />
-    
+
     <a-button class="button3" type="primary" shape="round">实验报告提交</a-button>
   </div>
 </template>
@@ -124,34 +122,6 @@
       // refs['detailTable'].doLayout();
     });
   });
-  // 用于防止表格合计行不显示
-
-  // pdfHandle() {
-  //   window.open('/#/show', '_blank');
-  // },
-  // pdfHandle2() {
-  //   window.open('/#/show', '_blank');
-  // },
-  // getSummaries(param, val) {
-  //   const { columns, data } = param;
-  //   const sums = [];
-  //   columns.forEach((column, index) => {
-  //     if (index === 0) {
-  //       sums[index] = (() => {
-  //         // let el=<p>未调整功能点</p>
-  //       })();
-  //       return;
-  //     }
-  //     if (index === 11) {
-  //       sums[index] = (() => {
-  //         // let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
-  //         return num;
-  //       })();
-  //       return;
-  //     }
-  //   });
-  //   return sums;
-  // }
 </script>
 
 <style scoped>
