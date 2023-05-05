@@ -10,13 +10,28 @@
   >
     <template #bodyCell="{ column, record, index }">
       <template v-if="column.dataIndex === 'A'">
-        <a-input v-model:value="record.A" style="width: 100px" />
+        <template v-if="record.component === 'EI' || record.component === 'EO' || record.component === 'EQ'">
+          <a-input disabled v-model:value="record.A" style="width: 100px" />
+        </template>
+        <template v-else>
+          <a-input v-model:value="record.A" style="width: 100px" />
+        </template>
       </template>
       <template v-if="column.dataIndex === 'D'">
-        <a-input v-model:value="record.D" style="width: 100px" />
+        <template v-if="record.component === 'ILF' || record.component === 'EIF'">
+          <a-input disabled v-model:value="record.D" style="width: 100px" />
+        </template>
+        <template v-else>
+          <a-input v-model:value="record.D" style="width: 100px" />
+        </template>
       </template>
       <template v-if="column.dataIndex === 'G'">
-        <a-input v-model:value="record.G" style="width: 100px" />
+        <template v-if="second === 'two'">
+          <a-input disabled v-model:value="record.G" style="width: 100px" />
+        </template>
+        <template v-else>
+          <a-input v-model:value="record.G" style="width: 100px" />
+        </template>
       </template>
       <template v-if="column.dataIndex === 'C'">
         {{ c(index) }}
@@ -40,6 +55,9 @@
   import { storeToRefs } from 'pinia';
 
   const { tableData5, c, f, i, unchanged } = storeToRefs(useExp1Store());
+  defineProps<{
+    second?: string;
+  }>();
   const columns5 = ref([
     {
       title: '组件',
@@ -95,6 +113,7 @@
           children: [
             {
               title: '计数',
+              align: 'center',
               children: [
                 {
                   align: 'center',
