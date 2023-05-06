@@ -15,7 +15,7 @@
     <p class="title">第二步：测量内部逻辑文件(ILF)</p>
     <p class="content">
       内部逻辑文件(ILF)是用户可确认的，在应用程序内部维护、逻辑上相关的数据块或控制信息。内部逻辑文件(ILF)用来保存经由应用程序的一个或多个处理后的数据。一旦应用程序内部的一个数据块被标识为
-      ILF，即使它被另一个事务 处理所引用，它也不能再被同一个应用程序当作 EIF。
+      ILF，即使它被另一个事务处理所引用，它也不能再被同一个应用程序当作 EIF。
     </p>
     <p class="content italic">实验操作：清点实验案例中 ILF 数量。</p>
     <br />
@@ -23,7 +23,7 @@
     <p class="title">第三步：测量外部接口文件(EIF)</p>
     <p class="content">
       外部接口文件(EIF)是用户可确认的、由被测应用程序引用，但在其他应用程序内部维护的、逻辑上相关的数据块或控制信息。外部接口文件(EIF)用来存放被测应用程序中的一个或多个基本处理所引用的数据。数据或控制数据通过诸如增加、变更、更新等事务来维护，一个
-      EIF可以被多个应用程序引用和计算，但是对于一个应用程序来讲，一个 EIF 只应被计算一次。
+      EIF 可以被多个应用程序引用和计算，但是对于一个应用程序来讲，一个 EIF 只应被计算一次。
     </p>
     <p class="content italic">实验操作：清点实验案例中 EIF 数量。</p>
     <br />
@@ -89,7 +89,7 @@
     <p class="title">第十步：计算调整后功能点</p>
     <p class="content">
       考虑本实验案例的非功能性，从系统特征因子表及计算表采集相对复杂度调整因子(标红数值)，得到本实验案例的功能点调整因子(VAF)为
-      41。将 VAF 数值代入(NESMA 法)功能 点计算公式，计算得到本实验案例的功能点为_____________。
+      41。将 VAF 数值代入(NESMA 法)功能点计算公式，计算得到本实验案例的功能点为_____________。
     </p>
     <p class="content italic">实验操作：运用 NESMA 标准规则，计算实验案例的调整后功能点。</p>
     <table6></table6>
@@ -109,7 +109,6 @@
 <script setup lang="ts">
   import { storeToRefs } from 'pinia';
   import { useExp1Store } from '../stores';
-  import { onMounted, onUpdated, nextTick } from 'vue';
   import table1 from '../components/table1.vue';
   import table2 from '../components/table2.vue';
   import table3 from '../components/table3.vue';
@@ -118,10 +117,6 @@
   import table6 from '../components/table6.vue';
 
   const { SUM, VAF, ALL } = storeToRefs(useExp1Store());
-  onMounted(() => {});
-  onUpdated(() => {
-    nextTick(() => {});
-  });
 </script>
 
 <style scoped>

@@ -1,4 +1,3 @@
-import { log } from 'console'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
@@ -169,6 +168,7 @@ export const useExp1Store = defineStore(
       let vaf = tableData6.value.reduce((amt, item) => amt + (item.grade ? parseInt(item.grade) : 0), 0)
       // VAF = 0.65 + 0.01 × 14个数据的加和 
       vaf = vaf * 0.01 + 0.65
+      vaf = parseFloat(vaf.toFixed(2))
       return vaf
     })
     // 功能点数
