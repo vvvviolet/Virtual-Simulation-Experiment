@@ -146,12 +146,6 @@
     </a-table>
     <br>
 
-    <div style="width:100%;text-align:right" >
-        <span  style="width:30%;display:inline-block" class="secondtitle">本实验未调整功能点总计为 </span>
-        <span style="display:inline-block;font-size:20px;" >{{ SUM }}</span>
-    </div>
-    <br>
-    <br>
 
     <h2 style="text-align: center;">表2：系统特征因子表及计算表 </h2>
     <a-table :columns="columnsadjust" :pagination="false" :data-source="dataadjust" bordered size="middle" style="word-break: break-all;">
@@ -173,15 +167,12 @@
         </template>
     </a-table>
     <br>
-    <div style="width:100%;text-align:right" >
-        <span  style="width:30%;display:inline-block" class="secondtitle">合计数 </span>
-        <span style="display:inline-block;font-size:20px;" >{{ SUM_A }}</span>
-    </div>
-    <br>
-    <br>
+
 
     <span class="secondtitle">功能点调整因子(VAF)为 </span>
     <span style="font-size:20px">{{ VAF }}</span>
+    <span style="margin-left:220px" class="secondtitle">本实验未调整功能点总计为 </span>
+    <span style="font-size:20px">{{ SUM }}</span>
     <br /><br />
     <span class="secondtitle">本实验案例的功能点为</span>
     <span style="font-size:20px">{{ ALL }}</span>
@@ -213,7 +204,6 @@ export default {
             test: '21111',
             SUM: 0,
             VAF: 0,
-            SUM_A: 0,
             columns1: [
                 {
                     title: '记录元素类型(RET) ',
@@ -825,18 +815,12 @@ export default {
         VAF() {
             var vaf = 0
             // console.log('111',this.$data.tableData)
-            for (var i = 0; i < 14; i++)
+            for (var i = 0; i < 13; i++)
                 vaf += (parseInt(this.dataadjust[i].grade) ? parseInt(this.dataadjust[i].grade) : 0)
             
             vaf = vaf*0.01 + 0.65
             this.$data.VAF = vaf.toFixed(2)
             return vaf
-        },
-        SUM_A(){
-            var sum = 0
-            for (var i = 0; i < 14; i++)
-                sum += (parseInt(this.dataadjust[i].grade) ? parseInt(this.dataadjust[i].grade) : 0)
-            return sum
         },
         ALL() {
             return (this.$data.SUM * this.$data.VAF).toFixed(2)
@@ -941,4 +925,4 @@ export default {
 :deep(.ant-table .ant-table-thead > tr > th) {
     border-width: 1px;
 }
-</style> 
+</style>
