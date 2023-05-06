@@ -941,3 +941,4 @@ export default {
 :deep(.ant-table .ant-table-thead > tr > th) {
     border-width: 1px;
 }
+</style> 
