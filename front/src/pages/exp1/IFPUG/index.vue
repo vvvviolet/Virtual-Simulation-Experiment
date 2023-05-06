@@ -1,5 +1,6 @@
 <template>
     <!-- <h1 class="title">实验1 基于IFPUG的小型软件项目规模度量实验
+
         <a-button class="button1" type="primary" shape="round" @click="click_button1">
             <template #icon>
                 <DownloadOutlined />
@@ -10,6 +11,8 @@
                 <DownloadOutlined />
             </template>实验报告模板下载
         </a-button>
+
+
     </h1> -->
     <!-- <span> {{ test }}</span> -->
     <!-- <h2>一、实验目的  </h2>
@@ -143,6 +146,12 @@
     </a-table>
     <br>
 
+    <div style="width:100%;text-align:right" >
+        <span  style="width:30%;display:inline-block" class="secondtitle">本实验未调整功能点总计为 </span>
+        <span style="display:inline-block;font-size:20px;" >{{ SUM }}</span>
+    </div>
+    <br>
+    <br>
 
     <h2 style="text-align: center;">表2：系统特征因子表及计算表 </h2>
     <a-table :columns="columnsadjust" :pagination="false" :data-source="dataadjust" bordered size="middle" style="word-break: break-all;">
@@ -164,12 +173,15 @@
         </template>
     </a-table>
     <br>
-
+    <div style="width:100%;text-align:right" >
+        <span  style="width:30%;display:inline-block" class="secondtitle">合计数 </span>
+        <span style="display:inline-block;font-size:20px;" >{{ SUM_A }}</span>
+    </div>
+    <br>
+    <br>
 
     <span class="secondtitle">功能点调整因子(VAF)为 </span>
     <span style="font-size:20px">{{ VAF }}</span>
-    <span style="margin-left:220px" class="secondtitle">本实验未调整功能点总计为 </span>
-    <span style="font-size:20px">{{ SUM }}</span>
     <br /><br />
     <span class="secondtitle">本实验案例的功能点为</span>
     <span style="font-size:20px">{{ ALL }}</span>
@@ -187,6 +199,7 @@
 import { Document } from '@element-plus/icons-vue'
 import { defineComponent } from 'vue'
 export default {
+
     setup() {
         return {
             value,
@@ -200,6 +213,7 @@ export default {
             test: '21111',
             SUM: 0,
             VAF: 0,
+            SUM_A: 0,
             columns1: [
                 {
                     title: '记录元素类型(RET) ',
@@ -238,6 +252,7 @@ export default {
                         },
                     ]
                 }
+
             ],
             columns2: [{
                 title: '引用的文件类型个数(FTR) ',
@@ -476,6 +491,7 @@ export default {
                                 }],
                             }],
                         },
+
                     ]
                 },
                 {
@@ -519,18 +535,21 @@ export default {
                     left: '简单',
                     mide: '简单',
                     right: '平均'
+
                 },
                 {
                     RET: '2~4',
                     left: '简单',
                     mide: '平均',
                     right: '复杂'
+
                 },
                 {
                     RET: '>5',
                     left: '平均',
                     mide: '复杂',
                     right: '复杂'
+
                 }
             ],
             tableData2: [
@@ -552,6 +571,7 @@ export default {
                     mide: '复杂',
                     right: '复杂'
                 }
+
             ],
             tableData3: [
                 {
@@ -682,71 +702,85 @@ export default {
                     index: '1',
                     title: 'Requirement for reliable backup and recovery ',
                     grade: ''
+
                 },
                 {
                     index: '2',
                     title: 'Requirement for data communication',
                     grade: ''
+
                 },
                 {
                     index: '3',
                     title: 'Extent of distributed processing ',
                     grade: ''
+
                 },
                 {
                     index: '4',
                     title: 'Performance requirements ',
                     grade: ''
+
                 },
                 {
                     index: '5',
                     title: 'Expected operational environment ',
                     grade: ''
+
                 },
                 {
                     index: '6',
                     title: 'Extent of online data entries ',
                     grade: ''
+
                 },
                 {
                     index: '7',
                     title: 'Extent of multi-screen or multi-operation online data input ',
                     grade: ''
+
                 },
                 {
                     index: '8',
                     title: 'Extent of online updating of master files ',
                     grade: ''
+
                 },
                 {
                     index: '9',
                     title: 'Extent of complex inputs, outputs, online queries and files ',
                     grade: ''
+
                 },
                 {
                     index: '10',
                     title: 'Extent of complex data processing ',
                     grade: ''
+
                 },
                 {
                     index: '11',
                     title: 'Extent that currently developed code can be designed for reuse ',
                     grade: ''
+
                 },
                 {
                     index: '12',
                     title: 'Extent of conversion and installation included in the design ',
                     grade: ''
+
                 },
                 {
                     index: '13',
                     title: 'Extent of multiple installations in an organization and variety of customer organizations ',
                     grade: ''
+
                 },
                 {
                     index: '14',
                     title: 'Extent of change and focus on ease of use ',
                     grade: ''
+
                 },
             ]
         }
@@ -779,22 +813,30 @@ export default {
         unchanged() {
             return function (index) {
                 this.tableData[index].unchanged = (parseInt(this.tableData[index].C) ? parseInt(this.tableData[index].C) : 0) + (parseInt(this.tableData[index].F) ? parseInt(this.tableData[index].F) : 0) + (parseInt(this.tableData[index].I) ? parseInt(this.tableData[index].I) : 0)
+
                 var sum = 0
                 for (var i = 0; i < 5; i++)
                     sum += (parseInt(this.tableData[i].unchanged) ? parseInt(this.tableData[i].unchanged) : 0)
                 this.$data.SUM = sum
+
                 return this.tableData[index].unchanged
             }
         },
         VAF() {
             var vaf = 0
             // console.log('111',this.$data.tableData)
-            for (var i = 0; i < 13; i++)
+            for (var i = 0; i < 14; i++)
                 vaf += (parseInt(this.dataadjust[i].grade) ? parseInt(this.dataadjust[i].grade) : 0)
             
             vaf = vaf*0.01 + 0.65
             this.$data.VAF = vaf.toFixed(2)
             return vaf
+        },
+        SUM_A(){
+            var sum = 0
+            for (var i = 0; i < 14; i++)
+                sum += (parseInt(this.dataadjust[i].grade) ? parseInt(this.dataadjust[i].grade) : 0)
+            return sum
         },
         ALL() {
             return (this.$data.SUM * this.$data.VAF).toFixed(2)
@@ -848,42 +890,55 @@ export default {
     font-family: sans-serif;
     font-size: 30px;
 }
+
 .secondtitle {
     text-indent: 2em;
     font-weight: bold;
     margin-left: 30px;
     margin-right: 30px;
 }
+
 .maintable {
     text-align: center;
     font-family: sans-serif;
     font-size: 30px;
 }
+
 .button1 {
     margin-left: 25px;
 }
+
 .button2 {
     margin-left: 15px;
 }
+
 .button3 {
+
     float: right;
     margin-top: 10px;
     margin-right: 50px;
+
 }
+
 .button4 {
+
     margin-left: 250px;
+
 }
+
 .content {
     text-indent: 2em;
     margin-left: 20px;
     margin-right: 20px;
 }
+
 .guidance {
     position: absolute;
     right: 50px;
     font-weight: bold;
 }
+
 :deep(.ant-table .ant-table-thead > tr > th) {
     border-width: 1px;
 }
-</style>
+</style> 
