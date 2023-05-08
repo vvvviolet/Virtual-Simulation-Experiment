@@ -3,12 +3,11 @@
 
 <template>
     <RouterView></RouterView>
-  </template>
+</template>
+<script lang="ts">
+export default {
+    name: 'Exp6',
+};
+</script>
   
-  <script lang="ts">
-    export default {
-      name: 'Exp6',
-    };
-  </script>
-  
-  <style scoped lang="less"></style>
+<style scoped lang="less"></style>
