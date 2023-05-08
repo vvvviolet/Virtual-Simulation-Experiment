@@ -191,6 +191,31 @@ const presetList = [
     ]
   },
   {
+    id: 5,
+    name: 'exp5',
+    title: '软件工程经济学方法应用',
+    target: '_self',
+    path: '/exp5',
+    component: '@/pages/exp5',
+    renderMenu: true,
+    parent: null,
+    permission: null,
+    cacheable: true,
+    children: [
+      {
+        id: 51,
+        name: 'exp5_chengbengusuan',
+        title: '动态回收投资实验',
+        target: '_self',
+        path: '/exp5/dongtaihuishoutouzi',
+        component: '@/pages/exp5/Exp5_dongtaitouzihuishou',
+        renderMenu: true,
+        permission: null,
+        cacheable: true,
+      }
+    ]
+  },
+  {
     id: 6,
     name: 'exp6',
     title: '软件项目/产品的风险影响与评价实验',
