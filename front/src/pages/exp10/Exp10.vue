@@ -89,7 +89,7 @@
 </template>
 
 
-<script>
+<script >
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { defineComponent, reactive, ref, watch } from 'vue';
 import { SettingOutlined } from '@ant-design/icons-vue';

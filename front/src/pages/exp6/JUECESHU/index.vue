@@ -32,9 +32,9 @@
 
 <script>
   import { Table } from 'ant-design-vue';
-  import HorizontalTree from '@/pages/exp6/Exp6_decision_tree/HorizontalTree.vue';
-  import EditableForm1 from '@/pages/exp6/Exp6_decision_tree/EditableForm1.vue';
-  import EditableForm2 from '@/pages/exp6/Exp6_decision_tree/EditableForm2.vue';
+  import HorizontalTree from '@/pages/exp6/JUECESHU/HorizontalTree.vue';
+  import EditableForm1 from '@/pages/exp6/JUECESHU/EditableForm1.vue';
+  import EditableForm2 from '@/pages/exp6/JUECESHU/EditableForm2.vue';
   export default {
     components: {
       'a-table': Table,
