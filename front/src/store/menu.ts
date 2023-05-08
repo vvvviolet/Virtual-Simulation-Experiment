@@ -26,7 +26,7 @@ export interface Experiment{
   id:number; // id 建议用十进制表示法 
   title:string; // 中文标题
   name:string; // 英文标题
-  class:string; // 大类名称
+  kind:string; // 大类名称
 }
 
 export const useMenuStore = defineStore('menu', () => {
@@ -61,7 +61,7 @@ export const useMenuStore = defineStore('menu', () => {
         tmp.push({
           id: prevClass,
           name: `exp${prevClass}`,
-          title: item.class,
+          title: item.kind,
           path:  `/exp${prevClass}`,
           component: `@/pages/exp${prevClass}`,
           target: '_blank',
@@ -86,7 +86,7 @@ export const useMenuStore = defineStore('menu', () => {
     return tmp
   }
   async function getMenuList() {
-    return http.request<Experiment, Response<Experiment[]>>('/experiments', 'GET').then((res) => {
+    return http.request<Experiment, Response<Experiment[]>>('/menu/student_experiment', 'GET').then((res) => {
       const { data } = res;
       console.log(data)
       menuList.value = toMenu(data);
