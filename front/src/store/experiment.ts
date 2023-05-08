@@ -14,7 +14,7 @@ export const useExperimentStore = defineStore('experiment', {
           },
         async getExperimentList() {
             return http
-              .request<any, Response<any>>(`/experiments`, 'GET')
+              .request<any, Response<any>>(`/menu/student_experiment`, 'GET')
               .then((res) => {
                 console.log(res.data)
                 return res.data;
