@@ -21,6 +21,7 @@
           <a-row>
             <!-- 正文部分 -->
             <a-col :span="19">
+              <!-- 步骤一 -->
               <a-row>
                 <a-col :span="24">
                   <h1 id="one">一、实验目的</h1>
@@ -30,6 +31,7 @@
                 </a-col>
               </a-row>
               <a-divider></a-divider>
+              <!-- 步骤二 -->
               <a-row>
                 <a-col :span="24">
                   <h1 id="two">二、实验原理</h1>
@@ -39,6 +41,7 @@
                 </a-col>
               </a-row>
               <a-divider></a-divider>
+              <!-- 步骤三 -->
               <a-row>
                 <a-col :span="24">
                   <h1>三、实验步骤</h1>
@@ -74,48 +77,48 @@
                   <a-row justify="left">
                         <a-col :span="4">1.1 营业收入</a-col>
                         <a-col :span="20"><a-input-group compact>
-                          <a-input v-model:value="cash_flow0" style="width: 15%" />
-                          <a-input v-model:value="cash_flow1" style="width: 15%" />
-                          <a-input v-model:value="cash_flow2" style="width: 15%" />
-                          <a-input v-model:value="cash_flow3" style="width: 15%" />
-                          <a-input v-model:value="cash_flow4" style="width: 15%" />
-                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                          <a-input v-model:value="operating_revenue0" style="width: 15%" />
+                          <a-input v-model:value="operating_revenue1" style="width: 15%" />
+                          <a-input v-model:value="operating_revenue2" style="width: 15%" />
+                          <a-input v-model:value="operating_revenue3" style="width: 15%" />
+                          <a-input v-model:value="operating_revenue4" style="width: 15%" />
+                          <a-input v-model:value="operating_revenue5" style="width: 15%" />
                         </a-input-group>
                         </a-col>
                       </a-row>
                       <a-row justify="left">
                         <a-col :span="4">1.2 回收固定资产余值</a-col>
                         <a-col :span="20"><a-input-group compact>
-                          <a-input v-model:value="cash_flow0" style="width: 15%" />
-                          <a-input v-model:value="cash_flow1" style="width: 15%" />
-                          <a-input v-model:value="cash_flow2" style="width: 15%" />
-                          <a-input v-model:value="cash_flow3" style="width: 15%" />
-                          <a-input v-model:value="cash_flow4" style="width: 15%" />
-                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_fixed_assets0" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_fixed_assets1" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_fixed_assets2" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_fixed_assets3" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_fixed_assets4" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_fixed_assets5" style="width: 15%" />
                         </a-input-group>
                         </a-col>
                       </a-row>
                        <a-row justify="left">
                         <a-col :span="4">1.3 回收无形资产余值</a-col>
                         <a-col :span="20"><a-input-group compact>
-                          <a-input v-model:value="cash_flow0" style="width: 15%" />
-                          <a-input v-model:value="cash_flow1" style="width: 15%" />
-                          <a-input v-model:value="cash_flow2" style="width: 15%" />
-                          <a-input v-model:value="cash_flow3" style="width: 15%" />
-                          <a-input v-model:value="cash_flow4" style="width: 15%" />
-                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_intangible_assets0" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_intangible_assets1" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_intangible_assets2" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_intangible_assets3" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_intangible_assets4" style="width: 15%" />
+                          <a-input v-model:value="recovery_of_residual_value_of_intangible_assets5" style="width: 15%" />
                         </a-input-group>
                         </a-col>
                       </a-row>
                       <a-row justify="left">
                         <a-col :span="4">1.4 回收流动资金</a-col>
                         <a-col :span="20"><a-input-group compact>
-                          <a-input v-model:value="cash_flow0" style="width: 15%" />
-                          <a-input v-model:value="cash_flow1" style="width: 15%" />
-                          <a-input v-model:value="cash_flow2" style="width: 15%" />
-                          <a-input v-model:value="cash_flow3" style="width: 15%" />
-                          <a-input v-model:value="cash_flow4" style="width: 15%" />
-                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                          <a-input v-model:value="working_capital0" style="width: 15%" />
+                          <a-input v-model:value="working_capital1" style="width: 15%" />
+                          <a-input v-model:value="working_capital2" style="width: 15%" />
+                          <a-input v-model:value="working_capital3" style="width: 15%" />
+                          <a-input v-model:value="working_capital4" style="width: 15%" />
+                          <a-input v-model:value="working_capital5" style="width: 15%" />
                         </a-input-group>
                         </a-col>
                       </a-row>
@@ -134,72 +137,72 @@
                     <a-col :span="4">2. 现金流出</a-col>
                     <a-col :span="20">
                       <a-input-group compact>
-                        <a-input v-model:value="cash_flow0" style="width: 15%" />
-                        <a-input v-model:value="cash_flow1" style="width: 15%" />
-                        <a-input v-model:value="cash_flow2" style="width: 15%" />
-                        <a-input v-model:value="cash_flow3" style="width: 15%" />
-                        <a-input v-model:value="cash_flow4" style="width: 15%" />
-                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        <a-input v-model:value="cash_outflow0" style="width: 15%" />
+                        <a-input v-model:value="cash_outflow1" style="width: 15%" />
+                        <a-input v-model:value="cash_outflow2" style="width: 15%" />
+                        <a-input v-model:value="cash_outflow3" style="width: 15%" />
+                        <a-input v-model:value="cash_outflow4" style="width: 15%" />
+                        <a-input v-model:value="cash_outflow5" style="width: 15%" />
                       </a-input-group>
                     </a-col>
                   </a-row>
                   <a-row justify="left">
                         <a-col :span="4">2.1 建设投资</a-col>
                         <a-col :span="20"><a-input-group compact>
-                          <a-input v-model:value="cash_flow0" style="width: 15%" />
-                          <a-input v-model:value="cash_flow1" style="width: 15%" />
-                          <a-input v-model:value="cash_flow2" style="width: 15%" />
-                          <a-input v-model:value="cash_flow3" style="width: 15%" />
-                          <a-input v-model:value="cash_flow4" style="width: 15%" />
-                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                          <a-input v-model:value="construction_investment0" style="width: 15%" />
+                          <a-input v-model:value="construction_investment1" style="width: 15%" />
+                          <a-input v-model:value="construction_investment2" style="width: 15%" />
+                          <a-input v-model:value="construction_investment3" style="width: 15%" />
+                          <a-input v-model:value="construction_investment4" style="width: 15%" />
+                          <a-input v-model:value="construction_investment5" style="width: 15%" />
                         </a-input-group>
                         </a-col>
                       </a-row>
                       <a-row justify="left">
                         <a-col :span="4">2.2 流动资金</a-col>
                         <a-col :span="20"><a-input-group compact>
-                          <a-input v-model:value="cash_flow0" style="width: 15%" />
-                          <a-input v-model:value="cash_flow1" style="width: 15%" />
-                          <a-input v-model:value="cash_flow2" style="width: 15%" />
-                          <a-input v-model:value="cash_flow3" style="width: 15%" />
-                          <a-input v-model:value="cash_flow4" style="width: 15%" />
-                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                          <a-input v-model:value="liudong_money0" style="width: 15%" />
+                          <a-input v-model:value="liudong_money1" style="width: 15%" />
+                          <a-input v-model:value="liudong_money2" style="width: 15%" />
+                          <a-input v-model:value="liudong_money3" style="width: 15%" />
+                          <a-input v-model:value="liudong_money4" style="width: 15%" />
+                          <a-input v-model:value="liudong_money5" style="width: 15%" />
                         </a-input-group>
                         </a-col>
                       </a-row>
                        <a-row justify="left">
                         <a-col :span="4">2.3 经营成本</a-col>
                         <a-col :span="20"><a-input-group compact>
-                          <a-input v-model:value="cash_flow0" style="width: 15%" />
-                          <a-input v-model:value="cash_flow1" style="width: 15%" />
-                          <a-input v-model:value="cash_flow2" style="width: 15%" />
-                          <a-input v-model:value="cash_flow3" style="width: 15%" />
-                          <a-input v-model:value="cash_flow4" style="width: 15%" />
-                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                          <a-input v-model:value="operation_cost0" style="width: 15%" />
+                          <a-input v-model:value="operation_cost1" style="width: 15%" />
+                          <a-input v-model:value="operation_cost2" style="width: 15%" />
+                          <a-input v-model:value="operation_cost3" style="width: 15%" />
+                          <a-input v-model:value="operation_cost4" style="width: 15%" />
+                          <a-input v-model:value="operation_cost5" style="width: 15%" />
                         </a-input-group>
                         </a-col>
                       </a-row>
                       <a-row justify="left">
                         <a-col :span="4">2.4 维持运营投资</a-col>
                         <a-col :span="20"><a-input-group compact>
-                          <a-input v-model:value="cash_flow0" style="width: 15%" />
-                          <a-input v-model:value="cash_flow1" style="width: 15%" />
-                          <a-input v-model:value="cash_flow2" style="width: 15%" />
-                          <a-input v-model:value="cash_flow3" style="width: 15%" />
-                          <a-input v-model:value="cash_flow4" style="width: 15%" />
-                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                          <a-input v-model:value="maintain_operational_investment0" style="width: 15%" />
+                          <a-input v-model:value="maintain_operational_investment1" style="width: 15%" />
+                          <a-input v-model:value="maintain_operational_investment2" style="width: 15%" />
+                          <a-input v-model:value="maintain_operational_investment3" style="width: 15%" />
+                          <a-input v-model:value="maintain_operational_investment4" style="width: 15%" />
+                          <a-input v-model:value="maintain_operational_investment5" style="width: 15%" />
                         </a-input-group>
                         </a-col>
                       </a-row>
                       <a-row justify="left">
                         <a-col :span="4">2.5 营业税金及附加</a-col>
                         <a-col :span="20"><a-input-group compact>
-                          <a-input v-model:value="cash_flow0" style="width: 15%" />
-                          <a-input v-model:value="cash_flow1" style="width: 15%" />
-                          <a-input v-model:value="cash_flow2" style="width: 15%" />
-                          <a-input v-model:value="cash_flow3" style="width: 15%" />
-                          <a-input v-model:value="cash_flow4" style="width: 15%" />
-                          <a-input v-model:value="cash_flow5" style="width: 15%" />
+                          <a-input v-model:value="taxes_and_surcharges0" style="width: 15%" />
+                          <a-input v-model:value="taxes_and_surcharges1" style="width: 15%" />
+                          <a-input v-model:value="taxes_and_surcharges2" style="width: 15%" />
+                          <a-input v-model:value="taxes_and_surcharges3" style="width: 15%" />
+                          <a-input v-model:value="taxes_and_surcharges4" style="width: 15%" />
+                          <a-input v-model:value="taxes_and_surcharges5" style="width: 15%" />
                         </a-input-group>
                         </a-col>
                       </a-row>
@@ -221,12 +224,12 @@
                     <a-col :span="4">净现金流量</a-col>
                     <a-col :span="20">
                       <a-input-group compact>
-                        <a-input v-model:value="cash_flow0" style="width: 15%" />
-                        <a-input v-model:value="cash_flow1" style="width: 15%" />
-                        <a-input v-model:value="cash_flow2" style="width: 15%" />
-                        <a-input v-model:value="cash_flow3" style="width: 15%" />
-                        <a-input v-model:value="cash_flow4" style="width: 15%" />
-                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        <a-input v-model:value="net_cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="net_cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="net_cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="net_cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="net_cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="net_cash_flow5" style="width: 15%" />
                       </a-input-group>
                     </a-col>
                   </a-row>
@@ -234,12 +237,12 @@
                     <a-col :span="4">累计净现金流量</a-col>
                     <a-col :span="20">
                       <a-input-group compact>
-                        <a-input v-model:value="cash_flow0" style="width: 15%" />
-                        <a-input v-model:value="cash_flow1" style="width: 15%" />
-                        <a-input v-model:value="cash_flow2" style="width: 15%" />
-                        <a-input v-model:value="cash_flow3" style="width: 15%" />
-                        <a-input v-model:value="cash_flow4" style="width: 15%" />
-                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        <a-input v-model:value="accumulated_net_cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="accumulated_net_cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="accumulated_net_cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="accumulated_net_cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="accumulated_net_cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="accumulated_net_cash_flow5" style="width: 15%" />
                       </a-input-group>
                     </a-col>
                   </a-row>
@@ -261,12 +264,12 @@
                     <a-col :span="4">现值系数</a-col>
                     <a-col :span="20">
                       <a-input-group compact>
-                        <a-input v-model:value="cash_flow0" style="width: 15%" />
-                        <a-input v-model:value="cash_flow1" style="width: 15%" />
-                        <a-input v-model:value="cash_flow2" style="width: 15%" />
-                        <a-input v-model:value="cash_flow3" style="width: 15%" />
-                        <a-input v-model:value="cash_flow4" style="width: 15%" />
-                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        <a-input v-model:value="present_value_factor0" style="width: 15%" />
+                        <a-input v-model:value="present_value_factor1" style="width: 15%" />
+                        <a-input v-model:value="present_value_factor2" style="width: 15%" />
+                        <a-input v-model:value="present_value_factor3" style="width: 15%" />
+                        <a-input v-model:value="present_value_factor4" style="width: 15%" />
+                        <a-input v-model:value="present_value_factor5" style="width: 15%" />
                       </a-input-group>
                     </a-col>
                   </a-row>
@@ -274,12 +277,12 @@
                     <a-col :span="4">净现金流量(现值)</a-col>
                     <a-col :span="20">
                       <a-input-group compact>
-                        <a-input v-model:value="cash_flow0" style="width: 15%" />
-                        <a-input v-model:value="cash_flow1" style="width: 15%" />
-                        <a-input v-model:value="cash_flow2" style="width: 15%" />
-                        <a-input v-model:value="cash_flow3" style="width: 15%" />
-                        <a-input v-model:value="cash_flow4" style="width: 15%" />
-                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        <a-input v-model:value="present_net_cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="present_net_cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="present_net_cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="present_net_cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="present_net_cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="present_net_cash_flow5" style="width: 15%" />
                       </a-input-group>
                     </a-col>
                   </a-row>
@@ -287,12 +290,12 @@
                     <a-col :span="4">累计净现金流量(现值)</a-col>
                     <a-col :span="20">
                       <a-input-group compact>
-                        <a-input v-model:value="cash_flow0" style="width: 15%" />
-                        <a-input v-model:value="cash_flow1" style="width: 15%" />
-                        <a-input v-model:value="cash_flow2" style="width: 15%" />
-                        <a-input v-model:value="cash_flow3" style="width: 15%" />
-                        <a-input v-model:value="cash_flow4" style="width: 15%" />
-                        <a-input v-model:value="cash_flow5" style="width: 15%" />
+                        <a-input v-model:value="pre_accumulated_net_cash_flow0" style="width: 15%" />
+                        <a-input v-model:value="pre_accumulated_net_cash_flow1" style="width: 15%" />
+                        <a-input v-model:value="pre_accumulated_net_cash_flow2" style="width: 15%" />
+                        <a-input v-model:value="pre_accumulated_net_cash_flow3" style="width: 15%" />
+                        <a-input v-model:value="pre_accumulated_net_cash_flow4" style="width: 15%" />
+                        <a-input v-model:value="pre_accumulated_net_cash_flow5" style="width: 15%" />
                       </a-input-group>
                     </a-col>
                   </a-row>
@@ -300,6 +303,7 @@
               </a-row>
               
               <a-divider></a-divider>
+              <!-- 步骤四 -->
               <a-row>
                 <a-col :span="24">
                   <h1 id="four">四、实验内容</h1>
@@ -316,156 +320,147 @@
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">1. 现金流入</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{cash_flow0}}</a-col>
+                    <a-col :span="3">{{cash_flow1}}</a-col>
+                    <a-col :span="3">{{cash_flow2}}</a-col>
+                    <a-col :span="3">{{cash_flow3}}</a-col>
+                    <a-col :span="3">{{cash_flow4}}</a-col>
+                    <a-col :span="3">{{cash_flow5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">1.1 营业收入</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{operating_revenue0}}</a-col>
+                    <a-col :span="3">{{operating_revenue1}}</a-col>
+                    <a-col :span="3">{{operating_revenue2}}</a-col>
+                    <a-col :span="3">{{operating_revenue3}}</a-col>
+                    <a-col :span="3">{{operating_revenue4}}</a-col>
+                    <a-col :span="3">{{operating_revenue5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">1.2 回收固定资产余值</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_fixed_assets0}}</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_fixed_assets1}}</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_fixed_assets2}}</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_fixed_assets3}}</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_fixed_assets4}}</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_fixed_assets5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">1.3 回收无形资产余值</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_intangible_assets0}}</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_intangible_assets1}}</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_intangible_assets2}}</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_intangible_assets3}}</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_intangible_assets4}}</a-col>
+                    <a-col :span="3">{{recovery_of_residual_value_of_intangible_assets5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">1.4 回收流动资金</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{working_capital0}}</a-col>
+                    <a-col :span="3">{{working_capital1}}</a-col>
+                    <a-col :span="3">{{working_capital2}}</a-col>
+                    <a-col :span="3">{{working_capital3}}</a-col>
+                    <a-col :span="3">{{working_capital4}}</a-col>
+                    <a-col :span="3">{{working_capital5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">2. 现金流出</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{cash_outflow0}}</a-col>
+                    <a-col :span="3">{{cash_outflow1}}</a-col>
+                    <a-col :span="3">{{cash_outflow2}}</a-col>
+                    <a-col :span="3">{{cash_outflow3}}</a-col>
+                    <a-col :span="3">{{cash_outflow4}}</a-col>
+                    <a-col :span="3">{{cash_outflow5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">2.1 建设投资</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{construction_investment0}}</a-col>
+                    <a-col :span="3">{{construction_investment1}}</a-col>
+                    <a-col :span="3">{{construction_investment2}}</a-col>
+                    <a-col :span="3">{{construction_investment3}}</a-col>
+                    <a-col :span="3">{{construction_investment4}}</a-col>
+                    <a-col :span="3">{{construction_investment5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">2.2 流动资金</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{liudong_money0}}</a-col>
+                    <a-col :span="3">{{liudong_money1}}</a-col>
+                    <a-col :span="3">{{liudong_money2}}</a-col>
+                    <a-col :span="3">{{liudong_money3}}</a-col>
+                    <a-col :span="3">{{liudong_money4}}</a-col>
+                    <a-col :span="3">{{liudong_money5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">2.3 经营成本</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
-                  </a-row>
-                  <a-row justify="left">
-                    <a-col :span="5">2.3 经营成本</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{operation_cost0}}</a-col>
+                    <a-col :span="3">{{operation_cost1}}</a-col>
+                    <a-col :span="3">{{operation_cost2}}</a-col>
+                    <a-col :span="3">{{operation_cost3}}</a-col>
+                    <a-col :span="3">{{operation_cost4}}</a-col>
+                    <a-col :span="3">{{operation_cost5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">2.4 维持运营投资</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{maintain_operational_investment0}}</a-col>
+                    <a-col :span="3">{{maintain_operational_investment1}}</a-col>
+                    <a-col :span="3">{{maintain_operational_investment2}}</a-col>
+                    <a-col :span="3">{{maintain_operational_investment3}}</a-col>
+                    <a-col :span="3">{{maintain_operational_investment4}}</a-col>
+                    <a-col :span="3">{{maintain_operational_investment5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">2.5 营业税金及附加</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{taxes_and_surcharges0}}</a-col>
+                    <a-col :span="3">{{taxes_and_surcharges1}}</a-col>
+                    <a-col :span="3">{{taxes_and_surcharges2}}</a-col>
+                    <a-col :span="3">{{taxes_and_surcharges3}}</a-col>
+                    <a-col :span="3">{{taxes_and_surcharges4}}</a-col>
+                    <a-col :span="3">{{taxes_and_surcharges5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">净现金流量</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{net_cash_flow0}}</a-col>
+                    <a-col :span="3">{{net_cash_flow1}}</a-col>
+                    <a-col :span="3">{{net_cash_flow2}}</a-col>
+                    <a-col :span="3">{{net_cash_flow3}}</a-col>
+                    <a-col :span="3">{{net_cash_flow4}}</a-col>
+                    <a-col :span="3">{{net_cash_flow5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">累计净现金流量</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{accumulated_net_cash_flow0}}</a-col>
+                    <a-col :span="3">{{accumulated_net_cash_flow1}}</a-col>
+                    <a-col :span="3">{{accumulated_net_cash_flow2}}</a-col>
+                    <a-col :span="3">{{accumulated_net_cash_flow3}}</a-col>
+                    <a-col :span="3">{{accumulated_net_cash_flow4}}</a-col>
+                    <a-col :span="3">{{accumulated_net_cash_flow5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">现值系数</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{present_value_factor0}}</a-col>
+                    <a-col :span="3">{{present_value_factor1}}</a-col>
+                    <a-col :span="3">{{present_value_factor2}}</a-col>
+                    <a-col :span="3">{{present_value_factor3}}</a-col>
+                    <a-col :span="3">{{present_value_factor4}}</a-col>
+                    <a-col :span="3">{{present_value_factor5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">净现金流量(现值)</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{present_net_cash_flow0}}</a-col>
+                    <a-col :span="3">{{present_net_cash_flow1}}</a-col>
+                    <a-col :span="3">{{present_net_cash_flow2}}</a-col>
+                    <a-col :span="3">{{present_net_cash_flow3}}</a-col>
+                    <a-col :span="3">{{present_net_cash_flow4}}</a-col>
+                    <a-col :span="3">{{present_net_cash_flow5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="5">累计净现金流量(现值)</a-col>
-                    <a-col :span="3">0</a-col>
-                    <a-col :span="3">1</a-col>
-                    <a-col :span="3">2</a-col>
-                    <a-col :span="3">3</a-col>
-                    <a-col :span="3">4</a-col>
-                    <a-col :span="3">5</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow0}}</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow1}}</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow2}}</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow3}}</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow4}}</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow5}}</a-col>
                   </a-row>
                   <a-divider></a-divider>
                   <h2>4.2 根据公式计算动态投资回收期</h2>
@@ -476,12 +471,13 @@
                   <p>动态投资回收期计算公式：DPP=（累计折现值出现正值的年数-1）+上年累计折现值的绝对值/当年净现金流量的折现值。</p>
                    <div style="display: flex">
                   <p style="white-space: nowrap">DPP=</p>
-                 <a-input-number id="inputNumber" v-model:value="dpp" :min="1" :max="6" />
+                 <a-input-number id="inputNumber" v-model:value="dpp"/>
                   </div>
              
                 </a-col>
               </a-row>
               <a-divider></a-divider>
+              <!-- 步骤五 -->
               <a-row>   
                 <a-col :span="24">
                   <h1 id="five">五、实验结果</h1>
@@ -500,6 +496,7 @@
                 </a-col>
               </a-row>
               <a-divider></a-divider>
+              <!-- 步骤六 -->
               <a-row>   
                 <a-col :span="24">
                   <h1 id="six">六、实验思考</h1>
@@ -560,15 +557,301 @@ export default {
             dpp,
             thoughts
         };
+  },
+  data() {
+    return {
+      // 现金流入
+      cash_flow0: 0,
+      cash_flow1: 0,
+      cash_flow2: 0,
+      cash_flow3: 0,
+      cash_flow4: 0,
+      cash_flow5: 0,
+
+      // 现金流出
+      cash_outflow0: 0,
+      cash_outflow1: 0,
+      cash_outflow2: 0,
+      cash_outflow3: 0,
+      cash_outflow4: 0,
+      cash_outflow5: 0,
+
+      // 这些值由其他值推导而来，不需要在此申明
+      // // 净现金流量
+      // net_cash_flow0: 0,
+      // net_cash_flow1: 0,
+      // net_cash_flow2: 0,
+      // net_cash_flow3: 0,
+      // net_cash_flow4: 0,
+      // net_cash_flow5: 0,
+
+      // // 累计净现金流量
+      // accumulated_net_cash_flow0: 0,
+      // accumulated_net_cash_flow1: 0,
+      // accumulated_net_cash_flow2: 0,
+      // accumulated_net_cash_flow3: 0,
+      // accumulated_net_cash_flow4: 0,
+      // accumulated_net_cash_flow5: 0,
+
+      // 现值系数
+      present_value_factor0: 0,
+      present_value_factor1: 0,
+      present_value_factor2: 0,
+      present_value_factor3: 0,
+      present_value_factor4: 0,
+      present_value_factor5: 0,
+
+      // 营业收入
+      operating_revenue0: 0,
+      operating_revenue1: 0,
+      operating_revenue2: 0,
+      operating_revenue3: 0,
+      operating_revenue4: 0,
+      operating_revenue5: 0,
+
+      // 回收固定资产余值
+      recovery_of_residual_value_of_fixed_assets0: 0,
+      recovery_of_residual_value_of_fixed_assets1: 0,
+      recovery_of_residual_value_of_fixed_assets2: 0,
+      recovery_of_residual_value_of_fixed_assets3: 0,
+      recovery_of_residual_value_of_fixed_assets4: 0,
+      recovery_of_residual_value_of_fixed_assets5: 0,
+
+      // 回收无形资产余值
+      recovery_of_residual_value_of_intangible_assets0: 0,
+      recovery_of_residual_value_of_intangible_assets1: 0,
+      recovery_of_residual_value_of_intangible_assets2: 0,
+      recovery_of_residual_value_of_intangible_assets3: 0,
+      recovery_of_residual_value_of_intangible_assets4: 0,
+      recovery_of_residual_value_of_intangible_assets5: 0,
+
+      // 回收流动资金
+      working_capital0: 0,
+      working_capital1: 0,
+      working_capital2: 0,
+      working_capital3: 0,
+      working_capital4: 0,
+      working_capital5: 0,
+
+      // 建设投资
+      construction_investment0: 0,
+      construction_investment1: 0,
+      construction_investment2: 0,
+      construction_investment3: 0,
+      construction_investment4: 0,
+      construction_investment5: 0,
+
+      // 流动资金
+      liudong_money0: 0,
+      liudong_money1: 0,
+      liudong_money2: 0,
+      liudong_money3: 0,
+      liudong_money4: 0,
+      liudong_money5: 0,
+
+      // 经营成本
+      operation_cost0: 0,
+      operation_cost1: 0,
+      operation_cost2: 0,
+      operation_cost3: 0,
+      operation_cost4: 0,
+      operation_cost5: 0,
+
+      // 维持运营投资
+      maintain_operational_investment0: 0,
+      maintain_operational_investment1: 0,
+      maintain_operational_investment2: 0,
+      maintain_operational_investment3: 0,
+      maintain_operational_investment4: 0,
+      maintain_operational_investment5: 0,
+
+      // 营业税金及附加
+      taxes_and_surcharges0: 0,
+      taxes_and_surcharges1: 0,
+      taxes_and_surcharges2: 0,
+      taxes_and_surcharges3: 0,
+      taxes_and_surcharges4: 0,
+      taxes_and_surcharges5: 0,
+
+      // 累计净现金流量现值由负值转变到正值的年份
+      // year: 1,
+      // dpp
+      // dpp:1,
+    };
+  },
+  method: {
+    handleAnchorClick(e, link) {
+      // 阻止点击的默认事件修改路由
+      e.preventDefault();
+      var srcolls = document.getElementById(link.href);
+      srcolls.scrollIntoView({ block: 'start', behavior: 'smooth' });
     },
-    method: {
-        handleAnchorClick(e, link) {
-            // 阻止点击的默认事件修改路由
-            e.preventDefault();
-            var srcolls = document.getElementById(link.href);
-            srcolls.scrollIntoView({ block: 'start', behavior: 'smooth' });
-        }
+  },
+  computed: {
+    dpp() {
+      var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
+      let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
+      var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
+      var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
+      var pre_accumulated_net_cash_flow4 = this.present_value_factor4 * (this.cash_flow4 - this.cash_outflow4);
+      var pre_accumulated_net_cash_flow5 = this.present_value_factor5 * (this.cash_flow5 - this.cash_outflow5);
+      if (pre_accumulated_net_cash_flow0 >= 0) {
+        return 0;
+      } else if (pre_accumulated_net_cash_flow1 >= 0) {
+        return 1 + Math.abs(pre_accumulated_net_cash_flow0 / pre_accumulated_net_cash_flow1);
+      } else if (pre_accumulated_net_cash_flow2 >= 0) {
+        return 2+ Math.abs(pre_accumulated_net_cash_flow1 / pre_accumulated_net_cash_flow2);
+      } else if (pre_accumulated_net_cash_flow3 >= 0) {
+        return 3+ Math.abs(pre_accumulated_net_cash_flow2 / pre_accumulated_net_cash_flow3);
+      } else if (pre_accumulated_net_cash_flow4 >= 0) {
+        return 4+ Math.abs(pre_accumulated_net_cash_flow3 / pre_accumulated_net_cash_flow4);
+      } else if (pre_accumulated_net_cash_flow5 >= 0) {
+        return 5+ Math.abs(pre_accumulated_net_cash_flow4 / pre_accumulated_net_cash_flow5);
+      }
+      return 0;
     },
+    year() {
+      var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
+      let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
+      var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
+      var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
+      var pre_accumulated_net_cash_flow4 = this.present_value_factor4 * (this.cash_flow4 - this.cash_outflow4);
+      var pre_accumulated_net_cash_flow5 = this.present_value_factor5 * (this.cash_flow5 - this.cash_outflow5);
+      if (pre_accumulated_net_cash_flow0 >= 0) {
+        return 1;
+      } else if (pre_accumulated_net_cash_flow1 >= 0) {
+        return 2;
+      } else if (pre_accumulated_net_cash_flow2 >= 0) {
+        return 3;
+      } else if (pre_accumulated_net_cash_flow3 >= 0) {
+        return 4;
+      } else if (pre_accumulated_net_cash_flow4 >= 0) {
+        return 5;
+      } else if (pre_accumulated_net_cash_flow5 >= 0) {
+        return 6;
+      }
+      return 1;
+    },
+    net_cash_flow0() {
+      return this.cash_flow0-this.cash_outflow0;
+    },
+    net_cash_flow1() {
+      return this.cash_flow1 - this.cash_outflow1;
+    },
+    net_cash_flow2() {
+      return this.cash_flow2 - this.cash_outflow2;
+    },
+    net_cash_flow3() {
+      return this.cash_flow3 - this.cash_outflow3;
+    },
+    net_cash_flow4() {
+      return this.cash_flow4 - this.cash_outflow4;
+    },
+    net_cash_flow5() {
+      return this.cash_flow5 - this.cash_outflow5;
+    },
+    accumulated_net_cash_flow0() {
+      return this.cash_flow0 - this.cash_outflow0;
+    },
+    accumulated_net_cash_flow1() {
+      let accumulated_net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
+      let accumulated_net_cash_flow1 = this.cash_flow1 - this.cash_outflow1;
+      return accumulated_net_cash_flow0 + accumulated_net_cash_flow1;
+    },
+    accumulated_net_cash_flow2() {
+      let accumulated_net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
+      let accumulated_net_cash_flow1 = this.cash_flow1 - this.cash_outflow1;
+      let accumulated_net_cash_flow2 = this.cash_flow2 - this.cash_outflow2;
+      return accumulated_net_cash_flow0 + accumulated_net_cash_flow1 + accumulated_net_cash_flow2;
+    },
+    accumulated_net_cash_flow3() {
+      let accumulated_net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
+      let accumulated_net_cash_flow1 = this.cash_flow1 - this.cash_outflow1;
+      let accumulated_net_cash_flow2 = this.cash_flow2 - this.cash_outflow2;
+      let accumulated_net_cash_flow3 = this.cash_flow3 - this.cash_outflow3;
+      return accumulated_net_cash_flow0 + accumulated_net_cash_flow1 + accumulated_net_cash_flow2+accumulated_net_cash_flow3;
+    },
+    accumulated_net_cash_flow4() {
+      let accumulated_net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
+      let accumulated_net_cash_flow1 = this.cash_flow1 - this.cash_outflow1;
+      let accumulated_net_cash_flow2 = this.cash_flow2 - this.cash_outflow2;
+      let accumulated_net_cash_flow3 = this.cash_flow3 - this.cash_outflow3;
+      let accumulated_net_cash_flow4 = this.cash_flow4 - this.cash_outflow4;
+      return accumulated_net_cash_flow0 + accumulated_net_cash_flow1 + accumulated_net_cash_flow2 + accumulated_net_cash_flow3+accumulated_net_cash_flow4;
+    },
+    accumulated_net_cash_flow5() {
+      let accumulated_net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
+      let accumulated_net_cash_flow1 = this.cash_flow1 - this.cash_outflow1;
+      let accumulated_net_cash_flow2 = this.cash_flow2 - this.cash_outflow2;
+      let accumulated_net_cash_flow3 = this.cash_flow3 - this.cash_outflow3;
+      let accumulated_net_cash_flow4 = this.cash_flow4 - this.cash_outflow4;
+      let accumulated_net_cash_flow5 = this.cash_flow5 - this.cash_outflow5;
+      return accumulated_net_cash_flow0 + accumulated_net_cash_flow1 + accumulated_net_cash_flow2 + accumulated_net_cash_flow3 + accumulated_net_cash_flow4 + accumulated_net_cash_flow5;
+    },
+    present_net_cash_flow0() {
+      var net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
+      return this.present_value_factor0 * net_cash_flow0;
+    },
+    present_net_cash_flow1() {
+      var net_cash_flow1 = this.cash_flow1 - this.cash_outflow1;
+      return this.present_value_factor1 * net_cash_flow1;
+    },
+    present_net_cash_flow2() {
+      var net_cash_flow2 = this.cash_flow2 - this.cash_outflow2;
+      return this.present_value_factor2 * net_cash_flow2;
+    },
+    present_net_cash_flow3() {
+      var net_cash_flow3 = this.cash_flow3 - this.cash_outflow3;
+      return this.present_value_factor3 * net_cash_flow3;
+    },
+    present_net_cash_flow4() {
+      var net_cash_flow4 = this.cash_flow4 - this.cash_outflow4;
+      return this.present_value_factor4 * net_cash_flow4;
+    },
+    present_net_cash_flow5() {
+      var net_cash_flow5 = this.cash_flow5 - this.cash_outflow5;
+      return this.present_value_factor5 * net_cash_flow5;
+    },
+    pre_accumulated_net_cash_flow0() {
+      var net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
+      return this.present_value_factor0 * net_cash_flow0;
+    },
+    pre_accumulated_net_cash_flow1() {
+      var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
+      let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
+      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1;
+    },
+    pre_accumulated_net_cash_flow2() {
+      var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
+      let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
+      var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
+      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2;
+    },
+    pre_accumulated_net_cash_flow3() {
+      var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
+      let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
+      var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
+      var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
+      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3;
+    },
+    pre_accumulated_net_cash_flow4() {
+      var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
+      let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
+      var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
+      var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
+      var pre_accumulated_net_cash_flow4 = this.present_value_factor4 * (this.cash_flow4 - this.cash_outflow4);
+      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3+pre_accumulated_net_cash_flow4;
+    },
+    pre_accumulated_net_cash_flow5() {
+      var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
+      let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
+      var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
+      var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
+      var pre_accumulated_net_cash_flow4 = this.present_value_factor4 * (this.cash_flow4 - this.cash_outflow4);
+      var pre_accumulated_net_cash_flow5 = this.present_value_factor5 * (this.cash_flow5 - this.cash_outflow5);
+      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3 + pre_accumulated_net_cash_flow4+pre_accumulated_net_cash_flow5;
+    },
+  },
 };
 </script>
 
