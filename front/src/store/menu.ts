@@ -65,7 +65,7 @@ export const useMenuStore = defineStore('menu', () => {
         tmp.push({
           id: prevClass,
           name: `exp${prevClass}`,
-          title: item.kind,
+          title: `${prevClass}-${item.kind}`,
           path:  `/exp${prevClass}`,
           component: `@/pages/exp${prevClass}`,
           target: '_blank',
