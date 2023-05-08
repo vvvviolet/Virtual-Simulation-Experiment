@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AButton: typeof import('ant-design-vue/es')['Button']
     ACol: typeof import('ant-design-vue/es')['Col']
+    ADatePicker: typeof import('ant-design-vue/es')['DatePicker']
     ADivider: typeof import('ant-design-vue/es')['Divider']
     AForm: typeof import('ant-design-vue/es')['Form']
     AFormItem: typeof import('ant-design-vue/es')['FormItem']

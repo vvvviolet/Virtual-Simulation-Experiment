@@ -1,4 +1,5 @@
 import Mock from 'mockjs';
+
 // Mock.mock('api/experiments', 'get', ({ body }) => {
 //   // id:number; // id 建议用十进制表示法 
 //   // title:string; // 中文标题
@@ -84,4 +85,3 @@ import Mock from 'mockjs';
 //         ]
 //     };
 //   });
-  
