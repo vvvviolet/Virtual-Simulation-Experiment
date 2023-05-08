@@ -86,7 +86,6 @@ export const useMenuStore = defineStore('menu', () => {
           cacheable: true,
         })
       })
-    console.log('tmp',tmp)
     return tmp
   }
   async function getMenuList() {
@@ -95,7 +94,10 @@ export const useMenuStore = defineStore('menu', () => {
       console.log(data)
       menuList.value = toMenu(data);
       // console.log(menuList.value)
+      const torts = toRoutes(toMenu(data))
+      console.log(torts)
       addRoutes(toRoutes(toMenu(data)));
+
       return data;
     });
   }
