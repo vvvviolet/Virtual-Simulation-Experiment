@@ -1,22 +1,5 @@
 <template>
 
-    <!-- <h1 class="title" >实验0 TEST1
-
-       <a-button class="button1" type="primary" shape="round" :size="size">
-           <template #icon>
-             <DownloadOutlined />
-           </template>实验指导书下载
-        </a-button>
-         <a-button class="button2" type="primary" shape="round" :size="size" >
-           <template #icon>
-             <DownloadOutlined />
-           </template>实验报告模板下载
-        </a-button>
-
-      
-    </h1> -->
-
-    
     <!-- <span> {{ test }}</span> -->
     <!-- <h2>一、实验目的  </h2>
     <p class="content">理解软件项目规模度量功能点法原理，通过实验操作掌握功能点法。 学生应以小组为单位，根据本小组“软件工程管理与经济”课程设计项目架构及组件等设计成果，以功能点方法测量该项目的规模(功能点数量)。 建议选用某一种功能点方法度量课程设计项目的功能点，并采用另外一种功能点方法或其他的软件规模度量方法对前一种方法的度量结果进行验证。 本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
@@ -33,7 +16,7 @@
     <p class="secondtitle">第二步：测量内部逻辑文件(ILF)</p>
     <p class="content">内部逻辑文件(ILF)是用户可确认的，在应用程序内部维护、逻辑上相关的数
     据块或控制信息。内部逻辑文件(ILF)用来保存经由应用程序的一个或多个处理
-    后的数据。一旦应用程序内部的一个数据块被标识为 ILF，即使它被另一个事务
+    后的数据。 一旦应用程序内部的一个数据块被标识为 ILF，即使它被另一个事务
     处理所引用，它也不能再被同一个应用程序当作 EIF。<br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 ILF 数量。</p>
 
@@ -51,7 +34,7 @@
     并按照下表的参数并赋值(简单、平均或复杂)。 <br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：复杂度为简单的 ILF 数量和复杂的 ILF 数量各占 50%。EIF 的复
     杂度均为复杂。填写下表。</p>
-
+                                                                                           
 
     <p class="secondtitle">第五步：测量外部输入(EI)</p>
     <p class="content">外部输入(EI)是应用程序处理来自系统边界以外的数据或控制信息的基本
@@ -215,7 +198,7 @@
 import { Document } from '@element-plus/icons-vue'
 import { defineComponent } from 'vue'
 export default {
-    name: 'Exp0_TEST1',
+    name: 'Exp0_TEST0',
     data() {
         return{     
             test:'21111',
