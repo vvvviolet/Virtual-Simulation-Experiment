@@ -27,10 +27,8 @@ http.interceptors.request.use((req: AxiosRequestConfig) => {
 http.interceptors.response.use(
   (rep: AxiosResponse<String>) => {
     const { data } = rep;
-    // console.log(data)
-
     if (isResponse(data)) {
-      // console.log('isResponse',data)
+      // console.log('isResponse',data, data.code===0)
       return data.code === 0 ? data : Promise.reject(data);
     }
     return Promise.reject({ message: rep.statusText, code: rep.status, data });

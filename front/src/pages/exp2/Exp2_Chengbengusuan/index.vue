@@ -6,7 +6,7 @@
 <script>
 import { Document } from '@element-plus/icons-vue'
 export default {
-    name: 'Exp1_IFPUG',
+    // name: 'Exp1_IFPUG',
     data() {
         return{     
             test:'21111',
