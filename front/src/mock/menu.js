@@ -166,28 +166,28 @@ const presetList = [
   },
   
   {
-    id:5,
-    name: 'exp5',
-      title: '软件工程经济学方法应用',
+    id: 3,
+    name: 'exp3',
+    title: '碳排放权供需实验',
     target: '_self',
-    path: '/exp5',
-    component: '@/pages/exp5/Exp5.vue',
+    path: '/exp3',
+    component: '@/pages/exp3',
     renderMenu: true,
     parent: null,
     permission: null,
     cacheable: true,
     children: [
-        {
-            id: 51,
-            name: 'exp5_single_scheme_economic_evaluation',
-            title: '单方案经济评价实验',
-            target: '_self',
-            path: '/exp5/single_scheme_economic_evaluation',
-            component: '@/pages/exp5/Exp5_SINGLE_SCHEME/index.vue',
-            renderMenu: true,
-            permission: null,
-            cacheable: true,
-        }
+      {
+        id: 31,
+        name: '碳排放权供需实验',
+        title: '碳排放权供需方法',
+        target: '_self',
+        path: '/exp3/carbon',
+        component: '@/pages/exp3/Exp3_Carbon/index.vue',
+        renderMenu: true,
+        permission: null,
+        cacheable: true,
+      }
     ]
   },
   {
