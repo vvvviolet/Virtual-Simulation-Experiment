@@ -26,7 +26,7 @@ export interface Experiment{
   id:number; // id 建议用十进制表示法 
   title:string; // 中文标题
   name:string; // 英文标题
-  class:string; // 大类名称
+  kind:string; // 大类名称
 }
 
 export const useMenuStore = defineStore('menu', () => {
@@ -56,12 +56,16 @@ export const useMenuStore = defineStore('menu', () => {
     list.map((item)=>{
       // prevClass=Math.round(item.id/10)
       // console.log(prevClass)
-      if(Math.round(item.id/10)!=prevClass){
-        prevClass = Math.round(item.id/10)
+      // console.log('prev',prevClass)
+      // console.log('(item.id/10)',(item.id/10))
+      // console.log('Math.floor(item.id/10)',Math.floor(item.id/10))
+      if(Math.floor(item.id/10)!=prevClass){
+        prevClass = Math.floor(item.id/10)
+        // console.log('now',prevClass)
         tmp.push({
           id: prevClass,
           name: `exp${prevClass}`,
-          title: item.class,
+          title: `${prevClass}-${item.kind}`,
           path:  `/exp${prevClass}`,
           component: `@/pages/exp${prevClass}`,
           target: '_blank',
@@ -82,16 +86,18 @@ export const useMenuStore = defineStore('menu', () => {
           cacheable: true,
         })
       })
-    // console.log('tmp',tmp)
     return tmp
   }
   async function getMenuList() {
-    return http.request<Experiment, Response<Experiment[]>>('/experiments', 'GET').then((res) => {
+    return http.request<Experiment, Response<Experiment[]>>('/menu/student_experiment', 'GET').then((res) => {
       const { data } = res;
       console.log(data)
       menuList.value = toMenu(data);
       // console.log(menuList.value)
+      const torts = toRoutes(toMenu(data))
+      console.log(torts)
       addRoutes(toRoutes(toMenu(data)));
+
       return data;
     });
   }

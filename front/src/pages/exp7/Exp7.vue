@@ -2,9 +2,7 @@
 包括: 最大最小法、最小后悔值法、最大最大法等 -->
 
 <template>
-    <li>
-      <RouterLink to="/exp6/decision_tree">决策树实验</RouterLink>
-    </li>
+    <RouterView/>
   </template>
   
   <script lang="ts">

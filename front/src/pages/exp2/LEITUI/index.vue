@@ -13,7 +13,7 @@ import { defineComponent } from 'vue'
 export default {
     name: 'DONGTAITOUZI',
 }
-</script >
+</script>
 
 <style scoped>
 

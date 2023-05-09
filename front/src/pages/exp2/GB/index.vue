@@ -2,7 +2,6 @@
 
     内容
     
-
 </template>
 
 
@@ -11,9 +10,9 @@
 import { Document } from '@element-plus/icons-vue'
 import { defineComponent } from 'vue'
 export default {
-    name: 'DONGTAITOUZI',
+    name: 'GB',
 }
-</script >
+</script>
 
 <style scoped>
 
