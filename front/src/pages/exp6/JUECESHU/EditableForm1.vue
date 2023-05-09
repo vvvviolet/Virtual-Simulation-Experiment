@@ -5,7 +5,7 @@
     </h1>
     <a-table :columns="columns" :pagination="false" :data-source="dataSourceCopy" bordered>
       <template
-        v-for="(col, index) in columns.map((item) => item.dataIndex).filter((item) => item != 'operation')"
+        v-for="(col, index) in columns.map((item:any) => item.dataIndex).filter((item) => item != 'operation')"
         :key="index"
         #[col]="{ text, record }"
       >
