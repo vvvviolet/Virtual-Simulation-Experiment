@@ -2,7 +2,7 @@
   <div ref="container"></div>
 </template>
 
-<script>
+<script lang="ts">
   import * as d3 from 'd3';
 
   export default {

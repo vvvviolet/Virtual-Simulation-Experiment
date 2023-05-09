@@ -56,7 +56,7 @@ export default {
   mounted() {
     const rt = useRoute()
     console.log(rt.meta)
-    const d = getExperimentInfo(rt.meta.id)
+    // const d = getExperimentInfo(rt.meta.id)
     // console.log(d)
   },
 };
