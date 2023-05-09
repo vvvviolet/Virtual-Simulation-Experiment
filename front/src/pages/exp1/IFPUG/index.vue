@@ -172,7 +172,7 @@
     <span style="font-size:20px">{{ ALL }}</span>
     <br /><br />
     <a-button class="button3" type="primary" shape="round">
-        <template #icon>
+        <template >
             <DownloadOutlined />
         </template>实验报告提交
     </a-button>
@@ -181,17 +181,8 @@
 
 
 <script lang="ts">
-import { Document } from '@element-plus/icons-vue'
 import { defineComponent } from 'vue'
 export default {
-
-    setup() {
-        return {
-            value:0,
-            data:0,
-            columns:0,
-        }
-    },
     name: 'Exp1_IFPUG',
     data() {
         return {
