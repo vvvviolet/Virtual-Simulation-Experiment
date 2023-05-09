@@ -195,9 +195,18 @@
 
 
 
-<script >
+<script>
+import { Document } from '@element-plus/icons-vue'
 import { defineComponent } from 'vue'
 export default {
+
+    setup() {
+        return {
+            value,
+            data,
+            columns,
+        }
+    },
     name: 'Exp1_IFPUG',
     data() {
         return {
