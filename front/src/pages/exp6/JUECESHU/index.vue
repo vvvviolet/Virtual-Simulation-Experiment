@@ -30,7 +30,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import { Table } from 'ant-design-vue';
   import HorizontalTree from '@/pages/exp6/JUECESHU/HorizontalTree.vue';
   import EditableForm1 from '@/pages/exp6/JUECESHU/EditableForm1.vue';
