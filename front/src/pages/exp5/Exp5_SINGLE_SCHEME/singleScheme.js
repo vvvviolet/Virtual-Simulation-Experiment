@@ -22,11 +22,12 @@ function NPV(CI,CO,ic,t){
 function IRR(CI,CO,t){
     irr=0.000001
     NPV=1
-    while(NPV<0.001){
+    while(NPV<0.001&&irr<1.1){
         NPV=0
         for(var i=0;i<CI.length;i++){
             NPV+=(CI[i]-CO[i])*(Math.pow(1+irr,-t[i]))
         }
+        irr+=0.000001
     }
     return irr
 }

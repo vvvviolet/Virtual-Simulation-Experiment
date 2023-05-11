@@ -1,19 +1,4 @@
 <template>
-    <!-- <h1 class="title">实验1 基于IFPUG的小型软件项目规模度量实验
-
-        <a-button class="button1" type="primary" shape="round" @click="click_button1">
-            <template #icon>
-                <DownloadOutlined />
-            </template>实验指导书下载
-        </a-button>
-        <a-button class="button2" type="primary" shape="round" >
-            <template #icon>
-                <DownloadOutlined />
-            </template>实验报告模板下载
-        </a-button>
-
-
-    </h1> -->
     <!-- <span> {{ test }}</span> -->
     <!-- <h2>一、实验目的  </h2>
     <p class="content">理解软件项目规模度量功能点法原理，通过实验操作掌握功能点法。 学生应以小组为单位，根据本小组“软件工程管理与经济”课程设计项目架构及组件等设计成果，以功能点方法测量该项目的规模(功能点数量)。 建议选用某一种功能点方法度量课程设计项目的功能点，并采用另外一种功能点方法或其他的软件规模度量方法对前一种方法的度量结果进行验证。 本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
@@ -146,6 +131,12 @@
     </a-table>
     <br>
 
+    <div style="width:100%;text-align:right" >
+        <span  style="width:30%;display:inline-block" class="secondtitle">本实验未调整功能点总计为 </span>
+        <span style="display:inline-block;font-size:20px;" >{{ SUM }}</span>
+    </div>
+    <br>
+    <br>
 
     <h2 style="text-align: center;">表2：系统特征因子表及计算表 </h2>
     <a-table :columns="columnsadjust" :pagination="false" :data-source="dataadjust" bordered size="middle" style="word-break: break-all;">
@@ -167,18 +158,21 @@
         </template>
     </a-table>
     <br>
-
+    <div style="width:100%;text-align:right" >
+        <span  style="width:30%;display:inline-block" class="secondtitle">合计数 </span>
+        <span style="display:inline-block;font-size:20px;" >{{ SUM_A }}</span>
+    </div>
+    <br>
+    <br>
 
     <span class="secondtitle">功能点调整因子(VAF)为 </span>
     <span style="font-size:20px">{{ VAF }}</span>
-    <span style="margin-left:220px" class="secondtitle">本实验未调整功能点总计为 </span>
-    <span style="font-size:20px">{{ SUM }}</span>
     <br /><br />
     <span class="secondtitle">本实验案例的功能点为</span>
     <span style="font-size:20px">{{ ALL }}</span>
     <br /><br />
     <a-button class="button3" type="primary" shape="round">
-        <template #icon>
+        <template >
             <DownloadOutlined />
         </template>实验报告提交
     </a-button>
@@ -186,24 +180,16 @@
 
 
 
-<script>
-import { Document } from '@element-plus/icons-vue'
+<script lang="ts">
 import { defineComponent } from 'vue'
 export default {
-
-    setup() {
-        return {
-            value,
-            data,
-            columns,
-        }
-    },
     name: 'Exp1_IFPUG',
     data() {
         return {
             test: '21111',
             SUM: 0,
             VAF: 0,
+            SUM_A: 0,
             columns1: [
                 {
                     title: '记录元素类型(RET) ',
@@ -815,12 +801,18 @@ export default {
         VAF() {
             var vaf = 0
             // console.log('111',this.$data.tableData)
-            for (var i = 0; i < 13; i++)
+            for (var i = 0; i < 14; i++)
                 vaf += (parseInt(this.dataadjust[i].grade) ? parseInt(this.dataadjust[i].grade) : 0)
             
             vaf = vaf*0.01 + 0.65
             this.$data.VAF = vaf.toFixed(2)
             return vaf
+        },
+        SUM_A(){
+            var sum = 0
+            for (var i = 0; i < 14; i++)
+                sum += (parseInt(this.dataadjust[i].grade) ? parseInt(this.dataadjust[i].grade) : 0)
+            return sum
         },
         ALL() {
             return (this.$data.SUM * this.$data.VAF).toFixed(2)
@@ -855,7 +847,7 @@ export default {
                 if (index === 11) {
                     sums[index] = (() => {
                         // let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
-                        return num;
+                        // return num;
                     })();
                     return;
                 }
