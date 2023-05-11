@@ -46,7 +46,7 @@ const presetList = [
   // },
   {
     id: 99990,
-    name: 'exp0',
+    name: `exp0`,
     title: '实验模板',
     target: '_self',
     path: '/exp0',
@@ -58,18 +58,18 @@ const presetList = [
     children: [
       {
         id: 99991,
-        name: 'exp0_TEST0',
+        name: 'test0',
         title: '测试实验0-子标题',
-        target: '_self',
         path: '/exp0/test0',
         component: '@/pages/exp0/Exp0_TEST0/index.vue',
+        target: '_self',
         renderMenu: true,
         permission: null,
         cacheable: true,
       },
       {
         id: 99992,
-        name: 'exp0_TEST1',
+        name: 'test1',
         title: '测试实验1-子标题',
         target: '_self',
         path: '/exp0/test1',
