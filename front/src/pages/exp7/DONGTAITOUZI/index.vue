@@ -224,12 +224,12 @@
                     <a-col :span="4">净现金流量</a-col>
                     <a-col :span="20">
                       <a-input-group compact>
-                        <a-input v-model:value="net_cash_flow0" style="width: 15%" />
-                        <a-input v-model:value="net_cash_flow1" style="width: 15%" />
-                        <a-input v-model:value="net_cash_flow2" style="width: 15%" />
-                        <a-input v-model:value="net_cash_flow3" style="width: 15%" />
-                        <a-input v-model:value="net_cash_flow4" style="width: 15%" />
-                        <a-input v-model:value="net_cash_flow5" style="width: 15%" />
+                        <a-col :span="3">{{net_cash_flow0}}</a-col>
+                        <a-col :span="3">{{net_cash_flow1}}</a-col>
+                        <a-col :span="3">{{net_cash_flow2}}</a-col>
+                        <a-col :span="3">{{net_cash_flow3}}</a-col>
+                        <a-col :span="3">{{net_cash_flow4}}</a-col>
+                        <a-col :span="3">{{net_cash_flow5}}</a-col>
                       </a-input-group>
                     </a-col>
                   </a-row>
@@ -277,12 +277,12 @@
                     <a-col :span="4">净现金流量(现值)</a-col>
                     <a-col :span="20">
                       <a-input-group compact>
-                        <a-input v-model:value="present_net_cash_flow0" style="width: 15%" />
-                        <a-input v-model:value="present_net_cash_flow1" style="width: 15%" />
-                        <a-input v-model:value="present_net_cash_flow2" style="width: 15%" />
-                        <a-input v-model:value="present_net_cash_flow3" style="width: 15%" />
-                        <a-input v-model:value="present_net_cash_flow4" style="width: 15%" />
-                        <a-input v-model:value="present_net_cash_flow5" style="width: 15%" />
+                        <a-col :span="3">{{present_net_cash_flow0}}</a-col>
+                        <a-col :span="3">{{present_net_cash_flow1}}</a-col>
+                        <a-col :span="3">{{present_net_cash_flow2}}</a-col>
+                        <a-col :span="3">{{present_net_cash_flow3}}</a-col>
+                        <a-col :span="3">{{present_net_cash_flow4}}</a-col>
+                        <a-col :span="3">{{present_net_cash_flow5}}</a-col>
                       </a-input-group>
                     </a-col>
                   </a-row>
@@ -290,12 +290,12 @@
                     <a-col :span="4">累计净现金流量(现值)</a-col>
                     <a-col :span="20">
                       <a-input-group compact>
-                        <a-input v-model:value="pre_accumulated_net_cash_flow0" style="width: 15%" />
-                        <a-input v-model:value="pre_accumulated_net_cash_flow1" style="width: 15%" />
-                        <a-input v-model:value="pre_accumulated_net_cash_flow2" style="width: 15%" />
-                        <a-input v-model:value="pre_accumulated_net_cash_flow3" style="width: 15%" />
-                        <a-input v-model:value="pre_accumulated_net_cash_flow4" style="width: 15%" />
-                        <a-input v-model:value="pre_accumulated_net_cash_flow5" style="width: 15%" />
+                        <a-col :span="3">{{pre_accumulated_net_cash_flow0}}</a-col>
+                        <a-col :span="3">{{pre_accumulated_net_cash_flow1}}</a-col>
+                        <a-col :span="3">{{pre_accumulated_net_cash_flow2}}</a-col>
+                        <a-col :span="3">{{pre_accumulated_net_cash_flow3}}</a-col>
+                        <a-col :span="3">{{pre_accumulated_net_cash_flow4}}</a-col>
+                        <a-col :span="3">{{pre_accumulated_net_cash_flow5}}</a-col>
                       </a-input-group>
                     </a-col>
                   </a-row>
