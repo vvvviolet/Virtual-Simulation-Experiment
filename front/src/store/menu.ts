@@ -65,7 +65,7 @@ export const useMenuStore = defineStore('menu', () => {
         tmp.push({
           id: prevClass,
           name: `exp${prevClass}`,
-          title: item.kind,
+          title: `${prevClass}-${item.kind}`,
           path:  `/exp${prevClass}`,
           component: `@/pages/exp${prevClass}`,
           target: '_blank',
@@ -86,18 +86,19 @@ export const useMenuStore = defineStore('menu', () => {
           cacheable: true,
         })
       })
-    console.log('tmp',tmp)
     return tmp
   }
   async function getMenuList() {
-    return http.request<Experiment, Response<Experiment[]>>('/menu/student_experiment', 'GET').then((res) => {
-      const { data } = res;
-      console.log(data)
+    try {
+      const response = await http.request<Experiment, Response<Experiment[]>>('/menu/student_experiment', 'GET');
+      const { data } = response;
       menuList.value = toMenu(data);
-      // console.log(menuList.value)
-      addRoutes(toRoutes(toMenu(data)));
+      const torts = toRoutes(toMenu(data));
+      addRoutes(torts);
       return data;
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
   // async function getMenuList() {
   //   return http.request<MenuProps, Response<MenuProps[]>>('/menu', 'GET').then((res) => {
