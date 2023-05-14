@@ -89,17 +89,16 @@ export const useMenuStore = defineStore('menu', () => {
     return tmp
   }
   async function getMenuList() {
-    return http.request<Experiment, Response<Experiment[]>>('/menu/student_experiment', 'GET').then((res) => {
-      const { data } = res;
-      console.log(data)
+    try {
+      const response = await http.request<Experiment, Response<Experiment[]>>('/menu/student_experiment', 'GET');
+      const { data } = response;
       menuList.value = toMenu(data);
-      // console.log(menuList.value)
-      const torts = toRoutes(toMenu(data))
-      console.log(torts)
-      addRoutes(toRoutes(toMenu(data)));
-
+      const torts = toRoutes(toMenu(data));
+      addRoutes(torts);
       return data;
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
   // async function getMenuList() {
   //   return http.request<MenuProps, Response<MenuProps[]>>('/menu', 'GET').then((res) => {
