@@ -44,7 +44,7 @@
               <!-- 步骤三 -->
               <a-row>
                 <a-col :span="24">
-                  <h1>三、实验步骤</h1>
+                  <h1 id="three">三、实验步骤</h1>
                   <h2>3.1 制定项目计划和预算</h2>
                   <p>根据市场调研和项目需求，公司制定了详细的项目计划和预算，包括项目的开发周期、人力资源投入、硬件和软件设备购置、运营成本等。</p>
                   <p>根据项目计划和预算，计算出项目的总投资成本，包括项目开发过程中的各种成本和运营成本。</p>
@@ -275,33 +275,24 @@
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="4">净现金流量(现值)</a-col>
-                    <a-col :span="20">
-                      <a-input-group compact>
-                        <a-col :span="3">{{present_net_cash_flow0}}</a-col>
-                        <a-col :span="3">{{present_net_cash_flow1}}</a-col>
-                        <a-col :span="3">{{present_net_cash_flow2}}</a-col>
-                        <a-col :span="3">{{present_net_cash_flow3}}</a-col>
-                        <a-col :span="3">{{present_net_cash_flow4}}</a-col>
-                        <a-col :span="3">{{present_net_cash_flow5}}</a-col>
-                      </a-input-group>
-                    </a-col>
+                    <a-col :span="3">{{present_net_cash_flow0}}</a-col>
+                    <a-col :span="3">{{present_net_cash_flow1}}</a-col>
+                    <a-col :span="3">{{present_net_cash_flow2}}</a-col>
+                    <a-col :span="3">{{present_net_cash_flow3}}</a-col>
+                    <a-col :span="3">{{present_net_cash_flow4}}</a-col>
+                    <a-col :span="3">{{present_net_cash_flow5}}</a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="4">累计净现金流量(现值)</a-col>
-                    <a-col :span="20">
-                      <a-input-group compact>
-                        <a-col :span="3">{{pre_accumulated_net_cash_flow0}}</a-col>
-                        <a-col :span="3">{{pre_accumulated_net_cash_flow1}}</a-col>
-                        <a-col :span="3">{{pre_accumulated_net_cash_flow2}}</a-col>
-                        <a-col :span="3">{{pre_accumulated_net_cash_flow3}}</a-col>
-                        <a-col :span="3">{{pre_accumulated_net_cash_flow4}}</a-col>
-                        <a-col :span="3">{{pre_accumulated_net_cash_flow5}}</a-col>
-                      </a-input-group>
-                    </a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow0}}</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow1}}</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow2}}</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow3}}</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow4}}</a-col>
+                    <a-col :span="3">{{pre_accumulated_net_cash_flow5}}</a-col>
                   </a-row>
                 </a-col>
               </a-row>
-              
               <a-divider></a-divider>
               <!-- 步骤四 -->
               <a-row>
@@ -508,17 +499,13 @@
             <a-col :span="1"></a-col>
             <!-- 侧边栏锚点 -->
             <a-col :span="4">
-              <a-anchor @click="handleAnchorClick">
-                <a-anchor-link href="#one" title="Basic demo" />
-                <a-anchor-link href="#components-anchor-demo-static" title="Static demo" />
-                <a-anchor-link
-                  href="#components-anchor-demo-basic"
-                  title="Basic demo with Target"/>
+              <a-anchor @click="handleAnchorClick"  @change="onChange">
+                <a-anchor-link href="#one" title="一、实验目的" />
+                <a-anchor-link href="#two" title="二、实验原理" />
+                <a-anchor-link href="#three" title="三、实验步骤" />
+                <a-anchor-link href="#four" title="四、实验内容" />
+                <a-anchor-link href="#five" title="五、实验结果" />
                 <a-anchor-link href="#six" title="六、实验思考" />
-                <a-anchor-link href="#API" title="API">
-                  <a-anchor-link href="#Anchor-Props" title="Anchor Props" />
-                  <a-anchor-link href="#Link-Props" title="Link Props" />
-                </a-anchor-link>
               </a-anchor>
             </a-col>
           </a-row>
@@ -547,15 +534,19 @@ import { defineComponent } from 'vue'
 
 export default {
     name: 'DONGTAITOUZI',
-    setup() {
+  setup() {
         const year = ref<number>(3);
         const dpp = ref<number>(3);
         const thoughts = ref<string>('');
 
+        const onChange = (link: string) => {
+          console.log('Anchor:OnChange', link);
+        };
         return {
-            year,
-            dpp,
-            thoughts
+          year,
+          dpp,
+          thoughts,
+          onChange,
         };
   },
   data() {
