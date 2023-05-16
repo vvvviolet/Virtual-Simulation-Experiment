@@ -220,6 +220,40 @@ def calculate_result(experiment_id: int):
     }
 
 
+# 定义输入模型
+class BidInput(BaseModel):
+    student_id: int
+    buyer_price: int
+    seller_price: int
+
+
+@app.post('/experiments/{experiment_id}/bids')
+def post_bid(experiment_id: int, bid_input: BidInput):
+    # 获取指定id的实验
+    session = Session()
+    experiment = session.query(Experiment).filter(Experiment.id == experiment_id).first()
+    # 判断实验是否存在
+    if experiment is None:
+        session.close()
+        return {'error': 'Experiment not found!'}
+
+    # 创建一个新的买方出价
+    new_bid_buy = Bid(experiment_id=experiment_id, student_id=bid_input.student_id, price=bid_input.buyer_price,
+                      buy_or_sell=0)
+    session.add(new_bid_buy)
+
+    # 创建一个新的卖方出价
+    new_bid_sell = Bid(experiment_id=experiment_id, student_id=bid_input.student_id, price=bid_input.seller_price,
+                       buy_or_sell=1)
+    session.add(new_bid_sell)
+
+    session.commit()
+    session.close()
+
+    # 返回一个响应
+    return {'message': 'Bid submitted successfully'}
+
+
 # 定义custom_openapi
 def custom_openapi():
     if app.openapi_schema:
