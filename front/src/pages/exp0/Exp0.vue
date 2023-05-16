@@ -24,7 +24,7 @@
 
 <script lang="ts">
   import { useMenuStore } from '@/store';
-import { useExperimentStore } from '@/store/experiment';
+  import { useExperimentStore } from '@/store/experiment';
   import { useRoute } from 'vue-router';
   const { getExperiment, getExperimentList } = useExperimentStore();
   const { getMenuList } = useMenuStore();
