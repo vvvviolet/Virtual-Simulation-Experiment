@@ -35,10 +35,18 @@ const rt = useRoute()
 function downLoadFile(){
   getExperiment(rt.meta.id)
     .then((res) => {
-      console.log('res',res)
-      let a = document.createElement('a')
-      a.href = res.file
-      a.click();
+      console.log(res.file)
+      const fileName = res.file
+      if (!fileName) {
+        return;
+      }
+      let url = window.URL.createObjectURL(new Blob([fileName]));
+      let link = document.createElement('a');
+      link.style.display = 'none';
+      link.href = url;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
     })
 }
 
