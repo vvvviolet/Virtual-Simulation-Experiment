@@ -1,1 +1,0 @@
-{"version":3,"file":"Demo-f5e75e1c.js","sources":["../../src/pages/Demo.vue"],"sourcesContent":["<template>\r\n  <div ref=\"demo\" class=\"demo bg-red-50 p-8 mb-4\">demo</div>\r\n</template>\r\n<script lang=\"ts\" setup></script>\r\n"],"names":["_hoisted_1"],"mappings":"iEACOA,EAAA,CAAW,IAAA"}
