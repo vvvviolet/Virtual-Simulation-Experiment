@@ -21,23 +21,23 @@ import { MessageApi } from 'ant-design-vue/es/message';
 import IconFont from '@/plugins/iconfont/IconFont.vue';
 declare module 'vue' {
   export interface GlobalComponents {
-    ADropdown: DropdownProps;
-    APagination: PaginationProps;
-    AButton: ButtonProps;
-    AConfigProvider: ConfigProviderProps;
-    ATabs: TabsProps;
-    IconFont: typeof IconFont;
-    ASelect: SelectProps;
-    AForm: FormProps;
-    AFormItem: FormItemProps;
-    AModal: ModalProps;
-    APagination: paginationProps;
-    ASwitch: SwitchProps;
-    ACascader: CascaderProps;
-    AInput: InputProps;
-    ASpin: SpinProps;
-    AStatistic: StatisticProps;
-    ATreeSelect: TreeSelectProps;
+    // ADropdown: DropdownProps;
+    // APagination: PaginationProps;
+    // AButton: ButtonProps;
+    // AConfigProvider: ConfigProviderProps;
+    // ATabs: TabsProps;
+    // IconFont: typeof IconFont;
+    // ASelect: SelectProps;
+    // AForm: FormProps;
+    // AFormItem: FormItemProps;
+    // AModal: ModalProps;
+    // APagination: paginationProps;
+    // ASwitch: SwitchProps;
+    // ACascader: CascaderProps;
+    // AInput: InputProps;
+    // ASpin: SpinProps;
+    // AStatistic: StatisticProps;
+    // ATreeSelect: TreeSelectProps;
   }
 
   export interface ComponentCustomProperties {
