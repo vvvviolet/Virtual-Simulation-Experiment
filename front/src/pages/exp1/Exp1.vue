@@ -28,10 +28,13 @@
 
 <script lang="ts" setup>
 import { useExperimentStore } from '@/store/experiment';
+import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 const { getExperiment } = useExperimentStore();
 const rt = useRoute()
-
+onMounted(()=>{
+  console.log(rt.meta)
+})
 function downLoadFile(){
   getExperiment(rt.meta.id)
     .then((res) => {
