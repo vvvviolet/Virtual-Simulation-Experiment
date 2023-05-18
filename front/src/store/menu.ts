@@ -31,7 +31,7 @@ export interface Experiment{
 
 export const useMenuStore = defineStore('menu', () => {
   const menuList = ref<MenuProps[]>([]);
-  const toRoutes = (list: MenuProps[]): RouteOption[] => {
+  const toRoutes = (list: MenuProps[])  => {
     return list.map((item) => ({
       name: item.name,
       path: item.path,
