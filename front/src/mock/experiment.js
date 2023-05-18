@@ -13,7 +13,7 @@ Mock.mock('api/menu/student_experiment', 'get', ({ body }) => {
             {
                 "id": "11",
                 "title": "国标GB标准-实验",
-                "name": "guobiao",
+                "name": "gb11",
                 "kind": "软件规模度量",
                 "content": null,
                 "file": null
@@ -53,7 +53,7 @@ Mock.mock('api/menu/student_experiment', 'get', ({ body }) => {
             {
                 "id": "21",
                 "title": "国标GB标准-实验",
-                "name": "guobiao",
+                "name": "gb21",
                 "kind": "软件开发成本估算",
                 "content": null,
                 "file": null
@@ -85,7 +85,7 @@ Mock.mock('api/menu/student_experiment', 'get', ({ body }) => {
             {
                 "id": "31",
                 "title": "国标GB标准-实验",
-                "name": "guobiao",
+                "name": "gb31",
                 "kind": "软件测试成本估算",
                 "content": null,
                 "file": null
@@ -93,7 +93,7 @@ Mock.mock('api/menu/student_experiment', 'get', ({ body }) => {
             {
                 "id": "41",
                 "title": "国标GB标准-实验",
-                "name": "guobiao",
+                "name": "gb41",
                 "kind": "软件运维成本估算",
                 "content": null,
                 "file": null
