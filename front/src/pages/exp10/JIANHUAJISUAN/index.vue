@@ -783,14 +783,71 @@
         },
         irr(){
           return function()
-          {
-            return this.Index[1].value = 0
+          {           
+            var npv = 0  //净现值
+            var irr = 0.1  //初始irr值设为0.1
+            var count = 0  //计数
+            const epsilon =  0.0001  //迭代精度
+            const max_iter = 1000  //最大迭代次数
+
+            const cashFlow = [0,0,0,0,0,0]  //净现金流量
+            cashFlow[0] = parseInt(this.netCashFlow[0].year0) ? parseInt(this.netCashFlow[0].year0):0
+            cashFlow[1] = parseInt(this.netCashFlow[0].year1) ? parseInt(this.netCashFlow[0].year1):0
+            cashFlow[2] = parseInt(this.netCashFlow[0].year2) ? parseInt(this.netCashFlow[0].year2):0
+            cashFlow[3] = parseInt(this.netCashFlow[0].year3) ? parseInt(this.netCashFlow[0].year3):0
+            cashFlow[4] = parseInt(this.netCashFlow[0].year4) ? parseInt(this.netCashFlow[0].year4):0
+            cashFlow[5] = parseInt(this.netCashFlow[0].year5) ? parseInt(this.netCashFlow[0].year5):0
+            if(!(parseInt(this.netCashFlow[0].year0) && parseInt(this.netCashFlow[0].year1) && parseInt(this.netCashFlow[0].year2) && parseInt(this.netCashFlow[0].year3) && parseInt(this.netCashFlow[0].year4) && parseInt(this.netCashFlow[0].year5)))
+              return this.Index[1].value = 0
+
+            do{
+              count++
+              npv=0
+              for(var t = 0; t <= 5; t++)
+                npv += cashFlow[t] / Math.pow(1 + irr, t);
+              if(npv > 0)
+                irr += epsilon
+              else if(npv < 0)
+                irr -= epsilon
+              else
+                break  
+
+            }while(Math.abs(npv) > epsilon && count < max_iter)
+
+            this.Index[1].value = (irr * 100).toFixed(2)  //返回百分比值
+            
+            return this.Index[1].value 
           }
         },
         dpp(){
           return function()
           {
-            return this.Index[2].value = 0
+            var npv = 0
+            var dpp = 0
+            const discountRate = 0.1
+
+            const cashFlow = [0,0,0,0,0,0]  //净现金流量
+            cashFlow[0] = parseInt(this.netCashFlow[0].year0) ? parseInt(this.netCashFlow[0].year0):0
+            cashFlow[1] = parseInt(this.netCashFlow[0].year1) ? parseInt(this.netCashFlow[0].year1):0
+            cashFlow[2] = parseInt(this.netCashFlow[0].year2) ? parseInt(this.netCashFlow[0].year2):0
+            cashFlow[3] = parseInt(this.netCashFlow[0].year3) ? parseInt(this.netCashFlow[0].year3):0
+            cashFlow[4] = parseInt(this.netCashFlow[0].year4) ? parseInt(this.netCashFlow[0].year4):0
+            cashFlow[5] = parseInt(this.netCashFlow[0].year5) ? parseInt(this.netCashFlow[0].year5):0
+            if(!(parseInt(this.netCashFlow[0].year0) && parseInt(this.netCashFlow[0].year1) && parseInt(this.netCashFlow[0].year2) && parseInt(this.netCashFlow[0].year3) && parseInt(this.netCashFlow[0].year4) && parseInt(this.netCashFlow[0].year5)))
+              return this.Index[2].value = 0
+
+            for(var t = 0; t <= 5; t++)
+            {
+                npv += cashFlow[t] / Math.pow(1 + discountRate, t);
+                if(npv >= 0)
+                {
+                  dpp = t  - npv / cashFlow[t] / Math.pow(1 + discountRate, t)
+                  break
+                }
+            }
+
+            this.Index[2].value = dpp.toFixed(2)
+            return this.Index[2].value
           }
         },
         },
