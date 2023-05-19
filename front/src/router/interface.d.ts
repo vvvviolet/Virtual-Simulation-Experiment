@@ -14,6 +14,7 @@ export interface RouteMeta {
   cacheable?: boolean;
   link?: string;
   title?: string;
+  id?: string;
 }
 
 declare interface RouteRecordBase extends Omit<_RouteRecordBase, 'redirect'> {
