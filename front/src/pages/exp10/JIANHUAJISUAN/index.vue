@@ -11,7 +11,7 @@
   年</p>
   <h3>2.项目现金流入</h3>
   <p class="content">项目的现金流入包括独立方案的年收入，其中，独立方案是指各工程项目方案的现金流是独立的、不相关，而且任何一个方案的采用与否都不会对是否采纳其他方案的决策产生影响。例如:阿里集团的淘宝和闲鱼，分别投资开发各自平台新产品方案，如果选择某个方案，不会影响到另一个方案，则这两个方案就是独立方案。请按照下列表格填写项目每年的现金流入：</p>
-  <a-table :columns="columns_1" :data-source="Input" bordered size="middle" style="word-break: break-all;">
+  <a-table :columns="columns_1" :data-source="Input" :pagination="false">
       <template #bodyCell="{ column,record,index}">
           <template v-if="column.dataIndex === 'year0'">
             <template v-if="record.project === '现金流入'">
@@ -81,6 +81,7 @@
           </template>
       </template> 
   </a-table>
+  <p></p>
   <h3>3.项目现金流出</h3>
   <p class="content">项目的现金流出包括直接人员成本、非直接人员成本、直接运维成本、非直接运维成本和其他。
                     直接人员成本指员工的直接所得：包括工资、奖金、加班费、红利、职务津贴、遣散补偿等。
@@ -90,7 +91,7 @@
 
   <p class="content">请按照下列表格填写项目每年的现金流出：
   </p>
-  <a-table :columns="columns_1" :data-source="Output">
+  <a-table :columns="columns_1" :data-source="Output" :pagination="false">
   <template #bodyCell="{ column, record, index }">
     <template v-if="column.dataIndex === 'year0'">
       <template v-if="record.project === '现金流出'">
@@ -220,6 +221,7 @@
 
   </template>
 </a-table>
+<p></p>
   <h3>4.项目净现金流量</h3>
   <p class="content">根据1和2中得到的现金流入和现金流出计算净现金流量和累计净现金流量；</p>
   <p class="content">净现金流量是现金流量表中的一个指标，是指一定时期内，现金及现金等价物的流入（收入）减去流出（支出）的余额（净收入或净支出），反映了企业本期内净增加或净减少的现金及现金等价数额。</p>
@@ -228,7 +230,7 @@
 净现金流量现值为现金流入扣除现金流出的净额按照一定的折现率折现至评估时点的现值，净现金流量总现值是指未来各期现金净流量的现值之和，即未来现金流入现值与未来现金流出现值差额，也称为净现值。
 </p>
 <p class="formula">第n年的净现金流量现值=第n年的净现金流量×现值系数  </p>
-<a-table :columns="columns_1" :data-source="netCashFlow">
+<a-table :columns="columns_1" :data-source="netCashFlow" :pagination="false">
       <template #bodyCell="{ column,record,index}">
           <template v-if="column.dataIndex === 'year0'">
             <template v-if="record.project === '净现金流量'">
@@ -322,17 +324,21 @@
           </template>
       </template> 
   </a-table>
+  <p></p>
   <h3>5.项目指标</h3>
   <p class="content">根据所提取的财务评价所需基础数据进行项目财务分析，重在考察项目盈利能力是否能够满足要求。编制项目资本金现金流量表，计算项目资本金财务内部收益率IRR、净现值NPV以及动态投资回收期（年），考察项目资本金可获得的收益水平。
   </p>
-  <p class="content">1. 项目资本金财务内部收益率IRR是指在整个计算期内净现值等于零时所对应的折现率,公式如下：</p>
-  <p class="content">其中，IRR为内部收益率，（CI-CO）t为第t年净现金流量，n为方案寿命期。</p>
-  <p class="content">2. 净现值NPV是指按照一定的折现率（通常为基准折现率ic），将各年的净现金流量折现到同一时点（通常是期初时点）的现值之和,公式如下：</p>
+  <p class="content">1. 净现值NPV是指按照一定的折现率（通常为基准折现率ic），将各年的净现金流量折现到同一时点（通常是期初时点）的现值之和,公式如下：</p>
+  <img class="formula" src="src\pages\exp10\JIANHUAJISUAN\img\NPV.png">
   <p class="content">（CI-CO）t为第t年的净现金流量，n为方案寿命期，ic为设定的折现率（基准收益率）。</p>
+  <p class="content">2. 项目资本金财务内部收益率IRR是指在整个计算期内净现值等于零时所对应的折现率,公式如下：</p>
+  <img class="formula" src="src\pages\exp10\JIANHUAJISUAN\img\IRR.png">
+  <p class="content">其中，IRR为内部收益率，（CI-CO）t为第t年净现金流量，n为方案寿命期。</p>
   <p class="content">3. 动态投资回收期（年）是指按照设定的基准收益率ic回收全部投资所需的时间,公式如下：</p>
+  <img class="formula" src="src\pages\exp10\JIANHUAJISUAN\img\DPP.png">
   <p class="content">其中，DPP为动态投资回收期、（CI-CO）t为第t年净现金流量，ic为设定的基准收益率。</p>
   <p class="content">根据计算，本项目的财务指标如下</p>
-  <a-table :dataSource="Index" :columns="columns_2" >
+  <a-table :dataSource="Index" :columns="columns_2" :pagination="false">
       <template #bodyCell="{column,record,index}">
         <template v-if="column.dataIndex === 'value'">
           <template v-if="record.key === '6'">
@@ -347,23 +353,40 @@
         </template>
       </template>
   </a-table>
+  <p></p>
   <p class="content">根据上述步骤，汇总编制出的项目资本金现金流量表，计算出的项目资本金财务内部收益率IRR、净现值NPV以及动态投资回收期（年），考察项目资本金可获得的收益水平，综合判断项目的财务状况，并且做出评价。
   </p>
-
+  <a-button @click="sum">总表</a-button>
+  <a-table sticky :dataSource="Sum" :columns="columns_1" :pagination="false"></a-table>
 </template>
   
   <script lang="ts">
-    import { defineComponent, ref } from 'vue';
+    import { Input } from 'ant-design-vue';
+import { defineComponent, ref } from 'vue';
      export default{
       name: 'Exp8',
       setup() {
         const year = ref<number>(5);
+        interface SumItem{
+          key: string,
+          number: string,
+          project: string,
+          year0: string,
+          year1: string,
+          year2: string,
+          year3: string,
+          year4: string,
+          year5: string,  
+        };
+        const Sum0: SumItem[] = [];
         return {
           year,
+          Sum0,
         }
       },
         data(){
           return {
+          Sum:[],
           Input: [
             {
               key: '1',
@@ -388,7 +411,7 @@
               year5: "",                 
             },
             {
-              key: '2',
+              key: '3',
               number: '1.2',
               project: '其他',
               year0: "",
@@ -401,7 +424,7 @@
           ],
           Output: [
             {
-              key: '1',
+              key: '4',
               number: '2',
               project: '现金流出',
               year0: "",
@@ -412,7 +435,7 @@
               year5: "",                 
             },
             {
-              key: '2',
+              key: '5',
               number: '2.1',
               project: '直接人力成本',
               year0: "",
@@ -423,7 +446,7 @@
               year5: "",                  
             },
             {
-              key: '3',
+              key: '6',
               number: '2.2',
               project: '间接人力成本',
               year0: "",
@@ -434,7 +457,7 @@
               year5: "",                 
             },
             {
-              key: '4',
+              key: '7',
               number: '2.3',
               project: '直接运维成本',
               year0: "",
@@ -445,7 +468,7 @@
               year5: "",                 
             },
             {
-              key: '5',
+              key: '8',
               number: '2.4',
               project: '间接运维成本',
               year0: "",
@@ -456,7 +479,7 @@
               year5: "",               
             },
             {
-              key: '6',
+              key: '9',
               number: '2.5',
               project: '其他',
               year0: "",
@@ -469,7 +492,7 @@
           ],
           netCashFlow:[
           {
-              key: '3',
+              key: '10',
               number: '3',
               project: '净现金流量',
               year0: "",
@@ -480,7 +503,7 @@
               year5: "",                  
             },
             {
-              key: '3',
+              key: '11',
               number: '3.1',
               project: '累计净现金流量',
               year0: "",
@@ -491,7 +514,7 @@
               year5: "",                  
             },
             {
-              key: '4',
+              key: '12',
               number: '4',
               project: '净现金流量(现值)',
               year0: "",
@@ -502,7 +525,7 @@
               year5: "",
             },
             {
-              key: '4',
+              key: '13',
               number: '4.1',
               project: '累计净现金流量(现值)',
               year0: "",
@@ -513,7 +536,7 @@
               year5: "",
             },
             {
-              key: '5',
+              key: '14',
               number: '5',
               project: '现值系数',
               year0: "1.00",
@@ -526,24 +549,24 @@
           ],
           Index: [
             {
-              key: '6',
-              number: '1',
+              key: '15',
+              number: '6',
               project: '净现值 NPV',
               value: "0",
             },
             {
-              key: '7',
-              number: '2',
+              key: '16',
+              number: '7',
               project: '内部收益率 IRR',
               value: "0",
             },
             {
-              key: '8',
-              number: '3',
+              key: '17',
+              number: '8',
               project: '动态投资回收期(年) DPP',
               value: "0",
             },
-          ],  
+          ],           
           columns_1: [
           {
               title: '序号',
@@ -849,6 +872,43 @@
             this.Index[2].value = dpp.toFixed(2)
             return this.Index[2].value
           }
+        },
+        sum(){
+          for(let i = 0; i < 3; i++)
+            this.Sum.push(this.Input[i])
+          for(let i = 0; i < 6; i++)
+            this.Sum.push(this.Output[i])
+          for(let i = 0; i < 5; i++)
+            this.Sum.push(this.netCashFlow[i])
+          this.Sum.push({   
+            number: '',
+            project: '',    
+          }
+          )
+          this.Sum.push({   
+            number: '序号',
+            project: '指标',   
+            year0: '值',   
+          }
+          )
+          this.Sum.push({   
+            number: '6',
+            project: '净现值 NPV',
+            year0: this.Index[0].value,       
+          }
+          )
+          this.Sum.push({   
+            number: '7',
+            project: '内部收益率 IRR',
+            year0: this.Index[1].value,       
+          }
+          )
+          this.Sum.push({   
+            number: '8',
+            project: '动态投资回收期(年) DPP',
+            year0: this.Index[2].value,       
+          }
+          )
         },
         },
       methods:{
