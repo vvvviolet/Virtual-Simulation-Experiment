@@ -939,6 +939,9 @@ import { defineComponent, ref } from 'vue';
     font-weight: bold;
 }
 .formula{
-  text-align:center;
+  display: block;
+  margin: 0 auto;
+  width: auto;
+  height: 60px;
 }
 </style>
