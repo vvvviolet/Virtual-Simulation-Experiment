@@ -72,8 +72,6 @@
   <p class="content">均衡价格：市场需求量与供给量相同时的价格</p>
   <img src="../assets/equal.png" style="margin-left: 100px;" alt="均衡价格">
   <br>
-
-
   <h2>四、实验步骤 </h2>
   <p class="content buttons">1. 实验开始，分为买家和卖家，用户可以点击下面两个按钮进行买家信息和卖家信息的录入:</p>
   <a-button type="primary" ghost @click="maiform = true" class="buttons">我是买家</a-button>
