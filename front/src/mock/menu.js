@@ -164,36 +164,10 @@ const presetList = [
       }
     ]
   },
-  
-  {
-    id: 3,
-    name: 'exp3',
-    title: '碳排放权供需实验',
-    target: '_self',
-    path: '/exp3',
-    component: '@/pages/exp3',
-    renderMenu: true,
-    parent: null,
-    permission: null,
-    cacheable: true,
-    children: [
-      {
-        id: 31,
-        name: '碳排放权供需实验',
-        title: '碳排放权供需方法',
-        target: '_self',
-        path: '/exp3/carbon',
-        component: '@/pages/exp3/Exp3_Carbon/index.vue',
-        renderMenu: true,
-        permission: null,
-        cacheable: true,
-      }
-    ]
-  },
   {
     id: 6,
     name: 'exp6',
-    title: '软件项目/产品的风险影响与评价实验',
+    title: '碳排放权供需实验',
     target: '_self',
     path: '/exp6',
     component: '@/pages/exp6',
@@ -204,17 +178,16 @@ const presetList = [
     children: [
       {
         id: 61,
-        name: 'exp6_decision_tree',
-        title: '决策树实验',
+        name: '碳排放权供需实验',
+        title: '碳排放权供需方法',
         target: '_self',
-        path: '/exp6/decision_tree',
-        component: '@/pages/exp6/Exp6_decision_tree/index.vue',
+        path: '/exp6/tanpaifang',
+        component: '@/pages/exp6/Exp6_TANPAIFANG/index.vue',
         renderMenu: true,
         permission: null,
         cacheable: true,
       }
     ]
-
   },
   {
     id: 10,
