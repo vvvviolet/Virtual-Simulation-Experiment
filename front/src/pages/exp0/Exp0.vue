@@ -22,33 +22,30 @@
   <RouterView />
 </template>
 
-<script lang="ts">
-  import { useMenuStore } from '@/store';
+<script lang="ts" setup>
 import { useExperimentStore } from '@/store/experiment';
-  import { useRoute } from 'vue-router';
-  const { getExperiment, getExperimentList } = useExperimentStore();
-  const { getMenuList } = useMenuStore();
-  export default {
-    name: 'Exp0',
-    mounted() {
-      const rt = useRoute()
-      console.log(rt.meta)
-      // const d = getExperimentInfo(rt.meta)
-      // console.log(d)
-    },    
-  };
-  function getExperimentInfo(title:string) {
-    getExperiment(1)
+import { useRoute } from 'vue-router';
+const { getExperiment } = useExperimentStore();
+const rt = useRoute()
+
+function downLoadFile(){
+  getExperiment(rt.meta.id)
     .then((res) => {
-        // console.log(res)
-        return res.data
-      })
-    getExperimentList()
-    .then((res) => {
-        // console.log(res)
-        return res.data
-      })
-  }
+      console.log(res.file)
+      const fileName = res.file
+      if (!fileName) {
+        return;
+      }
+      let url = window.URL.createObjectURL(new Blob([fileName]));
+      let link = document.createElement('a');
+      link.style.display = 'none';
+      link.href = url;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+    })
+}
+
 </script>
 
 <style scoped lang="less">

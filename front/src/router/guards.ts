@@ -7,11 +7,11 @@ NProgress.configure({ showSpinner: false });
 
 const loginGuard: NavigationGuard = async function (to, from) {
   const account = useAccountStore();
-  if (!http.checkAuthorization() && !/^\/(login|home)?$/.test(to.fullPath)) {
+  if (!http.checkAuthorization() && !/^\/login?$/.test(to.fullPath)) {
     return '/login';
     // account.setLogged(false);
   } else {
-    if (useMenuStore().menuList.length == 0) {
+    if (useMenuStore().menuList.length == 0 && !to.path.includes('/login')) {
       await useMenuStore().getMenuList();
       return to.path;
     }

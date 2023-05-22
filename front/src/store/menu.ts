@@ -31,7 +31,7 @@ export interface Experiment{
 
 export const useMenuStore = defineStore('menu', () => {
   const menuList = ref<MenuProps[]>([]);
-  const toRoutes = (list: MenuProps[]): RouteOption[] => {
+  const toRoutes = (list: MenuProps[])  => {
     return list.map((item) => ({
       name: item.name,
       path: item.path,
@@ -75,6 +75,7 @@ export const useMenuStore = defineStore('menu', () => {
           cacheable: true,
         })    
       }
+      // console.log(`@/pages/exp${prevClass}/${item.name.toUpperCase()}/index.vue`)
         tmp[tmp.length-1].children.push({
           id: item.id,
           name: item.name,
@@ -86,6 +87,7 @@ export const useMenuStore = defineStore('menu', () => {
           cacheable: true,
         })
       })
+      console.log(tmp)
     return tmp
   }
   async function getMenuList() {
