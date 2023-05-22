@@ -8,14 +8,15 @@ function PT(a,b,c){
     return (a-1+Math.abs(b)/c).toFixed(2)
 }
 /**
- * 四个参数均为列表,分别为CU,CO,ic,t
+ * 三个参数,分别为CU,CO,ic
 */
-function NPV(CI,CO,ic,t){
-    len=CI.length
+function NPV(CI,CO,ic){
+    console.log("dadasd")
     res=0
-    for(var i=0;i<len;i++){
+    for(var i=0;i<CI.length;i++){
         res+=(CI[i]-CO[i])*(Math.pow(1+ic[i],-t[i]))
     }
+    console.log(res)
     return res
 }
 
@@ -35,7 +36,7 @@ function DPP(CI,CO,ic){
     return IRR(CI,CO,ic)
 }
 
-export default{
+module.exports = {
     ROi,
     ROE,
     PT,

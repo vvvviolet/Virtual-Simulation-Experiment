@@ -33,17 +33,39 @@
     <p class="content">评价指标：若DPP小于等于DPPb，则可以接受；
       反之，则项目不可接受。基准动态投资回收期为DPPb</p>
     <p class="SecondTitle">3.4 填写动态指标计算表</p>
+    <div style="width: 200px;">
+      <a-table :dataSource="rate_data" :columns="rate_column" bordered size="small" >
+      <template #bodyCell="{ column, text, record }">
+        <a-input v-model:value="rate_data[record.key][column.dataIndex]">
+        </a-input>
+        </template> 
+    </a-table>
+
+    </div>
     <a-table :dataSource="dataSource" :columns="columns" bordered>
        <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex!='number'&&column.dataIndex!='desc'">
         <a-input v-model:value="dataSource[record.key][column.dataIndex]">
-
         </a-input>
         </template>
-       
-
        </template>
     </a-table>
+    <div style="margin-bottom: 40px;">
+      <a-button type="primary" @click="calculateRate">计算动态指标</a-button>
+
+    </div>
+    <div style="width:30vw;">
+      <a-table :dataSource="res_data" :columns="res_columns" bordered size="small" >
+      <template #bodyCell="{ column, text, record }">
+        <template v-if="column.dataIndex!='number'&&column.dataIndex!='desc'">
+          <a-input v-model:value="res_data[record.key][column.dataIndex]">
+          </a-input>
+        </template>
+      </template> 
+    </a-table>
+
+    </div>
+    
 </template>
 
 <script lang="ts">
@@ -51,11 +73,91 @@ import formula_3_1 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_31.png
 import formula_3_2 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_32.png";
 import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png";
   export default {
+    methods:{
+      //用来计算动态指标
+      calculateRate(){
+        console.log(this.dataSource)
+        let CI=[]
+        let CO=[]
+        let ic=this.rate_data[0]['rate'],t=0
+        ic=0.1
+        console.log(ic)
+        for(let i=0;i<=6;i++){
+          let mid='year_'+i.toString()
+          console.log(mid)
+          CI.push(this.dataSource[0][mid])
+          CO.push(this.dataSource[1][mid])
+        }
+        console.log(this.DPP(CI,CO,ic))
+      },
+      Roi(EBIT,TI){
+          return (EBIT*100/TI).toFixed(2)+"%"
+      },
+      ROE(NP,EC){
+          return (NP*100/EC).toFixed(2)+"%"
+      },
+      PT(a,b,c){
+          return (a-1+Math.abs(b)/c).toFixed(2)
+      },
+      /**
+       * 三个参数,分别为CU,CO,ic
+      */
+      NPV(CI,CO,ic){
+          var res=0
+          for(var i=0;i<CI.length;i++){
+              res+=(CI[i]-CO[i])*(Math.pow(1+ic,-i))
+          }
+          return res
+      },
+      IRR(CI,CO){
+          let irr=0.000001
+          let NPV=1
+          while(NPV>0.001&&irr<1.1){
+              NPV=0
+              for(var i=0;i<CI.length;i++){
+                  NPV+=(CI[i]-CO[i])*(Math.pow(1+irr,-i))
+              }
+              irr+=0.000001
+          }
+          return irr
+      },
+      DPP(CI, CO, ic) {
+        let n = 0;
+        let absCO = 0;
+        let positiveCI = 0;
+
+        for (let i = 0; i < CI.length; i++) {
+          if (CI[i] - CO[i] > 0) {
+            n++;
+            if (i > 0) {
+              absCO = Math.abs(CO[i - 1]);
+              positiveCI = CI[i];
+            }
+          }
+        }
+
+        let Pt = (n - 1) + (absCO / positiveCI);
+        return Pt;
+    }
+    },
     setup() {
       return {
         formula_3_1,
         formula_3_2,
         formula_3_3,
+        rate_column: [
+          {
+            title: '设定基准收益率',
+            dataIndex: 'rate',
+            key: 'rate',
+        }],
+        rate_data:[
+          { 
+            key: '0',
+            number: '0',
+            rate:'11'
+          },
+        ],
         dynamic_indicators: [
           {
             column1: '各年净现金流量（元）',
@@ -68,7 +170,41 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
             column8: "729k",
           },
         ],
-
+        res_columns:[{
+            title: '序号',
+            dataIndex: 'number',
+            key: 'number',
+          },
+          {
+            title: '指标名称',
+            dataIndex: 'desc',
+            key: 'desc',
+          },
+          {
+            title: '计算值',
+            dataIndex: 'res',
+            key: 'res',
+          }
+        ],
+        res_data:[{
+            key: '0',
+            number: '0',
+            desc: '内部收益率IRR',
+            res:'',
+          },
+           {
+            key: '1',
+            number: '1',
+            desc: '净现值NPV(10%)',
+            res:'',
+          },
+          {
+            key: '2',
+            number: '2',
+            desc: '动态投资回收期(年)',
+            res:'',
+          }
+        ],
         dynamic_columns: [
           {
             title: '年',
@@ -113,8 +249,8 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
         ],
         dataSource: [
           {
-            key: '1',
-            number: '1',
+            key: '0',
+            number: '0',
             desc: '现金流入',
             year_0:0,
             year_1:550,
@@ -125,8 +261,8 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
             year_6:1229,
           },
           {
-            key: '2',
-            number: '2',
+            key: '1',
+            number: '1',
             desc: '现金留出',
             year_0:1000,
             year_1:500,
@@ -137,9 +273,21 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
             year_6:500,
           },
           {
+            key: '2',
+            number: '2',
+            desc: '净现金流量',
+            year_0:'',
+            year_1:'',
+            year_2:'',
+            year_3:'',
+            year_4:'',
+            year_5:'',
+            year_6:'',
+          },
+          {
             key: '3',
             number: '3',
-            desc: '净现金流量',
+            desc: '累计净现金流量',
             year_0:'',
             year_1:'',
             year_2:'',
@@ -151,7 +299,7 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
           {
             key: '4',
             number: '4',
-            desc: '累计净现金流量',
+            desc: '净现金流量(现值)',
             year_0:'',
             year_1:'',
             year_2:'',
@@ -163,7 +311,7 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
           {
             key: '5',
             number: '5',
-            desc: '净现金流量(现值)',
+            desc: '累积净现金流量(现值)',
             year_0:'',
             year_1:'',
             year_2:'',
@@ -175,36 +323,6 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
           {
             key: '6',
             number: '6',
-            desc: '累积净现金流量(现值)',
-            year_0:'',
-            year_1:'',
-            year_2:'',
-            year_3:'',
-            year_4:'',
-            year_5:'',
-            year_6:'',
-          },
-          {
-            key: '7',
-            number: '7',
-            desc: '内部收益率IRR',
-            year_0:'',
-          },
-           {
-            key: '8',
-            number: '8',
-            desc: '净现值NPV(10%)',
-            year_0:'',
-          },
-           {
-            key: '9',
-            number: '9',
-            desc: '动态投资回收期(年)',
-            year_0:'',
-          },
-          {
-            key: '10',
-            number: '10',
             desc: '现值系数',
             year_0:'1.00',
             year_1:'0.9091',
