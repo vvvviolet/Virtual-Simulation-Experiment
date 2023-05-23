@@ -36,16 +36,15 @@
     <div style="width: 200px;">
       <a-table :dataSource="rate_data" :columns="rate_column" bordered size="small" >
       <template #bodyCell="{ column, text, record }">
-        <a-input v-model:value="rate_data[record.key][column.dataIndex]">
+        <a-input v-model.lazy:value="rate_data[record.key][column.dataIndex]">
         </a-input>
         </template> 
     </a-table>
-
     </div>
     <a-table :dataSource="dataSource" :columns="columns" bordered>
        <template #bodyCell="{ column, text, record }">
-        <template v-if="column.dataIndex!='number'&&column.dataIndex!='desc'">
-        <a-input v-model:value="dataSource[record.key][column.dataIndex]">
+        <template v-if="column.dataIndex!='number'&&column.dataIndex!='desc'&&record.key!='1'&&record.key!='0'">
+        <a-input v-model.lazy:value="dataSource[record.key][column.dataIndex]">
         </a-input>
         </template>
        </template>
@@ -58,7 +57,7 @@
       <a-table :dataSource="res_data" :columns="res_columns" bordered size="small" >
       <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex!='number'&&column.dataIndex!='desc'">
-          <a-input v-model:value="res_data[record.key][column.dataIndex]">
+          <a-input v-model:value.lazy="res_data[record.key][column.dataIndex]">
           </a-input>
         </template>
       </template> 
@@ -88,6 +87,9 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
           CI.push(this.dataSource[0][mid])
           CO.push(this.dataSource[1][mid])
         }
+        this.res_data[0]['res']=this.NPV(CI,CO,ic);
+        this.res_data[1]['res']=this.IRR(CI,CO);
+        this.res_data[2]['res']=this.DPP(CI,CO,ic);
         console.log(this.DPP(CI,CO,ic))
       },
       Roi(EBIT,TI){
