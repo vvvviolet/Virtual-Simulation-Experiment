@@ -230,6 +230,9 @@
 净现金流量现值为现金流入扣除现金流出的净额按照一定的折现率折现至评估时点的现值，净现金流量总现值是指未来各期现金净流量的现值之和，即未来现金流入现值与未来现金流出现值差额，也称为净现值。
 </p>
 <p class="formula">第n年的净现金流量现值=第n年的净现金流量×现值系数  </p>
+<p class="content">本实验中，现值系数设定为
+  <a-input-number id="inputNumber" v-model:value="discountRate" :min="1" :max="20" />
+  %</p>
 <a-table :columns="columns_1" :data-source="netCashFlow" :pagination="false">
       <template #bodyCell="{ column,record,index}">
           <template v-if="column.dataIndex === 'year0'">
@@ -322,6 +325,7 @@
               {{c2(index,5)}}
             </template>
           </template>
+
       </template> 
   </a-table>
   <p></p>
@@ -341,13 +345,13 @@
   <a-table :dataSource="Index" :columns="columns_2" :pagination="false">
       <template #bodyCell="{column,record,index}">
         <template v-if="column.dataIndex === 'value'">
-          <template v-if="record.key === '6'">
+          <template v-if="record.key === '15'">
               {{npv()}}
           </template>
-          <template v-if="record.key === '7'">
+          <template v-if="record.key === '16'">
               {{ irr() }}
           </template>
-          <template v-if="record.key === '8'">
+          <template v-if="record.key === '17'">
               {{ dpp() }}
           </template>
         </template>
@@ -356,8 +360,9 @@
   <p></p>
   <p class="content">根据上述步骤，汇总编制出的项目资本金现金流量表，计算出的项目资本金财务内部收益率IRR、净现值NPV以及动态投资回收期（年），考察项目资本金可获得的收益水平，综合判断项目的财务状况，并且做出评价。
   </p>
+  <!--
   <a-button @click="sum">总表</a-button>
-  <a-table sticky :dataSource="Sum" :columns="columns_1" :pagination="false"></a-table>
+  <a-table sticky :dataSource="Sum" :columns="columns_1" :pagination="false"></a-table>-->
 </template>
   
   <script lang="ts">
@@ -367,21 +372,10 @@ import { defineComponent, ref } from 'vue';
       name: 'Exp8',
       setup() {
         const year = ref<number>(5);
-        interface SumItem{
-          key: string,
-          number: string,
-          project: string,
-          year0: string,
-          year1: string,
-          year2: string,
-          year3: string,
-          year4: string,
-          year5: string,  
-        };
-        const Sum0: SumItem[] = [];
+        var discountRate = ref<number>(10);
         return {
           year,
-          Sum0,
+          discountRate,
         }
       },
         data(){
@@ -540,11 +534,11 @@ import { defineComponent, ref } from 'vue';
               number: '5',
               project: '现值系数',
               year0: "1.00",
-              year1: "0.9091",
-              year2: "0.8264",
-              year3: "0.7513",
-              year4: "0.683",
-              year5: "0.6209",
+              year1: "",
+              year2: "",
+              year3: "",
+              year4: "",
+              year5: "",
             },
           ],
           Index: [
@@ -796,7 +790,7 @@ import { defineComponent, ref } from 'vue';
               cashFlow[3] = parseInt(this.netCashFlow[0].year3) ? parseInt(this.netCashFlow[0].year3):0
               cashFlow[4] = parseInt(this.netCashFlow[0].year4) ? parseInt(this.netCashFlow[0].year4):0
               cashFlow[5] = parseInt(this.netCashFlow[0].year5) ? parseInt(this.netCashFlow[0].year5):0
-              var discountRate = 0.1
+              const discountRate = this.discountRate / 100
               var npv = 0
               for(var t = 0; t <= 5; t++)
                 npv += cashFlow[t] / Math.pow(1 + discountRate, t);
@@ -847,7 +841,7 @@ import { defineComponent, ref } from 'vue';
           {
             var npv = 0
             var dpp = 0
-            const discountRate = 0.1
+            const discountRate = this.discountRate / 100
 
             const cashFlow = [0,0,0,0,0,0]  //净现金流量
             cashFlow[0] = parseInt(this.netCashFlow[0].year0) ? parseInt(this.netCashFlow[0].year0):0
@@ -912,7 +906,6 @@ import { defineComponent, ref } from 'vue';
         },
         },
       methods:{
-
       }
       }
   </script>
@@ -943,5 +936,6 @@ import { defineComponent, ref } from 'vue';
   margin: 0 auto;
   width: auto;
   height: 60px;
+  text-align:center;
 }
 </style>
