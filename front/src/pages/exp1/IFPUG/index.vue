@@ -760,7 +760,7 @@ export default {
     computed: {
         c() {
             return function (index) {
-                console.log(typeof index)
+                // console.log(typeof index)
                 this.tableData[index].C = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) * parseInt(this.tableData[index].B)
                 return this.tableData[index].C
             }
