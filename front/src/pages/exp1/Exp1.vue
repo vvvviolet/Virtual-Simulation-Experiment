@@ -13,43 +13,85 @@
           <DownloadOutlined  />
         </template>实验指导书下载 
       </a-button>
-      <a-button class="button2" type="primary" shape="round">
-        <template #icon>
-          <DownloadOutlined />
-        </template>实验报告模板下载
-      </a-button>
+      
     </div>
   </div>
 
   <hr />
   <RouterView />
+  <div     style="float:right">
+    <a-upload
+    name="file"
+    :before-upload="uploadFile"
+  >
+    <a-button>
+      <upload-outlined></upload-outlined>
+      点击上传实验报告
+    </a-button>
+  </a-upload>
+</div>
 </div>
 </template>
 
 <script lang="ts" setup>
 import { useExperimentStore } from '@/store/experiment';
-import { onMounted } from 'vue';
+import { onMounted, ref,defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
-const { getExperiment } = useExperimentStore();
+import type { UploadChangeParam, UploadProps } from 'ant-design-vue';
+import { UploadOutlined } from '@ant-design/icons-vue';
+import message from 'ant-design-vue/es/message';
+import axios from 'axios';
+
+const { getExperiment,uploadReport } = useExperimentStore();
 const rt = useRoute()
+
+
 onMounted(()=>{
   console.log(rt.meta)
 })
+
+function uploadFile(){
+  // 生成一个表单文件
+  let formData = new FormData();
+  formData.append("course_id","1")
+  formData.append("experiment_id","1")
+  formData.append("report","1")
+  formData.append("submit_time",Date.now())
+  axios({
+	    method:"post",
+	    url:"/report/submit",
+	    headers: {
+		  "Content-Type": "multipart/form-data"
+	    },
+	    withCredentials:true,
+	    data:formData
+	  }).then((res)=>{
+            console.log(res);
+            message.success("上传成功")
+        });
+
+  // uploadReport(formData)
+  // .then((res)=>{
+  //   console.log(res)
+  //   message.success("上传成功")
+  // })
+}
 function downLoadFile(){
   getExperiment(rt.meta.id)
     .then((res) => {
       console.log(res.file)
-      const fileName = res.file
-      if (!fileName) {
+      const filePath = res.file
+      if (!filePath) {
         return;
       }
-      let url = window.URL.createObjectURL(new Blob([fileName]));
+      // let url = window.URL.createObjectURL(new Blob(filePath));
       let link = document.createElement('a');
       link.style.display = 'none';
-      link.href = url;
-      link.setAttribute('download', fileName);
+      link.href = filePath;
+      link.setAttribute('download', filePath);
       document.body.appendChild(link);
-      link.click();
+      // link.click();
+      window.open(filePath)
     })
 }
 
