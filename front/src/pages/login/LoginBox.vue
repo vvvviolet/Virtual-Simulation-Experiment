@@ -29,17 +29,72 @@
         <span class="font-bold">Cookie使用协议</span>。
       </div>
     </a-form>
+    <div>
+    <a-modal v-model:visible="visible" title="重设密码" @ok="handleOk">
+      <a-form :model="activateForm" :wrapperCol="{ span: 24 }" @finish="login" class="activate-form">
+      <a-form-item :required="true" name="username">
+        <a-input
+          v-model:value="activateForm.username"
+          autocomplete="new-username"
+          placeholder="请输入用户名或邮箱"
+          class="login-input"
+        />
+      </a-form-item>
+      <a-form-item :required="true" name="password">
+        <a-input
+          v-model:value="activateForm.password"
+          autocomplete="new-password"
+          placeholder="请输入新密码"
+          class="login-input"
+          type="password"
+        />
+      </a-form-item>
+      <a-form-item :required="true" name="code">
+        <a-input
+          v-model:value="activateForm.activateCode"
+          autocomplete=""
+          placeholder="请输入激活码"
+          class="login-input"
+          type="login-input"
+        />
+      </a-form-item>
+    </a-form>
+    </a-modal>
+  </div>
   </div>
 </template>
 <script lang="ts" setup>
   import { reactive, ref, onMounted } from 'vue';
   import { useAccountStore } from '@/store';
   import useThemeStore from 'stepin/es/theme-editor/store';
+  const visible = ref<boolean>(false);
 
-  export interface LoginFormProps {
-    username: string;
-    password: string;
-  }
+  const showModal = () => {
+      visible.value = true;
+    };
+
+  const hideModal = () => {
+      visible.value = false;
+    };
+
+    const handleOk = (e) => {
+      visible.value = false;
+      console.log(activateForm);
+      accountStore.activate(activateForm.username,activateForm.password,activateForm.activateCode)
+      .then((res)=>{
+        if(res.code===400){
+          alert(res.msg)
+        }
+        else{
+          alert(res.data)
+        }
+        console.log(res.data)
+      })
+    };
+    export interface LoginFormProps {
+      username: string;
+      password: string;
+    }
 
   const { setBgSeriesColors } = useThemeStore();
 
@@ -52,6 +107,11 @@
   const form = reactive({
     username: undefined,
     password: undefined,
+  });
+  const activateForm = reactive({
+    username: form.username,
+    password: undefined,
+    activateCode: undefined
   });
 
   const emit = defineEmits<{
@@ -66,9 +126,15 @@
     accountStore
       .login(params.username, params.password)
       .then((res) => {
-        emit('success', params);
+        if (res.code === 0) {
+          emit('success', params);
+          } else if (res.code===1){
+            alert(res.msg)
+            showModal()
+        }
       })
       .catch((e) => {
+        
         emit('failure', e.message, params);
       })
       .finally(() => (loading.value = false));

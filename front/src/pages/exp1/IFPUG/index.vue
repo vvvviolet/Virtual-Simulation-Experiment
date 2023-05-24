@@ -103,28 +103,28 @@
     <h2 style="text-align: center;">表1：未调整功能点计算表 </h2>
     <a-table :pagination="false" :columns="columns" :data-source="tableData" bordered size="middle" style="word-break: break-all;">
         <template #bodyCell="{ column, record, index }">
-            <template v-if="column.dataIndex === 'A'">
+            <template v-if="column.dataIndex === 'A' && tableData!==undefined">
                 <a-input v-model:value="record.A" style="width:100px; " />
             </template>
-            <template v-if="column.dataIndex === 'D'">
+            <template v-if="column.dataIndex === 'D' && tableData!==undefined">
                 <a-input v-model:value="record.D" style="width:100px;" />
             </template>
-            <template v-if="column.dataIndex === 'G'">
+            <template v-if="column.dataIndex === 'G' && tableData!==undefined">
                 <a-input v-model:value="record.G" style="width:100px;" />
             </template>
-            <template v-if="column.dataIndex === 'C'">
+            <template v-if="column.dataIndex === 'C' && tableData!==undefined">
                 {{ c(index) }}
             </template>
-            <template v-if="column.dataIndex === 'F'">
+            <template v-if="column.dataIndex === 'F' && tableData!==undefined">
                 {{ f(index) }}
             </template>
-            <template v-if="column.dataIndex === 'I'">
+            <template v-if="column.dataIndex === 'I' && tableData!==undefined">
                 {{ i(index) }}
             </template>
-            <template v-if="column.dataIndex === 'number'">
+            <template v-if="column.dataIndex === 'number' && tableData!==undefined">
                 {{ number(index) }}
             </template>
-            <template v-if="column.dataIndex === 'unchanged'">
+            <template v-if="column.dataIndex === 'unchanged' && tableData!==undefined">
                 {{ unchanged(index) }}
             </template>
         </template>
@@ -171,11 +171,7 @@
     <span class="secondtitle">本实验案例的功能点为</span>
     <span style="font-size:20px">{{ ALL }}</span>
     <br /><br />
-    <a-button class="button3" type="primary" shape="round">
-        <template >
-            <DownloadOutlined />
-        </template>实验报告提交
-    </a-button>
+    
 </template>
 
 
@@ -764,6 +760,7 @@ export default {
     computed: {
         c() {
             return function (index) {
+                // console.log(typeof index)
                 this.tableData[index].C = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) * parseInt(this.tableData[index].B)
                 return this.tableData[index].C
             }
