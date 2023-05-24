@@ -60,7 +60,7 @@ export const useAccountStore = defineStore('account', {
     },
     async activate(username:string,password:string,code:number) {
       return http
-      .request('/activate', 'post_json', { username, password, code })
+      .request<any,Response <any>>('/activate', 'post_json', { username, password, code })
       .then(async (response) => {
         // console.log(response)
         return response

@@ -41,6 +41,9 @@ import type { UploadChangeParam, UploadProps } from 'ant-design-vue';
 import { UploadOutlined } from '@ant-design/icons-vue';
 import message from 'ant-design-vue/es/message';
 import axios from 'axios';
+import { request } from 'http';
+import http from '@/store/http';
+import Cookies from 'js-cookie';
 
 const { getExperiment,uploadReport } = useExperimentStore();
 const rt = useRoute()
@@ -76,23 +79,27 @@ onMounted(()=>{
   console.log(rt.meta)
 })
 
-function uploadFile(report:Blob){
+function uploadFile(report){
   // 生成一个表单文件
   let formData = new FormData();
-  // formData.append("course_id","1")
   formData.append("experiment_id",rt.meta.id.toString())
   formData.append("report",report)
   const date = new Date();
   const formatDate = formatDateTime(date, 'yyyy-MM-dd HH:mm:ss');
   console.log(formatDate);
   formData.append("submit_time",formatDate)
+  // http.request("/report/submit",'post',{"experiment_id":rt.meta.id.toString(),"report":report,"submit_time":formatDate})
+  // // http.request("/report/submit",'post',formData.values())
+  // .then((res)=>{console.log(res)})
+  console.log(Cookies.get('Authorization'))
   axios({
 	    method:"post",
-	    url:"/report/submit",
+	    url:"api/report/submit",
 	    headers: {
-		  "Content-Type": "multipart/form-data"
+		    "Content-Type": "multipart/form-data",
+        "Authorization":Cookies.get('Authorization'),
 	    },
-	    withCredentials:true,
+	    // withCredentials:true,
 	    data:formData
 	  }).then((res)=>{
             console.log(res);
@@ -107,13 +114,6 @@ function downLoadFile(){
       if (!filePath) {
         return;
       }
-      // let url = window.URL.createObjectURL(new Blob(filePath));
-      let link = document.createElement('a');
-      link.style.display = 'none';
-      link.href = filePath;
-      link.setAttribute('download', filePath);
-      document.body.appendChild(link);
-      // link.click();
       window.open(filePath)
     })
 }
