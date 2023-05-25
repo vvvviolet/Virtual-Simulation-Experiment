@@ -498,9 +498,4 @@ export default {
   margin-right: 20px;
 }
 
-.guidance {
-  position: absolute;
-  right: 50px;
-  font-weight: bold;
-}
 </style>
