@@ -148,79 +148,8 @@
     <p class="content"> 测量结果填写到最后实验结果的表中，进行归纳总结，完成实验报告
     </p>
 
-
-    <h2>一、实验目的 </h2>
-    <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
-                style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-    <h2>二、实验设备 </h2>
-    <a-textarea v-model:value="equipment" :autoSize="{ minRows: 3}"
-                style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-    <h2>三、实验原理 </h2>
-    <a-textarea v-model:value="principal" :autoSize="{ minRows: 3}"
-                style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-    <h2>四、实验步骤 </h2>
-    <a-textarea v-model:value="steps" :autoSize="{ minRows: 3}"
-                style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-    <h2>五、功能点指数计算 </h2>
-    <a-table
-        :columns="columns"
-        :data-source="tableData"
-        :pagination="false"
-        bordered
-        size="middle"
-        style="margin-bottom: 10px">
-      <template #bodyCell="{column, text, record}">
-        <template v-if="['name', 'type', 'inputNum', 'outputNum', 'entityNum', 'operation'].includes(column.dataIndex)">
-          <div>
-            <a-input
-                v-if="column.dataIndex === 'name'"
-                style="margin: -5px 0; width: 100%;text-align: center"
-                v-model:value="record.name"
-                @keyup='computeFP(record.index)'
-            />
-            <a-select
-                v-if="column.dataIndex === 'type'"
-                placeholder="请选择"
-                style="margin: -5px 0; width: 100%;text-align: center"
-                v-model:value="record.type"
-                @change='computeFP(record.index)'>
-              <a-select-option value="EI" style='text-align: center'>EI</a-select-option>
-              <a-select-option value="EQ" style='text-align: center'>EQ</a-select-option>
-            </a-select>
-            <a-input
-                v-if="column.dataIndex === 'inputNum'"
-                style="margin: -5px 0; width: 100%;text-align: center"
-                v-model:value="record.inputNum" :maxlength='3'
-                @input="record.inputNum = record.inputNum.replace(/\D/g,'')"
-                @keyup='computeFP(record.index)'
-            />
-            <a-input
-                v-if="column.dataIndex === 'outputNum'"
-                style="margin: -5px 0; width: 100%;text-align: center"
-                v-model:value="record.outputNum" :maxlength='3'
-                @input="record.outputNum = record.outputNum.replace(/\D/g,'')"
-                @keyup='computeFP(record.index)'
-            />
-            <a-input
-                v-if="column.dataIndex === 'entityNum'"
-                style="margin: -5px 0; width: 100%;text-align: center"
-                v-model:value="record.entityNum" :maxlength='3'
-                @input="record.entityNum = record.entityNum.replace(/\D/g,'')"
-                @keyup='computeFP(record.index)'
-            />
-          </div>
-        </template>
-      </template>
-    </a-table>
-    <a-button type="primary"
-              style="margin-right: 10px;
-        </h1>
-      <h2>第一步 决定计算的目的和类型 </h2>
-      <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
-                  style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-
       <a-descriptions title="项目测量报告" bordered>
-        <a-descriptions-item label="测量结果" :span="3">测量结果应按照表A-2填写，并保存到项目的配置管理库中。项目结束时，应把该项目
+        <a-descriptions-item label="测量结果" :span="3">测量结果应按照表填写，并保存到项目的配置管理库中。项目结束时，应把该项目
           中的所有测量结果统一提交到SEPG组，进行归档总结，纳入公司的度量数据库，用以形成
           经验数据库和基准数据。
         </a-descriptions-item>
@@ -283,70 +212,71 @@
         </a-descriptions-item>
       </a-descriptions>
 
-      <h1 class="title">实验报告</h1>
-        <h2>一、实验目的 </h2>
-        <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
-                    style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-        <h2>二、实验设备 </h2>
-        <a-textarea v-model:value="equipment" :autoSize="{ minRows: 3}"
-                    style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-        <h2>三、实验原理 </h2>
-        <a-textarea v-model:value="principal" :autoSize="{ minRows: 3}"
-                    style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-        <h2>四、实验步骤 </h2>
-        <a-textarea v-model:value="steps" :autoSize="{ minRows: 3}"
-                    style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-        <h2>五、功能点指数计算 </h2>
-        <a-table
-            :columns="columns"
-            :data-source="tableData"
-            :pagination="false"
-            bordered
-            size="middle"
-            style="margin-bottom: 10px">
-            <template #bodyCell="{column, text, record}">
-                <template v-if="['name', 'type', 'inputNum', 'outputNum', 'entityNum', 'operation'].includes(column.dataIndex)">
-                    <div>
-                        <a-input
-                            v-if="column.dataIndex === 'name'"
-                            style="margin: -5px 0; width: 100%;text-align: center"
-                            v-model:value="record.name"
-                            @keyup='computeFP(record.index)'
-                        />
-                        <a-select
-                            v-if="column.dataIndex === 'type'"
-                            placeholder="请选择"
-                            style="margin: -5px 0; width: 100%;text-align: center"
-                            v-model:value="record.type"
-                            @change='computeFP(record.index)'>
-                            <a-select-option value="EI" style='text-align: center'>EI</a-select-option>
-                            <a-select-option value="EQ" style='text-align: center'>EQ</a-select-option>
-                        </a-select>
-                        <a-input
-                            v-if="column.dataIndex === 'inputNum'"
-                            style="margin: -5px 0; width: 100%;text-align: center"
-                            v-model:value="record.inputNum" :maxlength='3'
-                            @input="record.inputNum = record.inputNum.replace(/\D/g,'')"
-                            @keyup='computeFP(record.index)'
-                        />
-                        <a-input
-                            v-if="column.dataIndex === 'outputNum'"
-                            style="margin: -5px 0; width: 100%;text-align: center"
-                            v-model:value="record.outputNum" :maxlength='3'
-                            @input="record.outputNum = record.outputNum.replace(/\D/g,'')"
-                            @keyup='computeFP(record.index)'
-                        />
-                        <a-input
-                            v-if="column.dataIndex === 'entityNum'"
-                            style="margin: -5px 0; width: 100%;text-align: center"
-                            v-model:value="record.entityNum" :maxlength='3'
-                            @input="record.entityNum = record.entityNum.replace(/\D/g,'')"
-                            @keyup='computeFP(record.index)'
-                        />
-                    </div>
-                </template>
-            </template>
-        </a-table>
+
+    <h2>一、实验目的 </h2>
+    <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
+                style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
+    <h2>二、实验设备 </h2>
+    <a-textarea v-model:value="equipment" :autoSize="{ minRows: 3}"
+                style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
+    <h2>三、实验原理 </h2>
+    <a-textarea v-model:value="principal" :autoSize="{ minRows: 3}"
+                style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
+    <h2>四、实验步骤 </h2>
+    <a-textarea v-model:value="steps" :autoSize="{ minRows: 3}"
+                style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
+    <h2>五、功能点指数计算 </h2>
+
+    <a-table
+        :columns="columns"
+        :data-source="tableData"
+        :pagination="false"
+        bordered
+        size="middle"
+        style="margin-bottom: 10px">
+      <template #bodyCell="{column, text, record}">
+        <template v-if="['name', 'type', 'inputNum', 'outputNum', 'entityNum', 'operation'].includes(column.dataIndex)">
+          <div>
+            <a-input
+                v-if="column.dataIndex === 'name'"
+                style="margin: -5px 0; width: 100%;text-align: center"
+                v-model:value="record.name"
+                @keyup='computeFP(record.index)'
+            />
+            <a-select
+                v-if="column.dataIndex === 'type'"
+                placeholder="请选择"
+                style="margin: -5px 0; width: 100%;text-align: center"
+                v-model:value="record.type"
+                @change='computeFP(record.index)'>
+              <a-select-option value="EI" style='text-align: center'>EI</a-select-option>
+              <a-select-option value="EQ" style='text-align: center'>EQ</a-select-option>
+            </a-select>
+            <a-input
+                v-if="column.dataIndex === 'inputNum'"
+                style="margin: -5px 0; width: 100%;text-align: center"
+                v-model:value="record.inputNum" :maxlength='3'
+                @input="record.inputNum = record.inputNum.replace(/\D/g,'')"
+                @keyup='computeFP(record.index)'
+            />
+            <a-input
+                v-if="column.dataIndex === 'outputNum'"
+                style="margin: -5px 0; width: 100%;text-align: center"
+                v-model:value="record.outputNum" :maxlength='3'
+                @input="record.outputNum = record.outputNum.replace(/\D/g,'')"
+                @keyup='computeFP(record.index)'
+            />
+            <a-input
+                v-if="column.dataIndex === 'entityNum'"
+                style="margin: -5px 0; width: 100%;text-align: center"
+                v-model:value="record.entityNum" :maxlength='3'
+                @input="record.entityNum = record.entityNum.replace(/\D/g,'')"
+                @keyup='computeFP(record.index)'
+            />
+          </div>
+        </template>
+      </template>
+    </a-table>
         <a-button type="primary"
                   style="margin-right: 10px;
             margin-bottom: 10px" @click="handleAdd"
