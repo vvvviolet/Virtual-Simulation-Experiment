@@ -19,14 +19,20 @@
 
   <hr />
   <RouterView />
-  <div     style="float:right">
+  <div style="float:right">
+    
     <a-upload
+    :file-list="fileList"
     name="file"
     :before-upload="uploadFile"
-  >
+    maxCount="1"
+    action=""
+    method="get"
+    @change="handleChange"
+    >
     <a-button>
-      <upload-outlined></upload-outlined>
-      点击上传实验报告
+      <upload-outlined/>
+      提交报告
     </a-button>
   </a-upload>
 </div>
@@ -35,15 +41,13 @@
 
 <script lang="ts" setup>
 import { useExperimentStore } from '@/store/experiment';
-import { onMounted, ref,defineComponent } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import type { UploadChangeParam, UploadProps } from 'ant-design-vue';
-import { UploadOutlined } from '@ant-design/icons-vue';
 import message from 'ant-design-vue/es/message';
 import axios from 'axios';
-import { request } from 'http';
-import http from '@/store/http';
 import Cookies from 'js-cookie';
+import { UploadProps } from 'ant-design-vue/lib/upload';
+import { UploadChangeParam } from 'ant-design-vue/es/upload/interface';
 
 const { getExperiment,uploadReport } = useExperimentStore();
 const rt = useRoute()
@@ -76,35 +80,50 @@ function formatDateTime(date, format) {
   return format;
 }
 onMounted(()=>{
-  console.log(rt.meta)
+  // console.log(rt.meta)
 })
 
-function uploadFile(report){
+const fileList = ref<UploadProps['fileList']>([])
+
+const handleChange = (info: UploadChangeParam) => {      
+      if (info.file.status !== 'uploading') {
+        console.log('uploading')
+        // console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        console.log(fileList)
+        fileList.value = [];
+        // message.success(`${info.file.name} 上传成功`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} 上传失败`);
+      }
+    };
+  
+const uploadFile = (report)=>{
   // 生成一个表单文件
   let formData = new FormData();
+
   formData.append("experiment_id",rt.meta.id.toString())
   formData.append("report",report)
+
   const date = new Date();
   const formatDate = formatDateTime(date, 'yyyy-MM-dd HH:mm:ss');
-  console.log(formatDate);
+
   formData.append("submit_time",formatDate)
-  // http.request("/report/submit",'post',{"experiment_id":rt.meta.id.toString(),"report":report,"submit_time":formatDate})
-  // // http.request("/report/submit",'post',formData.values())
-  // .then((res)=>{console.log(res)})
-  console.log(Cookies.get('Authorization'))
-  axios({
+
+  new Promise(resolve => axios({
 	    method:"post",
 	    url:"api/report/submit",
 	    headers: {
 		    "Content-Type": "multipart/form-data",
         "Authorization":Cookies.get('Authorization'),
 	    },
-	    // withCredentials:true,
 	    data:formData
 	  }).then((res)=>{
-            console.log(res);
-            message.success("上传成功")
-    });
+      // fileList.value=report
+      message.success('上传成功')
+    }));
+    
 }
 function downLoadFile(){
   getExperiment(rt.meta.id)
