@@ -9,6 +9,75 @@
       </span>
 
         </h1>
+      <h2>第一步 决定计算的目的和类型 </h2>
+      <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
+                  style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
+
+      <a-descriptions title="项目测量报告" bordered>
+        <a-descriptions-item label="测量结果" :span="3">测量结果应按照表A-2填写，并保存到项目的配置管理库中。项目结束时，应把该项目
+          中的所有测量结果统一提交到SEPG组，进行归档总结，纳入公司的度量数据库，用以形成
+          经验数据库和基准数据。
+        </a-descriptions-item>
+        <a-descriptions-item label="项目编号">
+          <a-input v-model:value="projectIndex" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="项目名称">
+          <a-input v-model:value="projectName" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="测量日期">
+          <a-input v-model:value="projectDate" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="生命周期模型">
+          <a-input v-model:value="lifeCircleModel" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="当前阶段">
+          <a-input v-model:value="currentPhrase" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="数据来源版本">
+          <a-input v-model:value="dataSourceEdition" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="项目经理">
+          <a-input v-model:value="projectManager" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="需求人员">
+          <a-input v-model:value="requirePeople" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="测量人员">
+          <a-input v-model:value="measurePeople" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="是否评审" :span="3">
+          <a-input v-model:value="isAudit" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="测量目的">
+          <a-input v-model:value="measurePurpose" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="精度要求" :span="2">
+          <a-input v-model:value="accuracyRequest" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="事务总数">
+          <a-input v-model:value="totalAffair" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="项目规模" :span="2">
+          <a-input v-model:value="projectScale" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="输入DET总数">
+          <a-input v-model:value="totalInputDET" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="输出DET总数">
+          <a-input v-model:value="totalOutputDET" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="引用实体总数">
+          <a-input v-model:value="totalQuoteAffair" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="不确定问题" :span="3">
+          <a-input v-model:value="uncertainQuestion" placeholder="" />
+        </a-descriptions-item>
+        <a-descriptions-item label="备注" :span="3">
+          <a-input v-model:value="memo" placeholder="" />
+        </a-descriptions-item>
+      </a-descriptions>
+
+      <h1 class="title">实验报告</h1>
         <h2>一、实验目的 </h2>
         <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
                     style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
@@ -98,6 +167,28 @@ export default {
             principal: '',
             steps: '',
             experience: '',
+
+            // 项目测量报告参数
+            projectIndex: '',
+            projectName: '',
+            projectDate: '',
+            lifeCircleModel: '',
+            currentPhrase: '',
+            dataSourceEdition: '',
+            projectManager: '',
+            requirePeople: '',
+            measurePeople: '',
+            isAudit: '',
+            measurePurpose: '',
+            accuracyRequest: '',
+            totalAffair: '',
+            projectScale: '',
+            totalInputDET: '',
+            totalOutputDET: '',
+            totalQuoteAffair: '',
+            uncertainQuestion: '',
+            memo: '',
+
             columns: [
                 {
                     title: '编号',
