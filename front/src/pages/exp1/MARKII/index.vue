@@ -8,6 +8,7 @@
         </a-button>
       </span>
 
+<<<<<<< HEAD
         </h1>
         <h2>一、实验目的 </h2>
         <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
@@ -254,4 +255,14 @@ export default {
     right: 50px;
     font-weight: bold;
 }
+=======
+</template>
+
+<script lang="ts">
+
+</script>
+
+<style scoped>
+
+>>>>>>> main
 </style>

@@ -1,19 +1,4 @@
 <template>
-    <!-- <h1 class="title">实验1 基于IFPUG的小型软件项目规模度量实验
-
-        <a-button class="button1" type="primary" shape="round" @click="click_button1">
-            <template #icon>
-                <DownloadOutlined />
-            </template>实验指导书下载
-        </a-button>
-        <a-button class="button2" type="primary" shape="round" >
-            <template #icon>
-                <DownloadOutlined />
-            </template>实验报告模板下载
-        </a-button>
-
-
-    </h1> -->
     <!-- <span> {{ test }}</span> -->
     <!-- <h2>一、实验目的  </h2>
     <p class="content">理解软件项目规模度量功能点法原理，通过实验操作掌握功能点法。 学生应以小组为单位，根据本小组“软件工程管理与经济”课程设计项目架构及组件等设计成果，以功能点方法测量该项目的规模(功能点数量)。 建议选用某一种功能点方法度量课程设计项目的功能点，并采用另外一种功能点方法或其他的软件规模度量方法对前一种方法的度量结果进行验证。 本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
@@ -118,28 +103,28 @@
     <h2 style="text-align: center;">表1：未调整功能点计算表 </h2>
     <a-table :pagination="false" :columns="columns" :data-source="tableData" bordered size="middle" style="word-break: break-all;">
         <template #bodyCell="{ column, record, index }">
-            <template v-if="column.dataIndex === 'A'">
+            <template v-if="column.dataIndex === 'A' && tableData!==undefined">
                 <a-input v-model:value="record.A" style="width:100px; " />
             </template>
-            <template v-if="column.dataIndex === 'D'">
+            <template v-if="column.dataIndex === 'D' && tableData!==undefined">
                 <a-input v-model:value="record.D" style="width:100px;" />
             </template>
-            <template v-if="column.dataIndex === 'G'">
+            <template v-if="column.dataIndex === 'G' && tableData!==undefined">
                 <a-input v-model:value="record.G" style="width:100px;" />
             </template>
-            <template v-if="column.dataIndex === 'C'">
+            <template v-if="column.dataIndex === 'C' && tableData!==undefined">
                 {{ c(index) }}
             </template>
-            <template v-if="column.dataIndex === 'F'">
+            <template v-if="column.dataIndex === 'F' && tableData!==undefined">
                 {{ f(index) }}
             </template>
-            <template v-if="column.dataIndex === 'I'">
+            <template v-if="column.dataIndex === 'I' && tableData!==undefined">
                 {{ i(index) }}
             </template>
-            <template v-if="column.dataIndex === 'number'">
+            <template v-if="column.dataIndex === 'number' && tableData!==undefined">
                 {{ number(index) }}
             </template>
-            <template v-if="column.dataIndex === 'unchanged'">
+            <template v-if="column.dataIndex === 'unchanged' && tableData!==undefined">
                 {{ unchanged(index) }}
             </template>
         </template>
@@ -209,27 +194,14 @@
     <span class="secondtitle">本实验案例的功能点为</span>
     <span style="font-size:20px">{{ ALL }}</span>
     <br /><br />
-    <a-button class="button3" type="primary" shape="round">
-        <template #icon>
-            <DownloadOutlined />
-        </template>实验报告提交
-    </a-button>
+    
 </template>
 
 
 
-<script>
-import { Document } from '@element-plus/icons-vue'
+<script lang="ts">
 import { defineComponent } from 'vue'
 export default {
-
-    setup() {
-        return {
-            value,
-            data,
-            columns,
-        }
-    },
     name: 'Exp1_IFPUG',
     data() {
         return {
@@ -811,6 +783,7 @@ export default {
     computed: {
         c() {
             return function (index) {
+                // console.log(typeof index)
                 this.tableData[index].C = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) * parseInt(this.tableData[index].B)
                 return this.tableData[index].C
             }
@@ -894,7 +867,7 @@ export default {
                 if (index === 11) {
                     sums[index] = (() => {
                         // let num=<p >￥{this.tableData[val].nonum.toFixed(2)}</p>
-                        return num;
+                        // return num;
                     })();
                     return;
                 }
