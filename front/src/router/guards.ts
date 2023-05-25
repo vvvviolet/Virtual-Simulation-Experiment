@@ -1,15 +1,20 @@
 import { NavigationGuard, NavigationHookAfter } from 'vue-router';
 import http from '@/store/http';
-import { useAccountStore } from '@/store';
+import { useAccountStore, useMenuStore } from '@/store';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 NProgress.configure({ showSpinner: false });
 
-const loginGuard: NavigationGuard = function (to, from) {
+const loginGuard: NavigationGuard = async function (to, from) {
   const account = useAccountStore();
-  if (!http.checkAuthorization() && !/^\/(login|home)?$/.test(to.fullPath)) {
+  if (!http.checkAuthorization() && !/^\/login?$/.test(to.fullPath)) {
     return '/login';
     // account.setLogged(false);
+  } else {
+    if (useMenuStore().menuList.length == 0 && !to.path.includes('/login')) {
+      await useMenuStore().getMenuList();
+      return to.path;
+    }
   }
 };
 

@@ -7,14 +7,14 @@
   import LoginBox from './LoginBox.vue';
   import { useRouter } from 'vue-router';
   import { reactive, ref } from 'vue';
-  import { useAccountStore, useMenuStore, useSettingStore, storeToRefs } from '@/store';
+  import { useAccountStore,  useSettingStore, storeToRefs } from '@/store';
 
   const { logout, profile } = useAccountStore();
   
   const router = useRouter();
 
   function onLoginSuccess() { 
-    router.push('/system/menu');
+    router.push('/exp1/ifpug');
     // profile().then((response) => {
     // const { account } = response;
     // console.log('login',account)
@@ -29,7 +29,6 @@
     name: '',
     // avatar: avatar,
     menuList: [
-      // { title: '个人中心', key: 'personal', icon: 'UserOutlined', onClick: () => router.push('/profile') },
       { title: '设置', key: 'setting', icon: 'SettingOutlined', onClick: () => (showSetting.value = true) },
       { type: 'divider' },
       {
