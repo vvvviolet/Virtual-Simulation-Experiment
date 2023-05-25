@@ -2,13 +2,12 @@
     <a-card>
         <h1 class="title">实验1 基于MARK II的小型软件项目规模度量实验
             <span>
-        <a-button class="guidance" type="primary" text @click="pdfHandle">
-          <el-icon size="25px">
-          </el-icon>实验指导书下载
-        </a-button>
+<!--        <a-button class="guidance" type="primary" text @click="pdfHandle">-->
+<!--          <el-icon size="25px">-->
+<!--          </el-icon>实验指导书下载-->
+<!--        </a-button>-->
       </span>
 
-<<<<<<< HEAD
         </h1>
         <h2>一、实验目的 </h2>
         <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
@@ -83,7 +82,7 @@
         <h2>六、实验心得 </h2>
         <a-textarea v-model:value="experience" :autoSize="{ minRows: 3}"
                     style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
-        <a-button type="primary" @click="submit">提交</a-button>
+<!--        <a-button type="primary" @click="submit">提交</a-button>-->
     </a-card>
 </template>
 
@@ -234,35 +233,25 @@ export default {
 }
 </script>
 
-<style scoped>
-:deep(.ant-table-tbody){
-    font-size: 18px;
-    text-align: center;
-    word-break: break-word;
-}
-:deep(.ant-table-thead > tr > th){
-    font-size: 18px;
-    background-color: rgba(250, 248, 248, 0.85);
-    text-align: center
-}
-.title {
-    text-align: center;
-    font-family: sans-serif;
-    font-size: 30px;
-}
-.guidance {
-    position: absolute;
-    right: 50px;
-    font-weight: bold;
-}
-=======
-</template>
-
-<script lang="ts">
-
-</script>
-
-<style scoped>
-
->>>>>>> main
-</style>
+<!--<style scoped>-->
+<!--:deep(.ant-table-tbody){-->
+<!--    font-size: 18px;-->
+<!--    text-align: center;-->
+<!--    word-break: break-word;-->
+<!--}-->
+<!--:deep(.ant-table-thead > tr > th){-->
+<!--    font-size: 18px;-->
+<!--    background-color: rgba(250, 248, 248, 0.85);-->
+<!--    text-align: center-->
+<!--}-->
+<!--.title {-->
+<!--    text-align: center;-->
+<!--    font-family: sans-serif;-->
+<!--    font-size: 30px;-->
+<!--}-->
+<!--.guidance {-->
+<!--    position: absolute;-->
+<!--    right: 50px;-->
+<!--    font-weight: bold;-->
+<!--}-->
+<!--</style>-->
