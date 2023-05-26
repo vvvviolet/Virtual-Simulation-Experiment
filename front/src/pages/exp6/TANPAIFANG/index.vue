@@ -5,6 +5,54 @@
       了解碳排放权和碳排放交易的概念，并通过实验理解供给、需求与市场价格之间的关系，掌握计算供需平衡点的方法。在实验过程中，学生应被分成买家和卖家两组，各自给出报价，并观察报价变化带来的供需曲线变化。本实验学时1学时，完成实验报告1学时。
     </p>
     <h2>二、实验内容</h2>
+    <p class="recontent">
+      碳排放需求与供给实验的实验内容主要是通过模拟市场机制来研究碳排放的需求和供给情况，探究不同政策和经济环境下碳排放的变化情况。具体实验步骤如下：
+    </p>
+    <p class="content">
+      1.
+      设计实验方案：确定实验的目的、参与者、参数等。
+    </p>
+    <li class="recontent">
+      目的：寻求碳排放权市场交易的供给与需求平衡点，以达成均衡价格。
+    </li>
+    <li class="recontent">
+      参与者：学生。
+    </li>
+    <li class="recontent">
+      参数：买家的购买数量和购买价格；卖家的卖出数量和卖出价格。
+    </li>
+    <br />
+    <p class="content">
+      2.
+      模拟碳排放市场：在实验中模拟一个碳排放市场，包括碳排放权的供应方、需求方和中介。
+    </p>
+    <li class="recontent">
+      供应方：项目发展方、金融机构、咨询顾问、技术转让方、政策制定者。
+    </li>
+    <li class="recontent">
+      需求方：政府机构、EU ETS安装方、自愿买方。
+    </li>
+    <li class="recontent">
+      中介：经纪商、交易者、交易所、大型买方联监。
+    </li>
+    <br />
+    <p class="content">
+      3.
+      设定初始条件：设置初始数量、价格等初始条件。
+    </p>
+    <li class="recontent">
+      买家的购买数量：0。
+    </li>
+    <li class="recontent">
+      买家的购买价格：0。
+    </li>
+    <li class="recontent">
+      卖家的卖出数量：0。
+    </li>
+    <li class="recontent">
+      卖家的卖出价格：0。
+    </li>
+    <br />
     <p class="content">
       4.
       实施不同政策：通过实验，模拟不同政策下碳排放的需求和供给情况，如碳税、碳交易制度等。通过实施不同政策，并观察碳排放量和碳排放权价格的变化，可以更深入地理解碳排放需求和供给的关系，探究有效的碳排放管理措施。下面是列举出来的一些政策，我们的实验预计会采用其中一种政策应用到实验步骤中。
@@ -189,11 +237,18 @@
         sellnumberarray.length
       }}</a-descriptions-item>
     </a-descriptions>
+    <p class="table-title">供需曲线图</p>
+    
+    <div id="char" style="width: 800px; height: 600px"></div>
+
+
+    <hr />
     <p class="table-title">市场交易记录</p>
     <a-table :dataSource="marketData" :columns="marketColumn" bordered />
     <hr />
     <p class="table-title">我的交易记录</p>
     <a-table :dataSource="myData" :columns="myColumn" bordered />
+
     <h2>五、实验结果</h2>
     <p class="content">暂时不写</p>
     <h2>六、实验思考</h2>
@@ -203,6 +258,7 @@
 
 <script lang="ts">
 import { message } from "ant-design-vue";
+import {ECharts, EChartsOption, init} from 'echarts';
 export default {
   name: 'Exp6_TANPAIFANG',
   data() {
@@ -292,11 +348,12 @@ export default {
       result: [], //计算结果
     };
   },
+  mounted() {
+    //this.setTime(); // 页面加载完成后开始计时
+    this.initEcharts();
+    //this.setScrollBar(); //调用JS调整滚动条样式
+  },
   methods: {
-    mounted() {
-      //页面加载即开始
-      this.setTime(); // 页面加载完成后开始计时
-    },
     pdfHandle() {
       window.open("/#/show", "_blank");
     },
@@ -314,6 +371,7 @@ export default {
       this.maiformtext.number = 0;
       this.maiformtext.cost = 0;
       message.success("买家信息录入成功");
+      this.initEcharts();
     },
     sellevent() {
       //卖家事件
@@ -329,11 +387,14 @@ export default {
       this.sellformtext.number = 0;
       this.sellformtext.cost = 0;
       message.success("卖家信息录入成功");
+      this.initEcharts()
     },
     setTime() {
       //设置定时器
-      setInterval(() => {
+      this.clearTimeSet = setInterval(() => {
         this.browseTime++;
+        this.initEcharts();
+        //console.log(this.browseTime, "时长累计");
       }, 1000);
     },
     restart() {
@@ -402,9 +463,107 @@ export default {
       }
       console.log(this.result);
     },
+    initEcharts() {
+      var buy = []
+      var sell = []
+      /*var xData=this.sellnumberarray
+      var buy=this.maicostarray
+      var sell=this.sellcostarray*/
+      this.calc_balancePoint()
+      for (let i = 0; i < this.result.length; i++) {
+        buy[i]=[this.result[i].mai,this.result[i].value]
+        //xData[i] = this.result[i].value
+        //buy[i] = this.result[i].mai
+        //sell[i] = this.result[i].sell
+        sell[i]=[this.result[i].sell,this.result[i].value]
+      }
+      // console.log("xData")
+      // console.log(xData)
+      console.log("buy")
+      console.log(buy)
+      console.log("sell")
+      console.log(sell)
+      const charEle = document.getElementById('char') as HTMLElement;
+      console.log()
+      const charEch: ECharts = init(charEle);
+      const option: EChartsOption = {
+        // xAxis: {
+        //   data: xData,
+        //   name: "市场价格"
+        // },
+        // legend: { // 图例
+        //   data: ["需求", "供给"],
+        //   bottom: "0%"
+        // },
+        // yAxis: {
+        //   name: "供给量/需求量"
+        // },
+        // series: [
+        //   {
+        //     name: "需求",
+        //     data: buy,
+        //     type: "line", // 类型设置为折线图
+        //     label: {
+        //       show: true,
+        //       position: "top",
+        //       textStyle: {
+        //         fontSize: 16
+        //       }
+        //     }
+        //   },
+        //   {
+        //     name: "供给",
+        //     data: sell,
+        //     type: "line", // 类型设置为折线图
+        //     label: {
+        //       show: true,
+        //       position: "top",
+        //       textStyle: {
+        //         fontSize: 16
+        //       }
+        //     }
+        //   }
+        // ]
+        title: {
+        text: '供需曲线'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data: ['需求', '供给']
+    },
+ 
+    xAxis: {
+        // 根据x轴数据决定type类型
+        type: 'value', 
+        boundaryGap: false,
+        name: "市场数量"
+        // 注： x轴不指定data,自动会从series取
+    },
+    yAxis: {
+        type: 'value',
+        name: "供给/需求价格"
+    },
+    series: [
+         {
+            name: '需求',
+            type: 'line',data:buy
+        },
+        {
+            name: '供给',
+            type: 'line',
+            data:sell
+        },
+       
+    ]
+  };
+  charEch.setOption(option);
+    }
   },
 };
 </script>
+
 
 <style scoped>
 .title {
