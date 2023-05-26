@@ -46,7 +46,7 @@ const presetList = [
   // },
   {
     id: 99990,
-    name: 'exp0',
+    name: `exp0`,
     title: '实验模板',
     target: '_self',
     path: '/exp0',
@@ -58,18 +58,18 @@ const presetList = [
     children: [
       {
         id: 99991,
-        name: 'exp0_TEST0',
+        name: 'test0',
         title: '测试实验0-子标题',
-        target: '_self',
         path: '/exp0/test0',
         component: '@/pages/exp0/Exp0_TEST0/index.vue',
+        target: '_self',
         renderMenu: true,
         permission: null,
         cacheable: true,
       },
       {
         id: 99992,
-        name: 'exp0_TEST1',
+        name: 'test1',
         title: '测试实验1-子标题',
         target: '_self',
         path: '/exp0/test1',
@@ -164,36 +164,10 @@ const presetList = [
       }
     ]
   },
-  
-  {
-    id: 3,
-    name: 'exp3',
-    title: '碳排放权供需实验',
-    target: '_self',
-    path: '/exp3',
-    component: '@/pages/exp3',
-    renderMenu: true,
-    parent: null,
-    permission: null,
-    cacheable: true,
-    children: [
-      {
-        id: 31,
-        name: '碳排放权供需实验',
-        title: '碳排放权供需方法',
-        target: '_self',
-        path: '/exp3/carbon',
-        component: '@/pages/exp3/Exp3_Carbon/index.vue',
-        renderMenu: true,
-        permission: null,
-        cacheable: true,
-      }
-    ]
-  },
   {
     id: 6,
     name: 'exp6',
-    title: '软件项目/产品的风险影响与评价实验',
+    title: '碳排放权供需实验',
     target: '_self',
     path: '/exp6',
     component: '@/pages/exp6',
@@ -204,11 +178,36 @@ const presetList = [
     children: [
       {
         id: 61,
-        name: 'exp6_decision_tree',
-        title: '决策树实验',
+        name: '碳排放权供需实验',
+        title: '碳排放权供需方法',
         target: '_self',
-        path: '/exp6/decision_tree',
-        component: '@/pages/exp6/Exp6_decision_tree/index.vue',
+        path: '/exp6/tanpaifang',
+        component: '@/pages/exp6/Exp6_TANPAIFANG/index.vue',
+        renderMenu: true,
+        permission: null,
+        cacheable: true,
+      }
+    ]
+  },
+  {
+    id: 10,
+    name: 'exp10',
+    title: '软件项目进度监督与控制实验',
+    target: '_self',
+    path: '/exp10',
+    component: '@/pages/exp10/Exp10.vue',
+    renderMenu: true,
+    parent: null,
+    permission: null,
+    cacheable: true,
+    children: [
+      {
+        id: 101,
+        name: 'exp10_eva',
+        title: 'Earned Value Analysis 挣值分析法',
+        target: '_self',
+        path: '/exp10/Exp10',
+        component: '@/pages/exp10/Exp10',
         renderMenu: true,
         permission: null,
         cacheable: true,
@@ -216,7 +215,7 @@ const presetList = [
     ]
 
   },
-  
+
 ];
 
 function getMenuList() {
