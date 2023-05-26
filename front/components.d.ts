@@ -10,7 +10,6 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AButton: typeof import('ant-design-vue/es')['Button']
-    ACol: typeof import('ant-design-vue/es')['Col']
     ADescriptions: typeof import('ant-design-vue/es')['Descriptions']
     ADescriptionsItem: typeof import('ant-design-vue/es')['DescriptionsItem']
     ADivider: typeof import('ant-design-vue/es')['Divider']
@@ -18,11 +17,9 @@ declare module '@vue/runtime-core' {
     AFormItem: typeof import('ant-design-vue/es')['FormItem']
     AInput: typeof import('ant-design-vue/es')['Input']
     AModal: typeof import('ant-design-vue/es')['Modal']
-    APopconfirm: typeof import('ant-design-vue/es')['Popconfirm']
     APopover: typeof import('ant-design-vue/es')['Popover']
     ARadioButton: typeof import('ant-design-vue/es')['RadioButton']
     ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
-    ARow: typeof import('ant-design-vue/es')['Row']
     ASwitch: typeof import('ant-design-vue/es')['Switch']
     ATable: typeof import('ant-design-vue/es')['Table']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']

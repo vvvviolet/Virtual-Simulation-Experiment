@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@antv/g2plot": "^2.4.29",
+    "ant-design-vue": "^3.2.19",
+    "echarts": "^5.4.2"
+  }
+}
