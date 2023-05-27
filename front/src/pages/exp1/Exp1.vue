@@ -2,7 +2,6 @@
 包括:IFPUG方法、NESMA方法、MARK II方法、COSMIC方法 -->
 <template>
   <div style="padding:2%">
-
   <div type="flex" justify-content="center" style="height:50px">
     <div style="float:left">
       <h1 class="title">{{ $route.meta.title }} </h1>
@@ -20,7 +19,6 @@
   <hr />
   <RouterView />
   <div style="float:right">
-    
     <a-upload
     :file-list="fileList"
     name="file"
@@ -49,7 +47,7 @@ import Cookies from 'js-cookie';
 import { UploadProps } from 'ant-design-vue/lib/upload';
 import { UploadChangeParam } from 'ant-design-vue/es/upload/interface';
 
-const { getExperiment,uploadReport } = useExperimentStore();
+const { getExperiment } = useExperimentStore();
 const rt = useRoute()
 
 
@@ -87,11 +85,10 @@ const fileList = ref<UploadProps['fileList']>([])
 
 const handleChange = (info: UploadChangeParam) => {      
       if (info.file.status !== 'uploading') {
-        console.log('uploading')
-        // console.log(info.file, info.fileList);
+        // console.log('uploading')
       }
       if (info.file.status === 'done') {
-        console.log(fileList)
+        // console.log(fileList)
         fileList.value = [];
         // message.success(`${info.file.name} 上传成功`);
       } else if (info.file.status === 'error') {
