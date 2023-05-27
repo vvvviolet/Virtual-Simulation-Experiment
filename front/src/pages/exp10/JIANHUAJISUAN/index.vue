@@ -248,6 +248,10 @@
             <template v-if="record.project === '累计净现金流量(现值)'">
               {{c2(index,0)}}
             </template> 
+            <template v-if="record.project === '现值系数'">
+              {{c3(index,0)}}
+            </template>
+
           </template>
 
           <template v-if="column.dataIndex === 'year1'">
@@ -262,6 +266,9 @@
             </template> 
             <template v-if="record.project === '累计净现金流量(现值)'">
               {{c2(index,1)}}
+            </template>
+            <template v-if="record.project === '现值系数'">
+              {{c3(index,1)}}
             </template>
           </template>
 
@@ -278,6 +285,9 @@
             <template v-if="record.project === '累计净现金流量(现值)'">
               {{c2(index,2)}}
             </template>
+            <template v-if="record.project === '现值系数'">
+              {{c3(index,2)}}
+            </template>
           </template>
 
           <template v-if="column.dataIndex === 'year3'">
@@ -293,6 +303,9 @@
             <template v-if="record.project === '累计净现金流量(现值)'">
               {{c2(index,3)}}
             </template>
+            <template v-if="record.project === '现值系数'">
+              {{c3(index,3)}}
+            </template>
           </template>
 
           <template v-if="column.dataIndex === 'year4'">
@@ -307,6 +320,9 @@
             </template> 
             <template v-if="record.project === '累计净现金流量(现值)'">
               {{c2(index,4)}}
+            </template>
+            <template v-if="record.project === '现值系数'">
+              {{c3(index,4)}}
             </template>
 
           </template>
@@ -324,6 +340,10 @@
             <template v-if="record.project === '累计净现金流量(现值)'">
               {{c2(index,5)}}
             </template>
+            <template v-if="record.project === '现值系数'">
+              {{c3(index,5)}}
+            </template>
+
           </template>
 
       </template> 
@@ -360,9 +380,8 @@
   <p></p>
   <p class="content">根据上述步骤，汇总编制出的项目资本金现金流量表，计算出的项目资本金财务内部收益率IRR、净现值NPV以及动态投资回收期（年），考察项目资本金可获得的收益水平，综合判断项目的财务状况，并且做出评价。
   </p>
-  <!--
   <a-button @click="sum">总表</a-button>
-  <a-table sticky :dataSource="Sum" :columns="columns_1" :pagination="false"></a-table>-->
+  <a-table sticky :dataSource="Sum" :columns="columns_1" :pagination="false"></a-table>
 </template>
   
   <script lang="ts">
@@ -779,6 +798,38 @@ import { defineComponent, ref } from 'vue';
                 break
             }
           }
+        },
+        c3(){
+          return function(index,year)
+          {
+            const discountRate = this.discountRate / 100
+            switch (year){
+              case 0:
+                return 1;
+              case 1:
+                var temp_discountRate=1/(1+discountRate);
+                this.netCashFlow[index].year1=temp_discountRate.toFixed(2)
+                return this.netCashFlow[index].year1;  
+              case 2:
+              var temp_discountRate=1/((1+discountRate)*(1+discountRate));
+              this.netCashFlow[index].year2=temp_discountRate.toFixed(2)
+                return this.netCashFlow[index].year2;
+              case 3:
+              var temp_discountRate=1/((1+discountRate)*(1+discountRate)*(1+discountRate));
+              this.netCashFlow[index].year3=temp_discountRate.toFixed(2)
+                return this.netCashFlow[index].year3;
+              case 4:
+              var temp_discountRate=1/((1+discountRate)*(1+discountRate)*(1+discountRate)*(1+discountRate));
+              this.netCashFlow[index].year4=temp_discountRate.toFixed(2)
+                return this.netCashFlow[index].year4;
+              case 5:
+              var temp_discountRate=1/((1+discountRate)*(1+discountRate)*(1+discountRate)*(1+discountRate)*(1+discountRate));
+              this.netCashFlow[index].year5=temp_discountRate.toFixed(2)
+                return this.netCashFlow[index].year5;
+            }
+          }
+
+
         },
         npv(){
           return function()
