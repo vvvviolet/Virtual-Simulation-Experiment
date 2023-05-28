@@ -154,6 +154,8 @@
         <p class="content"> 测量结果填写到最后实验结果的表中，进行归纳总结，完成实验报告
         </p>
         <h2>附件</h2>
+      <button class="fabtn" @click="fold_appendix"></button>
+      <div v-if="fold_ad===1">
         <h3  style="text-align: center;">表1：复杂度调整因子</h3>
         <a-table :pagination="false" :data-source="dataAdjust" >
             <a-table-column title="序号" dataIndex="index" key="index" width="8%" align="center"></a-table-column>
@@ -166,6 +168,7 @@
                 </template>
             </a-table-column>
         </a-table>
+      </div>
     </a-card>
 
 </template>
@@ -174,6 +177,7 @@
 export default {
     data () {
         return {
+            fold_ad: 0,
             columnsAdjust: [
                 { align: 'center', title: '序号',  dataIndex: 'index', },
                 { align: 'center', title: '统计值', dataIndex: 'name', },
@@ -348,6 +352,16 @@ export default {
                 },
             ],
         }
+    },
+    methods: {
+      fold_appendix(){
+        if (this.fold_ad === 0){
+          this.fold_ad = 1;
+        }
+        else {
+          this.fold_ad = 0;
+        }
+      }
     }
 };
 </script>
@@ -373,6 +387,14 @@ export default {
     font-weight: bold;
     margin-left: 30px;
     margin-right: 30px;
+}
+
+.fabtn{
+  position: relative;
+  width: 20px;
+  height: 20px;
+  top: -45px;
+  left: 60px;
 }
 
 </style>
