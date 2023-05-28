@@ -38,7 +38,7 @@
                             style="margin: -5px 0; width: 100%;text-align: center"
                             v-model:value="record.type"
                             @change='computeFP(record.index)'>
-                            <a-select-option value="E" style='text-align: center'>事务</a-select-option>
+                            <a-select-option value="E" style='text-align: center'>事件</a-select-option>
                             <a-select-option value="Q" style='text-align: center'>查询</a-select-option>
                         </a-select>
                         <a-input
@@ -170,31 +170,31 @@ export default {
                     title: '事务名称',
                     dataIndex: 'name',
                     scopedSlots: {customRender: 'name'},
-                    width: "19%"
+                    width: "18%"
                 },
                 {
-                    title: '事务类型',
+                    title: '事件或查询',
                     dataIndex: 'type',
                     scopedSlots: {customRender: 'type'},
-                    width: "10%"
+                    width: "15%"
                 },
                 {
                     title: '输入DET数量',
                     dataIndex: 'inputNum',
                     scopedSlots: {customRender: 'input'},
-                    width: "16%"
+                    width: "15%"
                 },
                 {
                     title: '输出DET数量',
                     dataIndex: 'outputNum',
                     scopedSlots: {customRender: 'output'},
-                    width: "16%"
+                    width: "15%"
                 },
                 {
                     title: '引用实体数量',
                     dataIndex: 'entityNum',
                     scopedSlots: {customRender: 'entity'},
-                    width: "16%"
+                    width: "15%"
                 },
                 {
                     title: '功能点指数',
