@@ -78,6 +78,7 @@
         <div class="unadjusted">合计未调整功能点数：<span style="font-style: italic; font-weight: bold">{{
                 unadjusted
             }}</span></div>
+
         <h3 style="text-align: center;">表2：复杂度调整因子 </h3>
         <a-table :columns="columnsAdjust" :pagination="false" :data-source="dataAdjust" bordered size="middle"
                  style="word-break: break-all;">
