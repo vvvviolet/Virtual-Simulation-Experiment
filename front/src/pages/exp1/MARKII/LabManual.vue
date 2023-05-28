@@ -1,6 +1,6 @@
 <template>
     <a-card>
-        <h2>实验指导书</h2>
+        <h1>实验指导书</h1>
         <p class="secondtitle">1. 目的</p>
         <p class="content">本规则是对公司的所有项目进行规模测量的计算规则，基于软件需求产生软件规模的
             估计。
@@ -134,7 +134,7 @@
             <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             将 VAF 数值代入(Mark II 法)功能 点计算公式，计算得到本实验案例的功能点
         </p>
-        <p>调整因子说明：Mk II功能点分析方法测量的是用户所见应用程序的功能规模。在测量功能规模时，通常还要考虑技术复杂性和特定的质量需求,这些一般称为“非功能性需求”。通常将功能规模与技术复杂度调整系数相乘，得到的结果称为调整后规模。Mk II 使用19个(或者更多，这些技术特征列举在7.7)技术特征,每个技术特征以0到5的分值来表示对于应用产生的影响。所有这些技术特征的评分用来计算技术复杂度调整系数。
+        <p class="content">调整因子说明：Mk II功能点分析方法测量的是用户所见应用程序的功能规模。在测量功能规模时，通常还要考虑技术复杂性和特定的质量需求,这些一般称为“非功能性需求”。通常将功能规模与技术复杂度调整系数相乘，得到的结果称为调整后规模。Mk II 使用19个(或者更多，这些技术特征列举在7.7)技术特征,每个技术特征以0到5的分值来表示对于应用产生的影响。所有这些技术特征的评分用来计算技术复杂度调整系数。
             基于技术特征的评价得分来计算TCA的计算公式如下:<br/>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>TCA=(TDI * C)+0.65</b><br/>
             式中:<br/>
@@ -384,6 +384,7 @@ export default {
 }
 .secondtitle {
     text-indent: 2em;
+    font-size: 20px;
     font-weight: bold;
     margin-left: 30px;
     margin-right: 30px;
@@ -395,6 +396,12 @@ export default {
   height: 20px;
   top: -45px;
   left: 60px;
+}
+.content {
+  text-indent: 2em;
+  font-size: 16px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 </style>
