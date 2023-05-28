@@ -208,10 +208,10 @@
 
     <hr />
     <p class="table-title">市场买入记录</p>
-    <a-table :dataSource="marketMaiData" :columns="maiColumn" bordered />
+    <a-table :dataSource="marketMaiData" :columns="maiColumn"  :pagination="{ pageSize: 5 }" bordered />
     <hr />
     <p class="table-title">市场卖出记录</p>
-    <a-table :dataSource="marketSellData" :columns="sellColumn" bordered />
+    <a-table :dataSource="marketSellData" :columns="sellColumn" :pagination="{ pageSize: 5 }" bordered />
 
     <h2>五、实验结果</h2>
     <p class="content">暂时不写</p>
