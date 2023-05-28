@@ -154,7 +154,16 @@
         <p class="content"> 测量结果填写到最后实验结果的表中，进行归纳总结，完成实验报告
         </p>
         <h2>附件</h2>
-      <button class="fabtn" @click="fold_appendix"></button>
+      <div class="fabtn" v-if="fold_ad===0" @click="fold_appendix">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
+      </svg>
+      </div>
+      <div class="fabtn" v-if="fold_ad===1" @click="fold_appendix">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+      </div>
       <div v-if="fold_ad===1">
         <h3  style="text-align: center;">表1：复杂度调整因子</h3>
         <a-table :pagination="false" :data-source="dataAdjust" >
@@ -178,6 +187,7 @@ export default {
     data () {
         return {
             fold_ad: 0,
+            unfold: 1,
             columnsAdjust: [
                 { align: 'center', title: '序号',  dataIndex: 'index', },
                 { align: 'center', title: '统计值', dataIndex: 'name', },
@@ -393,8 +403,8 @@ export default {
   position: relative;
   width: 20px;
   height: 20px;
-  top: -45px;
-  left: 60px;
+  top: -35px;
+  left: 50px;
 }
 
 </style>

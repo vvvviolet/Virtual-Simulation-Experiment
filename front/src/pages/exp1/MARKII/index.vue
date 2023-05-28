@@ -3,8 +3,18 @@
     <a-card>
         <h1 class="title">实验1 基于MARK II的小型软件项目规模度量实验 </h1>
       <div id="dg" style="z-index: 9999; position: fixed ! important; right: 0px; top: 0px;">
-        <div class="el-backtop">
-          <button class="btn" @click="change_page"></button>
+        <div class="page_change" @click="change_page">
+          <div v-if="go_left === 2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-right-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+
+          </svg>
+        </div>
+          <div v-if="go_left === 1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+            </svg>
+          </div>
         </div>
       </div>
         <div v-show="page===1">
@@ -33,15 +43,18 @@ export default {
     data() {
         return {
             page: 3,
+            go_left: 1,
         }
     },
     methods: {
         change_page() {
           if(this.page === 1){
             this.page = 2;
+            this.go_left = 2
           }
           else {
             this.page = 1;
+            this.go_left = 1
           }
 
         },
@@ -51,35 +64,10 @@ export default {
 
 <style scoped>
 
-.el-backtop:hover {
-  background-color: rgb(240, 240, 240);
-}
-.el-backtop {
+.page_change{
   position: fixed;
-  background-color: #fff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: #999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  box-shadow: 0 0 6px rgba(0,0,0,.12);
-  cursor: pointer;
-  z-index: 5;
-  right: 20px;
   top: 50%;
-}
-.btn {
-  width: 0;
-  height: 0;
-  position: fixed;
-  top: 51.5%;
-  right: 30px;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 7px solid #999;
+  right: 20px;
   z-index: 5;
 }
 </style>
