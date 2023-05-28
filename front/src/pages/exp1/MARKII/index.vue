@@ -18,8 +18,6 @@
                         </div>
                     </div>
                 </a-popover>
-
-
             </div>
         </div>
         <div v-show="page===1">

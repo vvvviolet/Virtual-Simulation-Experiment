@@ -134,7 +134,7 @@
             <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             将 VAF 数值代入(Mark II 法)功能 点计算公式，计算得到本实验案例的功能点
         </p>
-        <p class="content">调整因子说明：Mk II功能点分析方法测量的是用户所见应用程序的功能规模。在测量功能规模时，通常还要考虑技术复杂性和特定的质量需求,这些一般称为“非功能性需求”。通常将功能规模与技术复杂度调整系数相乘，得到的结果称为调整后规模。Mk II 使用19个(或者更多，这些技术特征列举在7.7)技术特征,每个技术特征以0到5的分值来表示对于应用产生的影响。所有这些技术特征的评分用来计算技术复杂度调整系数。
+        <p class="content">调整因子说明：Mk II功能点分析方法测量的是用户所见应用程序的功能规模。在测量功能规模时，通常还要考虑技术复杂性和特定的质量需求,这些一般称为“非功能性需求”。通常将功能规模与技术复杂度调整系数相乘，得到的结果称为调整后规模。Mk II 一般使用19个(<b>具体调整因子见附件</b>)技术特征,每个技术特征以0到5的分值来表示对于应用产生的影响。所有这些技术特征的评分用来计算技术复杂度调整系数。
             基于技术特征的评价得分来计算TCA的计算公式如下:<br/>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>TCA=(TDI * C)+0.65</b><br/>
             式中:<br/>
@@ -153,31 +153,31 @@
         <p class="secondtitle">第五步，分析汇报测量结果</p>
         <p class="content"> 测量结果填写到最后实验结果的表中，进行归纳总结，完成实验报告
         </p>
-        <h2>附件</h2>
-      <div class="fabtn" v-if="fold_ad===0" @click="fold_appendix">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
-      </svg>
-      </div>
-      <div class="fabtn" v-if="fold_ad===1" @click="fold_appendix">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
-        </svg>
-      </div>
-      <div v-if="fold_ad===1">
-        <h3  style="text-align: center;">表1：复杂度调整因子</h3>
-        <a-table :pagination="false" :data-source="dataAdjust" >
-            <a-table-column title="序号" dataIndex="index" key="index" width="8%" align="center"></a-table-column>
-            <a-table-column title="因子名称" dataIndex="name" key="name" width="35%"></a-table-column>
-            <a-table-column title="计分规则" dataIndex="kind" key="kind">
-                <template v-slot="{ text }">
-                    <div class="cell-content" v-for="(item,index) in text" :key="item">
-                        {{item}}<br/>
-                    </div>
-                </template>
-            </a-table-column>
-        </a-table>
-      </div>
+        <h2 class="secondtitle">附件</h2>
+        <div class="fabtn" v-if="fold_ad===0" @click="fold_appendix">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
+            </svg>
+        </div>
+        <div class="fabtn" v-if="fold_ad===1" @click="fold_appendix">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+        </div>
+        <div v-if="fold_ad===1">
+            <h3  style="text-align: center;">表1：复杂度调整因子</h3>
+            <a-table :pagination="false" :data-source="dataAdjust" >
+                <a-table-column title="序号" dataIndex="index" key="index" width="8%" align="center"></a-table-column>
+                <a-table-column title="因子名称" dataIndex="name" key="name" width="35%"></a-table-column>
+                <a-table-column title="计分规则" dataIndex="kind" key="kind">
+                    <template v-slot="{ text }">
+                        <div class="cell-content" v-for="(item,index) in text" :key="item">
+                            {{item}}<br/>
+                        </div>
+                    </template>
+                </a-table-column>
+            </a-table>
+        </div>
     </a-card>
 
 </template>
@@ -364,14 +364,14 @@ export default {
         }
     },
     methods: {
-      fold_appendix(){
-        if (this.fold_ad === 0){
-          this.fold_ad = 1;
+        fold_appendix(){
+            if (this.fold_ad === 0){
+                this.fold_ad = 1;
+            }
+            else {
+                this.fold_ad = 0;
+            }
         }
-        else {
-          this.fold_ad = 0;
-        }
-      }
     }
 };
 </script>
@@ -396,22 +396,22 @@ export default {
     text-indent: 2em;
     font-size: 20px;
     font-weight: bold;
-    margin-left: 30px;
+    margin-left: 15px;
     margin-right: 30px;
 }
 
 .fabtn{
-  position: relative;
-  width: 20px;
-  height: 20px;
-  top: -35px;
-  left: 50px;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    top: -35px;
+    left: 100px;
 }
 .content {
-  text-indent: 2em;
-  font-size: 16px;
-  margin-left: 20px;
-  margin-right: 20px;
+    text-indent: 2em;
+    font-size: 16px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 </style>
