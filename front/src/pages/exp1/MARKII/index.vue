@@ -3,13 +3,14 @@
     <a-card>
         <h1 class="title">实验1 基于MARK II的小型软件项目规模度量实验 </h1>
         <div v-show="page===1">
-            <LabReport></LabReport>
-        </div>
-        <div v-show="page===2">
             <LabManual></LabManual>
             <div style="height: 50px">
             </div>
         </div>
+        <div v-show="page===2">
+            <LabReport></LabReport>
+        </div>
+
 
         <Button type="primary" @click="change_page1()">1</Button>
         <Button type="primary" @click="change_page2()">2</Button>

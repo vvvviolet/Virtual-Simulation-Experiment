@@ -154,6 +154,7 @@
         <p class="content"> 测量结果填写到最后实验结果的表中，进行归纳总结，完成实验报告
         </p>
         <h2>附件</h2>
+        <h3  style="text-align: center;">表1：复杂度调整因子</h3>
         <a-table :pagination="false" :data-source="dataAdjust" >
             <a-table-column title="序号" dataIndex="index" key="index" width="8%" align="center"></a-table-column>
             <a-table-column title="因子名称" dataIndex="name" key="name" width="35%"></a-table-column>
