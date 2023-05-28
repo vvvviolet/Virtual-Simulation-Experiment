@@ -14,7 +14,7 @@
     <p class="content">本规则是对公司的所有项目进行规模测量的计算规则，基于软件需求产生软件规模的
       估计。
       <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本规则是基于Mk II功能点分析方法对应用软件行进规模测量。
-      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本规则一共是5个步骤，其中前3步骤是计算未调整功能点指数数量，即第
+      <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本规则一共是五个步骤，其中前三步骤是计算未调整功能点指数数量，第
       四步是计算调整后的功能点指数，这一步是可选的。
     </p>
 
