@@ -251,35 +251,35 @@ export default {
                 width: 400,
                 // fixed: 'left',
             },
-            {
-                title: '数据元素类型(DET)',
-                children: [
-                    {
-                        title: '1-4',
-                        dataIndex: 'left',
-                        key: 'type',
-                        align: 'center'
-                        // width: 30,
-                        // fixed: 'left',
-                    },
-                    {
-                        title: '5-15',
-                        dataIndex: 'mide',
-                        key: 'type',
-                        align: 'center'
-                        // width: 30,
-                        // fixed: 'left',
-                    },
-                    {
-                        title: '>15',
-                        dataIndex: 'right',
-                        key: 'type',
-                        align: 'center'
-                        // width: 30,
-                        // fixed: 'left',
-                    },
-                ]
-            }
+                {
+                    title: '数据元素类型(DET)',
+                    children: [
+                        {
+                            title: '1-4',
+                            dataIndex: 'left',
+                            key: 'type',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                        {
+                            title: '5-15',
+                            dataIndex: 'mide',
+                            key: 'type',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                        {
+                            title: '>15',
+                            dataIndex: 'right',
+                            key: 'type',
+                            align: 'center'
+                            // width: 30,
+                            // fixed: 'left',
+                        },
+                    ]
+                }
             ],
             columns3: [
                 {
