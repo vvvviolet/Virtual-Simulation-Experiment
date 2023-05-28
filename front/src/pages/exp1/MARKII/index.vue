@@ -497,6 +497,7 @@ export default {
         rate += parseInt(this.dataAdjust[i].grade);
       }
       this.adjustedRate = rate * 0.005 + 0.65;
+      this.adjustedRate = this.adjustedRate.toFixed(2)
       this.adjusted = this.unadjusted * this.adjustedRate
       this.adjusted = this.adjusted.toFixed(2)
     },
