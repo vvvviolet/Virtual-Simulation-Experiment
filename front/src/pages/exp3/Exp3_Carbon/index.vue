@@ -5,7 +5,7 @@
         </el-icon>实验指导书下载</el-button></span>
   </h1>
   <hr />
-  <h2>一、实验目的 </h2>
+  <h2>一、实验目的 test </h2>
   <p class="recontent">
     了解碳排放权和碳排放交易的概念，并通过实验理解供给、需求与市场价格之间的关系，掌握计算供需平衡点的方法。在实验过程中，学生应被分成买家和卖家两组，各自给出报价，并观察报价变化带来的供需曲线变化。本实验学时1学时，完成实验报告1学时。
   </p>
@@ -83,8 +83,8 @@
   <br>
   <h2>四、实验步骤 </h2>
   <p class="content buttons">1. 实验开始，分为买家和卖家，用户可以点击下面两个按钮进行买家信息和卖家信息的录入:</p>
-  <a-button type="primary" ghost @click="maiform = true" class="buttons">我是买家</a-button>
-  <a-modal v-model:visible="maiform" title="此次买方信息" @ok="maievent">
+  <a-button type="primary" ghost @click="showmaiform = true" class="buttons">我是买家</a-button>
+  <a-modal v-model:visible="showmaiform" title="此次买方信息" @ok="maievent">
     <a-form :model="maiformtext" id="maiform">
       <a-form-item label="购买数量">
         <a-input clearable v-model:value="maiformtext.number" style="width: 180px" placeholder="请输入购买数量"></a-input>
@@ -94,8 +94,8 @@
       </a-form-item>
     </a-form>
   </a-modal>
-  <a-button type="primary" ghost @click="sellform = true" class="buttons">我是卖家</a-button>
-  <a-modal v-model:visible="sellform" title="此次卖方信息" @ok="sellevent">
+  <a-button type="primary" ghost @click="showsellform = true" class="buttons">我是卖家</a-button>
+  <a-modal v-model:visible="showsellform" title="此次卖方信息" @ok="sellevent">
     <a-form :model="sellformtext" id="sellform">
       <a-form-item label="卖出数量">
         <a-input clearable v-model:value="sellformtext.number" style="width: 180px" placeholder="请输入卖出数量"></a-input>
@@ -123,12 +123,12 @@
   <p class="table-title">供需曲线图</p>
   <div id="charts">
     <div class="echart myChartStyle" id="mychart"></div>
-    </div>
+  </div>
   <p class="table-title">市场交易记录</p>
-  <a-table :dataSource="marketData" :columns="marketColumn" bordered/>
+  <a-table :dataSource="marketData" :columns="marketColumn" bordered />
   <hr />
   <p class="table-title">我的交易记录</p>
-  <a-table :dataSource="myData" :columns="myColumn" bordered/>
+  <a-table :dataSource="myData" :columns="myColumn" bordered />
   <h2>五、实验结果 </h2>
   <p class="content">暂时不写</p>
   <h2>六、实验思考 </h2>
@@ -143,8 +143,8 @@ export default {
   data() {
     return {
       nowsitua: "未开始",//实验进行时长
-      maiform: false, //买家表格控制变量
-      sellform: false, //卖家表格控制变量
+      showmaiform: false, //买家表格控制变量  控制买家弹窗是否显示
+      showsellform: false, //卖家表格控制变量  控制卖家弹窗是否显示
       mainumberarray: [], //买家数量信息
       maicostarray: [], // 买家费用信息
       maiinfo: [], //买家全部信息
@@ -240,7 +240,7 @@ export default {
       window.open('/#/show', "_blank")
     },
     maievent() { //买家事件
-      this.maiform = false;
+      this.showmaiform = false;
       this.mainumberarray.push(this.maiformtext.number);
       this.maicostarray.push(this.maiformtext.cost);
       let mai_obj = {
@@ -254,7 +254,7 @@ export default {
       message.success('买家信息录入成功');
     },
     sellevent() { //卖家事件
-      this.sellform = false;
+      this.showsellform = false;
       this.sellnumberarray.push(this.sellformtext.number);
       this.sellcostarray.push(this.sellformtext.cost);
       let sell_obj = {
@@ -398,7 +398,7 @@ export default {
       window.addEventListener("resize", () => {
         this.myChart.resize();
       });
-      
+
     }
 
   }
@@ -425,6 +425,7 @@ export default {
   font-size: large;
   font-weight: bold;
 }
+
 .table-title {
   text-indent: 2em;
   margin-left: 10px;
@@ -451,10 +452,10 @@ export default {
   margin-right: 20px;
 }
 
-.myChartStyle{ 
+.myChartStyle {
   float: "left";
   width: "100%";
-  height: "400px" 
+  height: "400px"
 }
 
 #charts {

@@ -122,12 +122,7 @@
     <h4 class="content">1.2 需求曲线</h4>
     <p class="content">需求曲线：以几何图形来表示商品的价格和需求量的函数关系</p>
     <p class="content">横坐标：需求量 纵坐标：价格</p>
-    <img
-      class="content"
-      style="margin-left: 100px"
-      src="../assets/demand.png"
-      alt="需求曲线"
-    />
+    <img class="content" style="margin-left: 100px" src="../assets/demand.png" alt="需求曲线" />
     <br />
     <br />
     <h4 class="content">1.3 需求定理</h4>
@@ -145,12 +140,7 @@
     <h4 class="content">2.2 供给曲线</h4>
     <p class="content">类似地，供给曲线表示了供给量与价格的函数关系</p>
     <p class="content">横坐标：需求量 纵坐标：价格</p>
-    <img
-      class="content"
-      style="margin-left: 100px"
-      src="../assets/supply.png"
-      alt="供给曲线"
-    />
+    <img class="content" style="margin-left: 100px" src="../assets/supply.png" alt="供给曲线" />
     <br />
     <br />
     <h4 class="content">2.3 供给定理</h4>
@@ -171,49 +161,25 @@
     <p class="content buttons">
       1. 实验开始，分为买家和卖家，用户可以点击下面两个按钮进行买家信息和卖家信息的录入:
     </p>
-    <a-button type="primary" ghost @click="maiform = true" class="buttons"
-      >我是买家</a-button
-    >
-    <a-modal v-model:visible="maiform" title="此次买方信息" @ok="maievent">
+    <a-button type="primary" ghost @click="showmaiform = true" class="buttons">我是买家</a-button>
+    <a-modal v-model:visible="showmaiform" title="此次买方信息" @ok="maievent">
       <a-form :model="maiformtext" id="maiform">
         <a-form-item label="购买数量">
-          <a-input
-            clearable
-            v-model:value="maiformtext.number"
-            style="width: 180px"
-            placeholder="请输入购买数量"
-          ></a-input>
+          <a-input clearable v-model:value="maiformtext.number" style="width: 180px" placeholder="请输入购买数量"></a-input>
         </a-form-item>
         <a-form-item label="购买价格">
-          <a-input
-            clearable
-            v-model:value="maiformtext.cost"
-            style="width: 180px"
-            placeholder="请输入购买价格"
-          ></a-input>
+          <a-input clearable v-model:value="maiformtext.cost" style="width: 180px" placeholder="请输入购买价格"></a-input>
         </a-form-item>
       </a-form>
     </a-modal>
-    <a-button type="primary" ghost @click="sellform = true" class="buttons"
-      >我是卖家</a-button
-    >
-    <a-modal v-model:visible="sellform" title="此次卖方信息" @ok="sellevent">
+    <a-button type="primary" ghost @click="showsellform = true" class="buttons">我是卖家</a-button>
+    <a-modal v-model:visible="showsellform" title="此次卖方信息" @ok="sellevent">
       <a-form :model="sellformtext" id="sellform">
         <a-form-item label="卖出数量">
-          <a-input
-            clearable
-            v-model:value="sellformtext.number"
-            style="width: 180px"
-            placeholder="请输入卖出数量"
-          ></a-input>
+          <a-input clearable v-model:value="sellformtext.number" style="width: 180px" placeholder="请输入卖出数量"></a-input>
         </a-form-item>
         <a-form-item label="卖出价格">
-          <a-input
-            clearable
-            v-model:value="sellformtext.cost"
-            style="width: 180px"
-            placeholder="请输入卖出价格"
-          ></a-input>
+          <a-input clearable v-model:value="sellformtext.cost" style="width: 180px" placeholder="请输入卖出价格"></a-input>
         </a-form-item>
       </a-form>
     </a-modal>
@@ -224,9 +190,7 @@
     <a-button type="primary" ghost @click="restart" class="buttons">开始实验</a-button>
     <a-button type="primary" ghost @click="endtest" class="buttons">结束实验</a-button>
     <a-descriptions title="实验详情" class="content" :column="4" bordered>
-      <a-descriptions-item label="实验进行情况"
-        ><a-tag color="blue">{{ nowsitua }}</a-tag></a-descriptions-item
-      >
+      <a-descriptions-item label="实验进行情况"><a-tag color="blue">{{ nowsitua }}</a-tag></a-descriptions-item>
       <a-descriptions-item label="总的参与人数">{{
         mainumberarray.length + sellnumberarray.length
       }}</a-descriptions-item>
@@ -238,16 +202,16 @@
       }}</a-descriptions-item>
     </a-descriptions>
     <p class="table-title">供需曲线图</p>
-    
+
     <div id="char" style="width: 800px; height: 600px"></div>
 
 
     <hr />
-    <p class="table-title">市场交易记录</p>
-    <a-table :dataSource="marketData" :columns="marketColumn" bordered />
+    <p class="table-title">市场买入记录</p>
+    <a-table :dataSource="marketMaiData" :columns="maiColumn" bordered />
     <hr />
-    <p class="table-title">我的交易记录</p>
-    <a-table :dataSource="myData" :columns="myColumn" bordered />
+    <p class="table-title">市场卖出记录</p>
+    <a-table :dataSource="marketSellData" :columns="sellColumn" bordered />
 
     <h2>五、实验结果</h2>
     <p class="content">暂时不写</p>
@@ -258,14 +222,14 @@
 
 <script lang="ts">
 import { message } from "ant-design-vue";
-import {ECharts, EChartsOption, init} from 'echarts';
+import { ECharts, EChartsOption, init } from 'echarts';
 export default {
   name: 'Exp6_TANPAIFANG',
   data() {
     return {
       nowsitua: "未开始", //实验进行时长
-      maiform: false, //买家表格控制变量
-      sellform: false, //卖家表格控制变量
+      showmaiform: false, //买家表格控制变量 //是否显示买家输入框
+      showsellform: false, //卖家表格控制变量 // 是否显示卖家输入框
       mainumberarray: [], //买家数量信息
       maicostarray: [], // 买家费用信息
       maiinfo: [], //买家全部信息
@@ -275,17 +239,12 @@ export default {
       maiformtext: {
         number: 0,
         cost: 0,
-      }, //买家表格
-      marketColumn: [
+      }, //买入记录表格
+      maiColumn: [
         {
           title: "交易id",
           dataIndex: "id",
           key: "id",
-        },
-        {
-          title: "交易类型",
-          dataIndex: "type",
-          key: "type",
         },
         {
           title: "价格",
@@ -302,17 +261,12 @@ export default {
           dataIndex: "time",
           key: "time",
         },
-      ], //市场表格列
-      myColumn: [
+      ], //卖出记录表格
+      sellColumn: [
         {
           title: "交易id",
           dataIndex: "id",
           key: "id",
-        },
-        {
-          title: "交易类型",
-          dataIndex: "type",
-          key: "type",
         },
         {
           title: "价格",
@@ -329,18 +283,11 @@ export default {
           dataIndex: "time",
           key: "time",
         },
-      ], //我的表格列
-      marketData: [
-        { id: 1, type: "买入", num: 1, price: 100, time: "2023/4/4" },
-        { id: 2, type: "卖出", num: 3, price: 90, time: "2023/4/4" },
-        { id: 3, type: "卖出", num: 2, price: 80, time: "2023/4/4" },
-        { id: 4, type: "买入", num: 2, price: 800, time: "2023/4/4" },
-      ], //市场交易记录
-      myData: [
-        { id: 2, type: "卖出", num: 3, price: 90, time: "2023/4/4" },
-        { id: 3, type: "卖出", num: 2, price: 80, time: "2023/4/4" },
-      ], //我的交易记录
-
+      ], //市场买入记录
+      marketMaiData: [], //市场卖出记录
+      marketSellData: [], //我的交易记录
+      marketMaiNum: 0, //市场买入记录的总数 主要是为了更新id
+      marketSellNum: 0, //市场卖出记录的总数
       sellformtext: {
         number: 0,
         cost: 0,
@@ -357,15 +304,41 @@ export default {
     pdfHandle() {
       window.open("/#/show", "_blank");
     },
+    getFormattedTime() {
+      let currentDate = new Date();
+      let year = currentDate.getFullYear(); // 获取年份
+      let month = currentDate.getMonth() + 1; // 获取月份（注意月份从0开始，需要加1）
+      let day = currentDate.getDate(); // 获取日期
+      let hours = currentDate.getHours(); // 获取小时
+      let minutes = currentDate.getMinutes(); // 获取分钟
+      let seconds = currentDate.getSeconds(); // 获取秒钟
+      // 格式化时间为字符串
+      let formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      return formattedTime
+    },
+
     maievent() {
       //买家事件
-      this.maiform = false;
+      if (this.nowsitua != "已开始") {
+        message.info("请先开始实验")
+        return
+      }
+      this.showmaiform = false;
+      this.marketMaiNum += 1; // 更新市场买入交易总数
       this.mainumberarray.push(this.maiformtext.number);
       this.maicostarray.push(this.maiformtext.cost);
       let mai_obj = {
         num: Number(this.maiformtext.number),
         cost: Number(this.maiformtext.cost),
       };
+      let mai_datatable_obj = {
+        id: this.marketSellNum + this.marketMaiNum,
+        num: Number(this.maiformtext.number),
+        price: Number(this.maiformtext.cost),
+        time: this.getFormattedTime() //获取当前时间
+      };
+      // 将mai_datatable_obj对象插入marketMaiData数组中
+      this.marketMaiData.push(mai_datatable_obj);
       this.maiinfo.push(mai_obj);
       //this.calc_balancePoint();
       this.maiformtext.number = 0;
@@ -375,13 +348,26 @@ export default {
     },
     sellevent() {
       //卖家事件
-      this.sellform = false;
+      if (this.nowsitua != "已开始") {
+        message.info("请先开始实验")
+        return
+      }
+      this.showsellform = false;
+      this.marketSellNum += 1;
       this.sellnumberarray.push(this.sellformtext.number);
       this.sellcostarray.push(this.sellformtext.cost);
       let sell_obj = {
         num: Number(this.sellformtext.number),
         cost: Number(this.sellformtext.cost),
       };
+      let sell_datatable_obj = {
+        id: this.marketSellNum + this.marketMaiNum,
+        num: Number(this.sellformtext.number),
+        price: Number(this.sellformtext.cost),
+        time: this.getFormattedTime() //获取当前时间
+      };
+      // 将sell_datatable_obj对象插入marketSellData数组中
+      this.marketSellData.push(sell_datatable_obj);
       this.sellinfo.push(sell_obj);
       //this.calc_balancePoint();
       this.sellformtext.number = 0;
@@ -399,11 +385,24 @@ export default {
     },
     restart() {
       //开始实验
-      this.nowsitua = "已开始";
+      if (this.nowsitua == "已开始") {
+        message.info("实验已经开始")
+      }
+      else {
+        this.nowsitua = "已开始";
+        // 在开始新的实验时重置实验数据，这一步也可以放在endtest函数中做
+        this.result = [];
+        this.marketMaiData = [];
+        this.marketSellData = [];
+        message.info("开始新的实验")
+        this.initEcharts();
+      }
     },
     endtest() {
       //结束实验
       this.browseTime = 0;
+      this.marketMaiNum = 0;
+      this.marketSellNum = 0;
       this.sellnumberarray = [];
       this.sellcostarray = [];
       this.mainumberarray = [];
@@ -411,6 +410,8 @@ export default {
       this.sellinfo = [];
       this.maiinfo = [];
       this.nowsitua = "未开始";
+      message.info("结束本次实验")
+
     },
     merge_cost() {
       //合并供给和需求报价，并从小到大排序
@@ -471,11 +472,11 @@ export default {
       var sell=this.sellcostarray*/
       this.calc_balancePoint()
       for (let i = 0; i < this.result.length; i++) {
-        buy[i]=[this.result[i].mai,this.result[i].value]
+        buy[i] = [this.result[i].mai, this.result[i].value]
         //xData[i] = this.result[i].value
         //buy[i] = this.result[i].mai
         //sell[i] = this.result[i].sell
-        sell[i]=[this.result[i].sell,this.result[i].value]
+        sell[i] = [this.result[i].sell, this.result[i].value]
       }
       // console.log("xData")
       // console.log(xData)
@@ -525,40 +526,40 @@ export default {
         //   }
         // ]
         title: {
-        text: '供需曲线'
-    },
-    tooltip: {
-        trigger: 'axis'
-    },
-    legend: {
-        data: ['需求', '供给']
-    },
- 
-    xAxis: {
-        // 根据x轴数据决定type类型
-        type: 'value', 
-        boundaryGap: false,
-        name: "市场数量"
-        // 注： x轴不指定data,自动会从series取
-    },
-    yAxis: {
-        type: 'value',
-        name: "供给/需求价格"
-    },
-    series: [
-         {
-            name: '需求',
-            type: 'line',data:buy
+          text: '供需曲线'
         },
-        {
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['需求', '供给']
+        },
+
+        xAxis: {
+          // 根据x轴数据决定type类型
+          type: 'value',
+          boundaryGap: false,
+          name: "市场数量"
+          // 注： x轴不指定data,自动会从series取
+        },
+        yAxis: {
+          type: 'value',
+          name: "供给/需求价格"
+        },
+        series: [
+          {
+            name: '需求',
+            type: 'line', data: buy
+          },
+          {
             name: '供给',
             type: 'line',
-            data:sell
-        },
-       
-    ]
-  };
-  charEch.setOption(option);
+            data: sell
+          },
+
+        ]
+      };
+      charEch.setOption(option);
     }
   },
 };
@@ -585,6 +586,7 @@ export default {
   font-size: large;
   font-weight: bold;
 }
+
 .table-title {
   text-indent: 2em;
   margin-left: 10px;
