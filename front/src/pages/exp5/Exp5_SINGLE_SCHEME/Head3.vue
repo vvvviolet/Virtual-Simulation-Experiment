@@ -125,7 +125,7 @@ import { column } from "element-plus/es/components/table-v2/src/common";
           {
             key:'0',
             column1:"ROI=(Param1)/(Param2) *100%",
-            column2:"0",
+            column2:"",
             column3:"",
             column4:"",
             column5:"",
@@ -191,8 +191,8 @@ import { column } from "element-plus/es/components/table-v2/src/common";
         console.log(this.static_data)
         this.static_data[0]['column5']=this.Roi(mid[0]['column2'],mid[0]['column3'])
         console.log(this.static_data[0]['column5'])
-        this.static_data[1]['column5']=this.Roi(mid[1]['column2'],mid[1]['column3'])
-        this.static_data[2]['column5']=this.Roi(mid[2]['column2'],mid[2]['column3'],mid[2]['column4'])
+        this.static_data[1]['column5']=this.ROE(mid[1]['column2'],mid[1]['column3'])
+        this.static_data[2]['column5']=this.PT(mid[2]['column2'],mid[2]['column3'],mid[2]['column4'])
 
       },
       Roi(EBIT,TI){
@@ -204,7 +204,17 @@ import { column } from "element-plus/es/components/table-v2/src/common";
       PT(a,b,c){
           return (a-1+Math.abs(b)/c).toFixed(2)
       },
+    },
+    //读取storage
+    created(){
+      if(localStorage.getItem("static_data")!=null)
+      this.static_data=JSON.parse(localStorage.getItem("static_data"))
 
+    },
+    //销毁页面时进行存储
+    beforeUnmount(){
+      console.log(this.static_data)
+      localStorage.setItem("static_data",JSON.stringify(this.static_data));
     }
   };
 </script>
