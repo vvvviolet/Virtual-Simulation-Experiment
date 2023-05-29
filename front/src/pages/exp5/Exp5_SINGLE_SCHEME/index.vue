@@ -46,6 +46,9 @@
             <div v-else-if="selectedKeys=='4'">
                 <Head4/>
             </div>
+            <div v-else-if="selectedKeys=='5'">
+                <Head5/>
+            </div>
         </div> 
       </a-layout-content>
       <a-layout-footer>
@@ -58,6 +61,7 @@
   import Head2 from './Head2.vue';
   import Head3 from './Head3.vue';
   import Head4 from './Head4.vue';
+  import Head5 from './Head5.vue';
   import { defineComponent, ref } from 'vue';
   export default defineComponent({
     setup() {
@@ -67,7 +71,7 @@
 
         };
     },
-    components: { Head1, Head2, Head3, Head4 }
+    components: { Head1, Head2, Head3, Head4,Head5 }
 });
   </script>
   <style>

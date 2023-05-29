@@ -10,3 +10,17 @@
     <p class="content">c. 完成实验表格，完善实验报告。</p>
     <p class="content">d. 总结实验经验。</p>
 </template>
+
+<style>
+.FirstTitle{
+  font-family: sans-serif;
+  font-size:30px;
+}
+
+.content {
+  font-size:15px;
+  text-indent:2em;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+</style>
