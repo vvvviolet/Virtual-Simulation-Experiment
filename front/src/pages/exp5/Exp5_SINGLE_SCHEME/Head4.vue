@@ -36,7 +36,7 @@
     <div style="width: 200px;">
       <a-table :dataSource="rate_data" :columns="rate_column" bordered size="small" >
       <template #bodyCell="{ column, text, record }">
-        <a-input v-model.lazy:value="rate_data[record.key][column.dataIndex]">
+        <a-input v-model:value="rate_data[record.key][column.dataIndex]">
         </a-input>
         </template> 
     </a-table>
@@ -44,7 +44,7 @@
     <a-table :dataSource="dataSource" :columns="columns" bordered>
        <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex!='number'&&column.dataIndex!='desc'&&record.key!='1'&&record.key!='0'">
-        <a-input v-model.lazy:value="dataSource[record.key][column.dataIndex]">
+        <a-input v-model:value="dataSource[record.key][column.dataIndex]">
         </a-input>
         </template>
        </template>
@@ -57,7 +57,7 @@
       <a-table :dataSource="res_data" :columns="res_columns" bordered size="small" >
       <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex!='number'&&column.dataIndex!='desc'">
-          <a-input v-model:value.lazy="res_data[record.key][column.dataIndex]">
+          <a-input v-model:value="res_data[record.key][column.dataIndex]">
           </a-input>
         </template>
       </template> 
@@ -75,11 +75,10 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
     methods:{
       //用来计算动态指标
       calculateRate(){
-        console.log(this.dataSource)
         let CI=[]
         let CO=[]
         let ic=this.rate_data[0]['rate'],t=0
-        ic=0.1
+        //ic=0.1
         console.log(ic)
         for(let i=0;i<=6;i++){
           let mid='year_'+i.toString()
@@ -142,7 +141,7 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
         return Pt;
     }
     },
-    setup() {
+    data() {
       return {
         formula_3_1,
         formula_3_2,
