@@ -383,9 +383,21 @@ import formula_3_3 from "@/pages/exp5/Exp5_SINGLE_SCHEME/pictures/formula_33.png
         ],
       };
     },
-    beforeMount(){
-
-
+    //初始化rate_data,res_data,dataSource
+    created(){
+      if(localStorage.getItem("rate_data")!=null)
+      this.rate_data=JSON.parse(localStorage.getItem("rate_data"))
+      if(localStorage.getItem("res_data")!=null)
+      this.res_data=JSON.parse(localStorage.getItem("res_data"))
+      if(localStorage.getItem("dataSource")!=null)
+      this.dataSource=JSON.parse(localStorage.getItem("dataSource"))
+    },
+    //销毁页面时进行存储
+    beforeUnmount(){
+      console.log("dasd")
+      localStorage.setItem("rate_data",JSON.stringify(this.rate_data));
+      localStorage.setItem("res_data",JSON.stringify(this.res_data));
+      localStorage.setItem("dataSource",JSON.stringify(this.dataSource));
     }
     
   };
