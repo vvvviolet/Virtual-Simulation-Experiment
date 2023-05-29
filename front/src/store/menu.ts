@@ -21,16 +21,24 @@ export interface MenuProps {
   children?: MenuProps[];
   cacheable: boolean;
 }
+ 
+export interface Experiment{
+  id:number; // id 建议用十进制表示法 
+  title:string; // 中文标题
+  name:string; // 英文标题
+  kind:string; // 大类名称
+}
 
 export const useMenuStore = defineStore('menu', () => {
   const menuList = ref<MenuProps[]>([]);
-  const toRoutes = (list: MenuProps[]): RouteOption[] => {
+  const toRoutes = (list: MenuProps[])  => {
     return list.map((item) => ({
       name: item.name,
       path: item.path,
       component: item.component,
       children: item.children && toRoutes(item.children),
       meta: {
+        id: item.id,
         title: item.title,
         permission: item.permission,
         icon: item.icon,
@@ -42,15 +50,67 @@ export const useMenuStore = defineStore('menu', () => {
       },
     }));
   };
-  async function getMenuList() {
-    return http.request<MenuProps, Response<MenuProps[]>>('/menu', 'GET').then((res) => {
-      const { data } = res;
-      console.log(res)
-      menuList.value = data;
-      addRoutes(toRoutes(data));
-      return data;
-    });
+  const toMenu = (list: Experiment[]): MenuProps[] =>{
+    let prevClass = 0
+    const tmp = []
+    list.map((item)=>{
+      // prevClass=Math.round(item.id/10)
+      // console.log(prevClass)
+      // console.log('prev',prevClass)
+      // console.log('(item.id/10)',(item.id/10))
+      // console.log('Math.floor(item.id/10)',Math.floor(item.id/10))
+      if(Math.floor(item.id/10)!=prevClass){
+        prevClass = Math.floor(item.id/10)
+        // console.log('now',prevClass)
+        tmp.push({
+          id: prevClass,
+          name: `exp${prevClass}`,
+          title: `${prevClass}-${item.kind}`,
+          path:  `/exp${prevClass}`,
+          component: `@/pages/exp${prevClass}`,
+          target: '_blank',
+          renderMenu: true,
+          permission: null,
+          children: [],
+          cacheable: true,
+        })    
+      }
+      // console.log(`@/pages/exp${prevClass}/${item.name.toUpperCase()}/index.vue`)
+        tmp[tmp.length-1].children.push({
+          id: item.id,
+          name: item.name,
+          title:item.title,
+          path:  `/exp${prevClass}/${item.name}`,
+          component: `@/pages/exp${prevClass}/${item.name.toUpperCase()}/index.vue`,
+          target: '_self',
+          renderMenu: true,
+          cacheable: true,
+        })
+      })
+      // console.log(tmp)
+    return tmp
   }
+  async function getMenuList() {
+    try {
+      const response = await http.request<Experiment, Response<Experiment[]>>('/menu/student_experiment', 'GET');
+      const { data } = response;
+      menuList.value = toMenu(data);
+      const torts = toRoutes(toMenu(data));
+      addRoutes(torts);
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  // async function getMenuList() {
+  //   return http.request<MenuProps, Response<MenuProps[]>>('/menu', 'GET').then((res) => {
+  //     const { data } = res;
+  //     console.log(res)
+  //     menuList.value = data;
+  //     addRoutes(toRoutes(data));
+  //     return data;
+  //   });
+  // }
 
   async function addMenu(menu: MenuProps) {
     return http

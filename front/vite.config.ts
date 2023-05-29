@@ -1,3 +1,4 @@
+// @ts-ignore
 import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
@@ -13,8 +14,8 @@ export default ({ command, mode }) => {
     server: {
       proxy: {
         '/api': {
-          target: env.VITE_API_URL,
-          // target: 'http://124.222.191.186:5000/api',
+          // target: env.VITE_API_URL,
+          target: 'http://139.196.226.104:8001/api',
           ws: true,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
