@@ -325,7 +325,14 @@ export default defineComponent({
 
         //获取实验人数
         getExperimentParticipantCount(){
-
+            axios({
+                method: "get",
+                url: "http://127.0.0.1:8000/online-count",
+            }).then((res) => {
+                this.experimentParticipantCount = res.data.count;
+            }).catch((err) => {
+                console.log(err);
+            })
         },
         startPolling() {
             this.pollingInterval = setInterval(() => {

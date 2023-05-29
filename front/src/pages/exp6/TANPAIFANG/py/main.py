@@ -1,4 +1,5 @@
 from datetime import datetime
+from flask import Request
 
 import pandas as pd
 from fastapi import FastAPI
@@ -253,6 +254,32 @@ def post_bid(experiment_id: int, bid_input: BidInput):
     # 返回一个响应
     return {'message': 'Bid submitted successfully'}
 
+
+# 加入对在线用户的统计
+online_users = []
+
+@app.middleware("http")
+async def add_user_to_online_list(request: Request, call_next):
+    response = await call_next(request)
+    forwarded_for = request.headers.get('X-Forwarded-For')
+    if forwarded_for:
+        # 如果 X-Forwarded-For 存在，则将其作为客户端的真实 IP 地址
+        client_ip = forwarded_for.split(',')[0]
+    else:
+        # 否则使用 request.client.host 获取 IP 地址
+        client_ip = request.client.host
+    online_users.append(client_ip)
+    return response
+
+
+@app.get("/online-count")
+async def get_online_count():
+    count = len(set(online_users))
+    return {"count": count}
+
+@app.get("/online-users")
+async def get_online_users():
+    return {"online_users": list(set(online_users))}
 
 # 定义custom_openapi
 def custom_openapi():
