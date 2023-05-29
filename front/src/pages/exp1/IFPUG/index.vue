@@ -35,7 +35,8 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：复杂度为简单的 ILF 数量和复杂的 ILF 数量各占 50%。EIF 的复
         杂度均为复杂。填写下表。</p>
     <h2 style="text-align: center">ILF 和 EIF 数据复杂度认定表</h2>
-    <a-table :pagination="false" :columns="columns1" :data-source="tableData1" bordered size="middle" style="word-break: break-all;" />
+    <a-table :pagination="false" :columns="columns1" :data-source="tableData1" bordered size="middle"
+        style="word-break: break-all;" />
     <br>
 
     <p class="secondtitle">第五步：测量外部输入(EI)</p>
@@ -72,11 +73,13 @@
         均的 EO 数量占 2/3，复杂度为复杂的 EO 数量占 1/3。复杂度为简单、平均和复
         杂的 EQ 数量各占 1/3。</p>
     <h2 style="text-align: center">EI 复杂度认定表</h2>
-    <a-table :pagination="false" :columns="columns2" :data-source="tableData2" bordered size="middle" style="word-break: break-all;" />
+    <a-table :pagination="false" :columns="columns2" :data-source="tableData2" bordered size="middle"
+        style="word-break: break-all;" />
     <br>
 
     <h2 style="text-align: center">EO 和 EQ 复杂度认定表</h2>
-    <a-table :pagination="false" :columns="columns3" :data-source="tableData3" bordered size="middle" style="word-break: break-all;" />
+    <a-table :pagination="false" :columns="columns3" :data-source="tableData3" bordered size="middle"
+        style="word-break: break-all;" />
     <br>
 
     <p class="secondtitle">第九步：计算未调整功能点 </p>
@@ -93,7 +96,8 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：运用 IFPUG 标准规则，计算实验案例的调整后功能点。 </p>
     <br />
     <h2 style="text-align: center">每个组件复杂度等级与功能点数对应关系表 </h2>
-    <a-table :pagination="false" :columns="columns4" :data-source="tableData4" bordered size="middle" style="word-break: break-all;" />
+    <a-table :pagination="false" :columns="columns4" :data-source="tableData4" bordered size="middle"
+        style="word-break: break-all;" />
     <br>
 
 
@@ -101,45 +105,47 @@
     <h2>二、实验参数 </h2>
 
     <h2 style="text-align: center;">表1：未调整功能点计算表 </h2>
-    <a-table :pagination="false" :columns="columns" :data-source="tableData" bordered size="middle" style="word-break: break-all;">
+    <a-table :pagination="false" :columns="columns" :data-source="tableData" bordered size="middle"
+        style="word-break: break-all;">
         <template #bodyCell="{ column, record, index }">
-            <template v-if="column.dataIndex === 'A' && tableData!==undefined">
+            <template v-if="column.dataIndex === 'A' && tableData !== undefined">
                 <a-input v-model:value="record.A" style="width:100px; " />
             </template>
-            <template v-if="column.dataIndex === 'D' && tableData!==undefined">
+            <template v-if="column.dataIndex === 'D' && tableData !== undefined">
                 <a-input v-model:value="record.D" style="width:100px;" />
             </template>
-            <template v-if="column.dataIndex === 'G' && tableData!==undefined">
+            <template v-if="column.dataIndex === 'G' && tableData !== undefined">
                 <a-input v-model:value="record.G" style="width:100px;" />
             </template>
-            <template v-if="column.dataIndex === 'C' && tableData!==undefined">
+            <template v-if="column.dataIndex === 'C' && tableData !== undefined">
                 {{ c(index) }}
             </template>
-            <template v-if="column.dataIndex === 'F' && tableData!==undefined">
+            <template v-if="column.dataIndex === 'F' && tableData !== undefined">
                 {{ f(index) }}
             </template>
-            <template v-if="column.dataIndex === 'I' && tableData!==undefined">
+            <template v-if="column.dataIndex === 'I' && tableData !== undefined">
                 {{ i(index) }}
             </template>
-            <template v-if="column.dataIndex === 'number' && tableData!==undefined">
+            <template v-if="column.dataIndex === 'number' && tableData !== undefined">
                 {{ number(index) }}
             </template>
-            <template v-if="column.dataIndex === 'unchanged' && tableData!==undefined">
+            <template v-if="column.dataIndex === 'unchanged' && tableData !== undefined">
                 {{ unchanged(index) }}
             </template>
         </template>
     </a-table>
     <br>
 
-    <div style="width:100%;text-align:right" >
-        <span  style="width:30%;display:inline-block" class="secondtitle">本实验未调整功能点总计为 </span>
-        <span style="display:inline-block;font-size:20px;" >{{ SUM }}</span>
+    <div style="width:100%;text-align:right">
+        <span style="width:30%;display:inline-block" class="secondtitle">本实验未调整功能点总计为 </span>
+        <span style="display:inline-block;font-size:20px;">{{ SUM }}</span>
     </div>
     <br>
     <br>
 
     <h2 style="text-align: center;">表2：系统特征因子表及计算表 </h2>
-    <a-table :columns="columnsadjust" :pagination="false" :data-source="dataadjust" bordered size="middle" style="word-break: break-all;">
+    <a-table :columns="columnsadjust" :pagination="false" :data-source="dataadjust" bordered size="middle"
+        style="word-break: break-all;">
         <template #bodyCell="{ column, record }">
             <template v-if="column.dataIndex === 'grade'">
                 <a-input-group compact>
@@ -158,9 +164,9 @@
         </template>
     </a-table>
     <br>
-    <div style="width:100%;text-align:right" >
-        <span  style="width:30%;display:inline-block" class="secondtitle">合计数 </span>
-        <span style="display:inline-block;font-size:20px;" >{{ SUM_A }}</span>
+    <div style="width:100%;text-align:right">
+        <span style="width:30%;display:inline-block" class="secondtitle">合计数 </span>
+        <span style="display:inline-block;font-size:20px;">{{ SUM_A }}</span>
     </div>
     <br>
     <br>
@@ -170,9 +176,7 @@
     <br /><br />
     <span class="secondtitle">本实验案例的功能点为</span>
     <span style="font-size:20px">{{ ALL }}</span>
-    <br /><br />
-    
-</template>
+    <br /><br /></template>
 
 
 
@@ -758,41 +762,50 @@ export default {
         }
     },
     computed: {
-        c() {
-            return function (index) {
-                // console.log(typeof index)
-                this.tableData[index].C = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) * parseInt(this.tableData[index].B)
-                return this.tableData[index].C
+        c:function() {
+            return (index)=> {
+                if (this.tableData.length > 0) {
+                    this.tableData[index].C = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) * parseInt(this.tableData[index].B)
+                    return this.tableData[index].C
+                }
             }
         },
-        f() {
-            return function (index) {
-                this.tableData[index].F = (parseInt(this.tableData[index].D) ? parseInt(this.tableData[index].D) : 0) * parseInt(this.tableData[index].E)
-                return this.tableData[index].F
+        f:function() {
+            return (index)=> {
+                if (this.tableData.length > 0) {
+                    this.tableData[index].F = (parseInt(this.tableData[index].D) ? parseInt(this.tableData[index].D) : 0) * parseInt(this.tableData[index].E)
+                    return this.tableData[index].F
+                }
             }
         },
-        i() {
-            return function (index) {
-                this.tableData[index].I = (parseInt(this.tableData[index].G) ? parseInt(this.tableData[index].G) : 0) * parseInt(this.tableData[index].H)
-                return this.tableData[index].I
+        i:function() {
+            return (index)=> {
+                if (this.tableData.length > 0) {
+                    this.tableData[index].I = (parseInt(this.tableData[index].G) ? parseInt(this.tableData[index].G) : 0) * parseInt(this.tableData[index].H)
+                    return this.tableData[index].I
+                }
             }
         },
-        number() {
-            return function (index) {
-                this.tableData[index].number = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) + (parseInt(this.tableData[index].D) ? parseInt(this.tableData[index].D) : 0) + (parseInt(this.tableData[index].G) ? parseInt(this.tableData[index].G) : 0)
-                return this.tableData[index].number
+        number:function() {
+            return (index)=> {
+                if (this.tableData.length > 0) {
+                    this.tableData[index].number = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) + (parseInt(this.tableData[index].D) ? parseInt(this.tableData[index].D) : 0) + (parseInt(this.tableData[index].G) ? parseInt(this.tableData[index].G) : 0)
+                    return this.tableData[index].number
+                }
             }
         },
-        unchanged() {
-            return function (index) {
-                this.tableData[index].unchanged = (parseInt(this.tableData[index].C) ? parseInt(this.tableData[index].C) : 0) + (parseInt(this.tableData[index].F) ? parseInt(this.tableData[index].F) : 0) + (parseInt(this.tableData[index].I) ? parseInt(this.tableData[index].I) : 0)
+        unchanged:function() {
+            return (index)=> {
+                if (this.tableData.length > 0) {
+                    this.tableData[index].unchanged = (parseInt(this.tableData[index].C) ? parseInt(this.tableData[index].C) : 0) + (parseInt(this.tableData[index].F) ? parseInt(this.tableData[index].F) : 0) + (parseInt(this.tableData[index].I) ? parseInt(this.tableData[index].I) : 0)
 
-                var sum = 0
-                for (var i = 0; i < 5; i++)
-                    sum += (parseInt(this.tableData[i].unchanged) ? parseInt(this.tableData[i].unchanged) : 0)
-                this.$data.SUM = sum
+                    var sum = 0
+                    for (var i = 0; i < 5; i++)
+                        sum += (parseInt(this.tableData[i].unchanged) ? parseInt(this.tableData[i].unchanged) : 0)
+                    this.$data.SUM = sum
 
-                return this.tableData[index].unchanged
+                    return this.tableData[index].unchanged
+                }
             }
         },
         VAF() {
@@ -800,12 +813,12 @@ export default {
             // console.log('111',this.$data.tableData)
             for (var i = 0; i < 14; i++)
                 vaf += (parseInt(this.dataadjust[i].grade) ? parseInt(this.dataadjust[i].grade) : 0)
-            
-            vaf = vaf*0.01 + 0.65
+
+            vaf = vaf * 0.01 + 0.65
             this.$data.VAF = vaf.toFixed(2)
             return vaf
         },
-        SUM_A(){
+        SUM_A() {
             var sum = 0
             for (var i = 0; i < 14; i++)
                 sum += (parseInt(this.dataadjust[i].grade) ? parseInt(this.dataadjust[i].grade) : 0)
