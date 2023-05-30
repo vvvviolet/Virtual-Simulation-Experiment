@@ -222,16 +222,12 @@
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="4">净现金流量</a-col>
-                    <a-col :span="20">
-                      <a-input-group compact>
                         <a-col :span="3">{{net_cash_flow0}}</a-col>
                         <a-col :span="3">{{net_cash_flow1}}</a-col>
                         <a-col :span="3">{{net_cash_flow2}}</a-col>
                         <a-col :span="3">{{net_cash_flow3}}</a-col>
                         <a-col :span="3">{{net_cash_flow4}}</a-col>
                         <a-col :span="3">{{net_cash_flow5}}</a-col>
-                      </a-input-group>
-                    </a-col>
                   </a-row>
                   <a-row justify="left">
                     <a-col :span="4">累计净现金流量</a-col>
