@@ -16,20 +16,36 @@ from sqlalchemy.sql import text
 
 import chart as router_chart
 
-# 创建引擎和会话 (PostgreSQL)
-username: str = 'postgres'
-password: str = '1230'
-host: str = '119.3.154.46'
-port: str = '5432'
-database: str = 'postgres'
-engine = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{database}')
-Session = sessionmaker(bind=engine)
+def create_engine_and_session(database_type, **kwargs):
+    engine = None
+    Session = None
 
-#  创建引擎和会话 (SQLite)
-# sqlite_database_file_path: str = 'database.db'
-# engine = create_engine(f'sqlite:///{sqlite_database_file_path}')
-# Session = sessionmaker(bind=engine)
+    if database_type == 'postgresql':
+        # 创建 PostgreSQL 引擎和会话
+        username = kwargs.get('username', 'postgres')
+        password = kwargs.get('password', '1230')
+        host = kwargs.get('host', '119.3.154.46')
+        port = kwargs.get('port', '5432')
+        database = kwargs.get('database', 'postgres')
+        engine = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{database}')
+        Session = sessionmaker(bind=engine)
+    elif database_type == 'sqlite':
+        # 创建 SQLite 引擎和会话
+        sqlite_database_file_path = kwargs.get('sqlite_database_file_path', 'database.db')
+        engine = create_engine(f'sqlite:///{sqlite_database_file_path}')
+        Session = sessionmaker(bind=engine)
+    else:
+        raise ValueError('Invalid database type. Must be "postgresql" or "sqlite".')
 
+    return engine, Session
+
+
+# 创建引擎和会话
+# sqlite
+# engine, Session = create_engine_and_session('sqlite', sqlite_database_file_path='database.db') 
+
+#  postgresql
+engine, Session = create_engine_and_session('postgresql')
 
 # 声明基类
 Base = declarative_base()
@@ -95,6 +111,8 @@ class Bid(Base):
             'create_time': self.create_time
         }
 
+# 创建表
+Base.metadata.create_all(engine)
 
 # 创建app
 app: FastAPI = FastAPI()
