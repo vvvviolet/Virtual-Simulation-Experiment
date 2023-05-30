@@ -1,6 +1,4 @@
-<template>
-
-   
+<template>   
     <!-- <span> {{ test }}</span> -->
     <!-- <h2>一、实验目的  </h2>
     <p class="content">理解软件项目规模度量功能点法原理，通过实验操作掌握功能点法。 学生应以小组为单位，根据本小组“软件工程管理与经济”课程设计项目架构及组件等设计成果，以功能点方法测量该项目的规模(功能点数量)。 建议选用某一种功能点方法度量课程设计项目的功能点，并采用另外一种功能点方法或其他的软件规模度量方法对前一种方法的度量结果进行验证。 本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
@@ -176,14 +174,7 @@
     </div>
 </template> 
 
-<<<<<<< HEAD:front/src/pages/exp1/Exp1_IFPUG/index.vue
-</template>
-
-<script lang="tsx">
-import { Document } from '@element-plus/icons-vue'
-=======
 <script >
->>>>>>> new:front/src/pages/exp1/NESMA/index.vue
 export default {
     name: 'NESMA',
     data() {
@@ -303,41 +294,6 @@ export default {
     }
 }
 </script>
-
-<script setup>
-    import { Document } from '@element-plus/icons-vue'
-</script>
-
-
 <style scoped>
-.title{
-    text-align:center;
-    font-family: sans-serif;
-    font-size:30px;
-}
-.secondtitle{
-    text-indent: 2em;
-    font-weight: bold;
-    margin-left: 30px;
-    margin-right: 30px;
-}
-.content{
-    text-indent: 2em;
-    margin-left: 30px;
-    margin-right: 30px;
-    line-height: 25px;
-  
-}
-.guidance{
-    position:absolute;
-    right:50px;
-    font-weight: bold;
-}
-.button2{
-    margin-top:20px;
-    float:right
-}
-.button3{
-    margin-top:20px;
-}
+
 </style>

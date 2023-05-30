@@ -7,7 +7,7 @@
   import LoginBox from './LoginBox.vue';
   import { useRouter } from 'vue-router';
   import { reactive, ref } from 'vue';
-  import { useAccountStore, useMenuStore, useSettingStore, storeToRefs } from '@/store';
+  import { useAccountStore,  useSettingStore, storeToRefs } from '@/store';
 
   const { logout, profile } = useAccountStore();
   
