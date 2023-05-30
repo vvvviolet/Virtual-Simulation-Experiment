@@ -1,3 +1,5 @@
+# 使用: python -m uvicorn main:app --reload
+# 安装依赖: pip install fastapi sqlalchemy psycopg2-binary uvicorn[standard] pandas numpy
 from datetime import datetime
 from flask import Request
 
@@ -13,7 +15,7 @@ from sqlalchemy.sql import text
 
 import chart as router_chart
 
-# 创建引擎和会话
+# 创建引擎和会话 (PostgreSQL)
 username: str = 'postgres'
 password: str = '1230'
 host: str = '119.3.154.46'
@@ -21,6 +23,12 @@ port: str = '5432'
 database: str = 'postgres'
 engine = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{database}')
 Session = sessionmaker(bind=engine)
+
+#  创建引擎和会话 (SQLite)
+# sqlite_database_file_path: str = 'database.db'
+# engine = create_engine(f'sqlite:///{sqlite_database_file_path}')
+# Session = sessionmaker(bind=engine)
+
 
 # 声明基类
 Base = declarative_base()
