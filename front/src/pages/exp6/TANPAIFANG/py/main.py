@@ -1,10 +1,11 @@
 # 使用: python -m uvicorn main:app --reload
 # 安装依赖: pip install fastapi sqlalchemy psycopg2-binary uvicorn[standard] pandas numpy
 from datetime import datetime
+from typing import Optional
 from flask import Request
 
 import pandas as pd
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from pydantic import BaseModel
@@ -232,8 +233,8 @@ def calculate_result(experiment_id: int):
 # 定义输入模型
 class BidInput(BaseModel):
     student_id: int
-    buyer_price: int
-    seller_price: int
+    buyer_price: Optional[int]
+    seller_price: Optional[int]
 
 
 @app.post('/experiments/{experiment_id}/bids')
@@ -246,15 +247,24 @@ def post_bid(experiment_id: int, bid_input: BidInput):
         session.close()
         return {'error': 'Experiment not found!'}
 
+    # 判断实验是否已经结束
+    if experiment.status == 1:
+        session.close()
+        return {'error': 'Experiment has ended!'}
+    
     # 创建一个新的买方出价
-    new_bid_buy = Bid(experiment_id=experiment_id, student_id=bid_input.student_id, price=bid_input.buyer_price,
-                      buy_or_sell=0)
-    session.add(new_bid_buy)
+    # 如果买方出价为空，则不创建
+    if bid_input.buyer_price is not None:
+        new_bid_buy = Bid(experiment_id=experiment_id, student_id=bid_input.student_id, price=bid_input.buyer_price,
+                          buy_or_sell=0)
+        session.add(new_bid_buy)
 
     # 创建一个新的卖方出价
-    new_bid_sell = Bid(experiment_id=experiment_id, student_id=bid_input.student_id, price=bid_input.seller_price,
-                       buy_or_sell=1)
-    session.add(new_bid_sell)
+    # 如果卖方出价为空，则不创建
+    if bid_input.seller_price is not None:
+        new_bid_sell = Bid(experiment_id=experiment_id, student_id=bid_input.student_id, price=bid_input.seller_price,
+                           buy_or_sell=1)
+        session.add(new_bid_sell)
 
     session.commit()
     session.close()
@@ -280,6 +290,44 @@ async def add_user_to_online_list(request: Request, call_next):
     return response
 
 
+# 定义输入模型
+class ExperimentUpdate(BaseModel):
+    name: Optional[str]
+    duration: Optional[int]
+    expire_time: Optional[str]
+    status: Optional[int]
+
+# 定义路由
+@app.patch('/experiments/{experiment_id}', status_code=200)
+def update_experiment(experiment_id: int, update_data: ExperimentUpdate):
+    # 获取指定id的实验
+    session = Session()
+    experiment = session.query(Experiment).filter(Experiment.id == experiment_id).first()
+    # 判断实验是否存在
+    if experiment is None:
+        session.close()
+        raise HTTPException(status_code=404, detail='Experiment not found!')
+
+    # 更新实验
+    if update_data.name is not None:
+        experiment.name = update_data.name
+    if update_data.duration is not None:
+        experiment.duration = update_data.duration
+    if update_data.expire_time is not None:
+        # 转化时间
+        expire = datetime.strptime(update_data.expire_time, '%Y-%m-%dT%H:%M:%S.%fZ')
+        expire = expire.replace(tzinfo=None)
+        expire = expire + pd.Timedelta(hours=8)
+        experiment.expire_time = expire
+    if update_data.status is not None:
+        experiment.status = update_data.status
+
+    session.commit()
+    session.close()
+
+    # 返回一个响应
+    return {'message': 'Experiment updated successfully'}
+
 @app.get("/online-count")
 async def get_online_count():
     count = len(set(online_users))
@@ -288,6 +336,36 @@ async def get_online_count():
 @app.get("/online-users")
 async def get_online_users():
     return {"online_users": list(set(online_users))}
+
+
+# 创建实验API
+# 定义输入模型
+class ExperimentCreate(BaseModel):
+    name: str
+    duration: int
+    expire_time: str
+
+@app.post('/experiments', status_code=201)
+def create_experiment(experiment_input: ExperimentCreate):
+    # 创建一个新的实验
+    # 注意时间格式
+    # 前端的数据格式是: 2023-06-01T14:26:25.565Z
+    # 而后端的数据格式是: 2023-06-01 14:26:25.565
+    # 还需要注意的是，前端的时间是UTC时间，而后端的时间是北京时间
+    expire = datetime.strptime(experiment_input.expire_time, '%Y-%m-%dT%H:%M:%S.%fZ')
+    expire = expire.replace(tzinfo=None)
+    expire = expire + pd.Timedelta(hours=8)
+    
+    new_experiment = Experiment(name=experiment_input.name, duration=experiment_input.duration, expire_time=expire, status=0)
+    
+    session = Session()
+    session.add(new_experiment)
+    session.commit()
+    session.close()
+
+    # 返回一个响应
+    return {'message': 'Experiment created successfully'}
+
 
 # 定义custom_openapi
 def custom_openapi():

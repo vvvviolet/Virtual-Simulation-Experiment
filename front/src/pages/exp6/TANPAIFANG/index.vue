@@ -1,14 +1,53 @@
 <template>
     <div class="main">
         <!-- 进入实验界面 -->
-        <section v-if="sectionIndex==0">
-
+        <section v-if="sectionIndex === 0">
+            <div class="header-wrapper">
+                <a-button type="primary" style="float: right; margin-top: 16px; margin-right: 16px"
+                    @click="showCreateDialog = true">
+                    创建实验
+                </a-button>
+                <!-- 创建实验弹窗 -->
+                <a-modal title="创建实验" v-model:visible="showCreateDialog" width="30%" @ok="createExperiment">
+                    <a-form ref="createForm" :model="form" :label-col="{ span: 8 }">
+                        <a-form-item label="实验名称">
+                            <a-input v-model:value="form.name"></a-input>
+                        </a-form-item>
+                        <a-form-item label="实验时长（分钟）">
+                            <a-input-number v-model:value="form.duration" :min="1"></a-input-number>
+                        </a-form-item>
+                        <a-form-item label="实验过期时间">
+                            <a-date-picker v-model:value="form.expire_time" show-time
+                                format="YYYY-MM-DD HH:mm:ss"></a-date-picker>
+                        </a-form-item>
+                    </a-form>
+                </a-modal>
+            </div>
+            <div class="experiment-list">
+                <a-card title="实验列表">
+                    <a-card-grid style="width: 25%;" v-for="experiment in experiments" :key="experiment.id" :class="experimentCardClass" hoverable>
+                        <h3 :style="experimentTitleStyle">{{ experiment.name }}</h3>
+                        <p>创建时间：{{ experiment.create_time }}</p>
+                        <p>过期时间：{{ experiment.expire_time }}</p>
+                        <p>实验时长：{{ experiment.duration }}分钟</p>
+                        <p>状态：{{ experiment.status_str }}</p>
+                        <div class="card-buttons">
+                            <a-button type="info" @click="enterExperiment(experiment.id)">进入实验</a-button>
+                            <a-button type="danger" @click="endExperiment(experiment.id)">结束实验</a-button>
+                            <a-button type="primary" @click="restartExperiment(experiment.id)">重启实验</a-button>
+                        </div>
+                    </a-card-grid>
+                </a-card>
+            </div>
         </section>
 
+
+
+
         <!-- 报价界面 -->
-        <section v-if="sectionIndex==1">
+        <section v-if="sectionIndex == 1">
             <div class="header-wrapper">
-                <p class="title ml-2">二、实验内容-场景模拟</p>
+                <p class="title ml-2">实验内容-场景模拟</p>
             </div>
 
             <p class="secondtitle">第一步：实验背景说明</p>
@@ -26,7 +65,7 @@
                 <strong>
                     第一次填写的报价是作为供给者，根据你心目中的碳排放权的最低单位价格来进行报价出售，若市场定价高于你的报价，将自动视为你愿意出售；
                     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    第二次填写的报价是作为需求者，请根据你心目中的碳排放权的最高单位价格来进行报价购买，若市场定价低于于你的报价，将自动视为你愿意购买。                
+                    第二次填写的报价是作为需求者，请根据你心目中的碳排放权的最高单位价格来进行报价购买，若市场定价低于于你的报价，将自动视为你愿意购买。
                 </strong>
             </p>
 
@@ -35,33 +74,37 @@
                 <p class="mr-5 mb-0" style="margin-left: 50px; font-size:18px">
                     供给方报价
                 </p>
-                <a-input-number size="large"  v-model:value="seller_price" addon-before="报价" addon-after="元"></a-input-number>
+                <a-input-number size="large" v-model:value="seller_price" addon-before="报价"
+                    addon-after="元"></a-input-number>
 
                 <p class="mr-5 mb-0" style="margin-left: 50px; font-size:18px">
                     需求方报价
                 </p>
-                <a-input-number size="large"  v-model:value="buyer_price" addon-before="报价" addon-after="元"></a-input-number>
+                <a-input-number size="large" v-model:value="buyer_price" addon-before="报价" addon-after="元"></a-input-number>
 
-                <a-button style="margin-left: 50px;" type="primary" @click="submitData" shape="round"> <arrow-up-outlined />提交报价</a-button>
+                <a-button style="margin-left: 50px;" type="primary" @click="submitData" shape="round">
+                    <arrow-up-outlined />提交报价</a-button>
             </div>
-            
+
             <p class="content mt-5">
                 在线实验人数为：{{ experimentParticipantCount }}
             </p>
-            
+
         </section>
 
         <!-- 实验结果界面 -->
-        <section v-if="sectionIndex==2">
+        <section v-if="sectionIndex == 2">
             <div class="header-wrapper">
-                <p class="title ml-2">三、实验结果</p>
+                <p class="title ml-2">实验结果</p>
                 <div>
-                    <a-button class="mr-2" type="primary" @click="getData" shape="round"> <bar-chart-outlined />获取数据</a-button>
-                    <a-button class="mr-2" type="primary" @click="drawChart" shape="round"> <area-chart-outlined />绘制图表</a-button>
+                    <a-button class="mr-2" type="primary" @click="getData" shape="round">
+                        <bar-chart-outlined />获取数据</a-button>
+                    <a-button class="mr-2" type="primary" @click="drawChart" shape="round">
+                        <area-chart-outlined />绘制图表</a-button>
                 </div>
             </div>
-            <div class="container" >
-                <div v-if="visibility.dataInfo==false">
+            <div class="container">
+                <div v-if="visibility.dataInfo == false">
                     <h2>还没有数据，点击按钮获取数据吧🤖</h2>
                 </div>
                 <div class="table-container" v-if="visibility.dataInfo">
@@ -87,22 +130,26 @@
         </section>
 
         <!-- 实验报告界面 -->
-        <section v-if="sectionIndex==3">
-            
+        <section v-if="sectionIndex == 3">
+
         </section>
     </div>
-    <div class="bottom-wrapper" >
-        <a-button style="float: left;" size="large" type="link" @click="PgUp" v-if="sectionIndex>0"><arrow-left-outlined /> 上一页</a-button>
-        <a-button style="float: right;" size="large" type="link" @click="PgDn" v-if="sectionIndex<3"> 下一页<arrow-right-outlined /></a-button>
+    <div class="bottom-wrapper">
+        <a-button style="float: left;" size="large" type="link" @click="PgUp"
+            v-if="sectionIndex > 0"><arrow-left-outlined />
+            上一页</a-button>
+        <a-button style="float: right;" size="large" type="link" @click="PgDn" v-if="sectionIndex < 3">
+            下一页<arrow-right-outlined /></a-button>
     </div>
 </template>
 
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 import * as echarts from "echarts";
-import {Space, Table, Tag, message } from "ant-design-vue";
+import { Space, Table, Tag, message } from "ant-design-vue";
 import axios from "axios";
+import { count } from "console";
 
 export default defineComponent({
     name: "CarbonEmission",
@@ -113,12 +160,37 @@ export default defineComponent({
     },
     data() {
         return {
-            sectionIndex: 2,//取值为 0 1 2 3 共4页
+            // 创建实验弹窗
+            showCreateDialog: false, // 控制创建实验弹窗的显示与隐藏
+            form: {
+                name: '', // 实验名称
+                duration: 60, // 实验时长（分钟）
+                expire_time: null // 实验过期时间
+            },
+            datePickerOptions: {
+                disabledDate: (time) => {
+                    return time.getTime() < Date.now(); // 禁止选择过去的日期和时间
+                }
+            },
 
-            visibility:{
+
+
+            // 实验列表卡片样式
+            experimentCardClass: "experiment-card",
+            experimentTitleStyle: {
+                color: "#1890ff"
+            },
+
+            currentExperimentId: null, // 当前实验ID
+
+            sectionIndex: 0,//取值为 0 1 2 3 共4页
+
+            visibility: {
                 dataInfo: false,
                 chart: false,
             },
+
+            experiments: [],    // 实验列表
 
             buyer_price: null, //买方报价
             seller_price: null, //卖方报价
@@ -136,25 +208,25 @@ export default defineComponent({
                     title: "出价",
                     dataIndex: "price",
                     key: "price",
-                    slots: {customRender: "price"},
+                    slots: { customRender: "price" },
                 },
                 {
                     title: "数量",
                     dataIndex: "count",
                     key: "count",
-                    slots: {customRender: "count"},
+                    slots: { customRender: "count" },
                 },
                 {
                     title: "累计数量",
                     dataIndex: "cum_count",
                     key: "cum_count",
-                    slots: {customRender: "cum_count"},
+                    slots: { customRender: "cum_count" },
                 },
                 {
                     title: "累计价格",
                     dataIndex: "cum_price",
                     key: "cum_price",
-                    slots: {customRender: "cum_price"},
+                    slots: { customRender: "cum_price" },
                 },
             ],
             // 4. columns_seller
@@ -163,48 +235,55 @@ export default defineComponent({
                     title: "出价",
                     dataIndex: "price",
                     key: "price",
-                    slots: {customRender: "price"},
+                    slots: { customRender: "price" },
                 },
                 {
                     title: "数量",
                     dataIndex: "count",
                     key: "count",
-                    slots: {customRender: "count"},
+                    slots: { customRender: "count" },
                 },
                 {
                     title: "累计数量",
                     dataIndex: "cum_count",
                     key: "cum_count",
-                    slots: {customRender: "cum_count"},
+                    slots: { customRender: "cum_count" },
                 },
             ],
         }
     },
     methods: {
-        PgUp(){
-            if(this.sectionIndex >0 ){
-                this.sectionIndex=this.sectionIndex-1;
-                console.log(this.sectionIndex);              
+        PgUp() {
+            if (this.sectionIndex > 0) {
+                this.sectionIndex = this.sectionIndex - 1;
+                // console.log(this.sectionIndex);
             }
         },
-        PgDn(){
-            if(this.sectionIndex <3 ){
-                this.sectionIndex=this.sectionIndex+1;
-                console.log(this.sectionIndex);
+        PgDn() {
+            if (this.sectionIndex < 3) {
+                this.sectionIndex = this.sectionIndex + 1;
+                // console.log(this.sectionIndex);
             }
         },
 
-        submitData(){
+        submitData() {
+            // 首先判断当前实验是否结束
+            // 如果结束，提示用户
+            // 如果未结束，提交数据
+            if (this.experiments[this.currentExperimentId - 1].status === 1 || this.experiments[this.currentExperimentId - 1].status_str === "已结束(过期)" || this.experiments[this.currentExperimentId - 1].status_str === "已结束(教师设置)") {
+                message.error('当前实验已结束')
+                return;
+            }
             axios({
                 method: "post",
-                url: "http://127.0.0.1:8000/experiments/1/bids",
-                data:{
-                    student_id: 1,
+                url: `http://127.0.0.1:8000/experiments/${this.currentExperimentId}/bids`,
+                data: {
+                    student_id: 1, // FIXME: 改为真实的学生ID
                     buyer_price: this.buyer_price,
                     seller_price: this.seller_price,
                 }
             }).then((res) => {
-                
+
                 message.success('提交成功')
             }).catch((err) => {
                 console.log(err);
@@ -212,9 +291,9 @@ export default defineComponent({
 
         },
         // 使用 echarts 绘制图表
-        drawChart(){
+        drawChart() {
             this.visibility.chart = true;
-            this.$nextTick(()=>{
+            this.$nextTick(() => {
                 // 如果页面上已经存在实例化的图表，先销毁
                 echarts.dispose(document.getElementById("chart1"));
                 echarts.dispose(document.getElementById("chart2"));
@@ -295,7 +374,7 @@ export default defineComponent({
                             data: this.buyer_info.map((item) => [item.cum_count, item.cum_price]),
                             markPoint: {
                                 data: [
-                                    {type: 'max', name: '最大值'},
+                                    { type: 'max', name: '最大值' },
                                 ]
                             }
                         }
@@ -305,26 +384,41 @@ export default defineComponent({
                 console.log("drawChart end");
             });
         },
-        //  获取数据 GET 127.0.0.1:8000/experiments/1/result
-        getData(){
+        //  获取数据 GET 127.0.0.1:8000/experiments/{experiment_id}/result
+        async getData() {
             // 1. 获取数据
-            axios({
+            return axios({
                 method: "get",
-                url: "http://127.0.0.1:8000/experiments/1/result",
+                url: `http://127.0.0.1:8000/experiments/${this.currentExperimentId}/result`
             }).then((res) => {
                 // 2. 将数据赋值给 buyer_info 和 seller_info
                 this.buyer_info = res.data.buy;
                 this.seller_info = res.data.sell;
                 // console.log(this.buyer_info);
                 // console.log(this.seller_info);
-               this.visibility.dataInfo=true;
+                this.visibility.dataInfo = true;
+
+                // FIXME: 3. 绘制图表
+                // this.drawChart();
+
             }).catch((err) => {
                 console.log(err);
+                if (this.currentExperimentId == null) {
+                    message.error('请先进入实验, 0.5秒后跳转到实验列表界面')
+                    // 提示用户0.5秒后跳转到实验界面
+                    setTimeout(() => {
+                        this.sectionIndex = 0;
+                    }, 500);
+
+
+                } else {
+                    message.error('获取数据失败')
+                }
             })
         },
 
         //获取实验人数
-        getExperimentParticipantCount(){
+        getExperimentParticipantCount() {
             axios({
                 method: "get",
                 url: "http://127.0.0.1:8000/online-count",
@@ -342,29 +436,202 @@ export default defineComponent({
         stopPolling() {
             clearInterval(this.pollingInterval);
         },
+        // 获取实验列表
+        getExperiments() {
+            axios({
+                method: "get",
+                url: "http://127.0.0.1:8000/experiments",
+            }).then((res) => {
+                this.experiments = res.data.experiments;
+                // 前端判断时间是否过期
+                // 如果status为1，表示实验被教师设置为结束，不考虑过期时间
+                // 如果status为0，表示实验未被教师设置为结束，需要判断当前时间是否超过过期时间
+                // 注意: item的expire_time是字符串类型，需要转换为时间戳
+                // 教师设置结束的实验，status_str设置为已结束(教师设置)
+                // 过期的实验，status_str设置为已结束(过期)
+                this.experiments.forEach((item) => {
+                    if (item.status === 0) {
+                        // 未被教师设置为结束
+                        const expireTime = new Date(item.expire_time).getTime();
+                        const now = new Date().getTime();
+                        if (now > expireTime) {
+                            // 过期
+                            item.status_str = "已结束(过期)";
+                        } else {
+                            // 未过期
+                            item.status_str = "进行中";
+                        }
+                    } else {
+                        // 被教师设置为结束
+                        item.status_str = "已结束(教师设置)";
+                    }
+                });
+
+                console.log(this.experiments);
+            }).catch((err) => {
+                console.log(err);
+            })
+
+        },
+
+        // FIXME: 进入实验函数
+        enterExperiment(experimentId) {
+            // 设置当前实验ID
+            // 跳转到实验界面
+            this.currentExperimentId = experimentId;
+            this.sectionIndex = 1;
+        },
+
+        // FIXME: 结束实验函数
+        endExperiment(experimentId) {
+            // 向后端发送请求，结束实验
+            // 把实验状态设置为 1
+            // PATCH experiments/{experiment_id}
+            axios({
+                method: "patch",
+                url: `http://127.0.0.1:8000/experiments/${experimentId}`,
+                data: {
+                    status: 1
+                }
+            }).then((res) => {
+                // 结束实验成功
+                // 重新获取实验列表
+                this.getExperiments();
+                // 提示用户
+                message.success('结束实验成功')
+                // 刷新card
+                this.$forceUpdate();
+            }).catch((err) => {
+                console.log(err);
+            })
+        },
+
+        // FIXME: 重启实验函数
+        restartExperiment(experimentId) {
+            // 向后端发送请求，重启实验
+            // 把实验状态设置为 0
+            // PATCH experiments/{experiment_id}
+            axios({
+                method: "patch",
+                url: `http://127.0.0.1:8000/experiments/${experimentId}`,
+                data: {
+                    status: 0,
+                    // 重启实验时，需要重新设置过期时间
+                    // 默认延长 1 小时
+                    expire_time: new Date(new Date().getTime() + 60 * 60 * 1000),
+                    duration: 60
+                }
+            }).then((res) => {
+                // 重启实验成功
+                // 重新获取实验列表
+                this.getExperiments();
+                // 提示用户
+                message.success('重启实验成功');
+                // 刷新 card
+                this.$forceUpdate();
+            }).catch((err) => {
+                console.log(err);
+            });
+        },
+
+        // FIXME: 创建实验函数
+        createExperiment() {
+            // 执行创建实验的操作，提交表单数据到后端
+            // 可以使用 Axios 或其他方式发送请求
+            // POST experiments
+            axios({
+                method: "post",
+                url: "http://127.0.0.1:8000/experiments",
+                data: this.form
+            }).then((res) => {
+                // 创建实验成功
+                // 重新获取实验列表
+                this.getExperiments();
+                // 提示用户
+                message.success('创建实验成功');
+                // 关闭弹窗
+                this.showCreateDialog = false;
+            }).catch((err) => {
+                console.log(err);
+            })
+            // 示例代码，输出表单数据到控制台
+            console.log(this.form);
+
+            // 提交成功后，关闭弹窗
+            this.showCreateDialog = false;
+        },
+
+
     },
     mounted() {
-        // 1. 获取数据
+        // 1. 获取实验列表
+        if (this.sectionIndex === 0) {
+            this.getExperiments();
+        }
         // this.getData();
         this.startPolling();
     },
-    unmounted(){
+    unmounted() {
         this.stopPolling();
     },
-})
+    watch: {
+        sectionIndex: {
+            async handler(newVal, oldVal) {
+                // 输出所选择的实验id
+                // message.info(`当前实验id为${this.currentExperimentId}`)
+                // console.log('上一个页面索引：', oldVal);
+                // console.log('当前所在页面索引：', newVal);
+                if (newVal === 0) {
+                    // 监视 sectionIndex
+                    // 当 sectionIndex 为 0 时，获取实验列表
+                    this.getExperiments();
+                    // 将当前实验ID置空
+                    this.currentExperimentId = null;
+                } else {
+                    // 其他页面, 检查当前实验ID是否为空
+                    if (this.currentExperimentId == null) {
+                        // 提示用户0.5秒后跳转到实验界面
+                        message.error('请先进入实验, 0.5秒后跳转到实验列表界面')
+                        setTimeout(() => {
+                            this.sectionIndex = 0;
+                        }, 500);
+                    }
+                    else if (newVal === 1) {
+                        // 获取实验人数
+                        this.getExperimentParticipantCount();
+                        message.info(`当前实验id为${this.currentExperimentId}`)
+                        message.info(`当前实验人数为${this.experimentParticipantCount}`)
+                        message.info(`当前实验名称为: ${this.experiments[this.currentExperimentId - 1].name}`)
+                        this.$forceUpdate();
+                    }
+                    // 假设在第三页
+                    else if (newVal === 2) {
+                        // 获取数据
+                        this.getData().then(() => {
+                            // 绘制图表
+                            this.drawChart();
+                        });
+                    }
+                }
+            }
+        }
+    }
+});
 
 </script>
 
 
 
 <style scoped>
-.main{
+.main {
     min-height: 500px;
     position: relative;
 }
-section{
+
+section {
     position: relative;
 }
+
 .container {
     margin: 0 auto;
     padding: 24px;
@@ -395,27 +662,31 @@ section{
 .chart-wrapper {
     width: 50%;
 }
+
 .title {
     text-align: center;
     font-family: sans-serif;
     font-size: 30px;
     margin-bottom: 0px;
 }
+
 .secondtitle {
     text-indent: 2em;
     font-weight: bold;
     font-size: 20px;
 }
-.chart{
+
+.chart {
     width: 100%;
     height: 500px;
 }
 
-.bottom-wrapper{
+.bottom-wrapper {
     margin: 16px;
-    left:0;
+    left: 0;
     width: 97%;
 }
+
 .content {
     text-indent: 2em;
     margin-left: 20px;
@@ -423,4 +694,16 @@ section{
     font-size: 16px;
 }
 
+.experiment-card {
+    /* border: 1px solid #1890ff; */
+    /* border-radius: 5px; */
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.card-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
 </style>
