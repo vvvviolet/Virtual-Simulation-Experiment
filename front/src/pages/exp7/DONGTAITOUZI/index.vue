@@ -468,18 +468,7 @@
               <a-row>   
                 <a-col :span="24">
                   <h1 id="five">五、实验结果</h1>
-                  <p>
-                    本实验旨在通过动态投资回收期的计算方法，评估软件开发项目的投资回收期，并分析项目的经济效益和风险。
-                  </p>  
-                  <template>
-                  <a-table :columns="columns" :data-source="data" :scroll="{ x: 1500, y: 300 }">
-                    <template #bodyCell="{ column }">
-                      <template v-if="column.key === 'operation'">
-                        <a>action</a>
-                      </template>
-                    </template>
-                  </a-table>
-                </template>
+                  <a-textarea v-model:value="thoughts" placeholder="请输入..." :rows="4" />
                 </a-col>
               </a-row>
               <a-divider></a-divider>
@@ -529,21 +518,21 @@ import { Document } from '@element-plus/icons-vue'
 import { defineComponent } from 'vue'
 
 export default {
-    name: 'DONGTAITOUZI',
+  name: 'DONGTAITOUZI',
   setup() {
-        const year = ref<number>(3);
-        const dpp = ref<number>(3);
-        const thoughts = ref<string>('');
+    const year = ref<number>(3);
+    const dpp = ref<number>(3);
+    const thoughts = ref<string>('');
 
-        const onChange = (link: string) => {
-          console.log('Anchor:OnChange', link);
-        };
-        return {
-          year,
-          dpp,
-          thoughts,
-          onChange,
-        };
+    const onChange = (link: string) => {
+      console.log('Anchor:OnChange', link);
+    };
+    return {
+      year,
+      dpp,
+      thoughts,
+      onChange,
+    };
   },
   data() {
     return {
@@ -676,34 +665,34 @@ export default {
   },
   computed: {
     dpp() {
-      var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
-      let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
-      var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
-      var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
-      var pre_accumulated_net_cash_flow4 = this.present_value_factor4 * (this.cash_flow4 - this.cash_outflow4);
-      var pre_accumulated_net_cash_flow5 = this.present_value_factor5 * (this.cash_flow5 - this.cash_outflow5);
+      var pre_accumulated_net_cash_flow0 = this.present_net_cash_flow0;
+      var pre_accumulated_net_cash_flow1 = this.present_net_cash_flow1 + pre_accumulated_net_cash_flow0;
+      var pre_accumulated_net_cash_flow2 = this.present_net_cash_flow2 + pre_accumulated_net_cash_flow1;
+      var pre_accumulated_net_cash_flow3 = this.present_net_cash_flow3 + pre_accumulated_net_cash_flow2;
+      var pre_accumulated_net_cash_flow4 = this.present_net_cash_flow4 + pre_accumulated_net_cash_flow3;
+      var pre_accumulated_net_cash_flow5 = this.present_net_cash_flow5 + pre_accumulated_net_cash_flow4;
       if (pre_accumulated_net_cash_flow0 >= 0) {
         return 0;
       } else if (pre_accumulated_net_cash_flow1 >= 0) {
         return 1 + Math.abs(pre_accumulated_net_cash_flow0 / pre_accumulated_net_cash_flow1);
       } else if (pre_accumulated_net_cash_flow2 >= 0) {
-        return 2+ Math.abs(pre_accumulated_net_cash_flow1 / pre_accumulated_net_cash_flow2);
+        return 2 + Math.abs(pre_accumulated_net_cash_flow1 / pre_accumulated_net_cash_flow2);
       } else if (pre_accumulated_net_cash_flow3 >= 0) {
-        return 3+ Math.abs(pre_accumulated_net_cash_flow2 / pre_accumulated_net_cash_flow3);
+        return 3 + Math.abs(pre_accumulated_net_cash_flow2 / pre_accumulated_net_cash_flow3);
       } else if (pre_accumulated_net_cash_flow4 >= 0) {
-        return 4+ Math.abs(pre_accumulated_net_cash_flow3 / pre_accumulated_net_cash_flow4);
+        return 4 + Math.abs(pre_accumulated_net_cash_flow3 / pre_accumulated_net_cash_flow4);
       } else if (pre_accumulated_net_cash_flow5 >= 0) {
-        return 5+ Math.abs(pre_accumulated_net_cash_flow4 / pre_accumulated_net_cash_flow5);
+        return 5 + Math.abs(pre_accumulated_net_cash_flow4 / pre_accumulated_net_cash_flow5);
       }
       return 0;
     },
     year() {
-      var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
-      let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
-      var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
-      var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
-      var pre_accumulated_net_cash_flow4 = this.present_value_factor4 * (this.cash_flow4 - this.cash_outflow4);
-      var pre_accumulated_net_cash_flow5 = this.present_value_factor5 * (this.cash_flow5 - this.cash_outflow5);
+      var pre_accumulated_net_cash_flow0 = this.present_net_cash_flow0;
+      var pre_accumulated_net_cash_flow1 = this.present_net_cash_flow1 + pre_accumulated_net_cash_flow0;
+      var pre_accumulated_net_cash_flow2 = this.present_net_cash_flow2 + pre_accumulated_net_cash_flow1;
+      var pre_accumulated_net_cash_flow3 = this.present_net_cash_flow3 + pre_accumulated_net_cash_flow2;
+      var pre_accumulated_net_cash_flow4 = this.present_net_cash_flow4 + pre_accumulated_net_cash_flow3;
+      var pre_accumulated_net_cash_flow5 = this.present_net_cash_flow5 + pre_accumulated_net_cash_flow4;
       if (pre_accumulated_net_cash_flow0 >= 0) {
         return 1;
       } else if (pre_accumulated_net_cash_flow1 >= 0) {
@@ -720,7 +709,7 @@ export default {
       return 1;
     },
     net_cash_flow0() {
-      return this.cash_flow0-this.cash_outflow0;
+      return this.cash_flow0 - this.cash_outflow0;
     },
     net_cash_flow1() {
       return this.cash_flow1 - this.cash_outflow1;
@@ -756,7 +745,7 @@ export default {
       let accumulated_net_cash_flow1 = this.cash_flow1 - this.cash_outflow1;
       let accumulated_net_cash_flow2 = this.cash_flow2 - this.cash_outflow2;
       let accumulated_net_cash_flow3 = this.cash_flow3 - this.cash_outflow3;
-      return accumulated_net_cash_flow0 + accumulated_net_cash_flow1 + accumulated_net_cash_flow2+accumulated_net_cash_flow3;
+      return accumulated_net_cash_flow0 + accumulated_net_cash_flow1 + accumulated_net_cash_flow2 + accumulated_net_cash_flow3;
     },
     accumulated_net_cash_flow4() {
       let accumulated_net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
@@ -764,7 +753,7 @@ export default {
       let accumulated_net_cash_flow2 = this.cash_flow2 - this.cash_outflow2;
       let accumulated_net_cash_flow3 = this.cash_flow3 - this.cash_outflow3;
       let accumulated_net_cash_flow4 = this.cash_flow4 - this.cash_outflow4;
-      return accumulated_net_cash_flow0 + accumulated_net_cash_flow1 + accumulated_net_cash_flow2 + accumulated_net_cash_flow3+accumulated_net_cash_flow4;
+      return accumulated_net_cash_flow0 + accumulated_net_cash_flow1 + accumulated_net_cash_flow2 + accumulated_net_cash_flow3 + accumulated_net_cash_flow4;
     },
     accumulated_net_cash_flow5() {
       let accumulated_net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
@@ -827,7 +816,7 @@ export default {
       var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
       var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
       var pre_accumulated_net_cash_flow4 = this.present_value_factor4 * (this.cash_flow4 - this.cash_outflow4);
-      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3+pre_accumulated_net_cash_flow4;
+      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3 + pre_accumulated_net_cash_flow4;
     },
     pre_accumulated_net_cash_flow5() {
       var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
@@ -836,7 +825,7 @@ export default {
       var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
       var pre_accumulated_net_cash_flow4 = this.present_value_factor4 * (this.cash_flow4 - this.cash_outflow4);
       var pre_accumulated_net_cash_flow5 = this.present_value_factor5 * (this.cash_flow5 - this.cash_outflow5);
-      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3 + pre_accumulated_net_cash_flow4+pre_accumulated_net_cash_flow5;
+      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3 + pre_accumulated_net_cash_flow4 + pre_accumulated_net_cash_flow5;
     },
   },
 };
