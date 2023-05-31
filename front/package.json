@@ -31,6 +31,7 @@
     "element-ui": "^2.15.13",
     "enquire.js": "^2.1.6",
     "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.1",
     "increase-memory-limit": "^1.0.7",
     "js-cookie": "^2.2.1",
     "jspdf": "^2.5.1",

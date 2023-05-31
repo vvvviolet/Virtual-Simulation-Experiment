@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="main" ref="main">
         <!-- 进入实验界面 -->
         <section v-if="sectionIndex === 0">
             <div class="header-wrapper">
@@ -186,9 +186,8 @@
                     <a-textarea v-model="experimentFeedback" :auto-size="{ minRows: 3 }" class="feedback-input"
                         placeholder="请输入实验心得，暂未支持 Markdown"></a-textarea>
                 </div>
-
-                <a-button type="primary" @click="exportAsPDF" shape="round" class="pdf-download-btn">下载本页为PDF</a-button>
             </div>
+            <a-button type="primary" @click="exportAsPDF" shape="round" class="pdf-download-btn">下载本页为PDF</a-button>
         </section>
 
     </div>
@@ -210,6 +209,7 @@ import { count } from "console";
 // 引入jsPDF
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import html2pdf from "html2pdf.js";
 
 export default defineComponent({
     name: "CarbonEmission",
@@ -319,21 +319,25 @@ export default defineComponent({
     methods: {
         // TODO: 导出实验报告为 PDF
         exportAsPDF() {
-            const pdf = new jsPDF();
-            // 1. 添加标题
-            pdf.setFontSize(30);
-            pdf.text("实验报告", 105, 20, { align: "center" });
-            // 2. 动态获取当前页面div class = main的内容
-            const main = document.querySelector(".main");
-            // 3. 将内容转换为图片
-            html2canvas(main).then((canvas) => {
-                // 4. 将图片转换为base64格式
-                const imgData = canvas.toDataURL("image/jpeg", 1.0);
-                // 5. 将base64格式的图片添加到pdf中
-                pdf.addImage(imgData, "JPEG", 0, 30, 210, 297);
-                // 6. 下载pdf
-                pdf.save("实验报告.pdf");
-            });
+            // 获取实验报告的 HTML 元素
+            const report = document.querySelector(".report-wrapper");
+
+            // 获取main的宽度
+            const width = this.$refs.main.clientWidth;
+
+            // 设置导出选项
+            const options = {
+                margin: [10, 10], // PDF页面的边距
+                filename: '实验报告.pdf', // 导出的PDF文件名
+                image: { type: 'png', quality: 1 }, // 图片格式和质量
+                html2canvas: { scale: 2 }, // html2canvas选项，可以调整缩放比例
+                jsPDF: { format: 'a3', orientation: 'portrait' } // jsPDF选项，设置纸张格式和方向
+            };
+            // 输出日志
+            console.log(report);    
+            // 使用html2pdf库将HTML转换为PDF
+            html2pdf().set(options).from(report).save();
+
         },
         PgUp() {
             if (this.sectionIndex > 0) {
@@ -824,9 +828,4 @@ section {
     margin-top: 8px;
 }
 
-.pdf-download-btn {
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
-}
 </style>
