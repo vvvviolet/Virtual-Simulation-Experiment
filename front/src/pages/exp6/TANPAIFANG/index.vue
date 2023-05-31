@@ -36,7 +36,7 @@
                         <div class="card-buttons" style="display: flex; justify-content: center;">
 
                             <a-tooltip placement="topLeft" title="进入实验">
-                                <a-button class="card-button" type="primary" @click="enterExperiment(experiment.id)">
+                                <a-button class="card-button" type="primary" @click="enterExperiment(experiment)">
                                     <login-outlined />
                                 </a-button>
                             </a-tooltip>
@@ -78,21 +78,21 @@
                 <!-- 使用Descriptions组件展示实验信息 -->
                 <a-descriptions :bordered="true" :column="3">
                     <a-descriptions-item label="当前实验名称">
-                        {{ experiments[currentExperimentId - 1].name }}
+                        {{ currentExperiment.name }}
                     </a-descriptions-item>
                     <a-descriptions-item label="实验时长">
-                        {{ experiments[currentExperimentId - 1].duration }}分钟
+                        {{ currentExperiment.duration }}分钟
                     </a-descriptions-item>
                     <a-descriptions-item label="实验过期时间">
                         <!-- 需要处理一下格式 -->
                         <!-- 后端传来的格式是2023-05-31T11:02:48.824000 -->
                         <!-- 替换T为空格，取前19位 -->
                         <a-statistic
-                            :value="experiments[currentExperimentId - 1].expire_time.replace('T', ' ').substring(0, 19)"
+                            :value="currentExperiment.expire_time.replace('T', ' ').substring(0, 19)"
                             :precision="0"></a-statistic>
                     </a-descriptions-item>
                     <a-descriptions-item label="实验状态">
-                        {{ experiments[currentExperimentId - 1].status_str }}
+                        {{ currentExperiment.status_str }}
                     </a-descriptions-item>
                     <a-descriptions-item label="当前实验人数">
                         {{ experimentParticipantCount }}
@@ -236,6 +236,19 @@
                 <p><strong>步骤十：</strong>教师依据实验所得到的交易价格，计算供给者可能所获得的最大利润(最大利润等于交易价格乘以该价格对应的交易量)。同时，教师可以启发学生讨论，若供给或需求发生变化时，交易价格可能发生变动的趋势。
                 </p>
 
+                <div class="chart-container">
+                    <!-- 在这里引用上一页生成的图表 -->
+                    <div class="chart-wrapper">
+                        <div id="chart1" class="chart"></div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <div id="chart2" class="chart"></div>
+                    </div>
+                </div>
+
+                <!-- 加入回车 -->
+                <a-divider></a-divider>
+
                 <h2>实验内容</h2>
                 <div style="display: flex;align-items:center">
                     <p class="mr-5 mb-0" style="margin-left: 10px; font-size:18px">
@@ -255,16 +268,6 @@
                 <div style="display: flex;align-items:center">
                     <p class="mr-5 mb-0" style="margin-left: 10px; font-size:18px">（目测）供给平衡价格：</p>
                     <a-input-number size="large" v-model:value="balance_price" addon-after="元"></a-input-number>
-                </div>
-
-                <div class="chart-container">
-                    <!-- 在这里引用上一页生成的图表 -->
-                    <div class="chart-wrapper">
-                        <div id="chart1" class="chart"></div>
-                    </div>
-                    <div class="chart-wrapper">
-                        <div id="chart2" class="chart"></div>
-                    </div>
                 </div>
 
                 <h2>实验心得</h2>
@@ -447,7 +450,7 @@ export default defineComponent({
                 color: "#1890ff"
             },
 
-            currentExperimentId: null, // 当前实验ID
+            currentExperiment: null, // 当前实验
 
             sectionIndex: 0,//取值为 0 1 2 3 共4页
 
@@ -563,13 +566,13 @@ export default defineComponent({
             // 首先判断当前实验是否结束
             // 如果结束，提示用户
             // 如果未结束，提交数据
-            if (this.experiments[this.currentExperimentId - 1].status === 1 || this.experiments[this.currentExperimentId - 1].status_str === "已结束(过期)" || this.experiments[this.currentExperimentId - 1].status_str === "已结束(教师设置)") {
+            if (this.currentExperiment.status === 1 || this.currentExperiment.status_str === "已结束(过期)" || this.currentExperiment.status_str === "已结束(教师设置)") {
                 message.error('当前实验已结束')
                 return;
             }
             axios({
                 method: "post",
-                url: `http://127.0.0.1:8000/experiments/${this.currentExperimentId}/bids`,
+                url: `http://127.0.0.1:8000/experiments/${this.currentExperiment.id}/bids`,
                 data: {
                     student_id: 1, // FIXME: 改为真实的学生ID
                     buyer_price: this.buyer_price,
@@ -682,7 +685,7 @@ export default defineComponent({
             // 1. 获取数据
             return axios({
                 method: "get",
-                url: `http://127.0.0.1:8000/experiments/${this.currentExperimentId}/result`
+                url: `http://127.0.0.1:8000/experiments/${this.currentExperiment.id}/result`
             }).then((res) => {
                 // 2. 将数据赋值给 buyer_info 和 seller_info
                 this.buyer_info = res.data.buy;
@@ -696,7 +699,7 @@ export default defineComponent({
 
             }).catch((err) => {
                 console.log(err);
-                if (this.currentExperimentId == null) {
+                if (this.currentExperiment.id == null) {
                     message.error('请先进入实验, 0.5秒后跳转到实验列表界面')
                     // 提示用户0.5秒后跳转到实验界面
                     setTimeout(() => {
@@ -768,10 +771,11 @@ export default defineComponent({
         },
 
         // FIXME: 进入实验函数
-        enterExperiment(experimentId) {
+        enterExperiment(experiment) {
             // 设置当前实验ID
             // 跳转到实验界面
-            this.currentExperimentId = experimentId;
+            this.currentExperiment = experiment;
+            console.log('当前实验', this.currentExperiment);
             this.sectionIndex = 1;
         },
 
@@ -788,6 +792,10 @@ export default defineComponent({
                 this.getExperiments();
                 // 关闭弹窗
                 this.showDeleteDialog = false;
+                // 设置当前实验为空
+                this.currentExperiment = null;
+                // 刷新 card
+                this.$forceUpdate();
                 // 提示用户
                 message.success('删除实验成功')
             }).catch((err) => {
@@ -903,18 +911,17 @@ export default defineComponent({
         sectionIndex: {
             async handler(newVal, oldVal) {
                 // 输出所选择的实验id
-                // message.info(`当前实验id为${this.currentExperimentId}`)
+                // message.info(`当前实验id为${this.currentExperiment.id}`)
                 // console.log('上一个页面索引：', oldVal);
                 // console.log('当前所在页面索引：', newVal);
                 if (newVal === 0) {
                     // 监视 sectionIndex
                     // 当 sectionIndex 为 0 时，获取实验列表
                     this.getExperiments();
-                    // 将当前实验ID置空
-                    this.currentExperimentId = null;
+                    this.currentExperiment = null;
                 } else {
                     // 其他页面, 检查当前实验ID是否为空
-                    if (this.currentExperimentId == null) {
+                    if (this.currentExperiment.id == null) {
                         // 提示用户0.5秒后跳转到实验界面
                         message.error('请先进入实验, 0.5秒后跳转到实验列表界面')
                         setTimeout(() => {
@@ -924,9 +931,9 @@ export default defineComponent({
                     else if (newVal === 1) {
                         // 获取实验人数
                         this.getExperimentParticipantCount();
-                        message.info(`当前实验id为${this.currentExperimentId}`)
+                        message.info(`当前实验id为${this.currentExperiment.id}`)
                         message.info(`当前实验人数为${this.experimentParticipantCount}`)
-                        message.info(`当前实验名称为: ${this.experiments[this.currentExperimentId - 1].name}`)
+                        message.info(`当前实验名称为: ${this.currentExperiment.name}`)
                         this.$forceUpdate();
                     }
                     // 假设在第三页
