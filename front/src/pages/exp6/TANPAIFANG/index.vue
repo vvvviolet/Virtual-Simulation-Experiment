@@ -32,11 +32,38 @@
                         <p>过期时间：{{ experiment.expire_time }}</p>
                         <p>实验时长：{{ experiment.duration }}分钟</p>
                         <p>状态：{{ experiment.status_str }}</p>
+                        <!-- 在section 0中的四个按钮 -->
                         <div class="card-buttons" style="display: flex; justify-content: center;">
-                            <a-button type="info" @click="enterExperiment(experiment.id)">进入实验</a-button>
-                            <a-button type="danger" @click="endExperiment(experiment.id)">结束实验</a-button>
-                            <a-button type="primary" @click="restartExperiment(experiment.id)">重启实验</a-button>
+
+                            <a-tooltip placement="topLeft" title="进入实验">
+                                <a-button class="card-button" type="primary" @click="enterExperiment(experiment.id)">
+                                    <login-outlined />
+                                </a-button>
+                            </a-tooltip>
+                            <a-tooltip placement="topLeft" title="结束实验">
+                                <a-button class="card-button" type="info" @click="endExperiment(experiment.id)">
+                                    <close-circle-outlined />
+                                </a-button>
+                            </a-tooltip>
+
+
+                            <a-tooltip placement="topLeft" title="重启实验">
+                                <a-button class="card-button" type="info" @click="restartExperiment(experiment.id)">
+                                    <ReloadOutlined />
+                                </a-button>
+                            </a-tooltip>
+                            <a-tooltip placement="topLeft" title="删除实验">
+                                <a-button class="card-button" type="danger" @click="showDeleteConfirm(experiment.id)">
+                                    <delete-outlined />
+                                </a-button>
+                            </a-tooltip>
+                            <!-- 删除确认的弹窗 -->
+                            <a-modal v-model:visible="showDeleteDialog" title="确认删除"
+                                @ok="deleteExperiment(experimentToDeleteId)">
+                                <p>确定要删除此实验吗？</p>
+                            </a-modal>
                         </div>
+
                     </a-card-grid>
                 </a-card>
             </div>
@@ -180,13 +207,13 @@
                     需求者真实表露各自支付意愿的激励很少，被调查的需求者也许会意识到，他们
                     所提供的信息将被供给方用于制订针对需求者的产品售价，于是需求者会有意将
                     所报购买价格压到低于其真实支付意愿的价格，导致市场交易价格信息失真。
-                </p> 
+                </p>
                 <p>
                     (4) 采用拍卖方式，需求者以出高价才能购买到交易产品。当然需求者也并
                     不会不惜一切代价地提高报价，而是会在不超过需求者的最大支付意愿前提下，
                     报出有可能使得供给者获知需求者真实购买意愿的价格
                 </p>
-                
+
 
                 <h2>二、实验目的</h2>
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -200,33 +227,36 @@
                 <p><strong>步骤二：</strong>教师讲解维克里拍卖法原理，告诉参与本实验的学生(即市场供给者和需求者)可以按照本人对于此图书的真实需求报价。教师还需说明参与实验学生不得串通报价信息。</p>
                 <p><strong>步骤三：</strong>学生们根据自己本人对此书的偏好，填写拍卖报价单，可以采用纸质报价单(或者网上填写报价信息)。所有报价信息填写完毕，需要密封后交给教师(或网上上传服务器)。</p>
                 <p><strong>步骤四：</strong>教师邀请参与实验的学生代表，整理报价单，验票后公开唱票。</p>
-                <p><strong>步骤五：</strong>在学生代表唱票时，教师需要公开地将唱票报价信息，一笔一笔地实时录入数据处理表格。在唱票过程中，如发现极端报价(数字)，例如：0元或者1000元(及以上)，则该报价单作为无效报价，报价信息不作为有效信息参与本次实验。</p>
+                <p><strong>步骤五：</strong>在学生代表唱票时，教师需要公开地将唱票报价信息，一笔一笔地实时录入数据处理表格。在唱票过程中，如发现极端报价(数字)，例如：0元或者1000元(及以上)，则该报价单作为无效报价，报价信息不作为有效信息参与本次实验。
+                </p>
                 <p><strong>步骤六：</strong>在全部报价单唱票结束后，教师将这些数据整理成为供给方和需求方的交易信息。</p>
                 <p><strong>步骤七：</strong>教师需要向参与实验的学生解释如何将实验数据整理成为拍卖交易信息的操作过程。采用Excel列表展示信息。</p>
                 <p><strong>步骤八：</strong>依据经过本次实验所获得的拍卖信息，采用Excel工具，绘制出本次拍卖交易的供给曲线或者需求曲线。</p>
                 <p><strong>步骤九：</strong>找出本次实验所得的供给曲线和需求曲线的交点，该点所对应的价格就是参与实验的供给方和需求方，在市场均衡状态时的交易价格。</p>
-                <p><strong>步骤十：</strong>教师依据实验所得到的交易价格，计算供给者可能所获得的最大利润(最大利润等于交易价格乘以该价格对应的交易量)。同时，教师可以启发学生讨论，若供给或需求发生变化时，交易价格可能发生变动的趋势。</p>
+                <p><strong>步骤十：</strong>教师依据实验所得到的交易价格，计算供给者可能所获得的最大利润(最大利润等于交易价格乘以该价格对应的交易量)。同时，教师可以启发学生讨论，若供给或需求发生变化时，交易价格可能发生变动的趋势。
+                </p>
 
                 <h2>实验内容</h2>
                 <div style="display: flex;align-items:center">
                     <p class="mr-5 mb-0" style="margin-left: 10px; font-size:18px">
                         供给方报价
                     </p>
-                    <a-input-number disabled  size="large" v-model:value="seller_price" addon-before="报价"
+                    <a-input-number disabled size="large" v-model:value="seller_price" addon-before="报价"
                         addon-after="元"></a-input-number>
-    
+
                     <p class="mr-5 mb-0" style="margin-left: 10px; font-size:18px">
                         需求方报价
                     </p>
-                    <a-input-number disabled  size="large" v-model:value="buyer_price" addon-before="报价" addon-after="元"></a-input-number>
+                    <a-input-number disabled size="large" v-model:value="buyer_price" addon-before="报价"
+                        addon-after="元"></a-input-number>
                 </div>
 
                 <h2>实验结果</h2>
                 <div style="display: flex;align-items:center">
                     <p class="mr-5 mb-0" style="margin-left: 10px; font-size:18px">（目测）供给平衡价格：</p>
-                    <a-input-number   size="large" v-model:value="balance_price"  addon-after="元"></a-input-number>
+                    <a-input-number size="large" v-model:value="balance_price" addon-after="元"></a-input-number>
                 </div>
-                
+
                 <div class="chart-container">
                     <!-- 在这里引用上一页生成的图表 -->
                     <div class="chart-wrapper">
@@ -256,6 +286,113 @@
     </div>
 </template>
 
+
+
+<style scoped>
+.main {
+    min-height: 500px;
+    position: relative;
+}
+
+section {
+    position: relative;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.table-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.table-wrapper {
+    width: 48%;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.chart-wrapper {
+    width: 50%;
+}
+
+.title {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 30px;
+    margin-bottom: 0px;
+}
+
+.secondtitle {
+    text-indent: 2em;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.chart {
+    width: 100%;
+    height: 500px;
+}
+
+.bottom-wrapper {
+    margin: 16px;
+    left: 0;
+    width: 97%;
+}
+
+.content {
+    text-indent: 2em;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 16px;
+}
+
+.experiment-card {
+    /* border: 1px solid #1890ff; */
+    /* border-radius: 5px; */
+    margin: 0 auto;
+    overflow: auto;
+}
+
+.card-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.card-button {
+    margin-left: 10px;
+}
+
+/* 在屏幕很小的时候，调整按钮的排布为纵向 */
+@media screen and (max-width: 960px) {
+    .card-buttons {
+        flex-direction: column;
+    }
+}
+
+.feedback-wrapper {
+    margin-bottom: 16px;
+}
+
+.feedback-input {
+    margin-top: 8px;
+}
+</style>
+
 <script lang="ts">
 import { defineComponent } from "vue";
 import * as echarts from "echarts";
@@ -266,6 +403,7 @@ import { count } from "console";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import html2pdf from "html2pdf.js";
+import { ReloadOutlined } from "@ant-design/icons-vue";
 
 export default defineComponent({
     name: "CarbonEmission",
@@ -273,6 +411,7 @@ export default defineComponent({
         aTable: Table,
         aTag: Tag,
         aSpace: Space,
+        ReloadOutlined
     },
     data() {
         return {
@@ -290,6 +429,11 @@ export default defineComponent({
                     return time.getTime() < Date.now(); // 禁止选择过去的日期和时间
                 }
             },
+
+            // 删除实验弹窗 
+            showDeleteDialog: false,
+            // 删除实验的ID
+            experimentToDeleteId: null,
 
             // 当前时间
             currentTime: '',
@@ -375,6 +519,11 @@ export default defineComponent({
         }
     },
     methods: {
+        showDeleteConfirm(experimentId) {
+            this.experimentToDeleteId = experimentId;
+            this.showDeleteDialog = true;
+        },
+
         // TODO: 导出实验报告为 PDF
         exportAsPDF() {
             // 获取实验报告的 HTML 元素
@@ -392,7 +541,7 @@ export default defineComponent({
                 jsPDF: { format: 'a3', orientation: 'portrait' } // jsPDF选项，设置纸张格式和方向
             };
             // 输出日志
-            console.log(report);    
+            console.log(report);
             // 使用html2pdf库将HTML转换为PDF
             html2pdf().set(options).from(report).save();
 
@@ -626,6 +775,26 @@ export default defineComponent({
             this.sectionIndex = 1;
         },
 
+        // TODO 删除实验
+        deleteExperiment(experimentId) {
+            // 向后端发送请求，删除实验
+            // DELETE experiments/{experiment_id}
+            axios({
+                method: "delete",
+                url: `http://127.0.0.1:8000/experiments/${experimentId}`,
+            }).then((res) => {
+                // 删除实验成功
+                // 重新获取实验列表
+                this.getExperiments();
+                // 关闭弹窗
+                this.showDeleteDialog = false;
+                // 提示用户
+                message.success('删除实验成功')
+            }).catch((err) => {
+                console.log(err);
+            })
+        },
+
         // FIXME: 结束实验函数
         endExperiment(experimentId) {
             // 向后端发送请求，结束实验
@@ -784,106 +953,3 @@ export default defineComponent({
 
 </script>
 
-
-
-<style scoped>
-.main {
-    min-height: 500px;
-    position: relative;
-}
-
-section {
-    position: relative;
-}
-
-.container {
-    margin: 0 auto;
-    padding: 24px;
-}
-
-.header-wrapper {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px;
-}
-
-.table-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 24px;
-}
-
-.table-wrapper {
-    width: 48%;
-}
-
-.chart-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 24px;
-}
-
-.chart-wrapper {
-    width: 50%;
-}
-
-.title {
-    text-align: center;
-    font-family: sans-serif;
-    font-size: 30px;
-    margin-bottom: 0px;
-}
-
-.secondtitle {
-    text-indent: 2em;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.chart {
-    width: 100%;
-    height: 500px;
-}
-
-.bottom-wrapper {
-    margin: 16px;
-    left: 0;
-    width: 97%;
-}
-
-.content {
-    text-indent: 2em;
-    margin-left: 20px;
-    margin-right: 20px;
-    font-size: 16px;
-}
-
-.experiment-card {
-    /* border: 1px solid #1890ff; */
-    /* border-radius: 5px; */
-    margin: 0 auto;
-    overflow: auto;
-}
-
-.card-buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-}
-
-/* 在屏幕很小的时候，调整按钮的排布为纵向 */
-@media screen and (max-width: 960px) {
-    .card-buttons {
-        flex-direction: column;
-    }
-}
-
-.feedback-wrapper {
-    margin-bottom: 16px;
-}
-
-.feedback-input {
-    margin-top: 8px;
-}
-
-</style>

@@ -385,6 +385,27 @@ def create_experiment(experiment_input: ExperimentCreate):
     return {'message': 'Experiment created successfully'}
 
 
+# 删除实验 同时删除实验报价
+@app.delete('/experiments/{experiment_id}', status_code=200)
+def delete_experiment(experiment_id: int):
+    # 获取指定id的实验
+    session = Session()
+    experiment = session.query(Experiment).filter(Experiment.id == experiment_id).first()
+    # 判断实验是否存在
+    if experiment is None:
+        session.close()
+        raise HTTPException(status_code=404, detail='Experiment not found!')
+
+    # 删除实验的出价
+    session.query(Bid).filter(Bid.experiment_id == experiment_id).delete()
+    # 删除实验
+    session.delete(experiment)
+    session.commit()
+    session.close()
+
+    # 返回一个响应
+    return {'message': 'Experiment deleted successfully'}
+
 # 定义custom_openapi
 def custom_openapi():
     if app.openapi_schema:
