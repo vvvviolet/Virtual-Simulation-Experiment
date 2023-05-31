@@ -25,13 +25,14 @@
             </div>
             <div class="experiment-list">
                 <a-card title="实验列表">
-                    <a-card-grid style="width: 25%;" v-for="experiment in experiments" :key="experiment.id" :class="experimentCardClass" hoverable>
+                    <a-card-grid style="width: 33%;" v-for="experiment in experiments" :key="experiment.id"
+                        :class="experimentCardClass" hoverable>
                         <h3 :style="experimentTitleStyle">{{ experiment.name }}</h3>
                         <p>创建时间：{{ experiment.create_time }}</p>
                         <p>过期时间：{{ experiment.expire_time }}</p>
                         <p>实验时长：{{ experiment.duration }}分钟</p>
                         <p>状态：{{ experiment.status_str }}</p>
-                        <div class="card-buttons">
+                        <div class="card-buttons" style="display: flex; justify-content: center;">
                             <a-button type="info" @click="enterExperiment(experiment.id)">进入实验</a-button>
                             <a-button type="danger" @click="endExperiment(experiment.id)">结束实验</a-button>
                             <a-button type="primary" @click="restartExperiment(experiment.id)">重启实验</a-button>
@@ -46,6 +47,34 @@
 
         <!-- 报价界面 -->
         <section v-if="sectionIndex == 1">
+            <div class="experimentInfo">
+                <!-- 使用Descriptions组件展示实验信息 -->
+                <a-descriptions :bordered="true" :column="3">
+                    <a-descriptions-item label="当前实验名称">
+                        {{ experiments[currentExperimentId - 1].name }}
+                    </a-descriptions-item>
+                    <a-descriptions-item label="实验时长">
+                        {{ experiments[currentExperimentId - 1].duration }}分钟
+                    </a-descriptions-item>
+                    <a-descriptions-item label="实验过期时间">
+                        <!-- 需要处理一下格式 -->
+                        <!-- 后端传来的格式是2023-05-31T11:02:48.824000 -->
+                        <!-- 替换T为空格，取前19位 -->
+                        <a-statistic
+                            :value="experiments[currentExperimentId - 1].expire_time.replace('T', ' ').substring(0, 19)"
+                            :precision="0"></a-statistic>
+                    </a-descriptions-item>
+                    <a-descriptions-item label="实验状态">
+                        {{ experiments[currentExperimentId - 1].status_str }}
+                    </a-descriptions-item>
+                    <a-descriptions-item label="当前实验人数">
+                        {{ experimentParticipantCount }}
+                    </a-descriptions-item>
+                    <a-descriptions-item label="当前时间">
+                        <a-statistic :value="currentTime" :precision="0"></a-statistic>
+                    </a-descriptions-item>
+                </a-descriptions>
+            </div>
             <div class="header-wrapper">
                 <p class="title ml-2">实验内容-场景模拟</p>
             </div>
@@ -85,10 +114,6 @@
                 <a-button style="margin-left: 50px;" type="primary" @click="submitData" shape="round">
                     <arrow-up-outlined />提交报价</a-button>
             </div>
-
-            <p class="content mt-5">
-                在线实验人数为：{{ experimentParticipantCount }}
-            </p>
 
         </section>
 
@@ -131,8 +156,41 @@
 
         <!-- 实验报告界面 -->
         <section v-if="sectionIndex == 3">
+            <!-- TODO: 在canvas上填入以下的内容 -->
+            <div class="report-wrapper">
+                <h2>实验原理</h2>
+                <p>在这里填写实验原理的内容</p>
 
+                <h2>实验目的</h2>
+                <p>在这里填写实验目的的内容</p>
+
+                <h2>实验步骤</h2>
+                <p>在这里填写实验步骤的内容</p>
+
+                <h2>实验内容</h2>
+                <p>在这里填写实验内容的描述</p>
+
+                <h2>图表</h2>
+                <div class="chart-container">
+                    <!-- 在这里引用上一页生成的图表 -->
+                    <div class="chart-wrapper">
+                        <div id="chart1" class="chart"></div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <div id="chart2" class="chart"></div>
+                    </div>
+                </div>
+
+                <h2>实验心得</h2>
+                <div class="feedback-wrapper">
+                    <a-textarea v-model="experimentFeedback" :auto-size="{ minRows: 3 }" class="feedback-input"
+                        placeholder="请输入实验心得，暂未支持 Markdown"></a-textarea>
+                </div>
+
+                <a-button type="primary" @click="exportAsPDF" shape="round" class="pdf-download-btn">下载本页为PDF</a-button>
+            </div>
         </section>
+
     </div>
     <div class="bottom-wrapper">
         <a-button style="float: left;" size="large" type="link" @click="PgUp"
@@ -143,13 +201,15 @@
     </div>
 </template>
 
-
 <script lang="ts">
 import { defineComponent } from "vue";
 import * as echarts from "echarts";
 import { Space, Table, Tag, message } from "ant-design-vue";
 import axios from "axios";
 import { count } from "console";
+// 引入jsPDF
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 export default defineComponent({
     name: "CarbonEmission",
@@ -173,7 +233,11 @@ export default defineComponent({
                 }
             },
 
+            // 当前时间
+            currentTime: '',
 
+            // 实验心得
+            experimentFeedback: '',
 
             // 实验列表卡片样式
             experimentCardClass: "experiment-card",
@@ -253,6 +317,24 @@ export default defineComponent({
         }
     },
     methods: {
+        // TODO: 导出实验报告为 PDF
+        exportAsPDF() {
+            const pdf = new jsPDF();
+            // 1. 添加标题
+            pdf.setFontSize(30);
+            pdf.text("实验报告", 105, 20, { align: "center" });
+            // 2. 动态获取当前页面div class = main的内容
+            const main = document.querySelector(".main");
+            // 3. 将内容转换为图片
+            html2canvas(main).then((canvas) => {
+                // 4. 将图片转换为base64格式
+                const imgData = canvas.toDataURL("image/jpeg", 1.0);
+                // 5. 将base64格式的图片添加到pdf中
+                pdf.addImage(imgData, "JPEG", 0, 30, 210, 297);
+                // 6. 下载pdf
+                pdf.save("实验报告.pdf");
+            });
+        },
         PgUp() {
             if (this.sectionIndex > 0) {
                 this.sectionIndex = this.sectionIndex - 1;
@@ -574,6 +656,18 @@ export default defineComponent({
     unmounted() {
         this.stopPolling();
     },
+    created() {
+        // 设置定时器，每秒更新时间数据
+        setInterval(() => {
+            // 需要处理时间的格式
+            // 2021-05-31T11:02:48.824000
+            // 替换T为空格，取前19位
+            // 还需要处理时区问题，加上 8 小时
+            let date = new Date();
+            date.setTime(date.getTime() + 8 * 60 * 60 * 1000);
+            this.currentTime = date.toISOString().replace('T', ' ').substring(0, 19);
+        }, 1000);
+    },
     watch: {
         sectionIndex: {
             async handler(newVal, oldVal) {
@@ -606,6 +700,14 @@ export default defineComponent({
                     }
                     // 假设在第三页
                     else if (newVal === 2) {
+                        // 获取数据
+                        this.getData().then(() => {
+                            // 绘制图表
+                            this.drawChart();
+                        });
+                    }
+                    // 假设在第四页
+                    else if (newVal === 3) {
                         // 获取数据
                         this.getData().then(() => {
                             // 绘制图表
@@ -705,5 +807,26 @@ section {
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
+}
+
+/* 在屏幕很小的时候，调整按钮的排布为纵向 */
+@media screen and (max-width: 960px) {
+    .card-buttons {
+        flex-direction: column;
+    }
+}
+
+.feedback-wrapper {
+    margin-bottom: 16px;
+}
+
+.feedback-input {
+    margin-top: 8px;
+}
+
+.pdf-download-btn {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
 }
 </style>
