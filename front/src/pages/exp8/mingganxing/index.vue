@@ -37,13 +37,13 @@ import * as echarts from 'echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { LegendComponent, TooltipComponent } from 'echarts/components'
-import InputChart from '@/pages/exp6/Exp6_SAM/InputChart.vue';
+import InputChart from '@/pages/exp8/minganxing/SAM/InputChart.vue';
 import { Table } from 'ant-design-vue';
 
 // 注册需要使用的 ECharts 组件
 use([CanvasRenderer, LegendComponent, TooltipComponent])
 
-export default {
+export default Exp6_SAM {
   components: {
     InputChart
   },

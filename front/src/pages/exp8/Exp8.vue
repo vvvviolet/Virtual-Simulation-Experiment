@@ -17,7 +17,6 @@
       
     </div>
   </div>
-
   <hr />
   <RouterView />
   <div     style="float:right">
