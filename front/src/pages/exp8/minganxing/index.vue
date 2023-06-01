@@ -61,6 +61,7 @@ export default {
         param4: 0,
       },
       analysisData: null,
+      series:null,
       dataSource: [
           {
             key: '0',
@@ -235,7 +236,7 @@ export default {
       //console.log(typeof(JSON.parse(JSON.stringify(this.dataSource1))))
       this.analysisData = doAnalysis(JSON.parse(JSON.stringify(this.dataSource1)))
 
-      
+      this.series=getSeries(JSON.parse(JSON.stringify(this.dataSource1)))
 
       // 绘制竖向柱状图
       this.drawSensitivityChart()
@@ -374,6 +375,8 @@ export default {
     },
     drawLineChart() {
       const chart = echarts.init(document.getElementById("line-chart"))
+      console.log(111)
+      console.log(this.series)
 
       const option = {
         title: {
@@ -401,27 +404,7 @@ export default {
         yAxis: {
           type: 'value'
         },
-        series: [
-        {
-          name:'敏感性因素1',
-          data: [73,82,95,98,100,102,105,113,122],
-          type: 'line',
-          stack: '敏感性因素1'
-        },
-        {
-          name:'敏感性因素2',
-          data: [151,138,125,113,100,89,55,33,16],
-          type: 'line',
-          stack: '敏感性因素2'
-        },
-        {
-          name:'敏感性因素3',
-          data: [198,172,150,123,100,80,55,30,10],
-          type: 'line',
-          stack: '敏感性因素3'
-        },
-        
-      ],
+        series: this.series
       }
 
       chart.setOption(option)
@@ -461,6 +444,7 @@ function doAnalysis(dataSource1) {
   
   for(var i=0;i<dataSource1.length;i++){
     var newData=new Info()
+
     newData.name=dataSource1[i].uncertainty
     newData.change_2=dataSource1[i].change_2
     newData.change_5=dataSource1[i].change_5
@@ -477,6 +461,38 @@ function doAnalysis(dataSource1) {
   console.log(datas)
   
 
+return datas
+}
+
+function getSeries(dataSource1){
+  class serie{
+    name:string
+    data:Number[]
+    type:string 
+    stack:string
+  }
+  console.log(dataSource1)
+  var datas=[];
+ 
+  for(var i=0;i<dataSource1.length;i++){
+    var newSerie=new serie()
+    newSerie.name=dataSource1[i].uncertainty
+    newSerie.stack=dataSource1[i].uncertainty
+    newSerie.data=[]
+    newSerie.type='line'
+    newSerie.data.push(dataSource1[i].change_minus15)
+    newSerie.data.push(dataSource1[i].change_minus10)
+    newSerie.data.push(dataSource1[i].change_minus5)
+    newSerie.data.push(dataSource1[i].change_minus2)
+    newSerie.data.push(100)
+    newSerie.data.push(dataSource1[i].change_2)
+    newSerie.data.push(dataSource1[i].change_5)
+    newSerie.data.push(dataSource1[i].change_10)
+    newSerie.data.push(dataSource1[i].change_15)
+
+    datas.push(newSerie)
+  }
+console.log(datas);
 return datas
 }
 </script>
