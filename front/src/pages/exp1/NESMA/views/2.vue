@@ -1,10 +1,10 @@
 <template>
   <div id="two">
-    <h2>一、实验方法简介</h2>
+    <h2>三、实验方法简介</h2>
     <p class="content" style="margin-bottom: 20px">
       估算功能点分析方法主要用于执行阶段，此时需求文件较为完善，故需要关注逻辑文件和相应的操作。估算功能点分析是指在确定每个功能部件（数据功能或事务功能）的复杂性程度时使用标准值：数据功能全部采用“低”级复杂性程度，事务功能全部采用“中”级复杂性程度计量。该方法与详细功能点分析的唯一区别是不用为每个功能识别分配复杂性程度，而是采用“默认值”。
     </p>
-    <h2>二、实验步骤</h2>
+    <h2>四、实验步骤</h2>
     <div class="title">第一步：识别数据功能点和事务处理功能点</div>
     <p class="content">
       数据功能是指更新、引用和检索而储存的可用的逻辑数据。数据块及控制信息是逻辑上的并且用户可确认的。数据功能分为内部逻辑文件(ILF)和外部接口文件(EIF)。事务处理是指外部输入、外部输出、外部查询、完成更新、检索和输出等操作，分为外部输入(EI)、外部输出(EO)和外部查询(EQ)。
@@ -68,7 +68,7 @@
     <p class="content italic">
       实验操作：将上述各步得到的数据，填写在下面的“未调整功能点计算表”中的合适位置，计算本实验案例的未调整功能点。
     </p>
-    <table5 :second="second"></table5>
+    <table7></table7>
     <br />
 
     <p class="title">第九步：计算调整后功能点</p>
@@ -91,22 +91,28 @@
 </template>
 
 <script setup lang="ts">
-  import { storeToRefs } from 'pinia';
-  import { useExp1Store } from '../stores';
-  import { ref } from 'vue';
-  import table1 from '../components/table1.vue';
-  import table2 from '../components/table2.vue';
-  import table3 from '../components/table3.vue';
-  import table4 from '../components/table4.vue';
-  import table5 from '../components/table5.vue';
-  import table6 from '../components/table6.vue';
+import { storeToRefs } from 'pinia';
+import { useExp1Store } from '../stores';
+import { ref, computed } from 'vue';
+import table1 from '../components/table1.vue';
+import table2 from '../components/table2.vue';
+import table3 from '../components/table3.vue';
+import table4 from '../components/table4.vue';
+import table5 from '../components/table5.vue';
+import table6 from '../components/table6.vue';
+import table7 from '../components/table7.vue';
 
-  const { SUM, VAF, ALL } = storeToRefs(useExp1Store());
-  const second = ref('two');
+const { VAF, tableData7 } = storeToRefs(useExp1Store());
+// 总的未调整功能点数
+const SUM = computed(() => {
+  return tableData7.value.reduce((amt, item) => amt + parseInt(item.C), 0);
+});
+const ALL = computed(() => (SUM.value * VAF.value).toFixed(2));
+
 </script>
 
 <style scoped>
-  #two {
-    margin-top: 20px;
-  }
+#two {
+  margin-top: 20px;
+}
 </style>

@@ -10,38 +10,13 @@
   >
     <template #bodyCell="{ column, record, index }">
       <template v-if="column.dataIndex === 'A'">
-        <template v-if="second === 'two'">
-          <template v-if="record.component === 'EI' || record.component === 'EO' || record.component === 'EQ'">
-            <a-input disabled v-model:value="record.A" style="width: 100px" />
-          </template>
-          <template v-else>
-            <a-input v-model:value="record.A" style="width: 100px" />
-          </template>
-        </template>
-        <template v-else>
-          <a-input v-model:value="record.A" style="width: 100px" />
-        </template>
+        <a-input v-model:value="record.A" style="width: 100px" />
       </template>
       <template v-if="column.dataIndex === 'D'">
-        <template v-if="second === 'two'">
-          <template v-if="record.component === 'ILF' || record.component === 'EIF'">
-            <a-input disabled v-model:value="record.D" style="width: 100px" />
-          </template>
-          <template v-else>
-            <a-input v-model:value="record.D" style="width: 100px" />
-          </template>
-        </template>
-        <template v-else>
-          <a-input v-model:value="record.D" style="width: 100px" />
-        </template>
+        <a-input v-model:value="record.D" style="width: 100px" />
       </template>
       <template v-if="column.dataIndex === 'G'">
-        <template v-if="second === 'two'">
-          <a-input disabled v-model:value="record.G" style="width: 100px" />
-        </template>
-        <template v-else>
-          <a-input v-model:value="record.G" style="width: 100px" />
-        </template>
+        <a-input v-model:value="record.G" style="width: 100px" />
       </template>
       <template v-if="column.dataIndex === 'C'">
         {{ c(index) }}
@@ -65,9 +40,6 @@
   import { storeToRefs } from 'pinia';
 
   const { tableData5, c, f, i, unchanged } = storeToRefs(useExp1Store());
-  defineProps<{
-    second?: string;
-  }>();
   const columns5 = ref([
     {
       title: '组件',
