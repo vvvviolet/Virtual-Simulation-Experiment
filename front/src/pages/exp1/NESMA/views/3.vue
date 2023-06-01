@@ -101,8 +101,7 @@
     <span style="margin-left: 220px" class="title">本实验的功能点数为 </span>
     <span style="font-size: 20px">{{ ALL }}</span>
     <br /><br />
-
-    <a-button class="button3" type="primary" shape="round">实验报告提交</a-button>
+    <!-- <a-button class="button3" type="primary" shape="round">实验报告提交</a-button> -->
   </div>
 </template>
 
