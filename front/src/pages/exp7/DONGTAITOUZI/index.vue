@@ -504,23 +504,26 @@ export default {
   },
   data() {
     return {
+      // 这些值由其他值推导而来，不需要在此申明
       // 现金流入
-      cash_flow0: 0,
-      cash_flow1: 0,
-      cash_flow2: 0,
-      cash_flow3: 0,
-      cash_flow4: 0,
-      cash_flow5: 0,
+      // cash_flow0: 0,
+      // cash_flow1: 0,
+      // cash_flow2: 0,
+      // cash_flow3: 0,
+      // cash_flow4: 0,
+      // cash_flow5: 0,
 
       // 现金流出
-      cash_outflow0: 0,
-      cash_outflow1: 0,
-      cash_outflow2: 0,
-      cash_outflow3: 0,
-      cash_outflow4: 0,
-      cash_outflow5: 0,
+      // cash_outflow0: 0,
+      // cash_outflow1: 0,
+      // cash_outflow2: 0,
+      // cash_outflow3: 0,
+      // cash_outflow4: 0,
+      // cash_outflow5: 0,
 
-      // 这些值由其他值推导而来，不需要在此申明
+      // 折现率
+      discount_rate: 0,
+
       // // 净现金流量
       // net_cash_flow0: 0,
       // net_cash_flow1: 0,
@@ -538,12 +541,12 @@ export default {
       // accumulated_net_cash_flow5: 0,
 
       // 现值系数
-      present_value_factor0: 0,
-      present_value_factor1: 0,
-      present_value_factor2: 0,
-      present_value_factor3: 0,
-      present_value_factor4: 0,
-      present_value_factor5: 0,
+      // present_value_factor0: 0,
+      // present_value_factor1: 0,
+      // present_value_factor2: 0,
+      // present_value_factor3: 0,
+      // present_value_factor4: 0,
+      // present_value_factor5: 0,
 
       // 营业收入
       operating_revenue0: 0,
@@ -642,17 +645,17 @@ export default {
       if (pre_accumulated_net_cash_flow0 >= 0) {
         return 0;
       } else if (pre_accumulated_net_cash_flow1 >= 0) {
-        return 1 + Math.abs(pre_accumulated_net_cash_flow0 / pre_accumulated_net_cash_flow1);
+        return parseFloat((Math.abs(pre_accumulated_net_cash_flow0 / this.present_net_cash_flow1)).toFixed(4));
       } else if (pre_accumulated_net_cash_flow2 >= 0) {
-        return 2 + Math.abs(pre_accumulated_net_cash_flow1 / pre_accumulated_net_cash_flow2);
+        return 1 + parseFloat((Math.abs(pre_accumulated_net_cash_flow1 / this.present_net_cash_flow2)).toFixed(4));
       } else if (pre_accumulated_net_cash_flow3 >= 0) {
-        return 3 + Math.abs(pre_accumulated_net_cash_flow2 / pre_accumulated_net_cash_flow3);
+        return 2 + parseFloat((Math.abs(pre_accumulated_net_cash_flow2 / this.present_net_cash_flow3)).toFixed(4));
       } else if (pre_accumulated_net_cash_flow4 >= 0) {
-        return 4 + Math.abs(pre_accumulated_net_cash_flow3 / pre_accumulated_net_cash_flow4);
+        return 3 + parseFloat((Math.abs(pre_accumulated_net_cash_flow3 / this.present_net_cash_flow4)).toFixed(4));
       } else if (pre_accumulated_net_cash_flow5 >= 0) {
-        return 5 + Math.abs(pre_accumulated_net_cash_flow4 / pre_accumulated_net_cash_flow5);
+        return 4 + parseFloat((Math.abs(pre_accumulated_net_cash_flow4 / this.present_net_cash_flow5)).toFixed(4));
       }
-      return 0;
+      return -1;
     },
     year() {
       var pre_accumulated_net_cash_flow0 = this.present_net_cash_flow0;
@@ -662,19 +665,19 @@ export default {
       var pre_accumulated_net_cash_flow4 = this.present_net_cash_flow4 + pre_accumulated_net_cash_flow3;
       var pre_accumulated_net_cash_flow5 = this.present_net_cash_flow5 + pre_accumulated_net_cash_flow4;
       if (pre_accumulated_net_cash_flow0 >= 0) {
-        return 1;
+        return 0;
       } else if (pre_accumulated_net_cash_flow1 >= 0) {
-        return 2;
+        return 1;
       } else if (pre_accumulated_net_cash_flow2 >= 0) {
-        return 3;
+        return 2;
       } else if (pre_accumulated_net_cash_flow3 >= 0) {
-        return 4;
+        return 3;
       } else if (pre_accumulated_net_cash_flow4 >= 0) {
-        return 5;
+        return 4;
       } else if (pre_accumulated_net_cash_flow5 >= 0) {
-        return 6;
+        return 5;
       }
-      return 1;
+      return -1;
     },
     net_cash_flow0() {
       return this.cash_flow0 - this.cash_outflow0;
@@ -732,51 +735,69 @@ export default {
       let accumulated_net_cash_flow5 = this.cash_flow5 - this.cash_outflow5;
       return accumulated_net_cash_flow0 + accumulated_net_cash_flow1 + accumulated_net_cash_flow2 + accumulated_net_cash_flow3 + accumulated_net_cash_flow4 + accumulated_net_cash_flow5;
     },
+    present_value_factor0(){
+      return Number(1);
+    },
+    present_value_factor1() {
+      return parseFloat((1 / Math.pow(1 + this.discount_rate, 1)).toFixed(4));
+    },
+    present_value_factor2() {
+      return parseFloat((1 / Math.pow(1 + this.discount_rate, 2)).toFixed(4));
+    },
+    present_value_factor3() {
+      return parseFloat((1 / Math.pow(1 + this.discount_rate, 3)).toFixed(4));
+    },
+    present_value_factor4() {
+      return parseFloat((1 / Math.pow(1 + this.discount_rate, 4)).toFixed(4));
+    },
+    present_value_factor5() {
+      return parseFloat((1 / Math.pow(1 + this.discount_rate, 5)).toFixed(4));
+    },
     present_net_cash_flow0() {
       var net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
-      return this.present_value_factor0 * net_cash_flow0;
+      return parseFloat((this.present_value_factor0 * net_cash_flow0).toFixed(4));
     },
     present_net_cash_flow1() {
       var net_cash_flow1 = this.cash_flow1 - this.cash_outflow1;
-      return this.present_value_factor1 * net_cash_flow1;
+      return parseFloat((this.present_value_factor1 * net_cash_flow1).toFixed(4));
     },
     present_net_cash_flow2() {
       var net_cash_flow2 = this.cash_flow2 - this.cash_outflow2;
-      return this.present_value_factor2 * net_cash_flow2;
+      return parseFloat((this.present_value_factor2 * net_cash_flow2).toFixed(4));
     },
     present_net_cash_flow3() {
       var net_cash_flow3 = this.cash_flow3 - this.cash_outflow3;
-      return this.present_value_factor3 * net_cash_flow3;
+      return parseFloat((this.present_value_factor3 * net_cash_flow3).toFixed(4));
     },
     present_net_cash_flow4() {
       var net_cash_flow4 = this.cash_flow4 - this.cash_outflow4;
-      return this.present_value_factor4 * net_cash_flow4;
+      return parseFloat((this.present_value_factor4 * net_cash_flow4).toFixed(4));
     },
     present_net_cash_flow5() {
       var net_cash_flow5 = this.cash_flow5 - this.cash_outflow5;
-      return this.present_value_factor5 * net_cash_flow5;
+      return parseFloat((this.present_value_factor5 * net_cash_flow5).toFixed(4));
     },
     pre_accumulated_net_cash_flow0() {
       var net_cash_flow0 = this.cash_flow0 - this.cash_outflow0;
-      return this.present_value_factor0 * net_cash_flow0;
+      return parseFloat((this.present_value_factor0 * net_cash_flow0).toFixed(4));
     },
     pre_accumulated_net_cash_flow1() {
       var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
       let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
-      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1;
+      return parseFloat((pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1).toFixed(4));
     },
     pre_accumulated_net_cash_flow2() {
       var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
       let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
       var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
-      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2;
+      return parseFloat((pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2).toFixed(4)); 
     },
     pre_accumulated_net_cash_flow3() {
       var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
       let pre_accumulated_net_cash_flow1 = this.present_value_factor1 * (this.cash_flow1 - this.cash_outflow1);
       var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
       var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
-      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3;
+      return parseFloat((pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3).toFixed(4));
     },
     pre_accumulated_net_cash_flow4() {
       var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
@@ -784,7 +805,7 @@ export default {
       var pre_accumulated_net_cash_flow2 = this.present_value_factor2 * (this.cash_flow2 - this.cash_outflow2);
       var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
       var pre_accumulated_net_cash_flow4 = this.present_value_factor4 * (this.cash_flow4 - this.cash_outflow4);
-      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3 + pre_accumulated_net_cash_flow4;
+      return parseFloat((pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3 + pre_accumulated_net_cash_flow4).toFixed(4));
     },
     pre_accumulated_net_cash_flow5() {
       var pre_accumulated_net_cash_flow0 = this.present_value_factor0 * (this.cash_flow0 - this.cash_outflow0);
@@ -793,7 +814,43 @@ export default {
       var pre_accumulated_net_cash_flow3 = this.present_value_factor3 * (this.cash_flow3 - this.cash_outflow3);
       var pre_accumulated_net_cash_flow4 = this.present_value_factor4 * (this.cash_flow4 - this.cash_outflow4);
       var pre_accumulated_net_cash_flow5 = this.present_value_factor5 * (this.cash_flow5 - this.cash_outflow5);
-      return pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3 + pre_accumulated_net_cash_flow4 + pre_accumulated_net_cash_flow5;
+      return parseFloat((pre_accumulated_net_cash_flow0 + pre_accumulated_net_cash_flow1 + pre_accumulated_net_cash_flow2 + pre_accumulated_net_cash_flow3 + pre_accumulated_net_cash_flow4 + pre_accumulated_net_cash_flow5).toFixed(4));
+    },
+    cash_flow0() {
+      return 1*this.operating_revenue0 + 1*this.recovery_of_residual_value_of_fixed_assets0 + 1 * this.recovery_of_residual_value_of_intangible_assets0 + 1 * this.working_capital0;
+    },
+    cash_outflow0() {
+      return 1 * this.construction_investment0 + 1 * this.liudong_money0 + 1 * this.operation_cost0 + 1 * this.maintain_operational_investment0 + 1 * this.taxes_and_surcharges0;
+    },
+    cash_flow1() {
+      return 1 * this.operating_revenue1 + 1 * this.recovery_of_residual_value_of_fixed_assets1 + 1 * this.recovery_of_residual_value_of_intangible_assets1 + 1 * this.working_capital1;
+    },
+    cash_outflow1() {
+      return 1 * this.construction_investment1 + 1 * this.liudong_money1 + 1 * this.operation_cost1 + 1 * this.maintain_operational_investment1 + 1 * this.taxes_and_surcharges1;
+    },
+    cash_flow2() {
+      return 1 * this.operating_revenue2 + 1 * this.recovery_of_residual_value_of_fixed_assets2 + 1 * this.recovery_of_residual_value_of_intangible_assets2 + 1 * this.working_capital2;
+    },
+    cash_outflow2() {
+      return 1 * this.construction_investment2 + 1 * this.liudong_money2 + 1 * this.operation_cost2 + 1 * this.maintain_operational_investment2 + 1 * this.taxes_and_surcharges2;
+    },
+    cash_flow3() {
+      return 1 * this.operating_revenue3 + 1 * this.recovery_of_residual_value_of_fixed_assets3 + 1 * this.recovery_of_residual_value_of_intangible_assets3 + 1 * this.working_capital3;
+    },
+    cash_outflow3() {
+      return 1 * this.construction_investment3 + 1 * this.liudong_money3 + 1 * this.operation_cost3 + 1 * this.maintain_operational_investment3 + 1 * this.taxes_and_surcharges3;
+    },
+    cash_flow4() {
+      return 1 * this.operating_revenue4 + 1 * this.recovery_of_residual_value_of_fixed_assets4 + 1 * this.recovery_of_residual_value_of_intangible_assets4 + 1 * this.working_capital4;
+    },
+    cash_outflow4() {
+      return 1 * this.construction_investment4 + 1 * this.liudong_money4 + 1 * this.operation_cost4 + 1 * this.maintain_operational_investment4 + 1 * this.taxes_and_surcharges4;
+    },
+    cash_flow5() {
+      return 1 * this.operating_revenue5 + 1 * this.recovery_of_residual_value_of_fixed_assets5 + 1 * this.recovery_of_residual_value_of_intangible_assets5 + 1 * this.working_capital5;
+    },
+    cash_outflow5() {
+      return 1 * this.construction_investment5 + 1 * this.liudong_money5 + 1 * this.operation_cost5 + 1 * this.maintain_operational_investment5 + 1 * this.taxes_and_surcharges5;
     },
   },
 };
