@@ -39,6 +39,10 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { LegendComponent, TooltipComponent } from 'echarts/components'
 import InputChart from '@/pages/exp8/MINGANXING/InputChart.vue';
 import { Table } from 'ant-design-vue';
+import { info } from 'console';
+
+import { toRaw } from '@vue/reactivity' 
+import { el } from 'element-plus/es/locale';
 
 // 注册需要使用的 ECharts 组件
 use([CanvasRenderer, LegendComponent, TooltipComponent])
@@ -54,8 +58,10 @@ export default {
         param1: 0,
         param2: 0,
         param3: 0,
+        param4: 0,
       },
       analysisData: null,
+      series:null,
       dataSource: [
           {
             key: '0',
@@ -116,7 +122,7 @@ export default {
             change_2:80,
             change_5:55,
             change_10:30,
-            change_15:10,
+            change_15:8,
           },
         ],
         columns1: [
@@ -226,7 +232,11 @@ export default {
   methods: {
     handleSubmit() {
       // 在这里执行敏感性分析并更新 analysisData
-      this.analysisData = doAnalysis(this.params)
+      
+      //console.log(typeof(JSON.parse(JSON.stringify(this.dataSource1))))
+      this.analysisData = doAnalysis(JSON.parse(JSON.stringify(this.dataSource1)))
+
+      this.series=getSeries(JSON.parse(JSON.stringify(this.dataSource1)))
 
       // 绘制竖向柱状图
       this.drawSensitivityChart()
@@ -234,8 +244,13 @@ export default {
       // 绘制最后的折线图
       this.drawLineChart()
     },
-    drawSensitivityChart() {
+    drawSensitivityChart(analysisData) {
       const chart = echarts.init(document.getElementById("sensitivity-chart"))
+      //取第一组数据
+      
+      
+
+      
 
       const option = {
         title: {
@@ -273,8 +288,8 @@ export default {
               show: true,
               position: 'insideRight',
             },
-            //data: this.analysisData.map((d) => d.benefit),
-            data:[102,89,80]
+            data: this.analysisData.map((d) => d.change_2),
+          // data:[105,55,55,22]
           },
           {
             name: '亏损',
@@ -285,7 +300,7 @@ export default {
               position: 'insideRight',
             },
             //data: this.analysisData.map((d) => -d.cost),
-            data:[-98,-113,-123]
+            data: this.analysisData.map((d) => -d.change_minus2),
           },
           {
             name: '收益',
@@ -296,7 +311,7 @@ export default {
               position: 'insideRight',
             },
             //data: this.analysisData.map((d) => d.benefit),
-            data:[105,55,55]
+            data: this.analysisData.map((d) => d.change_5),
           },
           {
             name: '亏损',
@@ -307,7 +322,7 @@ export default {
               position: 'insideRight',
             },
             //data: this.analysisData.map((d) => -d.cost),
-            data:[-95,-125,-150]
+            data: this.analysisData.map((d) => -d.change_minus5),
           },
           {
             name: '收益',
@@ -318,7 +333,7 @@ export default {
               position: 'insideRight',
             },
             //data: this.analysisData.map((d) => d.benefit),
-            data:[113,33,30]
+            data: this.analysisData.map((d) => d.change_10),
           },
           {
             name: '亏损',
@@ -329,7 +344,7 @@ export default {
               position: 'insideRight',
             },
             //data: this.analysisData.map((d) => -d.cost),
-            data:[-82,-138,-172]
+            data: this.analysisData.map((d) => -d.change_minus10),
           },
           {
             name: '收益',
@@ -340,7 +355,7 @@ export default {
               position: 'insideRight',
             },
             //data: this.analysisData.map((d) => d.benefit),
-            data:[122,16,10]
+            data: this.analysisData.map((d) => d.change_15),
           },
           {
             name: '亏损',
@@ -351,7 +366,7 @@ export default {
               position: 'insideRight',
             },
             //data: this.analysisData.map((d) => -d.cost),
-            data:[-73,-151,-198]
+            data: this.analysisData.map((d) => -d.change_minus15),
           },
         ],
       }
@@ -360,6 +375,8 @@ export default {
     },
     drawLineChart() {
       const chart = echarts.init(document.getElementById("line-chart"))
+      console.log(111)
+      console.log(this.series)
 
       const option = {
         title: {
@@ -387,26 +404,7 @@ export default {
         yAxis: {
           type: 'value'
         },
-        series: [
-        {
-          name:'敏感性因素1',
-          data: [73,82,95,98,100,102,105,113,122],
-          type: 'line',
-          stack: '敏感性因素1'
-        },
-        {
-          name:'敏感性因素2',
-          data: [151,138,125,113,100,89,55,33,16],
-          type: 'line',
-          stack: '敏感性因素2'
-        },
-        {
-          name:'敏感性因素3',
-          data: [198,172,150,123,100,80,55,30,10],
-          type: 'line',
-          stack: '敏感性因素3'
-        }
-      ],
+        series: this.series
       }
 
       chart.setOption(option)
@@ -420,15 +418,82 @@ export default {
   },
 }
 
-function doAnalysis(params) {
+function doAnalysis(dataSource1) {
   // 在这里执行敏感性分析并返回结果
-  const analysisData = [
-    { name: '敏感性因素1', benefit: 10, cost: 5 },
-    { name: '敏感性因素2', benefit: 20, cost: 10 },
-    { name: '敏感性因素3', benefit: 30, cost: 15 },
-    ]
+  class Info{
+    name:String
+    change_2:number
+    change_5:number
+    change_10:number
+    change_15:number
+    changeBasicPlan:number
+    change_minus2:number
+    change_minus5:number
+    change_minus10:number
+    change_minus15:number
+  }
 
-return analysisData
+  var datas=Info[dataSource1.length];
+
+ 
+
+  var datas=[]
+ 
+  
+
+  
+  for(var i=0;i<dataSource1.length;i++){
+    var newData=new Info()
+
+    newData.name=dataSource1[i].uncertainty
+    newData.change_2=dataSource1[i].change_2
+    newData.change_5=dataSource1[i].change_5
+    newData.change_10=dataSource1[i].change_10
+    newData.change_15=dataSource1[i].change_15
+    newData.changeBasicPlan=dataSource1[i].changeBasicPlan
+    newData.change_minus2=dataSource1[i].change_minus2
+    newData.change_minus5=dataSource1[i].change_minus5
+    newData.change_minus10=dataSource1[i].change_minus10
+    newData.change_minus15=dataSource1[i].change_minus15
+    datas.push(newData)
+  };
+  console.log("datas")
+  console.log(datas)
+  
+
+return datas
+}
+
+function getSeries(dataSource1){
+  class serie{
+    name:string
+    data:Number[]
+    type:string 
+    stack:string
+  }
+  console.log(dataSource1)
+  var datas=[];
+ 
+  for(var i=0;i<dataSource1.length;i++){
+    var newSerie=new serie()
+    newSerie.name=dataSource1[i].uncertainty
+    newSerie.stack=dataSource1[i].uncertainty
+    newSerie.data=[]
+    newSerie.type='line'
+    newSerie.data.push(dataSource1[i].change_minus15)
+    newSerie.data.push(dataSource1[i].change_minus10)
+    newSerie.data.push(dataSource1[i].change_minus5)
+    newSerie.data.push(dataSource1[i].change_minus2)
+    newSerie.data.push(100)
+    newSerie.data.push(dataSource1[i].change_2)
+    newSerie.data.push(dataSource1[i].change_5)
+    newSerie.data.push(dataSource1[i].change_10)
+    newSerie.data.push(dataSource1[i].change_15)
+
+    datas.push(newSerie)
+  }
+console.log(datas);
+return datas
 }
 </script>
 
