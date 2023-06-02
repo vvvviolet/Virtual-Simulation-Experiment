@@ -8,50 +8,27 @@
     <p class="recontent">
       碳排放需求与供给实验的实验内容主要是通过模拟市场机制来研究碳排放的需求和供给情况，探究不同政策和经济环境下碳排放的变化情况。具体实验步骤如下：
     </p>
-    <p class="content">
-      1.
-      设计实验方案：确定实验的目的、参与者、参数等。
-    </p>
+    <p class="content">1. 设计实验方案：确定实验的目的、参与者、参数等。</p>
     <li class="recontent">
       目的：寻求碳排放权市场交易的供给与需求平衡点，以达成均衡价格。
     </li>
-    <li class="recontent">
-      参与者：学生。
-    </li>
-    <li class="recontent">
-      参数：买家的购买数量和购买价格；卖家的卖出数量和卖出价格。
-    </li>
+    <li class="recontent">参与者：学生。</li>
+    <li class="recontent">参数：买家的购买数量和购买价格；卖家的卖出数量和卖出价格。</li>
     <br />
     <p class="content">
-      2.
-      模拟碳排放市场：在实验中模拟一个碳排放市场，包括碳排放权的供应方、需求方和中介。
+      2. 模拟碳排放市场：在实验中模拟一个碳排放市场，包括碳排放权的供应方、需求方和中介。
     </p>
     <li class="recontent">
       供应方：项目发展方、金融机构、咨询顾问、技术转让方、政策制定者。
     </li>
-    <li class="recontent">
-      需求方：政府机构、EU ETS安装方、自愿买方。
-    </li>
-    <li class="recontent">
-      中介：经纪商、交易者、交易所、大型买方联监。
-    </li>
+    <li class="recontent">需求方：政府机构、EU ETS安装方、自愿买方。</li>
+    <li class="recontent">中介：经纪商、交易者、交易所、大型买方联监。</li>
     <br />
-    <p class="content">
-      3.
-      设定初始条件：设置初始数量、价格等初始条件。
-    </p>
-    <li class="recontent">
-      买家的购买数量：0。
-    </li>
-    <li class="recontent">
-      买家的购买价格：0。
-    </li>
-    <li class="recontent">
-      卖家的卖出数量：0。
-    </li>
-    <li class="recontent">
-      卖家的卖出价格：0。
-    </li>
+    <p class="content">3. 设定初始条件：设置初始数量、价格等初始条件。</p>
+    <li class="recontent">买家的购买数量：0。</li>
+    <li class="recontent">买家的购买价格：0。</li>
+    <li class="recontent">卖家的卖出数量：0。</li>
+    <li class="recontent">卖家的卖出价格：0。</li>
     <br />
     <p class="content">
       4.
@@ -122,7 +99,12 @@
     <h4 class="content">1.2 需求曲线</h4>
     <p class="content">需求曲线：以几何图形来表示商品的价格和需求量的函数关系</p>
     <p class="content">横坐标：需求量 纵坐标：价格</p>
-    <img class="content" style="margin-left: 100px" src="../assets/demand.png" alt="需求曲线" />
+    <img
+      class="content"
+      style="margin-left: 100px"
+      src="../assets/demand.png"
+      alt="需求曲线"
+    />
     <br />
     <br />
     <h4 class="content">1.3 需求定理</h4>
@@ -140,7 +122,12 @@
     <h4 class="content">2.2 供给曲线</h4>
     <p class="content">类似地，供给曲线表示了供给量与价格的函数关系</p>
     <p class="content">横坐标：需求量 纵坐标：价格</p>
-    <img class="content" style="margin-left: 100px" src="../assets/supply.png" alt="供给曲线" />
+    <img
+      class="content"
+      style="margin-left: 100px"
+      src="../assets/supply.png"
+      alt="供给曲线"
+    />
     <br />
     <br />
     <h4 class="content">2.3 供给定理</h4>
@@ -161,25 +148,49 @@
     <p class="content buttons">
       1. 实验开始，分为买家和卖家，用户可以点击下面两个按钮进行买家信息和卖家信息的录入:
     </p>
-    <a-button type="primary" ghost @click="showmaiform = true" class="buttons">我是买家</a-button>
+    <a-button type="primary" ghost @click="showmaiform = true" class="buttons"
+      >我是买家</a-button
+    >
     <a-modal v-model:visible="showmaiform" title="此次买方信息" @ok="maievent">
       <a-form :model="maiformtext" id="maiform">
         <a-form-item label="购买数量">
-          <a-input clearable v-model:value="maiformtext.number" style="width: 180px" placeholder="请输入购买数量"></a-input>
+          <a-input
+            clearable
+            v-model:value="maiformtext.number"
+            style="width: 180px"
+            placeholder="请输入购买数量"
+          ></a-input>
         </a-form-item>
         <a-form-item label="购买价格">
-          <a-input clearable v-model:value="maiformtext.cost" style="width: 180px" placeholder="请输入购买价格"></a-input>
+          <a-input
+            clearable
+            v-model:value="maiformtext.cost"
+            style="width: 180px"
+            placeholder="请输入购买价格"
+          ></a-input>
         </a-form-item>
       </a-form>
     </a-modal>
-    <a-button type="primary" ghost @click="showsellform = true" class="buttons">我是卖家</a-button>
+    <a-button type="primary" ghost @click="showsellform = true" class="buttons"
+      >我是卖家</a-button
+    >
     <a-modal v-model:visible="showsellform" title="此次卖方信息" @ok="sellevent">
       <a-form :model="sellformtext" id="sellform">
         <a-form-item label="卖出数量">
-          <a-input clearable v-model:value="sellformtext.number" style="width: 180px" placeholder="请输入卖出数量"></a-input>
+          <a-input
+            clearable
+            v-model:value="sellformtext.number"
+            style="width: 180px"
+            placeholder="请输入卖出数量"
+          ></a-input>
         </a-form-item>
         <a-form-item label="卖出价格">
-          <a-input clearable v-model:value="sellformtext.cost" style="width: 180px" placeholder="请输入卖出价格"></a-input>
+          <a-input
+            clearable
+            v-model:value="sellformtext.cost"
+            style="width: 180px"
+            placeholder="请输入卖出价格"
+          ></a-input>
         </a-form-item>
       </a-form>
     </a-modal>
@@ -190,7 +201,9 @@
     <a-button type="primary" ghost @click="restart" class="buttons">开始实验</a-button>
     <a-button type="primary" ghost @click="endtest" class="buttons">结束实验</a-button>
     <a-descriptions title="实验详情" class="content" :column="4" bordered>
-      <a-descriptions-item label="实验进行情况"><a-tag color="blue">{{ nowsitua }}</a-tag></a-descriptions-item>
+      <a-descriptions-item label="实验进行情况"
+        ><a-tag color="blue">{{ nowsitua }}</a-tag></a-descriptions-item
+      >
       <a-descriptions-item label="总的参与人数">{{
         mainumberarray.length + sellnumberarray.length
       }}</a-descriptions-item>
@@ -202,31 +215,78 @@
       }}</a-descriptions-item>
     </a-descriptions>
     <p class="table-title">供需曲线图</p>
-
     <div id="char" style="width: 800px; height: 600px"></div>
-
-
     <hr />
     <p class="table-title">市场买入记录</p>
-    <a-table :dataSource="marketMaiData" :columns="maiColumn"  :pagination="{ pageSize: 5 }" bordered />
+    <a-table
+      :dataSource="marketMaiData"
+      :columns="maiColumn"
+      :pagination="{ pageSize: 5 }"
+      bordered
+    />
     <hr />
     <p class="table-title">市场卖出记录</p>
-    <a-table :dataSource="marketSellData" :columns="sellColumn" :pagination="{ pageSize: 5 }" bordered />
+    <a-table
+      :dataSource="marketSellData"
+      :columns="sellColumn"
+      :pagination="{ pageSize: 5 }"
+      bordered
+    />
 
     <h2>五、实验结果</h2>
-    <p class="content">暂时不写</p>
+    <p class="content">1.实验设计和方法：</p>
+    <p class="content">
+      本实验采用了市场实验设计，共有{{ marketMaiNum + marketSellNum }}名参与者，其中{{
+        marketMaiNum
+      }}名为卖家，{{
+        marketSellNum
+      }}名为买家。买家和卖家在实验开始前接受了一次关于碳排放权交易的信息介绍，了解了碳排放权的概念和市场交易规则。实验采用了电脑模拟程序进行，参与者需在模拟交易平台上进行碳排放权交易，交易过程中需要进行价格竞价和数量选择，本实验暂时为免费平台。实验的主要指标为碳排放权的价格、交易量和总收益。
+    </p>
+    <p class="content">2.分析结果：</p>
+    <p class="content">
+      实验结果显示，在本次实验中，碳排放权的均衡价格为{{
+        finalprice
+      }}元/吨，买家和卖家的最优交易数量分别为{{ finalmainum }}吨和{{ finalsellnum }}吨。
+    </p>
+    <p class="content">3.讨论结果：</p>
+    <p class="content">
+      根据实验结果，我们可以发现，碳排放权市场的供给和需求之间存在均衡价格，市场竞争的力量使得价格能够自我调整到一个相对稳定的水平。同时，交易手续费的支出也需要引起政策制定者和市场监管者的关注，以确保碳排放权市场的公平和透明。
+    </p>
+    <p class="content">4.结论：</p>
+    <p class="content">
+      本实验结果表明，碳排放权市场的供给和需求之间存在均衡价格，市场竞争能够有效地调节市场价格。政策制定者和市场监管者应该加强碳排放权市场的监管和规范，鼓励更多的参与者参与碳排放权交易，以促进低碳经济的发展和环境保护。未来的研究可以进一步探讨碳排放权市场的发展趋势和政策影响。
+    </p>
     <h2>六、实验思考</h2>
-    <p class="content">暂时不写</p>
+    <p class="content">1.实验结果回顾：</p>
+    <p class="content">
+      本次实验旨在探究碳排放权市场的供给与需求之间的关系，通过模拟碳排放权交易，研究市场的价格和交易量等指标。实验结果显示，碳排放权市场具有均衡价格，市场竞争能够有效地调节市场价格。
+    </p>
+    <p class="content">2.实验思考和分析：</p>
+    <p class="content">
+      从市场机制的角度来看，碳排放权市场的供给和需求之间存在均衡价格，这说明市场机制对于碳排放权交易的平衡和稳定具有重要作用。从政策影响的角度来看，政策的制定和实施对于碳排放权市场的发展和稳定也具有重要作用，政策的引导和监管能够促进市场的规范和透明。从参与者行为的角度来看，参与者的信息和操作对于市场价格和交易量也具有重要影响，这说明市场的参与者对于市场的运作和发展有着重要的影响力。
+    </p>
+    <p class="content">3.局限性和未来研究：</p>
+    <p class="content">
+      本次实验的局限性主要在于样本数量和实验设置的简化程度，未来实验可以进一步扩大样本数量和增加实验设置的复杂程度，以提高实验的科学性和实用性。同时，未来的研究可以继续探讨碳排放权市场的发展趋势和政策影响，以及市场参与者的行为和决策等方面。
+    </p>
+    <p class="content">4.结论和建议：</p>
+    <p class="content">
+      本次实验结果表明，碳排放权市场具有供给和需求之间的均衡价格，市场竞争能够有效地调节市场价格。政策制定者和市场监管者应该加强碳排放权市场的监管和规范，鼓励更多的参与者参与碳排放权交易，以促进低碳经济的发展和环境保护。未来的研究可以进一步探讨碳排放权市场的发展趋势和政策影响，以及参与者行为和决策等方面。
+    </p>
   </div>
 </template>
 
 <script lang="ts">
 import { message } from "ant-design-vue";
-import { ECharts, EChartsOption, init } from 'echarts';
+import { ECharts, EChartsOption, init } from "echarts";
 export default {
-  name: 'Exp6_TANPAIFANG',
+  name: "Exp6_TANPAIFANG",
   data() {
     return {
+      finalprice: 0, //最终价格
+      finalmainum: 0, //最终买家交易量
+      finalsellnum: 0, //最终卖家交易量
+
       nowsitua: "未开始", //实验进行时长
       showmaiform: false, //买家表格控制变量 //是否显示买家输入框
       showsellform: false, //卖家表格控制变量 // 是否显示卖家输入框
@@ -314,14 +374,13 @@ export default {
       let seconds = currentDate.getSeconds(); // 获取秒钟
       // 格式化时间为字符串
       let formattedTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-      return formattedTime
+      return formattedTime;
     },
-
     maievent() {
       //买家事件
       if (this.nowsitua != "已开始") {
-        message.info("请先开始实验")
-        return
+        message.info("请先开始实验");
+        return;
       }
       this.showmaiform = false;
       this.marketMaiNum += 1; // 更新市场买入交易总数
@@ -335,7 +394,7 @@ export default {
         id: this.marketSellNum + this.marketMaiNum,
         num: Number(this.maiformtext.number),
         price: Number(this.maiformtext.cost),
-        time: this.getFormattedTime() //获取当前时间
+        time: this.getFormattedTime(), //获取当前时间
       };
       // 将mai_datatable_obj对象插入marketMaiData数组中
       this.marketMaiData.push(mai_datatable_obj);
@@ -349,8 +408,8 @@ export default {
     sellevent() {
       //卖家事件
       if (this.nowsitua != "已开始") {
-        message.info("请先开始实验")
-        return
+        message.info("请先开始实验");
+        return;
       }
       this.showsellform = false;
       this.marketSellNum += 1;
@@ -364,7 +423,7 @@ export default {
         id: this.marketSellNum + this.marketMaiNum,
         num: Number(this.sellformtext.number),
         price: Number(this.sellformtext.cost),
-        time: this.getFormattedTime() //获取当前时间
+        time: this.getFormattedTime(), //获取当前时间
       };
       // 将sell_datatable_obj对象插入marketSellData数组中
       this.marketSellData.push(sell_datatable_obj);
@@ -373,7 +432,7 @@ export default {
       this.sellformtext.number = 0;
       this.sellformtext.cost = 0;
       message.success("卖家信息录入成功");
-      this.initEcharts()
+      this.initEcharts();
     },
     setTime() {
       //设置定时器
@@ -386,15 +445,14 @@ export default {
     restart() {
       //开始实验
       if (this.nowsitua == "已开始") {
-        message.info("实验已经开始")
-      }
-      else {
+        message.info("实验已经开始");
+      } else {
         this.nowsitua = "已开始";
         // 在开始新的实验时重置实验数据，这一步也可以放在endtest函数中做
         this.result = [];
         this.marketMaiData = [];
         this.marketSellData = [];
-        message.info("开始新的实验")
+        message.info("开始新的实验");
         this.initEcharts();
       }
     },
@@ -410,8 +468,7 @@ export default {
       this.sellinfo = [];
       this.maiinfo = [];
       this.nowsitua = "未开始";
-      message.info("结束本次实验")
-
+      message.info("结束本次实验");
     },
     merge_cost() {
       //合并供给和需求报价，并从小到大排序
@@ -446,6 +503,7 @@ export default {
       this.result.splice(0, this.result.length);
       this.merge_cost();
       //遍历result，计算供给方、需求方的供给量和需求量，存入result中
+      var min = 99999;
       for (var i = 0; i < this.result.length; i++) {
         var value = this.result[i].value;
         //需求方：报价>=价格时进入市场
@@ -461,31 +519,37 @@ export default {
           else break;
         }
         this.result[i].dist = Math.abs(this.result[i].mai - this.result[i].sell);
+        if (this.result[i].dist < min) {
+          min = this.result[i].dist;
+          this.finalprice = min;
+          this.finalmainum = this.result[i].mai;
+          this.finalsellnum = this.result[i].sell;
+        }
       }
       console.log(this.result);
     },
     initEcharts() {
-      var buy = []
-      var sell = []
+      var buy = [];
+      var sell = [];
       /*var xData=this.sellnumberarray
       var buy=this.maicostarray
       var sell=this.sellcostarray*/
-      this.calc_balancePoint()
+      this.calc_balancePoint();
       for (let i = 0; i < this.result.length; i++) {
-        buy[i] = [this.result[i].mai, this.result[i].value]
+        buy[i] = [this.result[i].mai, this.result[i].value];
         //xData[i] = this.result[i].value
         //buy[i] = this.result[i].mai
         //sell[i] = this.result[i].sell
-        sell[i] = [this.result[i].sell, this.result[i].value]
+        sell[i] = [this.result[i].sell, this.result[i].value];
       }
       // console.log("xData")
       // console.log(xData)
-      console.log("buy")
-      console.log(buy)
-      console.log("sell")
-      console.log(sell)
-      const charEle = document.getElementById('char') as HTMLElement;
-      console.log()
+      console.log("buy");
+      console.log(buy);
+      console.log("sell");
+      console.log(sell);
+      const charEle = document.getElementById("char") as HTMLElement;
+      console.log();
       const charEch: ECharts = init(charEle);
       const option: EChartsOption = {
         // xAxis: {
@@ -526,45 +590,44 @@ export default {
         //   }
         // ]
         title: {
-          text: '供需曲线'
+          text: "供需曲线",
         },
         tooltip: {
-          trigger: 'axis'
+          trigger: "axis",
         },
         legend: {
-          data: ['需求', '供给']
+          data: ["需求", "供给"],
         },
 
         xAxis: {
           // 根据x轴数据决定type类型
-          type: 'value',
+          type: "value",
           boundaryGap: false,
-          name: "市场数量"
+          name: "市场数量",
           // 注： x轴不指定data,自动会从series取
         },
         yAxis: {
-          type: 'value',
-          name: "供给/需求价格"
+          type: "value",
+          name: "供给/需求价格",
         },
         series: [
           {
-            name: '需求',
-            type: 'line', data: buy
+            name: "需求",
+            type: "line",
+            data: buy,
           },
           {
-            name: '供给',
-            type: 'line',
-            data: sell
+            name: "供给",
+            type: "line",
+            data: sell,
           },
-
-        ]
+        ],
       };
       charEch.setOption(option);
-    }
+    },
   },
 };
 </script>
-
 
 <style scoped>
 .title {
