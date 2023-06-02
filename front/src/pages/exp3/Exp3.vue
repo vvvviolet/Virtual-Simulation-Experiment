@@ -37,6 +37,56 @@
   <div id="myChart123" :style="{width: '1500px', height: '550px'}"></div>
   <div v-if="intersectionPoint.length==0" style="text-align: center;font-weight: bold;font-size: 15px;" >暂无均衡价格</div>
   <div v-if="intersectionPoint.length>0" style="text-align: center;font-weight: bold;font-size: 15px;">均衡价格为{{ intersectionPoint[0][1] }}元/吨</div>
+  <div style="text-align: center;">
+    <a-button @click="showModal" v-if="myrole==null">进入在线报价</a-button>
+    <a-modal v-model:visible="visible" title="选择你的角色" :footer="null">
+      <div style="text-align:center">
+        <a-button style="height:80px;width:200px;font-size: large;" @click="chooseRole('supply')" >供给者</a-button>
+        <a-button style="height:80px;width:200px;font-size: large;" @click="chooseRole('demand')">需求者</a-button>
+      </div>
+    </a-modal>
+    <a-button @click="showModal2" v-if="myrole!=null">输入我的报价</a-button>
+    <a-modal v-model:visible="visible2" title="输入你的报价" :footer="null" :width="1000">
+      <a-form
+        :model="formState"
+        name="horizontal_login"
+        layout="inline"
+        autocomplete="off"
+      >
+        <a-form-item
+          label="id"
+          name="id"
+          :rules="[{ required: true, message: 'Please input your id!' }]"
+        >
+          <a-input v-model:value="formState.id">
+          </a-input>
+        </a-form-item>
+
+        <a-form-item
+          label="amount"
+          name="amount"
+          :rules="[{ required: true, message: 'Please input amount!' }]"
+        >
+          <a-input v-model:value="formState.amount">
+          </a-input>
+        </a-form-item>
+
+        <a-form-item
+          label="price"
+          name="price"
+          :rules="[{ required: true, message: 'Please input price!' }]"
+        >
+          <a-input v-model:value="formState.price">
+          </a-input>
+        </a-form-item>
+
+        <a-form-item>
+          <a-button :disabled="disabled" type="primary" @click="handleSendBtnClick">确定</a-button>
+        </a-form-item>
+      </a-form>
+    </a-modal>
+  </div>
+  
 </template>
 <script lang="ts">
 import { computed, defineComponent, onMounted, reactive, ref, toRefs } from 'vue';
@@ -61,6 +111,12 @@ interface Point {
   y:number;
 }
 
+interface FormState {
+  id: string;
+  amount: number;
+  price:number
+}
+
 export default defineComponent({
   components: {
     CheckOutlined,
@@ -69,6 +125,47 @@ export default defineComponent({
   },
   
   setup() {
+    const ws = new WebSocket('ws://101.43.28.205:8000');
+    const handleWsOpen=(e)=>{
+      console.log('FE:WebSocket open',e);
+    }
+    const handleWsClose=(e)=>{
+      console.log('FE:WebSocket close',e);
+    }
+    const handleWsError=(e)=>{
+      console.log('FE:WebSocket error',e);
+    }
+    const handleWsMessage=(e)=>{
+      // console.log(e);
+      // console.log('FE:WebSocket message',e.data);
+      var reader = new FileReader();
+      reader.readAsText(e.data, 'utf-8');
+      reader.onload = function (e) {
+          console.log(reader.result);
+          var data=JSON.parse(reader.result)
+          console.log(data)
+          if(data.role=="demand"){
+            demand.value.add(data)
+          }
+          else{
+            supply.value.add(data)
+          }
+          updateChat()
+      }
+    }
+    ws.addEventListener('open',handleWsOpen.bind(this),false);
+    ws.addEventListener('close',handleWsClose.bind(this),false);
+    ws.addEventListener('error',handleWsError.bind(this),false);
+    ws.addEventListener('message',handleWsMessage.bind(this),false);
+    const handleSendBtnClick=()=>{
+      ws.send(JSON.stringify({
+        id: formState.id,
+        role:myrole.value,
+        amount:formState.amount,
+        price:formState.price
+      }))
+    }
+
     // 求两条线段交点，a,b 为第一条线段的始末点，c,d 为第二条线段的始末点。x，y 为点的横纵坐标
     const segmentsIntr=(a, b, c, d)=>{
       var denominator = (b.y - a.y) * (d.x - c.x) - (a.x - b.x) * (c.y - d.y)
@@ -217,6 +314,25 @@ export default defineComponent({
       };
     }
 
+    const visible = ref<boolean>(false);
+
+    const showModal = () => {
+      visible.value = true;
+    };
+
+    const visible2 = ref<boolean>(false);
+    const showModal2 = () => {
+      visible2.value = true;
+    };
+
+    const myrole=ref<string>(null)
+    const isInput=ref<boolean>(false)
+    const chooseRole = (role:string) => {
+      console.log(role)
+      myrole.value=role
+      visible.value = false;
+    };
+
     const updateChat=()=>{
       draw(supply.value.getDataSource(),demand.value.getDataSource());
     }
@@ -294,6 +410,16 @@ export default defineComponent({
         })
     }
 
+    const formState = reactive<FormState>({
+      id: '',
+      amount: null,
+      price:null,
+    });
+
+    const disabled = computed(() => {
+      return !(formState.id && formState.amount&&formState.price);
+    });
+
     onMounted(() => { // 需要获取到element,所以是onMounted的Hook
       updateChat()
     });
@@ -305,8 +431,18 @@ export default defineComponent({
       demand,
       updateChat,
       intersectionPoint,
+
       uploadFile,
-      downLoadFile
+      downLoadFile,
+      visible,
+      visible2,
+      showModal,
+      showModal2,
+      chooseRole,
+      myrole,
+      formState,
+      disabled,
+      handleSendBtnClick
     };
   },
 });

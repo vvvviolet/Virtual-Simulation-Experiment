@@ -127,6 +127,16 @@
         dataSource.value.push(newData);
       };
 
+      const add=(data:JSON)=>{
+        const newData = {
+          key: `${count.value}`,
+          number:data.id,
+          supply:data.amount,
+          price:data.price,
+        };
+        dataSource.value.push(newData);
+      }
+
       const getDataSource=()=>{
         return dataSource.value
       }
@@ -141,7 +151,8 @@
         edit,
         save,
         getDataSource,
-        title
+        title,
+        add
       };
     },
   });
