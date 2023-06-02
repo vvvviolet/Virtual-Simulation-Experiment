@@ -16,28 +16,47 @@ from sqlalchemy.sql import text
 
 import chart as router_chart
 
+from sqlalchemy.pool import QueuePool
+
+from sqlalchemy.pool import QueuePool
+from sqlalchemy.orm import scoped_session
+
 def create_engine_and_session(database_type, **kwargs):
     engine = None
-    Session = None
 
     if database_type == 'postgresql':
-        # 创建 PostgreSQL 引擎和会话
+        # 创建 PostgreSQL 连接池引擎
         username = kwargs.get('username', 'postgres')
         password = kwargs.get('password', '1230')
         host = kwargs.get('host', '119.3.154.46')
         port = kwargs.get('port', '5432')
         database = kwargs.get('database', 'postgres')
-        engine = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{database}')
-        Session = sessionmaker(bind=engine)
+        engine = create_engine(
+            f'postgresql://{username}:{password}@{host}:{port}/{database}',
+            poolclass=QueuePool,
+            pool_pre_ping=True,
+            pool_size=5,  # 连接池的大小
+            max_overflow=10  # 允许的最大超出连接数
+        )
     elif database_type == 'sqlite':
-        # 创建 SQLite 引擎和会话
+        # 创建 SQLite 连接池引擎
         sqlite_database_file_path = kwargs.get('sqlite_database_file_path', 'database.db')
-        engine = create_engine(f'sqlite:///{sqlite_database_file_path}')
-        Session = sessionmaker(bind=engine)
+        engine = create_engine(
+            f'sqlite:///{sqlite_database_file_path}',
+            poolclass=QueuePool,
+            pool_pre_ping=True,
+            pool_size=5,  # 连接池的大小
+            max_overflow=10  # 允许的最大超出连接数
+        )
     else:
         raise ValueError('Invalid database type. Must be "postgresql" or "sqlite".')
 
+    session_factory = sessionmaker(bind=engine)
+    Session = scoped_session(session_factory)
+    
     return engine, Session
+
+
 
 
 # 创建引擎和会话
@@ -405,6 +424,9 @@ def delete_experiment(experiment_id: int):
 
     # 返回一个响应
     return {'message': 'Experiment deleted successfully'}
+
+
+
 
 # 定义custom_openapi
 def custom_openapi():
