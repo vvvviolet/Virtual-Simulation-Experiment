@@ -87,8 +87,7 @@
                         <!-- 需要处理一下格式 -->
                         <!-- 后端传来的格式是2023-05-31T11:02:48.824000 -->
                         <!-- 替换T为空格，取前19位 -->
-                        <a-statistic
-                            :value="currentExperiment.expire_time.replace('T', ' ').substring(0, 19)"
+                        <a-statistic :value="currentExperiment.expire_time.replace('T', ' ').substring(0, 19)"
                             :precision="0"></a-statistic>
                     </a-descriptions-item>
                     <a-descriptions-item label="实验状态">
@@ -638,26 +637,26 @@ export default defineComponent({
                 };
                 chart1.setOption(option1);
 
-                // 画出买家的累计价格曲线图，标记出最大值
+                // 画出最大收益曲线图，标记出最大值
                 const chart2 = echarts.init(document.getElementById("chart2"));
 
                 const option2 = {
                     title: {
-                        text: "买家累计价格曲线",
+                        text: "最大收益直方图",
                         left: "center"
                     },
                     tooltip: {
                         trigger: "axis"
                     },
                     xAxis: {
-                        name: "数量",
+                        name: "价格",
                         type: "value",
                         splitLine: {
                             show: false
                         }
                     },
                     yAxis: {
-                        name: "价格",
+                        name: "数量",
                         type: "value",
                         splitLine: {
                             show: false
@@ -666,7 +665,7 @@ export default defineComponent({
                     series: [
                         {
                             name: "买家",
-                            type: "line",
+                            type: "bar",
                             data: this.buyer_info.map((item) => [item.cum_count, item.cum_price]),
                             markPoint: {
                                 data: [
@@ -676,8 +675,7 @@ export default defineComponent({
                         }
                     ]
                 };
-                chart2.setOption(option2);
-                console.log("drawChart end");
+                chart2.setOption(option2); console.log("drawChart end");
             });
         },
         //  获取数据 GET 127.0.0.1:8000/experiments/{experiment_id}/result
