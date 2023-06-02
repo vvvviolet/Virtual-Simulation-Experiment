@@ -4,11 +4,11 @@ import { Response } from '@/types';
 
 export const useExperimentStore = defineStore('experiment', {
     actions: {
-        async getExperiment(id:number) {
+        async getExperiment(id: string | unknown) {
             return http
               .request<any, Response<any>>(`/experiment/${id}`, 'GET')
               .then((res) => {
-                console.log(res)
+                // console.log(res)
                 return res.data;
               })
           },
@@ -18,6 +18,14 @@ export const useExperimentStore = defineStore('experiment', {
               .then((res) => {
                 console.log(res.data)
                 return res.data;
+              })
+          },
+        async uploadReport(formData:FormData) {
+            return http
+              .request<any, Response<any>>(`/report/submit`, 'post',formData)
+              .then((res) => {
+                // console.log(res.data)
+                return res;
               })
           },
     }

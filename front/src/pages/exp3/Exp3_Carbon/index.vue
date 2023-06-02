@@ -5,11 +5,20 @@
         </el-icon>实验指导书下载</el-button></span>
   </h1>
   <hr />
-  <h2>一、实验目的 </h2>
+  <h2>一、实验目的 test </h2>
   <p class="recontent">
     了解碳排放权和碳排放交易的概念，并通过实验理解供给、需求与市场价格之间的关系，掌握计算供需平衡点的方法。在实验过程中，学生应被分成买家和卖家两组，各自给出报价，并观察报价变化带来的供需曲线变化。本实验学时1学时，完成实验报告1学时。
   </p>
   <h2>二、实验内容 </h2>
+  <p class="content">1.
+    设计实验方案：确定实验的目的、方法、参与者、参数等。
+  </p>
+  <p class="content">2.
+    模拟碳排放市场：在实验中模拟一个碳排放市场，包括碳排放权的供给方和需求方。供给方包括企业、政府等，需求方则包括企业和政府等。
+  </p>
+  <p class="content">3.
+    设定初始条件：设置初始碳排放权的数量、价格、市场结构等初始条件。
+  </p>
   <p class="content">4.
     实施不同政策：通过实验，模拟不同政策下碳排放的需求和供给情况，如碳税、碳交易制度等。通过实施不同政策，并观察碳排放量和碳排放权价格的变化，可以更深入地理解碳排放需求和供给的关系，探究有效的碳排放管理措施。下面是列举出来的一些政策，我们的实验预计会采用其中一种政策应用到实验步骤中。
   </p>
@@ -72,12 +81,10 @@
   <p class="content">均衡价格：市场需求量与供给量相同时的价格</p>
   <img src="../assets/equal.png" style="margin-left: 100px;" alt="均衡价格">
   <br>
-
-
   <h2>四、实验步骤 </h2>
   <p class="content buttons">1. 实验开始，分为买家和卖家，用户可以点击下面两个按钮进行买家信息和卖家信息的录入:</p>
-  <a-button type="primary" ghost @click="maiform = true" class="buttons">我是买家</a-button>
-  <a-modal v-model:visible="maiform" title="此次买方信息" @ok="maievent">
+  <a-button type="primary" ghost @click="showmaiform = true" class="buttons">我是买家</a-button>
+  <a-modal v-model:visible="showmaiform" title="此次买方信息" @ok="maievent">
     <a-form :model="maiformtext" id="maiform">
       <a-form-item label="购买数量">
         <a-input clearable v-model:value="maiformtext.number" style="width: 180px" placeholder="请输入购买数量"></a-input>
@@ -87,8 +94,8 @@
       </a-form-item>
     </a-form>
   </a-modal>
-  <a-button type="primary" ghost @click="sellform = true" class="buttons">我是卖家</a-button>
-  <a-modal v-model:visible="sellform" title="此次卖方信息" @ok="sellevent">
+  <a-button type="primary" ghost @click="showsellform = true" class="buttons">我是卖家</a-button>
+  <a-modal v-model:visible="showsellform" title="此次卖方信息" @ok="sellevent">
     <a-form :model="sellformtext" id="sellform">
       <a-form-item label="卖出数量">
         <a-input clearable v-model:value="sellformtext.number" style="width: 180px" placeholder="请输入卖出数量"></a-input>
@@ -107,11 +114,21 @@
     <a-descriptions-item label="买家数量">{{ mainumberarray.length }}</a-descriptions-item>
     <a-descriptions-item label="卖家数量">{{ sellnumberarray.length }}</a-descriptions-item>
   </a-descriptions>
+  <!-- <a-descriptions title="供需曲线图" >
+    <a-descriptions-item>
+      <a-div id="mychart" class="myChartStyle">
+      </a-div>
+    </a-descriptions-item>
+  </a-descriptions> -->
+  <p class="table-title">供需曲线图</p>
+  <div id="charts">
+    <div class="echart myChartStyle" id="mychart"></div>
+  </div>
   <p class="table-title">市场交易记录</p>
-  <a-table :dataSource="marketData" :columns="marketColumn" bordered/>
+  <a-table :dataSource="marketData" :columns="marketColumn" bordered />
   <hr />
   <p class="table-title">我的交易记录</p>
-  <a-table :dataSource="myData" :columns="myColumn" bordered/>
+  <a-table :dataSource="myData" :columns="myColumn" bordered />
   <h2>五、实验结果 </h2>
   <p class="content">暂时不写</p>
   <h2>六、实验思考 </h2>
@@ -120,13 +137,14 @@
 
 <script lang="ts">
 import { message } from 'ant-design-vue';
+import * as echarts from "echarts";
 export default {
   name: 'Exp3_carbon_emission',
   data() {
     return {
       nowsitua: "未开始",//实验进行时长
-      maiform: false, //买家表格控制变量
-      sellform: false, //卖家表格控制变量
+      showmaiform: false, //买家表格控制变量  控制买家弹窗是否显示
+      showsellform: false, //卖家表格控制变量  控制卖家弹窗是否显示
       mainumberarray: [], //买家数量信息
       maicostarray: [], // 买家费用信息
       maiinfo: [], //买家全部信息
@@ -207,17 +225,22 @@ export default {
         cost: 0,
       }, //卖家表格
       result: [],//计算结果
+
+      myChart: {},
+
+      myChartStyle: { float: "left", width: "100%", height: "400px" } //图表样式
     };
   },
   methods: {
     mounted() { //页面加载即开始
       this.setTime(); // 页面加载完成后开始计时
+      this.initEcharts();
     },
     pdfHandle() {
       window.open('/#/show', "_blank")
     },
     maievent() { //买家事件
-      this.maiform = false;
+      this.showmaiform = false;
       this.mainumberarray.push(this.maiformtext.number);
       this.maicostarray.push(this.maiformtext.cost);
       let mai_obj = {
@@ -231,7 +254,7 @@ export default {
       message.success('买家信息录入成功');
     },
     sellevent() { //卖家事件
-      this.sellform = false;
+      this.showsellform = false;
       this.sellnumberarray.push(this.sellformtext.number);
       this.sellcostarray.push(this.sellformtext.cost);
       let sell_obj = {
@@ -247,6 +270,7 @@ export default {
     setTime() {//设置定时器
       setInterval(() => {
         this.browseTime++;
+        this.initEcharts();
       }, 1000);
     },
     restart() { //开始实验
@@ -310,6 +334,73 @@ export default {
       }
       console.log(this.result);
     },
+    initEcharts() {
+      var xData = []
+      var buy = []
+      var sell = []
+      /*var xData=this.sellnumberarray
+      var buy=this.maicostarray
+      var sell=this.sellcostarray*/
+      this.calc_balancePoint()
+      for (let i = 0; i < this.result.length; i++) {
+        xData[i] = this.result[i].value
+        buy[i] = this.result[i].mai
+        sell[i] = this.result[i].sell
+      }
+      console.log("xData")
+      console.log(xData)
+      console.log("buy")
+      console.log(buy)
+      console.log("sell")
+      console.log(sell)
+      const option = {
+        xAxis: {
+          data: xData,
+          name: "市场价格"
+        },
+        legend: { // 图例
+          data: ["需求", "供给"],
+          bottom: "0%"
+        },
+        yAxis: {
+          name: "供给量/需求量"
+        },
+        series: [
+          {
+            name: "需求",
+            data: buy,
+            type: "line", // 类型设置为折线图
+            label: {
+              show: true,
+              position: "top",
+              textStyle: {
+                fontSize: 16
+              }
+            }
+          },
+          {
+            name: "供给",
+            data: sell,
+            type: "line", // 类型设置为折线图
+            label: {
+              show: true,
+              position: "top",
+              textStyle: {
+                fontSize: 16
+              }
+            }
+          }
+        ]
+      };
+      this.myChart = echarts.init(document.getElementById("mychart"));
+      this.myChart.setOption(option);
+      //随着屏幕大小调节图表
+      window.addEventListener("resize", () => {
+        this.myChart.resize();
+      });
+
+    }
+
   }
 };
 </script>
@@ -334,6 +425,7 @@ export default {
   font-size: large;
   font-weight: bold;
 }
+
 .table-title {
   text-indent: 2em;
   margin-left: 10px;
@@ -358,5 +450,16 @@ export default {
 .recontent {
   margin-left: 60px;
   margin-right: 20px;
+}
+
+.myChartStyle {
+  float: "left";
+  width: "100%";
+  height: "400px"
+}
+
+#charts {
+  line-height: 500px;
+  background-color: antiquewhite;
 }
 </style>

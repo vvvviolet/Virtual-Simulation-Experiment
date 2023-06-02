@@ -2,16 +2,20 @@
 
     内容
     
+
 </template>
 
 
 
-<script >
-import { Document } from '@element-plus/icons-vue'
-import { defineComponent } from 'vue'
-export default {
+<script lang="ts">
+  import { defineComponent } from 'vue';
+
+  export default defineComponent({
     name: 'GB',
-}
+    data() {
+      return {};
+    },
+  });
 </script>
 
 <style scoped>
