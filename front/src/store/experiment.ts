@@ -20,5 +20,13 @@ export const useExperimentStore = defineStore('experiment', {
                 return res.data;
               })
           },
+        async uploadReport(formData:FormData) {
+            return http
+              .request<any, Response<any>>(`/report/submit`, 'post',formData)
+              .then((res) => {
+                // console.log(res.data)
+                return res;
+              })
+          },
     }
   });
