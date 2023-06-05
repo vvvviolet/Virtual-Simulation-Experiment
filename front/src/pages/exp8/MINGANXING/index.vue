@@ -1,8 +1,39 @@
 <template>
   <div>
 
+    <h1>一、实验步骤 </h1>
+    <!-- <p class="content" > -->
+    <p class="secondtitle">第一步：</p>
+    <p class="content">正文
+        <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请详细阅读文档中提供的系统设计模型。
+    </p>
+
+    <p class="secondtitle">第二步</p>
+    <p class="content">正文<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作提示</p>
+
+    <p class="secondtitle">第三步 </p>
+    <p class="content">正文<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作提示</p>
+
+
+    <p class="secondtitle">第四步</p>
+    <p class="content">正文<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作提示</p>
+    <br>
+
+    <p class="secondtitle">第五步</p>
+    <p class="content">正文<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作提示 </p>
+
+    <p class="secondtitle">第六步</p>
+    <p class="content">正文<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作提示</p>
+
+    <h1>二、实验参数 </h1>
+
     <InputChart :dataSource="dataSource1" :columns="columns1" @updateData="handleDataSource1Update">
-      一、分析变量表
+      1、分析变量表
     </InputChart>
 
     <div class="container" style="margin-top: 20px;">
@@ -10,7 +41,7 @@
     </div>
 
     <InputChart :dataSource="dataSource1" :columns="columns2" @updateData="handleDataSource2Update">
-      二、变化幅度表
+      2、变化幅度表
     </InputChart>
 
     <form style="text-align: center;">

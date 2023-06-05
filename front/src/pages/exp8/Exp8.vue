@@ -101,6 +101,7 @@ function uploadFile(report:Blob){
 function downLoadFile(){
   getExperiment(rt.meta.id)
     .then((res) => {
+      console.log(res)
       console.log(res.file)
       const filePath = res.file
       if (!filePath) {
@@ -116,6 +117,8 @@ function downLoadFile(){
       window.open(filePath)
     })
 }
+
+
 
 </script>
 
