@@ -19,7 +19,6 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/theme-chalk/index.css';
 
 const app = createApp(App);
-
 app.use(pinia);
 app.use(router);
 app.use(stepin, { router });
