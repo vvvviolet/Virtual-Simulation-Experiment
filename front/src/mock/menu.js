@@ -138,19 +138,19 @@ const presetList = [
 
 ];
 
-function getMenuList() {
+function getMenuList () {
   const menuStr = localStorage.getItem('stepin-menu');
   let menuList = [];
   // if (!menuStr) {
-    menuList = presetList;
-    localStorage.setItem('stepin-menu', JSON.stringify(menuList));
+  menuList = presetList;
+  localStorage.setItem('stepin-menu', JSON.stringify(menuList));
   // } else {w
-    // menuList = JSON.parse(menuStr);
+  // menuList = JSON.parse(menuStr);
   // }
   return menuList;
 }
 
-function saveMenu(menu) {
+function saveMenu (menu) {
   const menuList = getMenuList();
   if (!menu.id) {
     menu.id = menuList.map((item) => item.id).reduce((p, c) => Math.max(p, parseInt(c)), 0) + 1;
@@ -164,7 +164,7 @@ function saveMenu(menu) {
   localStorage.setItem('stepin-menu', JSON.stringify(menuList));
 }
 
-Mock.mock('api/menu', 'get', ({}) => {
+Mock.mock('api/menu', 'get', ({ }) => {
   let menuList = getMenuList();
   const menuMap = menuList.reduce((p, c) => {
     p[c.name] = c;
