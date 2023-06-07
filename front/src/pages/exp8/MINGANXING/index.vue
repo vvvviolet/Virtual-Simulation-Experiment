@@ -1,36 +1,70 @@
 <template>
   <div>
+    <h1>一、实验原理</h1>
+    <p class="secondtitle"> 敏感性分析：</p>
+    <p class="content">
+      敏感性分析是指从定量分析的角度研究有关因素发生某种变化对某一个或一组关键指标影响程度的一种不确定分析技术。其实质是通过逐一改变相关变量数值的方法来解释关键指标受这些因素变动影响大小的规律。
+    </p>
+    <p class="content">
+      敏感性因素一般可选择主要参数（如销售收入、经营成本、生产能力、初始投资、寿命期、建设期、达产期等）进行分析。若某参数的小幅度变化能导致经济效果指标的较大变化，则称此参数为敏感性因素，反之则称其为非敏感性因素。
+    </p>
+    <p class="secondtitle"> 利润的敏感性分析：</p>
+    <p class="content">
+      利润的敏感性分析是指专门研究制约利润的有关因素在特定条件下发生变化时对利润所产生影响的一种敏感性的分析方法。进行利润敏感性分析的主要目的是计算有关因素的利润灵敏度指标，揭示利润与有关因素之间的相对关系，并利用灵敏度指标进行利润预测。
+    </p>
+    <p class="secondtitle"> 计算公式：</p>
+    <p class="content">
+      任意第1个因素的利润灵敏度指标=该因素的中间变量基数÷利润基数×100%
+    </p>
 
-    <h1>一、实验步骤 </h1>
+
+    <h1>二、实验目的 </h1>
+    <p class="content">
+      + 研究相关因素的变动对项目经济效果评价指标的影响程度
+    </p>
+    <p class="content">
+      + 找出影响项目经济效果的敏感因素
+    </p>
+    <p class="content">
+      + 区分敏感性大的方案和敏感性小的方案，以便选出风险小的方案
+    </p>
+    <p class="content">
+      + 找出项目方案的最好与最坏的经济效果的变化范围，对不确定性因素实施控制
+    </p>
+
+    <h1>三、实验步骤 </h1>
     <!-- <p class="content" > -->
-    <p class="secondtitle">第一步：</p>
-    <p class="content">正文
-        <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请详细阅读文档中提供的系统设计模型。
+    <p class="secondtitle"> 第一步：</p>
+    <p class="content">
+      选定需要分析的不确定因素。
+    </p>
+    <p class="content">
+        不确定因素通过分析系统模型获得。确定不确定因素后，将其填写在分析变量表中。
     </p>
 
     <p class="secondtitle">第二步</p>
-    <p class="content">正文<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作提示</p>
+    <p class="content">
+      确定进行敏感性分析经济评价指标。
+     </p>
+     <p class="content">
+      确定经济评价指标后，将其填写在变化幅度表中。
+     </p>
 
     <p class="secondtitle">第三步 </p>
-    <p class="content">正文<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作提示</p>
+    <p class="content">计算不确定因素变动对指标影响的数量结果。</p>
+    <p class="content">将设计好的不确定因素变化情况填入分析变量表，然后将对应的经济评价指标变化结果填入变化幅度表</p>
 
 
     <p class="secondtitle">第四步</p>
-    <p class="content">正文<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作提示</p>
+    <p class="content">绘制敏感性分析统计图。</p>
+    <p class="content">点击“更新敏感性分析结果”，将根据填写的敏感性因素、经济评价指标变化程度，绘制用于敏感性分析的龙卷风图和折线图</p>
     <br>
 
     <p class="secondtitle">第五步</p>
-    <p class="content">正文<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作提示 </p>
+    <p class="content">确定敏感因素。</p>
+    <p class="content">通过绘制的敏感性分析图表，结合相关计算结果，确定出各敏感因素的敏感程度 </p>
 
-    <p class="secondtitle">第六步</p>
-    <p class="content">正文<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作提示</p>
-
-    <h1>二、实验参数 </h1>
+    <h1>四、实验参数 </h1>
 
     <InputChart :dataSource="dataSource1" :columns="columns1" @updateData="handleDataSource1Update">
       1、分析变量表
@@ -60,6 +94,11 @@
       <div id="line-chart" style="height:100%;min-height:400px;text-align: center;">
       </div>
     </div>
+
+    <h1>五、实验小结与心得 </h1>
+    <p class="content">
+      结合实验内容和结果，总结实验，并在实验报告中填写实验小结和心得。
+    </p>
   </div>
 </template>
 
@@ -531,5 +570,24 @@ return datas
 <style>
    .ant-table-thead > tr > th {
     background: #e9ecef !important;
+  }
+
+  .title {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 30px;
+  }
+
+  .secondtitle {
+      text-indent: 2em;
+      font-weight: bold;
+      margin-left: 30px;
+      margin-right: 30px;
+  }
+
+  .content {
+    text-indent: 2em;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 </style>
