@@ -2,8 +2,8 @@
 寻求碳排放权市场交易的供给与需求平衡点，以达成均衡价格，建议考虑交易的公平性 -->
 <template>
     <a-table bordered :data-source="dataSource" :columns="columns" style="width:100%">
-      <template #bodyCell="{ column, text, record }">
-        <template v-if="column.dataIndex === 'supply'">
+      <!-- <template #bodyCell="{ column, text, record }"> -->
+        <!-- <template v-if="column.dataIndex === 'supply'">
           <div class="editable-cell">
             <div v-if="editableData[record.key]" class="editable-cell-input-wrapper">
               <a-input v-model:value="editableData[record.key].supply" @pressEnter="save(record.key)" />
@@ -26,27 +26,11 @@
               <edit-outlined class="editable-cell-icon" @click="edit(record.key)" />
             </div>
           </div>
-        </template>
-        <template v-else-if="column.dataIndex === 'operation'">
-            <a @click="edit(record.key)">edit</a>
-          <a-popconfirm
-            
-            v-if="dataSource.length"
-            title="Sure to delete?"
-            @confirm="onDelete(record.key)"
-          >
-            <a style="margin-left:30px">Delete</a>
-          </a-popconfirm>
-        </template>
-      </template>
+        </template> -->
+      <!-- </template> -->
       <template #title>
         <div style="text-align: center;">
           碳排放权{{title}}方
-        </div>
-      </template>
-      <template #footer>
-        <div style="text-align: center;">
-          <a-button class="editable-add-btn" style="margin-bottom: 8px;" @click="handleAdd">增加一行数据</a-button>
         </div>
       </template>
     </a-table>
@@ -87,18 +71,8 @@
           title: title.value+'价格（元/吨）',
           dataIndex: 'price',
         },
-        {
-          title: 'operation',
-          dataIndex: 'operation',
-        },
       ];
       const dataSource: Ref<DataItem[]> = ref([
-        {
-          key: '0',
-          number: 1,
-          supply: 1,
-          price: 1,
-        },
       ]);
       const count = computed(() => dataSource.value.length + 1);
       const editableData: UnwrapRef<Record<string, DataItem>> = reactive({});

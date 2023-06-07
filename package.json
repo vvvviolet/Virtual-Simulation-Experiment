@@ -3,6 +3,9 @@
     "@antv/g2plot": "^2.4.29",
     "@types/echarts": "^4.9.18",
     "ant-design-vue": "^3.2.19",
-    "echarts": "^5.4.2"
+    "echarts": "^5.4.2",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.1",
+    "jspdf": "^2.5.1"
   }
 }
