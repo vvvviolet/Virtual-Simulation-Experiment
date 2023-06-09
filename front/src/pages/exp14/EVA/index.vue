@@ -1,4 +1,4 @@
-<!-- 10.软件项目进度监督与控制实验项目(EVA 法)Earned Value Analysis 挣值分析法 -->
+<!-- 14.软件项目进度监督与控制实验项目(EVA 法)Earned Value Analysis 挣值分析法 -->
 <template>
   <!--  <h1 class="title" >实验10 软件项目进度监督与控制实验-->
   <!--    <span>  <el-button  class="guidance" type="primary" text  @click="pdfHandle" ><el-icon size="25px"><Document /></el-icon>实验指导书下载</el-button></span>-->
@@ -10,33 +10,15 @@
   <!--  </p>-->
   <!--  <h2>二、实验参数  </h2>-->
   <div>
-    <a-space direction="vertical">
-      <!-- <div>
-          请输入预算每日成本：
-          <a-input-number v-model:value="plannedDailyCost"> -->
-      <!--          <template #addonAfter>-->
-      <!--            <a-select v-model:value="addonAfterValue" style="width: 60px">-->
-      <!--              <a-select-option value="CNY">¥</a-select-option>-->
-      <!--              <a-select-option value="USD">$</a-select-option>-->
-      <!--              <a-select-option value="EUR">€</a-select-option>-->
-      <!--              <a-select-option value="GBP">£</a-select-option>-->
-      <!--            </a-select>-->
-      <!--          </template>-->
-      <!-- </a-input-number> 元
-        </div>
-        <div>
-        请输入估计开发时间：
-        <a-input-number id="inputNumber" v-model:value="plannedDays" :min="1" :max="10" /> 天
-        </div> -->
-      <div>计划阶段安排</div>
-      <div>
-        项目开始日期：
-        <a-date-picker v-model:value="startDay" placeholder="项目开始日期"></a-date-picker>
-      </div>
-      <div style="margin-left: 75px">
+    <a-space direction="vertical" style="width: 100%">
+      <div style="font-size: x-large; text-align: center">项目计划</div>
+
+      <div style="margin-left: 70px">
         <a-row>
-          <a-col :span="12">阶段结束日期</a-col>
-          <a-col :span="12">本阶段计划成本</a-col>
+          <a-col :span="6">开始日期</a-col>
+          <a-col :span="6">结束日期</a-col>
+          <a-col :span="6">计划工作量（人日）</a-col>
+          <a-col :span="6">计划成本（千元）</a-col>
         </a-row>
       </div>
       <div>
@@ -48,23 +30,52 @@
             align="baseline"
           >
             <a-form-item
+              :name="['timePoints', index, 'startDay']"
+              :rules="{
+                required: true,
+                message: '缺少开始日期',
+              }"
+              :label="`阶段${index + 1}`"
+            >
+              <a-date-picker
+                v-model:value="timePoint.startDay"
+                placeholder="该阶段开始日期"
+                @change="(date) => onChangeStart(date, index)"
+              ></a-date-picker>
+            </a-form-item>
+            <a-form-item
               :name="['timePoints', index, 'endDay']"
               :rules="{
                 required: true,
                 message: '缺少结束日期',
               }"
-              :label="`阶段${index + 1}`"
+              style="margin-left: 100px"
             >
-              <a-date-picker v-model:value="timePoint.endDay" placeholder="该阶段结束日期"></a-date-picker>
+              <a-date-picker
+                v-model:value="timePoint.endDay"
+                placeholder="该阶段结束日期"
+                @change="(date) => onChangeEnd(date, index)"
+              ></a-date-picker>
             </a-form-item>
             <a-form-item
               :name="['timePoints', index, 'PV']"
               :rules="{
                 required: true,
+                message: '缺少计划工作量',
+              }"
+              style="margin-left: 110px"
+            >
+              <a-input v-model:value="timePoint.PV" placeholder="该阶段计划工作量" />
+            </a-form-item>
+            <a-form-item
+              :name="['timePoints', index, 'cost']"
+              :rules="{
+                required: true,
                 message: '缺少计划成本',
               }"
+              style="margin-left: 70px"
             >
-              <a-input v-model:value="timePoint.PV" placeholder="该阶段计划成本" />
+              <a-input v-model:value="timePoint.cost" placeholder="该阶段计划成本" />
             </a-form-item>
             <MinusCircleOutlined v-if="!timePoint.disabled" @click="removePlanTimePoint(timePoint)" />
             <MinusCircleOutlined v-else style="color: #ccc; cursor: not-allowed" />
@@ -75,18 +86,17 @@
               添加阶段
             </a-button>
           </a-form-item>
-          <!-- <a-form-item>
-              <a-button type="primary" html-type="submit">提交</a-button>
-            </a-form-item> -->
         </a-form>
       </div>
       <a-divider></a-divider>
+      <div style="font-size: x-large; text-align: center">项目实况</div>
       <div>
-        项目评估
         <div style="margin-left: 65px">
           <a-row>
-            <a-col :span="12">阶段末完成工作量</a-col>
-            <a-col :span="12">本阶段实际成本</a-col>
+            <a-col :span="6">开始日期</a-col>
+            <a-col :span="6">结束日期</a-col>
+            <a-col :span="6">实际工作量（人日）</a-col>
+            <a-col :span="6">实际成本（千元）</a-col>
           </a-row>
         </div>
         <a-form ref="formRef" name="dynamic_form_nest_item" :model="dynamicValidateForm" @finish="onFinish">
@@ -96,16 +106,31 @@
             style="display: flex; margin-bottom: 8px"
             align="baseline"
           >
+            <a-form-item :name="['timePoints', index, 'startDay']" :label="`阶段${index + 1}`">
+              <a-date-picker
+                v-if="startDayList.length > index"
+                v-model:value="startDayList[index]"
+                disabled
+              ></a-date-picker>
+              <a-date-picker v-else v-model:value="timePoint.startDay" placeholder="该阶段开始日期"></a-date-picker>
+            </a-form-item>
+            <a-form-item :name="['timePoints', index, 'endDay']" style="margin-left: 100px">
+              <a-date-picker
+                v-if="endDayList.length > index"
+                v-model:value="endDayList[index]"
+                disabled
+              ></a-date-picker>
+              <a-date-picker v-else v-model:value="timePoint.endDay" placeholder="该阶段结束日期"></a-date-picker>
+            </a-form-item>
             <a-form-item
-              :name="['timePoints', index, 'currentWork']"
+              :name="['timePoints', index, 'EV']"
               :rules="{
                 required: true,
-                message: '缺少当前完成的工作量',
+                message: '缺少实际工作量',
               }"
-              :label="`阶段${index + 1}`"
+              style="margin-left: 110px"
             >
-              <!-- <a-input v-model:value="timePoint.currentWork" placeholder="当前完成的工作量" /> -->
-              <a-date-picker v-model:value="timePoint.currentWork" placeholder="该阶段结束日期"></a-date-picker>
+              <a-input v-model:value="timePoint.EV" placeholder="该阶段实际工作量" />
             </a-form-item>
             <a-form-item
               :name="['timePoints', index, 'AC']"
@@ -113,8 +138,9 @@
                 required: true,
                 message: '缺少实际成本',
               }"
+              style="margin-left: 70px"
             >
-              <a-input v-model:value="timePoint.AC" placeholder="实际成本" />
+              <a-input v-model:value="timePoint.AC" placeholder="该阶段实际成本" />
             </a-form-item>
             <MinusCircleOutlined v-if="!timePoint.disabled" @click="removeTimePoint(timePoint)" />
             <MinusCircleOutlined v-else style="color: #ccc; cursor: not-allowed" />
@@ -122,42 +148,79 @@
           <a-form-item>
             <a-button type="dashed" block @click="addTimePoint">
               <PlusOutlined />
-              添加时间点
+              添加阶段
             </a-button>
           </a-form-item>
-          <a-form-item>
+          <a-form-item style="text-align: center">
             <a-button type="primary" html-type="submit">提交</a-button>
           </a-form-item>
         </a-form>
       </div>
       <a-divider></a-divider>
     </a-space>
-    <a-table v-if="parameter.length !== 0" :dataSource="parameter" :columns="paraColumns" bordered />
-    <a-table v-if="vDataSource.length !== 0" :dataSource="vDataSource" :columns="vColumns" bordered />
-    <a-table v-if="piDataSource.length !== 0" :dataSource="piDataSource" :columns="piColumns" bordered />
-    <div ref="myChart" style="width: 1200px; height: 675px" id="chart"></div>
+    <a-table v-if="parameter.length !== 0" :dataSource="parameter" :columns="paraColumns" bordered>
+      <template #title>各阶段基础指标</template>
+    </a-table>
+    <a-table v-if="vDataSource.length !== 0" :dataSource="vDataSource" :columns="vColumns" bordered>
+      <template #title>各阶段SV、CV指标</template>
+      <template #footer>
+        <div>
+          SV &gt; 0代表实际消耗时间小于预算值, 进度提前; SV = 0代表实际消耗时间等于预算值; SV &lt;
+          0代表实际消耗时间大于预算值, 进度滞后
+        </div>
+        <div>
+          CV &gt; 0代表实际消耗成本小于预算值, 预算结余; CV = 0代表实际消耗成本等于预算值; CV &lt;
+          0代表实际消耗成本大于预算值, 预算超支
+        </div>
+      </template>
+    </a-table>
+    <a-table v-if="piDataSource.length !== 0" :dataSource="piDataSource" :columns="piColumns" bordered>
+      <template #title>各阶段SPI、CPI指标</template>
+      <template #footer>
+        <div>
+          SPI &gt; 1代表实际消耗时间小于预算值, 进度提前; SPI = 1代表实际消耗时间等于预算值; SPI &lt;
+          1代表实际消耗时间大于预算值, 进度滞后
+        </div>
+        <div>
+          CPI &gt; 1代表实际消耗成本小于预算值, 预算结余; CPI = 1代表实际消耗成本等于预算值; CPI &lt;
+          1代表实际消耗成本大于预算值, 预算超支
+        </div>
+      </template>
+    </a-table>
+    <div>
+      <a-row :gutter="16">
+        <a-col :span="12">
+          <div ref="myChart" style="width: 600px; height: 600px" id="chart"></div>
+        </a-col>
+        <a-col :span="12">
+          <div ref="myChart2" style="width: 600px; height: 600px" id="chart2"></div>
+        </a-col>
+      </a-row>
+    </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons-vue';
   import { defineComponent, reactive, ref, watch } from 'vue';
   import { SettingOutlined } from '@ant-design/icons-vue';
   import moment from 'moment';
   import * as echarts from 'echarts';
+  import { da } from 'element-plus/es/locale';
 
   export default defineComponent({
-    name: 'Exp10',
+    name: 'Exp14',
     components: { SettingOutlined, MinusCircleOutlined, PlusOutlined },
     setup() {
       const plannedDays = ref(10);
-      const plannedDailyCost = ref(100);
-      const startDay = ref();
       const value = ref < Number > 3;
       const formRef = ref();
       const planRef = ref();
       let planStageNum = ref < Number > 1;
       let actualStageNum = ref < Number > 1;
+      let costPersonDay = [];
+      let startDayList = [];
+      let endDayList = [];
       const dynamicValidateForm = reactive({
         timePoints: [],
       });
@@ -188,7 +251,8 @@
       const addTimePoint = () => {
         if (actualStageNum < planStageNum) {
           dynamicValidateForm.timePoints.push({
-            currentDay: '',
+            startDay: '',
+            endDay: '',
             EV: '',
             AC: '',
             disabled: false,
@@ -200,191 +264,152 @@
       const addPlanTimePoint = () => {
         planStageNum++;
         plannedForm.timePoints.push({
+          startDay: '',
           endDay: '',
           PV: '',
+          cost: '',
           disabled: false,
           id: Date.now(),
         });
       };
+      const onChangeStart = (date, index) => {
+        //console.log(index);
+        //console.log(date);
+        //console.log(dateString);
+        startDayList[index] = date;
+        //console.log(startDayList.length);
+
+        dynamicValidateForm.timePoints[index].id = new Date().getTime();
+        dynamicValidateForm.timePoints[index].startDay = date;
+      };
+      const onChangeEnd = (date, index) => {
+        endDayList[index] = date;
+
+        dynamicValidateForm.timePoints[index].id = new Date().getTime();
+        dynamicValidateForm.timePoints[index].endDay = date;
+      };
       const onFinish = (values) => {
+        console.log(values);
         const myChart = echarts.init(document.getElementById('chart'));
+        const myChart2 = echarts.init(document.getElementById('chart2'));
         let Min = 0;
         let Max = 50;
         let Intv = 10;
 
         //PV数据处理
         const objPV = new Object();
-        // for (let i = Min; i <= Max; i += Intv) {
-        //   objPV[i] = i * plannedDailyCost.value
-        // }
-        objPV[0] = 0;
+        const objPV2 = new Object();
+
+        objPV[0] = 0; //以人日为单位
+        objPV2[0] = 0; //以千元为单位
         let accumulation = 0;
+        let days = 0;
         for (let i = 0; i < plannedForm.timePoints.length; i++) {
           const tmp = plannedForm.timePoints[i];
-          let current = 0;
-          current = Math.ceil((tmp.endDay.toDate().getTime() - startDay.value.toDate().getTime()) / (1000 * 3600 * 24));
-          // if(i==0){
-          //   gap=Math.ceil((tmp.endDay.toDate().getTime()-startDay.value.toDate().getTime())/ (1000 * 3600 * 24))
-          // }
-          // else{
-          //   gap=Math.ceil((tmp.endDay.toDate().getTime()-plannedForm.timePoints[i-1].endDay.toDate().getTime())/ (1000 * 3600 * 24))
-          // }
+          let day = 0;
+          day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
+          days += day;
+
           accumulation = accumulation + parseInt(tmp.PV);
-          objPV[current] = accumulation;
+          objPV[days] = accumulation;
+          objPV2[days] = accumulation * (parseInt(tmp.cost) / parseInt(tmp.PV));
+          costPersonDay.push(parseInt(tmp.cost) / parseInt(tmp.PV));
         }
         //console.log(objPV)
         const PVData = Object.entries(objPV);
+        const PVData2 = Object.entries(objPV2);
         //console.log(PVData)
 
         //EV和AC数据处理
-        const objEV = new Object();
-        const objAC = new Object();
+        const objEV = new Object(); //以人日为单位
+        const objEV2 = new Object(); //以千元为单位
+        const objAC = new Object(); //以人日为单位
+        const objAC2 = new Object(); //以千元为单位
         objEV[0] = 0;
+        objEV2[0] = 0;
         objAC[0] = 0;
+        objAC2[0] = 0;
 
+        days = 0;
+        let EV_acc = 0;
+        let EV_acc2 = 0;
+        let AC_acc = 0;
+        let AC_acc2 = 0;
         for (let i = 0; i < dynamicValidateForm.timePoints.length; i++) {
           const tmp = dynamicValidateForm.timePoints[i];
-          const x = Math.ceil(
-            (tmp.currentWork.toDate().getTime() - startDay.value.toDate().getTime()) / (1000 * 3600 * 24)
-          );
-          let j = 0;
-          for (; ; j++) {
-            const tmp = plannedForm.timePoints[j];
-            let current = 0;
-            current = Math.ceil(
-              (tmp.endDay.toDate().getTime() - startDay.value.toDate().getTime()) / (1000 * 3600 * 24)
-            );
-            // console.log("!")
-            // console.log(current)
-            if (current >= x) {
-              break;
-            }
-          }
-          console.log(j);
-          let x0 = 0;
-          let y0 = 0;
-          if (j == 0) {
-            x0 = 0;
-            y0 = 0;
-          } else {
-            x0 = Math.ceil(
-              (plannedForm.timePoints[j - 1].endDay.toDate().getTime() - startDay.value.toDate().getTime()) /
-                (1000 * 3600 * 24)
-            );
-            for (let k = 0; k < j; k++) {
-              y0 = y0 + parseInt(plannedForm.timePoints[k].PV);
-            }
-          }
-          // const x0=Math.ceil((plannedForm.timePoints[j-1].endDay.toDate().getTime() - startDay.value.toDate().getTime()) / (1000 * 3600 * 24))
-          // const yo=plannedForm.timePoints[j-1].PV
-          const x1 = Math.ceil(
-            (plannedForm.timePoints[j].endDay.toDate().getTime() - startDay.value.toDate().getTime()) /
-              (1000 * 3600 * 24)
-          );
-          let y1 = parseInt(plannedForm.timePoints[j].PV) + y0;
-          const h0 = x - x0;
-          const h1 = x1 - x;
-          const y = (h1 * y0 + h0 * y1) / (h0 + h1);
-          console.log('y0');
-          console.log(y0);
-          console.log('y1');
-          console.log(y1);
-          const tmpPlan = plannedForm.timePoints[i];
-          const time = Math.ceil(
-            (tmpPlan.endDay.toDate().getTime() - startDay.value.toDate().getTime()) / (1000 * 3600 * 24)
-          );
-          dynamicValidateForm.timePoints[i].EV = y;
-          objEV[time] = y;
+          //console.log(tmp.endDay.toDate());
+          let day = 0;
+          day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
+          days += day;
+
+          //先计算可以直接相加得到的数据
+          EV_acc = EV_acc + parseInt(tmp.EV);
+          AC_acc2 = AC_acc2 + parseInt(tmp.AC);
+
+          //再计算需要换算的数据
+          EV_acc2 = EV_acc2 + parseInt(tmp.EV) * costPersonDay[i];
+          AC_acc = AC_acc + parseInt(tmp.AC) / costPersonDay[i];
+
+          objEV[days] = EV_acc;
+          objEV2[days] = EV_acc2;
+          objAC[days] = AC_acc;
+          objAC2[days] = AC_acc2;
         }
 
-        let costAccumulate = 0;
-        for (let i = 0; i < dynamicValidateForm.timePoints.length; i++) {
-          const tmp = plannedForm.timePoints[i];
-          const tmpAc = dynamicValidateForm.timePoints[i];
-          console.log(tmp.endDay.toDate());
-          let current = Math.ceil(
-            (tmp.endDay.toDate().getTime() - startDay.value.toDate().getTime()) / (1000 * 3600 * 24)
-          );
-          costAccumulate = costAccumulate + parseInt(tmpAc.AC);
-          objAC[current] = costAccumulate;
-        }
-
-        for (let i = 0; i < plannedForm.timePoints.length; i++) {
-          const tmpPlan = plannedForm.timePoints[i];
-          const tmp = dynamicValidateForm.timePoints[i];
-          let item;
-          if (i == 0) {
-            item = {
-              num: 1,
-              startDay: startDay.value.format('YYYY-MM-DD'),
-              endDay: tmpPlan.endDay.format('YYYY-MM-DD'),
-              PV: tmpPlan.PV + '',
-              EV: tmp.EV.toFixed(3) + '',
-              AC: tmp.AC + '',
-            };
-          } else if (i < dynamicValidateForm.timePoints.length) {
-            let accumulationPV = 0;
-            let accumulationAC = 0;
-            for (let j = 0; j <= i; j++) {
-              const tmpPlan = plannedForm.timePoints[j];
-              const tmp = dynamicValidateForm.timePoints[j];
-              accumulationPV = accumulationPV + parseInt(tmpPlan.PV);
-              accumulationAC = accumulationAC + parseInt(tmp.AC);
-            }
-            item = {
-              num: i + 1,
-              startDay: plannedForm.timePoints[i - 1].endDay.add(1, 'days').format('YYYY-MM-DD'),
-              endDay: tmpPlan.endDay.format('YYYY-MM-DD'),
-              PV: accumulationPV + '',
-              EV: tmp.EV.toFixed(3) + '',
-              AC: accumulationAC + '',
-            };
+        for (let i = 0; i <= plannedForm.timePoints.length; i++) {
+          if (i == plannedForm.timePoints.length) {
           } else {
-            let accumulationPV = 0;
-            for (let j = 0; j <= i; j++) {
-              const tmpPlan = plannedForm.timePoints[j];
-              accumulationPV = accumulationPV + parseInt(tmpPlan.PV);
+            const tmpPlan = plannedForm.timePoints[i];
+            const tmp = dynamicValidateForm.timePoints[i];
+            let item;
+            if (i == 0) {
+              item = {
+                num: 1,
+                startDay: tmpPlan.startDay.format('YYYY-MM-DD'),
+                endDay: tmpPlan.endDay.format('YYYY-MM-DD'),
+                PV: tmpPlan.PV + '',
+                EV: tmp.EV + '',
+                AC: tmp.AC + '',
+              };
+            } else if (i < dynamicValidateForm.timePoints.length) {
+              item = {
+                num: i + 1,
+                startDay: plannedForm.timePoints[i - 1].endDay.add(1, 'days').format('YYYY-MM-DD'),
+                endDay: tmpPlan.endDay.format('YYYY-MM-DD'),
+                PV: tmpPlan.PV + '',
+                EV: tmp.EV + '',
+                AC: tmp.AC + '',
+              };
+            } else {
+              item = {
+                num: i + 1,
+                startDay: plannedForm.timePoints[i - 1].endDay.add(1, 'days').format('YYYY-MM-DD'),
+                endDay: tmpPlan.endDay.format('YYYY-MM-DD'),
+                PV: tmpPlan.PV + '',
+                EV: '/',
+                AC: '/',
+              };
             }
-            item = {
-              num: i + 1,
-              startDay: plannedForm.timePoints[i - 1].endDay.add(1, 'days').format('YYYY-MM-DD'),
-              endDay: tmpPlan.endDay.format('YYYY-MM-DD'),
-              PV: accumulationPV + '',
-              EV: '/',
-              AC: '/',
-            };
+            parameter.splice(i, 1, item);
           }
-          parameter.splice(i, 1, item);
         }
 
         //算SV，CV，SPI，CPI
         for (let i = 0; i < dynamicValidateForm.timePoints.length; i++) {
           const tmpPlan = plannedForm.timePoints[i];
           const tmp = dynamicValidateForm.timePoints[i];
-          let current = Math.ceil(
-            (tmpPlan.endDay.toDate().getTime() - startDay.value.toDate().getTime()) / (1000 * 3600 * 24)
-          );
           let index = i + 1;
-          //console.log(index)
-          let accumulationPV = 0;
-          let accumulationAC = 0;
-          for (let j = 0; j <= i; j++) {
-            const tmpPlan = plannedForm.timePoints[j];
-            const tmp = dynamicValidateForm.timePoints[j];
-            accumulationPV = accumulationPV + parseInt(tmpPlan.PV);
-            accumulationAC = accumulationAC + parseInt(tmp.AC);
-          }
           let vItem = {
             num: index,
-            sv: (tmp.EV - accumulationPV).toFixed(3),
-            cv: (tmp.EV - accumulationAC).toFixed(3),
+            sv: (tmp.EV - tmpPlan.PV).toFixed(3),
+            cv: (tmp.EV * costPersonDay[i] - tmp.AC).toFixed(3),
           };
           let piItem = {
             num: index,
-            spi: (tmp.EV / accumulationPV).toFixed(3),
-            cpi: (tmp.EV / accumulationAC).toFixed(3),
+            spi: (tmp.EV / tmpPlan.PV).toFixed(3),
+            cpi: ((tmp.EV * costPersonDay[i]) / tmp.AC).toFixed(3),
           };
-          if (vItem.sv > 0) vItem.svMeaning = '实际消耗时间小于预算值，进度提前';
+          /* if (vItem.sv > 0) vItem.svMeaning = '实际消耗时间小于预算值，进度提前';
           else if (vItem.sv == 0) vItem.svMeaning = '实际消耗时间等于预算值';
           else if (vItem.sv < 0) vItem.svMeaning = '实际消耗时间大于预算值，进度滞后';
 
@@ -398,54 +423,15 @@
 
           if (piItem.cpi > 1) piItem.cpiMeaning = '实际消耗成本小于预算值，预算结余';
           else if (piItem.cpi == 1) piItem.cpiMeaning = '实际消耗成本等于预算值';
-          else if (piItem.cpi < 1) piItem.cpiMeaning = '实际消耗成本大于预算值，预算超支';
+          else if (piItem.cpi < 1) piItem.cpiMeaning = '实际消耗成本大于预算值，预算超支'; */
           vDataSource.splice(i, 1, vItem);
           piDataSource.splice(i, 1, piItem);
         }
 
-        // for (let i = 0; i < values.timePoints.length; i++) {
-        //   const tmp = values.timePoints[i]
-        //   objEV[tmp.currentDay] = tmp.EV * plannedDailyCost.value
-        //   objAC[tmp.currentDay] = tmp.AC
-        //   let item = {
-        //     days: tmp.currentDay,
-        //     sv: tmp.EV * plannedDailyCost.value - tmp.currentDay * plannedDailyCost.value,
-        //     cv: tmp.EV * plannedDailyCost.value - tmp.AC,
-        //     spi: (tmp.EV * plannedDailyCost.value) / (tmp.currentDay * plannedDailyCost.value),
-        //     cpi: (tmp.EV * plannedDailyCost.value) / (tmp.AC)
-        //   }
-        //   if (item.sv > 0)
-        //     item.svMeaning = "实际消耗时间小于预算值，进度提前"
-        //   else if (item.sv == 0)
-        //     item.svMeaning = "实际消耗时间等于预算值"
-        //   else if (item.sv < 0)
-        //     item.svMeaning = "实际消耗时间大于预算值，进度滞后"
-
-        //   if (item.cv > 0)
-        //     item.cvMeaning = "实际消耗成本小于预算值，预算结余"
-        //   else if (item.cv == 0)
-        //     item.cvMeaning = "实际消耗成本等于预算值"
-        //   else if (item.cv < 0)
-        //     item.cvMeaning = "实际消耗成本大于预算值，预算超支"
-
-        //   if (item.spi > 1)
-        //     item.spiMeaning = "实际消耗时间小于预算值，进度提前"
-        //   else if (item.spi == 1)
-        //     item.spiMeaning = "实际消耗时间等于预算值"
-        //   else if (item.spi < 1)
-        //     item.spiMeaning = "实际消耗时间大于预算值，进度滞后"
-
-        //   if (item.cpi > 1)
-        //     item.cpiMeaning = "实际消耗成本小于预算值，预算结余"
-        //   else if (item.cpi == 1)
-        //     item.cpiMeaning = "实际消耗成本等于预算值"
-        //   else if (item.cpi < 1)
-        //     item.cpiMeaning = "实际消耗成本大于预算值，预算超支"
-        //   dataSource.splice(i, 1, item)
-        //   dataSource[i].SV=tmp.EV*plannedDailyCost.value-objPV[i]
-        // }
         const EVData = Object.entries(objEV);
+        const EVData2 = Object.entries(objEV2);
         const ACData = Object.entries(objAC);
+        const ACData2 = Object.entries(objAC2);
         console.log(PVData);
         console.log(EVData);
         console.log(ACData);
@@ -458,12 +444,14 @@
           xAxis: {
             interval: Intv, // 步长
             min: Min, // 起始
-            max: Max, // 终止
+            max: (days / 10 + 1) * 10, // 终止
+            name: '/天',
           },
           yAxis: {
             interval: 1000, // 步长
             min: Min, // 起始
-            max: 100, // 终止
+            max: ((objPV[days] + objEV[days] + objAC[days]) / 3 / 2) * 3, // 终止
+            name: '/人日',
           },
           tooltip: {
             trigger: 'axis',
@@ -489,25 +477,69 @@
             },
           ],
         };
+        let options2 = {
+          legend: {
+            data: ['PV', 'EV', 'AC'],
+          },
+          xAxis: {
+            interval: Intv, // 步长
+            min: Min, // 起始
+            max: (days / 10 + 1) * 10, // 终止
+            name: '/天',
+          },
+          yAxis: {
+            interval: 1000, // 步长
+            min: Min, // 起始
+            max: (objPV2[days] + objEV2[days] + objAC2[days]) / 2, // 终止
+            name: '/千元',
+          },
+          tooltip: {
+            trigger: 'axis',
+          },
+          series: [
+            {
+              name: 'PV',
+              data: PVData2,
+              type: 'line',
+              smooth: true,
+            },
+            {
+              name: 'EV',
+              data: EVData2,
+              type: 'line',
+              smooth: true,
+            },
+            {
+              name: 'AC',
+              data: ACData2,
+              type: 'line',
+              smooth: true,
+            },
+          ],
+        };
         myChart.setOption(options);
-        var x = plannedForm.timePoints[0].endDay.toDate().getTime();
+        myChart2.setOption(options2);
+        /* var x = plannedForm.timePoints[0].endDay.toDate().getTime();
         var y = startDay.value.toDate().getTime();
-        var gap = (x - y) / (1000 * 3600 * 24);
-        console.log(Math.ceil(gap));
+        var gap = (x - y) / (1000 * 3600 * 24); */
+        /* console.log(Math.ceil(gap)); */
         console.log('Received values of form:', values.timePoints[0]);
         console.log('dynamicValidateForm.timePoints:', dynamicValidateForm.timePoints[0]);
       };
       return {
         plannedDays,
-        plannedDailyCost,
-        startDay,
         planStageNum,
         actualStageNum,
         // addonAfterValue: ref('CNY'),
         plannedForm,
         formRef,
         dynamicValidateForm,
+        costPersonDay,
+        startDayList,
+        endDayList,
         onFinish,
+        onChangeStart,
+        onChangeEnd,
         removeTimePoint,
         addTimePoint,
         addPlanTimePoint,
@@ -560,21 +592,21 @@
             dataIndex: 'sv',
             key: 'sv',
           },
-          {
+          /* {
             title: 'SV含义',
             dataIndex: 'svMeaning',
             key: 'svMeaning',
-          },
+          }, */
           {
             title: 'CV',
             dataIndex: 'cv',
             key: 'cv',
           },
-          {
+          /* {
             title: 'CV含义',
             dataIndex: 'cvMeaning',
             key: 'cvMeaning',
-          },
+          }, */
         ],
         piColumns: [
           {
@@ -587,21 +619,21 @@
             dataIndex: 'spi',
             key: 'spi',
           },
-          {
+          /* {
             title: 'SPI含义',
             dataIndex: 'spiMeaning',
             key: 'spiMeaning',
-          },
+          }, */
           {
             title: 'CPI',
             dataIndex: 'cpi',
             key: 'cpi',
           },
-          {
+          /* {
             title: 'CPI含义',
             dataIndex: 'cpiMeaning',
             key: 'cpiMeaning',
-          },
+          }, */
         ],
 
         options: {
@@ -691,8 +723,8 @@
       console.log(this.dynamicValidateForm.timePoints);
       if (this.dynamicValidateForm.timePoints.length === 0) {
         this.dynamicValidateForm.timePoints.push({
-          currentDay: '',
-          currentWork: '',
+          startDay: '',
+          endDay: '',
           EV: '',
           AC: '',
           id: Date.now(),
@@ -701,8 +733,10 @@
       }
       if (this.plannedForm.timePoints.length === 0) {
         this.plannedForm.timePoints.push({
+          startDay: '',
           endDay: '',
           PV: '',
+          cost: '',
           id: Date.now(),
           disabled: true, // 添加一个 disabled 属性，防止该时间点被删除
         });
