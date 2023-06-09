@@ -106,7 +106,14 @@
             style="display: flex; margin-bottom: 8px"
             align="baseline"
           >
-            <a-form-item :name="['timePoints', index, 'startDay']" :label="`阶段${index + 1}`">
+            <a-form-item
+              :name="['timePoints', index, 'startDay']"
+              :rules="{
+                required: true,
+                message: '缺少开始日期',
+              }"
+              :label="`阶段${index + 1}`"
+            >
               <a-date-picker
                 v-if="startDayList.length > index"
                 v-model:value="startDayList[index]"
@@ -114,7 +121,14 @@
               ></a-date-picker>
               <a-date-picker v-else v-model:value="timePoint.startDay" placeholder="该阶段开始日期"></a-date-picker>
             </a-form-item>
-            <a-form-item :name="['timePoints', index, 'endDay']" style="margin-left: 100px">
+            <a-form-item
+              :name="['timePoints', index, 'endDay']"
+              :rules="{
+                required: true,
+                message: '缺少结束日期',
+              }"
+              style="margin-left: 100px"
+            >
               <a-date-picker
                 v-if="endDayList.length > index"
                 v-model:value="endDayList[index]"
@@ -206,7 +220,6 @@
   import { SettingOutlined } from '@ant-design/icons-vue';
   import moment from 'moment';
   import * as echarts from 'echarts';
-  import { da } from 'element-plus/es/locale';
 
   export default defineComponent({
     name: 'Exp14',
@@ -251,8 +264,14 @@
       const addTimePoint = () => {
         if (actualStageNum < planStageNum) {
           dynamicValidateForm.timePoints.push({
-            startDay: '',
-            endDay: '',
+            startDay:
+              startDayList.length > dynamicValidateForm.timePoints.length
+                ? startDayList[dynamicValidateForm.timePoints.length]
+                : '',
+            endDay:
+              endDayList.length > dynamicValidateForm.timePoints.length
+                ? endDayList[dynamicValidateForm.timePoints.length]
+                : '',
             EV: '',
             AC: '',
             disabled: false,
@@ -278,18 +297,20 @@
         //console.log(dateString);
         startDayList[index] = date;
         //console.log(startDayList.length);
+        let tmp = dynamicValidateForm.timePoints[index];
 
-        dynamicValidateForm.timePoints[index].id = new Date().getTime();
-        dynamicValidateForm.timePoints[index].startDay = date;
+        tmp.id = Date.now();
+        tmp.startDay = date;
       };
       const onChangeEnd = (date, index) => {
         endDayList[index] = date;
+        let tmp = dynamicValidateForm.timePoints[index];
 
-        dynamicValidateForm.timePoints[index].id = new Date().getTime();
-        dynamicValidateForm.timePoints[index].endDay = date;
+        tmp.id = Date.now();
+        tmp.endDay = date;
       };
       const onFinish = (values) => {
-        console.log(values);
+        //console.log(values);
         const myChart = echarts.init(document.getElementById('chart'));
         const myChart2 = echarts.init(document.getElementById('chart2'));
         let Min = 0;
@@ -313,7 +334,7 @@
           accumulation = accumulation + parseInt(tmp.PV);
           objPV[days] = accumulation;
           objPV2[days] = accumulation * (parseInt(tmp.cost) / parseInt(tmp.PV));
-          costPersonDay.push(parseInt(tmp.cost) / parseInt(tmp.PV));
+          costPersonDay[i] = parseInt(tmp.cost) / parseInt(tmp.PV);
         }
         //console.log(objPV)
         const PVData = Object.entries(objPV);
@@ -335,9 +356,11 @@
         let EV_acc2 = 0;
         let AC_acc = 0;
         let AC_acc2 = 0;
+
+        console.log(dynamicValidateForm.timePoints[dynamicValidateForm.timePoints.length - 1]);
+
         for (let i = 0; i < dynamicValidateForm.timePoints.length; i++) {
           const tmp = dynamicValidateForm.timePoints[i];
-          //console.log(tmp.endDay.toDate());
           let day = 0;
           day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
           days += day;
