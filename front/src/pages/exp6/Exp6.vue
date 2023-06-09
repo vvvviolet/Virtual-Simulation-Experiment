@@ -7,12 +7,12 @@
       <h1 class="title">{{ $route.meta.title }} </h1>
     </div>
     <div style="float:right">
-      <a-button style="margin-right:20px" type="primary" shape="round">
+      <a-button style="margin-right:20px" type="primary" shape="round" @click="downloadpdf">
         <template #icon>
           <DownloadOutlined />
         </template>实验指导书下载
       </a-button>
-      <a-button class="button2" type="primary" shape="round">
+      <a-button class="button2" type="primary" shape="round" @click="downloaddoc">
         <template #icon>
           <DownloadOutlined />
         </template>实验报告模板下载
@@ -33,6 +33,21 @@ export default {
     const d = getExperimentInfo(rt.meta.id)
     // console.log(d)
   },
+  methods: {
+    downloadpdf() {
+      const url ="http://1.15.177.18:8080/碳排放权供给与需求实验指导书.pdf"
+      const downloadWindow = window.open(url, "_blank");
+      downloadWindow?.focus();
+    },
+    downloaddoc() {
+      const url ="http://1.15.177.18:8080/碳排放权供给与需求实验报告模版.docx"
+      const downloadWindow = window.open(url, "_blank");
+      downloadWindow?.focus();
+      setTimeout(() => {
+        downloadWindow?.close();
+      }, 2000);
+    }
+  }
 };
 import { useExperimentStore } from '@/store/experiment';
 import { useMenuStore } from '@/store/menu';
@@ -47,6 +62,7 @@ function getExperimentInfo(id: number) {
       return res.data
     })
 }
+
 </script>
 
 <style scoped lang="less">

@@ -442,21 +442,21 @@ export default {
         //console.log(this.browseTime, "时长累计");
       }, 1000);
     },
+    //开始实验
     restart() {
-      //开始实验
       if (this.nowsitua == "已开始") {
         message.info("实验已经开始");
       } else {
         this.nowsitua = "已开始";
         this.browseTime = 0;
-       this.marketMaiNum = 0;
-       this.marketSellNum = 0;
-       this.sellnumberarray = [];
-       this.sellcostarray = [];
-       this.mainumberarray = [];
-       this.maicostarray = [];
-       this.sellinfo = [];
-       this.maiinfo = [];
+        this.marketMaiNum = 0;
+        this.marketSellNum = 0;
+        this.sellnumberarray = [];
+        this.sellcostarray = [];
+        this.mainumberarray = [];
+        this.maicostarray = [];
+        this.sellinfo = [];
+        this.maiinfo = [];
         // 在开始新的实验时重置实验数据，这一步也可以放在endtest函数中做
         this.result = [];
         this.marketMaiData = [];
@@ -467,8 +467,8 @@ export default {
     },
     endtest() {
       //结束实验
-      this.nowsitua = "未开始";
-      message.info("结束本次实验");
+        this.nowsitua = "未开始";
+        message.info("结束本次实验");
     },
     merge_cost() {
       //合并供给和需求报价，并从小到大排序
