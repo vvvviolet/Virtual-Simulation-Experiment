@@ -324,6 +324,7 @@
         objPV[0] = 0; //以人日为单位
         objPV2[0] = 0; //以千元为单位
         let accumulation = 0;
+        let acc2 = 0;
         let days = 0;
         for (let i = 0; i < plannedForm.timePoints.length; i++) {
           const tmp = plannedForm.timePoints[i];
@@ -332,8 +333,9 @@
           days += day;
 
           accumulation = accumulation + parseInt(tmp.PV);
+          acc2 = acc2 + parseInt(tmp.cost);
           objPV[days] = accumulation;
-          objPV2[days] = accumulation * (parseInt(tmp.cost) / parseInt(tmp.PV));
+          objPV2[days] = acc2;
           costPersonDay[i] = parseInt(tmp.cost) / parseInt(tmp.PV);
         }
         //console.log(objPV)
