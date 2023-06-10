@@ -18,24 +18,24 @@ export default {
 <template>
     <a-layout style="background-color:white;">
 
-        <a-layout-header class="my-layout-header">软件测试成本度量实验</a-layout-header>
+        <!-- <a-layout-header class="my-layout-header">软件测试成本度量实验</a-layout-header> -->
         <!-- <div @click="jumpToGB">软件测试成本度量规范（国标）</div> -->
         <a-row justify="end" > 
-            <a-col :span="3">
+            <!-- <a-col :span="3">
                 <a-button  style="width:9vw;" type="primary" size="small" ghost shape="round" @click="jumpToGB">
                     <template #icon>
                         <eye-outlined />
                     </template>实验指导书
                 </a-button>
-            </a-col>
+            </a-col> -->
             &emsp;
-            <a-col :span="3">
+            <!-- <a-col :span="3">
                 <a-button  style="width:9vw;" type="primary" size="small" ghost shape="round">
                     <template #icon>
                         <DownloadOutlined />
                     </template>报告模板下载
                 </a-button>
-            </a-col>
+            </a-col> -->
         </a-row>
         <br/>
         <a-config-provider :locale="locale">
