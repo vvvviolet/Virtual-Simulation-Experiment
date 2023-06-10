@@ -41,6 +41,7 @@
                 v-model:value="timePoint.startDay"
                 placeholder="该阶段开始日期"
                 @change="(date) => onChangeStart(date, index)"
+                :disabled-date="(date) => disabledStart(date, index)"
               ></a-date-picker>
             </a-form-item>
             <a-form-item
@@ -55,6 +56,7 @@
                 v-model:value="timePoint.endDay"
                 placeholder="该阶段结束日期"
                 @change="(date) => onChangeEnd(date, index)"
+                :disabled-date="(date) => disabledEnd(date, index)"
               ></a-date-picker>
             </a-form-item>
             <a-form-item
@@ -220,17 +222,17 @@
   import { SettingOutlined } from '@ant-design/icons-vue';
   import moment from 'moment';
   import * as echarts from 'echarts';
+  import dayjs from 'dayjs';
 
   export default defineComponent({
     name: 'Exp14',
     components: { SettingOutlined, MinusCircleOutlined, PlusOutlined },
     setup() {
       const plannedDays = ref(10);
-      const value = ref < Number > 3;
       const formRef = ref();
       const planRef = ref();
-      let planStageNum = ref < Number > 1;
-      let actualStageNum = ref < Number > 1;
+      let planStageNum = 1;
+      let actualStageNum = 1;
       let costPersonDay = [];
       let startDayList = [];
       let endDayList = [];
@@ -248,21 +250,39 @@
         if (index !== -1) {
           dynamicValidateForm.timePoints.splice(index, 1);
           actualStageNum--;
+          if (actualStageNum > 1) {
+            dynamicValidateForm.timePoints[actualStageNum - 1].disabled = false;
+          }
         }
+        onFinish(item);
       };
       const removePlanTimePoint = (item) => {
         let index = plannedForm.timePoints.indexOf(item);
         if (index !== -1) {
           plannedForm.timePoints.splice(index, 1);
+          startDayList.splice(index, 1);
+          endDayList.splice(index, 1);
+          //console.log(plannedForm.timePoints.length);
           planStageNum--;
-          if (index <= actualStageNum) {
+          if (planStageNum > 1) {
+            plannedForm.timePoints[planStageNum - 1].disabled = false;
+          }
+          if (index < actualStageNum) {
             dynamicValidateForm.timePoints.splice(index, 1);
             actualStageNum--;
+            if (actualStageNum > 1) {
+              dynamicValidateForm.timePoints[actualStageNum - 1].disabled = false;
+            }
           }
         }
+        //console.log(plannedForm.timePoints.length);
+        onFinish(item);
       };
       const addTimePoint = () => {
+        console.log(actualStageNum);
+        console.log(planStageNum);
         if (actualStageNum < planStageNum) {
+          dynamicValidateForm.timePoints[actualStageNum - 1].disabled = true;
           dynamicValidateForm.timePoints.push({
             startDay:
               startDayList.length > dynamicValidateForm.timePoints.length
@@ -281,6 +301,9 @@
         }
       };
       const addPlanTimePoint = () => {
+        //console.log(planStageNum);
+        //console.log(plannedForm.timePoints[planStageNum - 1]);
+        plannedForm.timePoints[planStageNum - 1].disabled = true;
         planStageNum++;
         plannedForm.timePoints.push({
           startDay: '',
@@ -308,6 +331,15 @@
 
         tmp.id = Date.now();
         tmp.endDay = date;
+      };
+      const disabledStart = (date, index) => {
+        if (index > 0) {
+          return date.valueOf() < endDayList[index - 1].add(1, 'days').valueOf();
+        }
+      };
+      const disabledEnd = (date, index) => {
+        return date.valueOf() < startDayList[index].add(1, 'days').valueOf();
+        //return startDayList[index];
       };
       const onFinish = (values) => {
         //console.log(values);
@@ -381,7 +413,7 @@
           objAC2[days] = AC_acc2;
         }
 
-        for (let i = 0; i <= plannedForm.timePoints.length; i++) {
+        for (let i = 0; i < plannedForm.timePoints.length; i++) {
           if (i == plannedForm.timePoints.length) {
           } else {
             const tmpPlan = plannedForm.timePoints[i];
@@ -399,7 +431,7 @@
             } else if (i < dynamicValidateForm.timePoints.length) {
               item = {
                 num: i + 1,
-                startDay: plannedForm.timePoints[i - 1].endDay.add(1, 'days').format('YYYY-MM-DD'),
+                startDay: tmpPlan.startDay.format('YYYY-MM-DD'),
                 endDay: tmpPlan.endDay.format('YYYY-MM-DD'),
                 PV: tmpPlan.PV + '',
                 EV: tmp.EV + '',
@@ -416,42 +448,46 @@
               };
             }
             parameter.splice(i, 1, item);
+            console.log(parameter.length);
           }
         }
+        console.log(plannedForm.timePoints.length);
+        parameter.splice(plannedForm.timePoints.length, 1);
 
         //算SV，CV，SPI，CPI
-        for (let i = 0; i < dynamicValidateForm.timePoints.length; i++) {
+        for (let i = 0; i < plannedForm.timePoints.length; i++) {
           const tmpPlan = plannedForm.timePoints[i];
           const tmp = dynamicValidateForm.timePoints[i];
           let index = i + 1;
-          let vItem = {
-            num: index,
-            sv: (tmp.EV - tmpPlan.PV).toFixed(3),
-            cv: (tmp.EV * costPersonDay[i] - tmp.AC).toFixed(3),
-          };
-          let piItem = {
-            num: index,
-            spi: (tmp.EV / tmpPlan.PV).toFixed(3),
-            cpi: ((tmp.EV * costPersonDay[i]) / tmp.AC).toFixed(3),
-          };
-          /* if (vItem.sv > 0) vItem.svMeaning = '实际消耗时间小于预算值，进度提前';
-          else if (vItem.sv == 0) vItem.svMeaning = '实际消耗时间等于预算值';
-          else if (vItem.sv < 0) vItem.svMeaning = '实际消耗时间大于预算值，进度滞后';
-
-          if (vItem.cv > 0) vItem.cvMeaning = '实际消耗成本小于预算值，预算结余';
-          else if (vItem.cv == 0) vItem.cvMeaning = '实际消耗成本等于预算值';
-          else if (vItem.cv < 0) vItem.cvMeaning = '实际消耗成本大于预算值，预算超支';
-
-          if (piItem.spi > 1) piItem.spiMeaning = '实际消耗时间小于预算值，进度提前';
-          else if (piItem.spi == 1) piItem.spiMeaning = '实际消耗时间等于预算值';
-          else if (piItem.spi < 1) piItem.spiMeaning = '实际消耗时间大于预算值，进度滞后';
-
-          if (piItem.cpi > 1) piItem.cpiMeaning = '实际消耗成本小于预算值，预算结余';
-          else if (piItem.cpi == 1) piItem.cpiMeaning = '实际消耗成本等于预算值';
-          else if (piItem.cpi < 1) piItem.cpiMeaning = '实际消耗成本大于预算值，预算超支'; */
+          let vItem, piItem;
+          if (i < dynamicValidateForm.timePoints.length) {
+            vItem = {
+              num: index,
+              sv: (tmp.EV - tmpPlan.PV).toFixed(3),
+              cv: (tmp.EV * costPersonDay[i] - tmp.AC).toFixed(3),
+            };
+            piItem = {
+              num: index,
+              spi: (tmp.EV / tmpPlan.PV).toFixed(3),
+              cpi: ((tmp.EV * costPersonDay[i]) / tmp.AC).toFixed(3),
+            };
+          } else {
+            vItem = {
+              num: index,
+              sv: '/',
+              cv: '/',
+            };
+            piItem = {
+              num: index,
+              spi: '/',
+              cpi: '/',
+            };
+          }
           vDataSource.splice(i, 1, vItem);
           piDataSource.splice(i, 1, piItem);
         }
+        vDataSource.splice(plannedForm.timePoints.length, 1);
+        piDataSource.splice(plannedForm.timePoints.length, 1);
 
         const EVData = Object.entries(objEV);
         const EVData2 = Object.entries(objEV2);
@@ -475,7 +511,7 @@
           yAxis: {
             interval: 1000, // 步长
             min: Min, // 起始
-            max: ((objPV[days] + objEV[days] + objAC[days]) / 3 / 2) * 3, // 终止
+            max: (Math.ceil(objPV[days] + objEV[days] + objAC[days]) / 10 + 1) * 10, // 终止
             name: '/人日',
           },
           tooltip: {
@@ -515,7 +551,7 @@
           yAxis: {
             interval: 1000, // 步长
             min: Min, // 起始
-            max: (objPV2[days] + objEV2[days] + objAC2[days]) / 2, // 终止
+            max: (Math.ceil(objPV2[days] + objEV2[days] + objAC2[days]) / 10 + 1) * 10, // 终止
             name: '/千元',
           },
           tooltip: {
@@ -548,8 +584,8 @@
         var y = startDay.value.toDate().getTime();
         var gap = (x - y) / (1000 * 3600 * 24); */
         /* console.log(Math.ceil(gap)); */
-        console.log('Received values of form:', values.timePoints[0]);
-        console.log('dynamicValidateForm.timePoints:', dynamicValidateForm.timePoints[0]);
+        /* console.log('Received values of form:', values.timePoints[0]);
+        console.log('dynamicValidateForm.timePoints:', dynamicValidateForm.timePoints[0]); */
       };
       return {
         plannedDays,
@@ -565,6 +601,8 @@
         onFinish,
         onChangeStart,
         onChangeEnd,
+        disabledStart,
+        disabledEnd,
         removeTimePoint,
         addTimePoint,
         addPlanTimePoint,
