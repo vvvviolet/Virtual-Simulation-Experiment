@@ -178,10 +178,7 @@
     <span style="font-size:20px">{{ ALL }}</span>
     <br /><br /></template>
 
-
-
 <script lang="ts">
-import { defineComponent } from 'vue'
 export default {
     name: 'Exp1_IFPUG',
     data() {

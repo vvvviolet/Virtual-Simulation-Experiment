@@ -14,3 +14,4 @@ stepin-template.session.sql
 docs/.vitepress/cache
 *.lock
 vse
+*.zip
