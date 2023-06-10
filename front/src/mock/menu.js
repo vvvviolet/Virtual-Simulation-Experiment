@@ -213,9 +213,7 @@ const presetList = [
         cacheable: true,
       }
     ]
-
   },
-
 ];
 
 function getMenuList() {

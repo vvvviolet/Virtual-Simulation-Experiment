@@ -262,14 +262,11 @@
 </template>
 
 <script lang="ts">
-import { message, CollapseProps, Collapse } from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 import { ECharts, EChartsOption, init } from 'echarts';
-// import type { CollapseProps } from 'antd';
-// import { Collapse } from 'antd';
-import React from 'react';
 
 export default {
-  name: 'Exp6_TANPAIFANG',
+  name: 'Exp6_TANPAIFANG61',
   data() {
     return {
       finalprice: 0, //最终价格
