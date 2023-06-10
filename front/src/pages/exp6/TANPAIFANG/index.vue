@@ -14,9 +14,13 @@
           目的：寻求碳排放权市场交易的供给与需求平衡点，以达成均衡价格。
         </li>
         <li class="recontent">参与者：学生。</li>
-        <li class="recontent">参数：买家的购买数量和购买价格；卖家的卖出数量和卖出价格。</li>
+        <li class="recontent">
+          参数：买家的购买数量和购买价格；卖家的卖出数量和卖出价格。
+        </li>
       </a-collapse-panel>
-      <a-collapse-panel header="2. 模拟碳排放市场：在实验中模拟一个碳排放市场，包括碳排放权的供应方、需求方和中介。">
+      <a-collapse-panel
+        header="2. 模拟碳排放市场：在实验中模拟一个碳排放市场，包括碳排放权的供应方、需求方和中介。"
+      >
         <li class="recontent">
           供应方：项目发展方、金融机构、咨询顾问、技术转让方、政策制定者。
         </li>
@@ -29,7 +33,9 @@
         <li class="recontent">卖家的卖出数量：0。</li>
         <li class="recontent">卖家的卖出价格：0。</li>
       </a-collapse-panel>
-      <a-collapse-panel header="4.实施不同政策：通过实验，模拟不同政策下碳排放的需求和供给情况，如碳税、碳交易制度等。通过实施不同政策，并观察碳排放量和碳排放权价格的变化，可以更深入地理解碳排放需求和供给的关系，探究有效的碳排放管理措施。下面是列举出来的一些政策，我们的实验预计会采用其中一种政策应用到实验步骤中。">
+      <a-collapse-panel
+        header="4.实施不同政策：通过实验，模拟不同政策下碳排放的需求和供给情况，如碳税、碳交易制度等。通过实施不同政策，并观察碳排放量和碳排放权价格的变化，可以更深入地理解碳排放需求和供给的关系，探究有效的碳排放管理措施。下面是列举出来的一些政策，我们的实验预计会采用其中一种政策应用到实验步骤中。"
+      >
         <li class="recontent">
           1.碳税：碳税是一种通过向碳排放行为征税的政策，可以提高碳排放成本，从而鼓励企业采取更环保的行为。在实验中，可以通过设定不同的碳税税率来模拟不同的碳税政策，然后观察碳排放量和碳排放权价格的变化情况。
         </li>
@@ -43,7 +49,9 @@
           4.可再生能源政策：可再生能源政策是一种通过鼓励使用可再生能源来减少碳排放的政策，可以通过设定可再生能源的比例目标、提供补贴等方式来实施。在实验中，可以设定不同的可再生能源政策，然后观察碳排放量和碳排放权价格的变化情况。
         </li>
       </a-collapse-panel>
-      <a-collapse-panel header="5.收集数据并分析：收集实验中的数据，如碳排放量、碳排放权价格等，并对数据进行统计和分析，以得出有关碳排放需求和供给变化的结论。以下是我们需要收集的数据部分。通过收集和分析这些数据，可以更好地理解碳排放需求和供给的关系，进而制定有效的碳排放管理措施。我们会在设计实验的部分专门设置一个模块用来展示所收集的数据。">
+      <a-collapse-panel
+        header="5.收集数据并分析：收集实验中的数据，如碳排放量、碳排放权价格等，并对数据进行统计和分析，以得出有关碳排放需求和供给变化的结论。以下是我们需要收集的数据部分。通过收集和分析这些数据，可以更好地理解碳排放需求和供给的关系，进而制定有效的碳排放管理措施。我们会在设计实验的部分专门设置一个模块用来展示所收集的数据。"
+      >
         <li class="recontent">
           1.碳排放量：需要记录市场中每个参与者的碳排放量，包括企业和政府等。可以通过对碳排放设备进行监测、对排放数据进行统计等方式来收集数据。然后可以分析不同政策下碳排放量的变化，以及市场上的碳排放量分布情况等。
         </li>
@@ -60,7 +68,9 @@
           5.数据分析方法：可以采用统计学方法对收集到的数据进行分析，如回归分析、方差分析等。可以通过数据可视化工具，如图表、统计图等来呈现数据的变化趋势和关联关系。
         </li>
       </a-collapse-panel>
-      <a-collapse-panel header="6.总结和讨论：总结实验结果，探讨不同政策和经济环境下碳排放需求和供给的变化情况，提出改进政策的建议。总结和讨论的内容可以有所不同，取决于实验的具体目的和研究者的关注点。总之，总结和讨论可以帮助研究者更好地理解实验结果、得出结论并提出改进措施，从而推动碳排放管理措施的进一步优化。我们将在我们实验进行的最后，进行结果的讨论分析。">
+      <a-collapse-panel
+        header="6.总结和讨论：总结实验结果，探讨不同政策和经济环境下碳排放需求和供给的变化情况，提出改进政策的建议。总结和讨论的内容可以有所不同，取决于实验的具体目的和研究者的关注点。总之，总结和讨论可以帮助研究者更好地理解实验结果、得出结论并提出改进措施，从而推动碳排放管理措施的进一步优化。我们将在我们实验进行的最后，进行结果的讨论分析。"
+      >
         <li class="recontent">
           1.实验结果总结：总结实验中不同政策下碳排放量、碳排放权价格和市场结构的变化情况，以及碳排放对经济指标的影响等。
         </li>
@@ -82,27 +92,27 @@
     <a-collapse default-active-key="0" :bordered="false">
       <a-collapse-panel header="1.需求规律">
         <h4 class="content">1.1 概念</h4>
-            <p class="content">
-              需求数量（需求量）：消费者在一定时期内愿意并能够购买的这种商品的数量
-            </p>
-            <p class="content">
-              需求：一种商品的需求是指在其他因素不变的条件下，消费者在一定时期内各种可能的价格水平愿意并且能够购买的商品的数量。
-            </p>
-            <h4 class="content">1.2 需求曲线</h4>
-            <p class="content">需求曲线：以几何图形来表示商品的价格和需求量的函数关系</p>
-            <p class="content">横坐标：需求量 纵坐标：价格</p>
-            <img
-              class="content"
-              style="margin-left: 100px"
-              src="../assets/demand.png"
-              alt="需求曲线"
-            />
-            <br />
-            <br />
-            <h4 class="content">1.3 需求定理</h4>
-            <p class="content">
-              需求定理：在其他因素不变的条件下，一种商品的价格上升，则对该商品的需求量减少
-            </p>
+        <p class="content">
+          需求数量（需求量）：消费者在一定时期内愿意并能够购买的这种商品的数量
+        </p>
+        <p class="content">
+          需求：一种商品的需求是指在其他因素不变的条件下，消费者在一定时期内各种可能的价格水平愿意并且能够购买的商品的数量。
+        </p>
+        <h4 class="content">1.2 需求曲线</h4>
+        <p class="content">需求曲线：以几何图形来表示商品的价格和需求量的函数关系</p>
+        <p class="content">横坐标：需求量 纵坐标：价格</p>
+        <img
+          class="content"
+          style="margin-left: 100px"
+          src="../assets/demand.png"
+          alt="需求曲线"
+        />
+        <br />
+        <br />
+        <h4 class="content">1.3 需求定理</h4>
+        <p class="content">
+          需求定理：在其他因素不变的条件下，一种商品的价格上升，则对该商品的需求量减少
+        </p>
       </a-collapse-panel>
       <a-collapse-panel header="2.供给规律">
         <h4 class="content">2.1 概念</h4>
@@ -140,7 +150,6 @@
         <br />
       </a-collapse-panel>
     </a-collapse>
-
     <h2>四、实验步骤</h2>
     <p class="content buttons">
       1. 实验开始，分为买家和卖家，用户可以点击下面两个按钮进行买家信息和卖家信息的录入:
@@ -192,24 +201,50 @@
       </a-form>
     </a-modal>
     <p class="content buttons">
-      2.
+      2. 买家和卖家的信息录入后，考虑到交易的公平性，排除极端价格:
+    </p>
+    <a-button type="primary" ghost @click="showvalueform = true" class="buttons"
+      >价格筛选</a-button
+    >
+    <a-modal v-model:visible="showvalueform" title="剔除极端价格" @ok="valueevent">
+      <a-form :model="valueformtext" id="valueform">
+        <a-form-item label="最低价格">
+          <a-input
+            clearable
+            v-model:value="valueformtext.min"
+            style="width: 180px"
+            placeholder="请输入最低价格"
+          ></a-input>
+        </a-form-item>
+        <a-form-item label="最高价格">
+          <a-input
+            clearable
+            v-model:value="valueformtext.max"
+            style="width: 180px"
+            placeholder="请输入最高价格"
+          ></a-input>
+        </a-form-item>
+      </a-form>
+    </a-modal>
+    <p class="content buttons">
+      3.
       在实验的过程中，统计买家数量和卖家数量和总的参与人数，以及当前的实验已经进行的时间等:
     </p>
     <a-button type="primary" ghost @click="restart" class="buttons">开始实验</a-button>
     <a-button type="primary" ghost @click="endtest" class="buttons">结束实验</a-button>
     <a-descriptions title="实验详情" class="content" :column="4" bordered>
-      <a-descriptions-item label="实验进行情况"
-        ><a-tag color="blue">{{ nowsitua }}</a-tag></a-descriptions-item
-      >
-      <a-descriptions-item label="总的参与人数">{{
-        mainumberarray.length + sellnumberarray.length
-      }}</a-descriptions-item>
-      <a-descriptions-item label="买家数量">{{
-        mainumberarray.length
-      }}</a-descriptions-item>
-      <a-descriptions-item label="卖家数量">{{
-        sellnumberarray.length
-      }}</a-descriptions-item>
+      <a-descriptions-item label="实验进行情况">
+        <a-tag color="blue">{{ nowsitua }}</a-tag>
+      </a-descriptions-item>
+      <a-descriptions-item label="总的参与人数">
+        {{ mainumberarray.length + sellnumberarray.length }}
+      </a-descriptions-item>
+      <a-descriptions-item label="买家数量">
+        {{ mainumberarray.length }}
+      </a-descriptions-item>
+      <a-descriptions-item label="卖家数量">
+        {{ sellnumberarray.length }}
+      </a-descriptions-item>
     </a-descriptions>
     <p class="table-title">供需曲线图</p>
     <div id="char" style="width: 800px; height: 600px"></div>
@@ -246,7 +281,9 @@
         <p class="content">
           实验结果显示，在本次实验中，碳排放权的均衡价格为{{
             finalprice
-          }}元/吨，买家和卖家的最优交易数量分别为{{ finalmainum }}吨和{{ finalsellnum }}吨。
+          }}元/吨，买家和卖家的最优交易数量分别为{{ finalmainum }}吨和{{
+            finalsellnum
+          }}吨。
         </p>
       </a-collapse-panel>
       <a-collapse-panel header="3.讨论结果：">
@@ -289,11 +326,11 @@
 </template>
 
 <script lang="ts">
-import { message ,CollapseProps,Collapse} from "ant-design-vue";
+import { message, CollapseProps, Collapse } from "ant-design-vue";
 import { ECharts, EChartsOption, init } from "echarts";
 // import type { CollapseProps } from 'antd';
 // import { Collapse } from 'antd';
-import React from 'react';
+import React from "react";
 
 export default {
   name: "Exp6_TANPAIFANG",
@@ -306,6 +343,7 @@ export default {
       nowsitua: "未开始", //实验进行时长
       showmaiform: false, //买家表格控制变量 //是否显示买家输入框
       showsellform: false, //卖家表格控制变量 // 是否显示卖家输入框
+      showvalueform: false, //价格表格控制变量  控制价格弹窗是否显示
       mainumberarray: [], //买家数量信息
       maicostarray: [], // 买家费用信息
       maiinfo: [], //买家全部信息
@@ -368,9 +406,13 @@ export default {
         number: 0,
         cost: 0,
       }, //卖家表格
+      valueformtext: {
+        min: 0,
+        max: 0,
+      },
       result: [], //计算结果
 
-      text : "示例数据",
+      text: "示例数据",
     };
   },
   mounted() {
@@ -452,6 +494,10 @@ export default {
       message.success("卖家信息录入成功");
       this.initEcharts();
     },
+    valueevent() {
+      this.showvalueform = false;
+      this.initEcharts();
+    },
     setTime() {
       //设置定时器
       this.clearTimeSet = setInterval(() => {
@@ -485,8 +531,8 @@ export default {
     },
     endtest() {
       //结束实验
-        this.nowsitua = "未开始";
-        message.info("结束本次实验");
+      this.nowsitua = "未开始";
+      message.info("结束本次实验");
     },
     merge_cost() {
       //合并供给和需求报价，并从小到大排序
@@ -506,7 +552,11 @@ export default {
           sell: 0,
           dist: 0,
         };
-        this.result.push(res_obj);
+        if (
+          Number(cost[j]) >= this.valueformtext.min &&
+          (Number(cost[j]) <= this.valueformtext.max || this.valueformtext.max == 0)
+        )
+          this.result.push(res_obj);
       }
     },
     calc_balancePoint() {
