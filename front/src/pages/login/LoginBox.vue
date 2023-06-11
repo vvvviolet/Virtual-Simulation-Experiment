@@ -91,7 +91,7 @@
         console.log(res.data)
       })
     };
-    export interface LoginFormProps {
+  export interface LoginFormProps {
       username: string;
       password: string;
     }

@@ -3,10 +3,12 @@
 <template>
   <div style="padding: 2%">
     <div type="flex" justify-content="center" style="height: 50px">
-      <div style="float: left">
-        <h1 class="title">{{ $route.meta.title }}</h1>
-      </div>
-      <div style="float: right">
+      <center>
+        <div>
+          <h1 class="title">{{ $route.meta.title }}</h1>
+        </div>
+      </center>
+      <div style="text-align: right">
         <a-button style="margin-right: 20px" type="primary" shape="round" @click="downLoadFile">
           <template #icon>
             <DownloadOutlined /> </template
@@ -15,7 +17,6 @@
       </div>
     </div>
 
-    <hr />
     <RouterView />
     <div style="float: right">
       <a-upload
@@ -98,8 +99,18 @@
     formData.append('experiment_id', rt.meta.id.toString());
     formData.append('report', report);
 
-    const date = new Date();
-    const formatDate = formatDateTime(date, 'yyyy-MM-dd HH:mm:ss');
+    const handleChange = (info: UploadChangeParam) => {
+      if (info.file.status !== 'uploading') {
+        // console.log('uploading')
+      }
+      if (info.file.status === 'done') {
+        // console.log(fileList)
+        fileList.value = [];
+        // message.success(`${info.file.name} 上传成功`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} 上传失败`);
+      }
+    };
 
     formData.append('submit_time', formatDate);
 
@@ -119,7 +130,6 @@
     );
   };
   function downLoadFile() {
-    console.log(rt.meta.experiment_id);
     getExperiment(rt.meta.id).then((res) => {
       console.log(res.file);
       const filePath = res.file;
