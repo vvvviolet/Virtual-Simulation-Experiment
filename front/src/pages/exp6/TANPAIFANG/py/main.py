@@ -442,4 +442,59 @@ def custom_openapi():
     return app.openapi_schema
 
 
+from random import randint
+from datetime import datetime, timedelta
+@app.get('/random-experiment/{min_price}/{max_price}/{bid_count}')
+def generate_random_experiment(min_price: int = 40, max_price: int = 200, bid_count: int = 200):
+    # 生成随机的实验名称
+    experiment_name = f"Random_{datetime.now().strftime('%Y%m%d%H%M%S')}"
+
+    # 获取现有实验的 id 列表
+    session = Session()
+    existing_ids = [experiment.id for experiment in session.query(Experiment).all()]
+
+    # 生成一个唯一的实验 id
+    experiment_id = max(existing_ids or [0]) + 1
+
+    # 生成实验的过期时间（当前时间的 7 天后）
+    expire_time = datetime.now() + timedelta(days=7)
+
+    # 生成随机的买方和卖方出价
+    bids = []
+    for i in range(bid_count):
+        buyer_price = randint(min_price, max_price)
+        seller_price = randint(min_price, max_price)
+        bids.append(Bid(
+            experiment_id=experiment_id,
+            student_id=i + 1,
+            price=buyer_price,
+            buy_or_sell=0
+        ))
+        bids.append(Bid(
+            experiment_id=experiment_id,
+            student_id=i + 1,
+            price=seller_price,
+            buy_or_sell=1
+        ))
+
+    session.add(Experiment(
+        id=experiment_id,
+        name=experiment_name,
+        create_time=datetime.now(),
+        duration=0,
+        expire_time=expire_time,
+        status=0
+    ))
+    session.add_all(bids)
+    session.commit()
+    session.close()
+
+    return {
+        'message': 'Random experiment and bids generated successfully',
+        'experiment_id': experiment_id,
+        'experiment_name': experiment_name,
+        'expire_time': expire_time,
+        'bid_count': bid_count
+    }
+
 app.openapi = custom_openapi
