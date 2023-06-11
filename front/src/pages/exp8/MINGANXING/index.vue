@@ -1,6 +1,22 @@
 <template>
   <div>
-    <h1>一、实验原理</h1>
+
+    <h1>一、实验目的 </h1>
+    <p class="content">
+      + 研究相关因素的变动对项目经济效果评价指标的影响程度
+    </p>
+    <p class="content">
+      + 找出影响项目经济效果的敏感因素
+    </p>
+    <p class="content">
+      + 区分敏感性大的方案和敏感性小的方案，以便选出风险小的方案
+    </p>
+    <p class="content">
+      + 找出项目方案的最好与最坏的经济效果的变化范围，对不确定性因素实施控制
+    </p>
+
+
+    <h1>二、实验原理</h1>
     <p class="secondtitle"> 敏感性分析：</p>
     <p class="content">
       敏感性分析是指从定量分析的角度研究有关因素发生某种变化对某一个或一组关键指标影响程度的一种不确定分析技术。其实质是通过逐一改变相关变量数值的方法来解释关键指标受这些因素变动影响大小的规律。
@@ -18,21 +34,9 @@
     </p>
 
 
-    <h1>二、实验目的 </h1>
-    <p class="content">
-      + 研究相关因素的变动对项目经济效果评价指标的影响程度
-    </p>
-    <p class="content">
-      + 找出影响项目经济效果的敏感因素
-    </p>
-    <p class="content">
-      + 区分敏感性大的方案和敏感性小的方案，以便选出风险小的方案
-    </p>
-    <p class="content">
-      + 找出项目方案的最好与最坏的经济效果的变化范围，对不确定性因素实施控制
-    </p>
 
-    <h1>三、实验步骤 </h1>
+
+    <h1>三、实验过程 </h1>
     <!-- <p class="content" > -->
     <p class="secondtitle"> 第一步：</p>
     <p class="content">
@@ -64,10 +68,10 @@
     <p class="content">确定敏感因素。</p>
     <p class="content">通过绘制的敏感性分析图表，结合相关计算结果，确定出各敏感因素的敏感程度 </p>
 
-    <h1>四、实验参数 </h1>
+    <h1>四、实验步骤 </h1>
 
     <InputChart :dataSource="dataSource1" :columns="columns1" @updateData="handleDataSource1Update">
-      1、分析变量表
+      选择分析分析变量
     </InputChart>
 
     <div class="container" style="margin-top: 20px;">
@@ -75,7 +79,7 @@
     </div>
 
     <InputChart :dataSource="dataSource1" :columns="columns2" @updateData="handleDataSource2Update">
-      2、变化幅度表
+      选择变化幅度
     </InputChart>
 
     <form style="text-align: center;">
