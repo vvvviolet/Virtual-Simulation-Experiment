@@ -1,9 +1,32 @@
 <template>
+    <div style="padding-top:60px;padding-bottom:20px">
+        <a-config-provider :locale="locale">
+            <p style="line-height:200%;font-size: 16px;">
+                <a-row justify="center">
+                    <a-col span="6">课程名称：软件工程经济学</a-col>
+                    <a-col span="6">课号：420279</a-col>
+                    <a-col span="6">实验项目名称：软件规模度量实验</a-col>
+                </a-row>
+                <a-row justify="center">
+                    <a-col span="6">实验时间：<span style="border-bottom: 1px solid grey;border-radius: none;"><a-date-picker
+                                v-model="experimentdate" :bordered="false"
+                                style="width:150px;padding-left:3px;padding-right:3px;"
+                                placeholder="点击选择实验时间" /></span></a-col>
+                    <a-col span="6">实验报告人： <span style="border-bottom: 1px solid grey;border-radius: none;"><a-input
+                                v-model="reportername" placeholder="请输入报告人姓名" size="small" :bordered="false"
+                                style="width:18vh;"></a-input></span>
+                    </a-col>
+                    <a-col span="6"></a-col>
+                </a-row>
+            </p>
+        </a-config-provider>
+    </div>
     <!-- <span> {{ test }}</span> -->
-    <!-- <h2>一、实验目的  </h2>
+    <h2>一、实验目的  </h2>
     <p class="content">理解软件项目规模度量功能点法原理，通过实验操作掌握功能点法。 学生应以小组为单位，根据本小组“软件工程管理与经济”课程设计项目架构及组件等设计成果，以功能点方法测量该项目的规模(功能点数量)。 建议选用某一种功能点方法度量课程设计项目的功能点，并采用另外一种功能点方法或其他的软件规模度量方法对前一种方法的度量结果进行验证。 本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
-    </p> -->
-    <h2>一、实验步骤 </h2>
+    </p>
+    
+    <h2>二、实验步骤 </h2>
     <!-- <p class="content" > -->
     <p class="secondtitle">第一步：识别数据功能点和事务处理功能点</p>
     <p class="content">数据功能是指更新、引用和检索而储存的可用的逻辑数据。数据块及控制信
@@ -38,12 +61,6 @@
     <a-table :pagination="false" :columns="columns1" :data-source="tableData1" bordered size="middle"
         style="word-break: break-all;" />
     <br>
-
-    <p class="secondtitle">第五步：测量外部输入(EI)</p>
-    <p class="content">外部输入(EI)是应用程序处理来自系统边界以外的数据或控制信息的基本
-        过程。EI 的作用是维护一个或多个 ILF 以及通过其处理逻辑来改变系统的行为。<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EI 数量。 </p>
-
 
     <p class="secondtitle">第五步：测量外部输入(EI)</p>
     <p class="content">外部输入(EI)是应用程序处理来自系统边界以外的数据或控制信息的基本
@@ -102,7 +119,7 @@
 
 
 
-    <h2>二、实验参数 </h2>
+    <h2>三、实验参数 </h2>
 
     <h2 style="text-align: center;">表1：未调整功能点计算表 </h2>
     <a-table :pagination="false" :columns="columns" :data-source="tableData" bordered size="middle"
@@ -176,9 +193,15 @@
     <br /><br />
     <span class="secondtitle">本实验案例的功能点为</span>
     <span style="font-size:20px">{{ ALL }}</span>
-    <br /><br /></template>
+    <br /><br />
+</template>
 
 <script lang="ts">
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
+import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
+import 'dayjs/locale/zh-cn';
+dayjs.locale('zh-cn');
 export default {
     name: 'Exp1_IFPUG',
     data() {
@@ -187,6 +210,8 @@ export default {
             SUM: 0,
             VAF: 0,
             SUM_A: 0,
+            experimentdate: 0,//实验时间
+            reportername: '',//实验人姓名
             columns1: [
                 {
                     title: '记录元素类型(RET) ',
@@ -759,40 +784,40 @@ export default {
         }
     },
     computed: {
-        c:function() {
-            return (index)=> {
+        c: function () {
+            return (index) => {
                 if (this.tableData.length > 0) {
                     this.tableData[index].C = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) * parseInt(this.tableData[index].B)
                     return this.tableData[index].C
                 }
             }
         },
-        f:function() {
-            return (index)=> {
+        f: function () {
+            return (index) => {
                 if (this.tableData.length > 0) {
                     this.tableData[index].F = (parseInt(this.tableData[index].D) ? parseInt(this.tableData[index].D) : 0) * parseInt(this.tableData[index].E)
                     return this.tableData[index].F
                 }
             }
         },
-        i:function() {
-            return (index)=> {
+        i: function () {
+            return (index) => {
                 if (this.tableData.length > 0) {
                     this.tableData[index].I = (parseInt(this.tableData[index].G) ? parseInt(this.tableData[index].G) : 0) * parseInt(this.tableData[index].H)
                     return this.tableData[index].I
                 }
             }
         },
-        number:function() {
-            return (index)=> {
+        number: function () {
+            return (index) => {
                 if (this.tableData.length > 0) {
                     this.tableData[index].number = (parseInt(this.tableData[index].A) ? parseInt(this.tableData[index].A) : 0) + (parseInt(this.tableData[index].D) ? parseInt(this.tableData[index].D) : 0) + (parseInt(this.tableData[index].G) ? parseInt(this.tableData[index].G) : 0)
                     return this.tableData[index].number
                 }
             }
         },
-        unchanged:function() {
-            return (index)=> {
+        unchanged: function () {
+            return (index) => {
                 if (this.tableData.length > 0) {
                     this.tableData[index].unchanged = (parseInt(this.tableData[index].C) ? parseInt(this.tableData[index].C) : 0) + (parseInt(this.tableData[index].F) ? parseInt(this.tableData[index].F) : 0) + (parseInt(this.tableData[index].I) ? parseInt(this.tableData[index].I) : 0)
 
