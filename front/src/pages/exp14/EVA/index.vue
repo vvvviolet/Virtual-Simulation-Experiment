@@ -10,23 +10,21 @@
   <!--  </p>-->
   <!--  <h2>二、实验参数  </h2>-->
   <div>
-    <h1>一、实验目的</h1>
+    <h2>一、实验目的</h2>
     <a-space direction="vertical" style="width: 100%">
-      <div style="margin-left: 30px; font-size: large">
+      <div style="margin-left: 30px">
         1、理解软件项目进度监督与控制中的挣值分析法(Earned Value Analysis), 通过实验操作, 掌握挣值分析法的分析过程。
       </div>
-      <div style="margin-left: 30px; font-size: large">
+      <div style="margin-left: 30px">
         2、以小组为单位, 根据本小组"软件工程管理与经济"课程设计项目的实际进度, 使用挣值分析法评估该项目的进度情况。
       </div>
-      <div style="margin-left: 30px; font-size: large">
-        3、本实验为课内设计性实验项目, 实验学时1学时, 完成实验报告1学时。
-      </div>
+      <div style="margin-left: 30px">3、本实验为课内设计性实验项目, 实验学时1学时, 完成实验报告1学时。</div>
     </a-space>
   </div>
   <div>
-    <h1 style="margin-top: 10px">二、实验原理</h1>
+    <h2 style="margin-top: 10px">二、实验原理</h2>
     <a-space direction="vertical" style="width: 100%">
-      <div style="margin-left: 30px; font-size: large">
+      <div style="margin-left: 30px">
         挣值分析法(Earned Value Analysis)是一种用于评估项目进度的方法, 通过对项目的实际成本、实际进度和计划成本进行分析,
         评估项目的进度情况。挣值分析法的核心是将项目在任一时间的计划指标, 完成状况和资源耗费综合度量。将进度转化为货币,
         或人工时, 工程量。挣值分析法的价值在于将项目的进度和费用综合度量,
@@ -36,8 +34,8 @@
     </a-space>
   </div>
   <div>
-    <h1 style="margin-top: 10px">三、实验步骤与结果</h1>
-    <div style="margin-top: 10px; font-size: x-large; margin-bottom: 10px">1、填写项目计划与项目实况信息</div>
+    <h2 style="margin-top: 10px">三、实验步骤与结果</h2>
+    <div style="margin-top: 10px; font-size: large; margin-bottom: 10px">1、填写项目计划与项目实况信息</div>
     <a-space direction="vertical" style="width: 100%">
       <div style="font-size: large">项目计划</div>
 
@@ -119,7 +117,7 @@
         </a-form>
       </div>
       <a-divider></a-divider>
-      <div style="font-size: large">项目实况</div>
+      <div style="font-size: large">项目实际情况</div>
       <div>
         <div style="margin-left: 65px">
           <a-row>
@@ -202,7 +200,7 @@
       </div>
       <a-divider></a-divider>
     </a-space>
-    <div v-if="parameter.length !== 0" style="margin-top: 10px; font-size: x-large; margin-bottom: 10px">
+    <div v-if="parameter.length !== 0" style="margin-top: 10px; font-size: large; margin-bottom: 10px">
       2、查看各项项目进度评估指标
     </div>
     <a-table v-if="parameter.length !== 0" :dataSource="parameter" :columns="paraColumns" bordered>
@@ -244,9 +242,23 @@
         </a-col>
       </a-row>
     </div>
-    <div v-if="parameter.length !== 0" style="margin-top: 10px; font-size: x-large; margin-bottom: 10px">3、结论</div>
-    <div v-if="parameter.length !== 0" style="margin-top: 10px; font-size: large; margin-bottom: 10px">
+    <div v-if="parameter.length !== 0" style="margin-top: 10px; font-size: large; margin-bottom: 10px">3、结论</div>
+    <div v-if="parameter.length !== 0" style="margin-top: 10px; margin-bottom: 10px; margin-left: 30px">
       {{ conclusion }}
+    </div>
+    <h2 v-if="parameter.length !== 0" style="margin-top: 10px">四、实验心得</h2>
+    <a-textarea
+      v-if="parameter.length !== 0"
+      v-model:value="input"
+      placeholder="请在此处填写实验心得"
+      show-count
+      :maxlength="500"
+      :rows="5"
+      style="margin-top: 10px; margin-bottom: 30px"
+    >
+    </a-textarea>
+    <div style="text-align: center">
+      <a-button v-if="parameter.length !== 0" type="primary" style="margin-bottom: 20px">提交</a-button>
     </div>
   </div>
 </template>
@@ -273,6 +285,7 @@
       let startDayList2 = [];
       let endDayList2 = [];
       let conclusion = ref('自定义结论');
+      let input = ref('');
       const dynamicValidateForm = reactive({
         timePoints: [],
       });
@@ -729,6 +742,7 @@
         startDayList2,
         endDayList2,
         conclusion,
+        input,
         onFinish,
         onChangeStart,
         onChangeEnd,
