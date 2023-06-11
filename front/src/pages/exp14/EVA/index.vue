@@ -10,8 +10,36 @@
   <!--  </p>-->
   <!--  <h2>二、实验参数  </h2>-->
   <div>
+    <h1>一、实验目的</h1>
     <a-space direction="vertical" style="width: 100%">
-      <div style="font-size: x-large; text-align: center">项目计划</div>
+      <div style="margin-left: 30px; font-size: large">
+        1、理解软件项目进度监督与控制中的挣值分析法(Earned Value Analysis), 通过实验操作, 掌握挣值分析法的分析过程。
+      </div>
+      <div style="margin-left: 30px; font-size: large">
+        2、以小组为单位, 根据本小组"软件工程管理与经济"课程设计项目的实际进度, 使用挣值分析法评估该项目的进度情况。
+      </div>
+      <div style="margin-left: 30px; font-size: large">
+        3、本实验为课内设计性实验项目, 实验学时1学时, 完成实验报告1学时。
+      </div>
+    </a-space>
+  </div>
+  <div>
+    <h1 style="margin-top: 10px">二、实验原理</h1>
+    <a-space direction="vertical" style="width: 100%">
+      <div style="margin-left: 30px; font-size: large">
+        挣值分析法(Earned Value Analysis)是一种用于评估项目进度的方法, 通过对项目的实际成本、实际进度和计划成本进行分析,
+        评估项目的进度情况。挣值分析法的核心是将项目在任一时间的计划指标, 完成状况和资源耗费综合度量。将进度转化为货币,
+        或人工时, 工程量。挣值分析法的价值在于将项目的进度和费用综合度量,
+        从而能准确描述项目的进展状态。挣值分析法的另一个重要优点是可以预测项目可能发生的工期滞后量和费用超支量,
+        从而及时采取纠正措施, 为项目管理和控制提供了有效手段。
+      </div>
+    </a-space>
+  </div>
+  <div>
+    <h1 style="margin-top: 10px">三、实验步骤与结果</h1>
+    <div style="margin-top: 10px; font-size: x-large; margin-bottom: 10px">1、填写项目计划与项目实况信息</div>
+    <a-space direction="vertical" style="width: 100%">
+      <div style="font-size: large">项目计划</div>
 
       <div style="margin-left: 70px">
         <a-row>
@@ -91,7 +119,7 @@
         </a-form>
       </div>
       <a-divider></a-divider>
-      <div style="font-size: x-large; text-align: center">项目实况</div>
+      <div style="font-size: large">项目实况</div>
       <div>
         <div style="margin-left: 65px">
           <a-row>
@@ -117,11 +145,11 @@
               :label="`阶段${index + 1}`"
             >
               <a-date-picker
-                v-if="startDayList.length > index"
-                v-model:value="startDayList[index]"
-                disabled
+                v-model:value="timePoint.startDay"
+                placeholder="该阶段开始日期"
+                @change="(date) => onChangeStart2(date, index)"
+                :disabled-date="(date) => disabledStart2(date, index)"
               ></a-date-picker>
-              <a-date-picker v-else v-model:value="timePoint.startDay" placeholder="该阶段开始日期"></a-date-picker>
             </a-form-item>
             <a-form-item
               :name="['timePoints', index, 'endDay']"
@@ -132,11 +160,11 @@
               style="margin-left: 100px"
             >
               <a-date-picker
-                v-if="endDayList.length > index"
-                v-model:value="endDayList[index]"
-                disabled
+                v-model:value="timePoint.endDay"
+                placeholder="该阶段结束日期"
+                @change="(date) => onChangeEnd2(date, index)"
+                :disabled-date="(date) => disabledEnd2(date, index)"
               ></a-date-picker>
-              <a-date-picker v-else v-model:value="timePoint.endDay" placeholder="该阶段结束日期"></a-date-picker>
             </a-form-item>
             <a-form-item
               :name="['timePoints', index, 'EV']"
@@ -174,6 +202,9 @@
       </div>
       <a-divider></a-divider>
     </a-space>
+    <div v-if="parameter.length !== 0" style="margin-top: 10px; font-size: x-large; margin-bottom: 10px">
+      2、查看各项项目进度评估指标
+    </div>
     <a-table v-if="parameter.length !== 0" :dataSource="parameter" :columns="paraColumns" bordered>
       <template #title>各阶段基础指标</template>
     </a-table>
@@ -213,6 +244,10 @@
         </a-col>
       </a-row>
     </div>
+    <div v-if="parameter.length !== 0" style="margin-top: 10px; font-size: x-large; margin-bottom: 10px">3、结论</div>
+    <div v-if="parameter.length !== 0" style="margin-top: 10px; font-size: large; margin-bottom: 10px">
+      {{ conclusion }}
+    </div>
   </div>
 </template>
 
@@ -222,7 +257,6 @@
   import { SettingOutlined } from '@ant-design/icons-vue';
   import moment from 'moment';
   import * as echarts from 'echarts';
-  import dayjs from 'dayjs';
 
   export default defineComponent({
     name: 'Exp14',
@@ -236,6 +270,9 @@
       let costPersonDay = [];
       let startDayList = [];
       let endDayList = [];
+      let startDayList2 = [];
+      let endDayList2 = [];
+      let conclusion = ref('自定义结论');
       const dynamicValidateForm = reactive({
         timePoints: [],
       });
@@ -249,6 +286,8 @@
         let index = dynamicValidateForm.timePoints.indexOf(item);
         if (index !== -1) {
           dynamicValidateForm.timePoints.splice(index, 1);
+          startDayList2.splice(index, 1);
+          endDayList2.splice(index, 1);
           actualStageNum--;
           if (actualStageNum > 1) {
             dynamicValidateForm.timePoints[actualStageNum - 1].disabled = false;
@@ -279,19 +318,13 @@
         onFinish(item);
       };
       const addTimePoint = () => {
-        console.log(actualStageNum);
-        console.log(planStageNum);
+        //console.log(actualStageNum);
+        //console.log(planStageNum);
         if (actualStageNum < planStageNum) {
           dynamicValidateForm.timePoints[actualStageNum - 1].disabled = true;
           dynamicValidateForm.timePoints.push({
-            startDay:
-              startDayList.length > dynamicValidateForm.timePoints.length
-                ? startDayList[dynamicValidateForm.timePoints.length]
-                : '',
-            endDay:
-              endDayList.length > dynamicValidateForm.timePoints.length
-                ? endDayList[dynamicValidateForm.timePoints.length]
-                : '',
+            startDay: '',
+            endDay: '',
             EV: '',
             AC: '',
             disabled: false,
@@ -320,17 +353,17 @@
         //console.log(dateString);
         startDayList[index] = date;
         //console.log(startDayList.length);
-        let tmp = dynamicValidateForm.timePoints[index];
-
+        //let tmp = dynamicValidateForm.timePoints[index];
+        let tmp = plannedForm.timePoints[index];
         tmp.id = Date.now();
-        tmp.startDay = date;
+        //tmp.startDay = date;
       };
       const onChangeEnd = (date, index) => {
         endDayList[index] = date;
-        let tmp = dynamicValidateForm.timePoints[index];
-
+        //let tmp = dynamicValidateForm.timePoints[index];
+        let tmp = plannedForm.timePoints[index];
         tmp.id = Date.now();
-        tmp.endDay = date;
+        //tmp.endDay = date;
       };
       const disabledStart = (date, index) => {
         if (index > 0) {
@@ -339,6 +372,32 @@
       };
       const disabledEnd = (date, index) => {
         return date.valueOf() < startDayList[index].add(1, 'days').valueOf();
+        //return startDayList[index];
+      };
+      const onChangeStart2 = (date, index) => {
+        //console.log(index);
+        //console.log(date);
+        //console.log(dateString);
+        startDayList2[index] = date;
+        //console.log(startDayList.length);
+        let tmp = dynamicValidateForm.timePoints[index];
+
+        tmp.id = Date.now();
+        //tmp.startDay = date;
+      };
+      const onChangeEnd2 = (date, index) => {
+        endDayList2[index] = date;
+        let tmp = dynamicValidateForm.timePoints[index];
+        tmp.id = Date.now();
+        //tmp.endDay = date;
+      };
+      const disabledStart2 = (date, index) => {
+        if (index > 0) {
+          return date.valueOf() < endDayList2[index - 1].add(1, 'days').valueOf();
+        }
+      };
+      const disabledEnd2 = (date, index) => {
+        return date.valueOf() < startDayList2[index].add(1, 'days').valueOf();
         //return startDayList[index];
       };
       const onFinish = (values) => {
@@ -360,15 +419,27 @@
         let days = 0;
         for (let i = 0; i < plannedForm.timePoints.length; i++) {
           const tmp = plannedForm.timePoints[i];
-          let day = 0;
+          /* let day = 0;
           day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
           days += day;
 
           accumulation = accumulation + parseInt(tmp.PV);
           acc2 = acc2 + parseInt(tmp.cost);
           objPV[days] = accumulation;
-          objPV2[days] = acc2;
+          objPV2[days] = acc2; */
           costPersonDay[i] = parseInt(tmp.cost) / parseInt(tmp.PV);
+        }
+        for (let i = 0; i < dynamicValidateForm.timePoints.length; i++) {
+          const tmpPlan = plannedForm.timePoints[i];
+          const tmp = dynamicValidateForm.timePoints[i];
+          let day = 0;
+          day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
+          days += day;
+
+          accumulation = accumulation + parseInt(tmpPlan.PV);
+          acc2 = acc2 + parseInt(tmpPlan.cost);
+          objPV[days] = accumulation;
+          objPV2[days] = acc2;
         }
         //console.log(objPV)
         const PVData = Object.entries(objPV);
@@ -395,9 +466,17 @@
 
         for (let i = 0; i < dynamicValidateForm.timePoints.length; i++) {
           const tmp = dynamicValidateForm.timePoints[i];
+          const tmpPlan = plannedForm.timePoints[i];
+
+          /* let dayPlan = Math.ceil(
+            (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+          ); */
+
           let day = 0;
           day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
           days += day;
+
+          //let v = dayPlan / day;
 
           //先计算可以直接相加得到的数据
           EV_acc = EV_acc + parseInt(tmp.EV);
@@ -420,19 +499,33 @@
             const tmp = dynamicValidateForm.timePoints[i];
             let item;
             if (i == 0) {
+              /* let dayPlan = Math.ceil(
+                (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+              );
+              let day = Math.ceil(
+                (tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+              );
+              let v = dayPlan / day; */
               item = {
                 num: 1,
-                startDay: tmpPlan.startDay.format('YYYY-MM-DD'),
-                endDay: tmpPlan.endDay.format('YYYY-MM-DD'),
+                startDay: tmp.startDay.format('YYYY-MM-DD'),
+                endDay: tmp.endDay.format('YYYY-MM-DD'),
                 PV: tmpPlan.PV + '',
                 EV: tmp.EV + '',
                 AC: tmp.AC + '',
               };
             } else if (i < dynamicValidateForm.timePoints.length) {
+              /* let dayPlan = Math.ceil(
+                (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+              );
+              let day = Math.ceil(
+                (tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+              );
+              let v = dayPlan / day; */
               item = {
                 num: i + 1,
-                startDay: tmpPlan.startDay.format('YYYY-MM-DD'),
-                endDay: tmpPlan.endDay.format('YYYY-MM-DD'),
+                startDay: tmp.startDay.format('YYYY-MM-DD'),
+                endDay: tmp.endDay.format('YYYY-MM-DD'),
                 PV: tmpPlan.PV + '',
                 EV: tmp.EV + '',
                 AC: tmp.AC + '',
@@ -440,8 +533,9 @@
             } else {
               item = {
                 num: i + 1,
-                startDay: plannedForm.timePoints[i - 1].endDay.add(1, 'days').format('YYYY-MM-DD'),
-                endDay: tmpPlan.endDay.format('YYYY-MM-DD'),
+                //startDay: dynamicValidateForm.timePoints[i - 1].endDay.add(1, 'days').format('YYYY-MM-DD'),
+                startDay: '/',
+                endDay: '/',
                 PV: tmpPlan.PV + '',
                 EV: '/',
                 AC: '/',
@@ -458,6 +552,11 @@
         for (let i = 0; i < plannedForm.timePoints.length; i++) {
           const tmpPlan = plannedForm.timePoints[i];
           const tmp = dynamicValidateForm.timePoints[i];
+          /* let dayPlan = Math.ceil(
+            (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+          );
+          let day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
+          let v = dayPlan / day; */
           let index = i + 1;
           let vItem, piItem;
           if (i < dynamicValidateForm.timePoints.length) {
@@ -489,6 +588,35 @@
         vDataSource.splice(plannedForm.timePoints.length, 1);
         piDataSource.splice(plannedForm.timePoints.length, 1);
 
+        /* const tmpPlan = plannedForm.timePoints[dynamicValidateForm.timePoints.length - 1];
+        const tmp = dynamicValidateForm.timePoints[dynamicValidateForm.timePoints.length - 1];
+        let dayPlan = Math.ceil(
+          (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+        );
+        let day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
+        let v = dayPlan / day; */
+
+        console.log(objEV[days]);
+        console.log(objPV[days]);
+        console.log(objAC[days]);
+        let totalSV = objEV[days] - objPV[days];
+        let totalCV = objEV2[days] - objAC2[days];
+        conclusion.value = '该项目总SV为' + totalSV.toFixed(3) + ', 项目总CV为' + totalCV.toFixed(3) + ', 可知: ';
+        if (totalSV > 0) {
+          conclusion.value += '该项目进度提前, ';
+        } else if (totalSV < 0) {
+          conclusion.value += '该项目进度滞后, ';
+        } else {
+          conclusion.value += '该项目进度与预期相同, ';
+        }
+        if (totalCV > 0) {
+          conclusion.value += '成本节约。';
+        } else if (totalCV < 0) {
+          conclusion.value += '成本超支。';
+        } else {
+          conclusion.value += '成本与预期相同。';
+        }
+        console.log(conclusion);
         const EVData = Object.entries(objEV);
         const EVData2 = Object.entries(objEV2);
         const ACData = Object.entries(objAC);
@@ -598,11 +726,18 @@
         costPersonDay,
         startDayList,
         endDayList,
+        startDayList2,
+        endDayList2,
+        conclusion,
         onFinish,
         onChangeStart,
         onChangeEnd,
         disabledStart,
         disabledEnd,
+        onChangeStart2,
+        onChangeEnd2,
+        disabledStart2,
+        disabledEnd2,
         removeTimePoint,
         addTimePoint,
         addPlanTimePoint,
