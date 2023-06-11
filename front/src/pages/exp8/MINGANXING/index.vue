@@ -39,16 +39,16 @@
       选定需要分析的不确定因素。
     </p>
     <p class="content">
-        不确定因素通过分析系统模型获得。确定不确定因素后，将其填写在分析变量表中。
+      不确定因素通过分析系统模型获得。确定不确定因素后，将其填写在分析变量表中。
     </p>
 
     <p class="secondtitle">第二步</p>
     <p class="content">
       确定进行敏感性分析经济评价指标。
-     </p>
-     <p class="content">
+    </p>
+    <p class="content">
       确定经济评价指标后，将其填写在变化幅度表中。
-     </p>
+    </p>
 
     <p class="secondtitle">第三步 </p>
     <p class="content">计算不确定因素变动对指标影响的数量结果。</p>
@@ -71,7 +71,7 @@
     </InputChart>
 
     <div class="container" style="margin-top: 20px;">
-      <a-table :dataSource="dataSource" :columns="columns" bordered :pagination="false"/>
+      <a-table :dataSource="dataSource" :columns="columns" bordered :pagination="false" />
     </div>
 
     <InputChart :dataSource="dataSource1" :columns="columns2" @updateData="handleDataSource2Update">
@@ -111,7 +111,7 @@ import InputChart from '@/pages/exp8/MINGANXING/InputChart.vue';
 import { Table } from 'ant-design-vue';
 import { info } from 'console';
 
-import { toRaw } from '@vue/reactivity' 
+import { toRaw } from '@vue/reactivity'
 import { el } from 'element-plus/es/locale';
 
 // 注册需要使用的 ECharts 组件
@@ -131,182 +131,185 @@ export default {
         param4: 0,
       },
       analysisData: null,
-      series:null,
+      series: null,
+      names: null,
       dataSource: [
-          {
-            key: '0',
-            name: '收入',
-            value: 100,
-          },
+        {
+          key: '0',
+          name: '收入',
+          value: 100,
+        },
       ],
-      columns:[
-          {
-            title: '分析对象名',
-            dataIndex: 'name',
-            key: 'name',
-          },
-          {
-            title: '分析对象值',
-            dataIndex: 'value',
-            key: 'value',
-          },
+      columns: [
+        {
+          title: '分析对象名',
+          dataIndex: 'name',
+          key: 'name',
+        },
+        {
+          title: '分析对象值',
+          dataIndex: 'value',
+          key: 'value',
+        },
       ],
       dataSource1: [
-          {
-            key: '0',
-            uncertainty: '敏感性因素1',
-            value: 4000,
-            change_minus15:73,
-            change_minus10:82,
-            change_minus5:95,
-            change_minus2:98,
-            changeBasicPlan:100,
-            change_2:102,
-            change_5:105,
-            change_10:113,
-            change_15:122,
+        {
+          key: '0',
+          uncertainty: '敏感性因素1',
+          value: 4000,
+          change_minus15: 73,
+          change_minus10: 82,
+          change_minus5: 95,
+          change_minus2: 98,
+          changeBasicPlan: 100,
+          change_2: 102,
+          change_5: 105,
+          change_10: 113,
+          change_15: 122,
+        },
+        {
+          key: '2',
+          uncertainty: '敏感性因素2',
+          value: 1200,
+          change_minus15: 151,
+          change_minus10: 138,
+          change_minus5: 125,
+          change_minus2: 113,
+          changeBasicPlan: 100,
+          change_2: 89,
+          change_5: 55,
+          change_10: 33,
+          change_15: 16,
+        },
+        {
+          key: '5',
+          uncertainty: '敏感性因素3',
+          value: 3500,
+          change_minus15: 198,
+          change_minus10: 172,
+          change_minus5: 150,
+          change_minus2: 123,
+          changeBasicPlan: 100,
+          change_2: 80,
+          change_5: 55,
+          change_10: 30,
+          change_15: 8,
+        },
+      ],
+      columns1: [
+        {
+          title: '不确定因素',
+          dataIndex: 'uncertainty',
+          slots: {
+            customRender: 'uncertainty',
           },
-          {
-            key: '2',
-            uncertainty: '敏感性因素2',
-            value: 1200,
-            change_minus15:151,
-            change_minus10:138,
-            change_minus5:125,
-            change_minus2:113,
-            changeBasicPlan:100,
-            change_2:89,
-            change_5:55,
-            change_10:33,
-            change_15:16,
+        },
+        {
+          title: '取值（万元）',
+          dataIndex: 'value',
+          slots: {
+            customRender: 'value',
           },
-          {
-            key: '5',
-            uncertainty: '敏感性因素3',
-            value: 3500,
-            change_minus15:198,
-            change_minus10:172,
-            change_minus5:150,
-            change_minus2:123,
-            changeBasicPlan:100,
-            change_2:80,
-            change_5:55,
-            change_10:30,
-            change_15:8,
+        },
+        {
+          title: '操作',
+          dataIndex: 'operation',
+          slots: {
+            customRender: 'operation',
           },
-        ],
-        columns1: [
-          {
-            title: '不确定因素',
-            dataIndex: 'uncertainty',
-            slots: {
-              customRender: 'uncertainty',
-            },
+        },
+      ],
+      columns2: [
+        {
+          title: '不确定因素',
+          dataIndex: 'uncertainty',
+          slots: {
+            customRender: 'uncertainty',
           },
-          {
-            title: '取值（万元）',
-            dataIndex: 'value',
-            slots: {
-              customRender: 'value',
-            },
+        },
+        {
+          title: '-15%',
+          dataIndex: 'change_minus15',
+          slots: {
+            customRender: 'change_minus15',
           },
-          {
-            title: '操作',
-            dataIndex: 'operation',
-            slots: {
-              customRender: 'operation',
-            },
+        },
+        {
+          title: '-10%',
+          dataIndex: 'change_minus10',
+          slots: {
+            customRender: 'change_minus10',
           },
-        ],
-        columns2: [
-          {
-            title: '不确定因素',
-            dataIndex: 'uncertainty',
-            slots: {
-              customRender: 'uncertainty',
-            },
+        },
+        {
+          title: '-5%',
+          dataIndex: 'change_minus5',
+          slots: {
+            customRender: 'change_minus5',
           },
-          {
-            title: '-15%',
-            dataIndex: 'change_minus15',
-            slots: {
-              customRender: 'change_minus15',
-            },
+        },
+        {
+          title: '-2%',
+          dataIndex: 'change_minus2',
+          slots: {
+            customRender: 'change_minus2',
           },
-          {
-            title: '-10%',
-            dataIndex: 'change_minus10',
-            slots: {
-              customRender: 'change_minus10',
-            },
+        },
+        {
+          title: '基本方案',
+          dataIndex: 'changeBasicPlan',
+          slots: {
+            customRender: 'changeBasicPlan',
           },
-          {
-            title: '-5%',
-            dataIndex: 'change_minus5',
-            slots: {
-              customRender: 'change_minus5',
-            },
+        },
+        {
+          title: '2%',
+          dataIndex: 'change_2',
+          slots: {
+            customRender: 'change_2',
           },
-          {
-            title: '-2%',
-            dataIndex: 'change_minus2',
-            slots: {
-              customRender: 'change_minus2',
-            },
+        },
+        {
+          title: '5%',
+          dataIndex: 'change_5',
+          slots: {
+            customRender: 'change_5',
           },
-          {
-            title: '基本方案',
-            dataIndex: 'changeBasicPlan',
-            slots: {
-              customRender: 'changeBasicPlan',
-            },
+        },
+        {
+          title: '10%',
+          dataIndex: 'change_10',
+          slots: {
+            customRender: 'change_10',
           },
-          {
-            title: '2%',
-            dataIndex: 'change_2',
-            slots: {
-              customRender: 'change_2',
-            },
+        },
+        {
+          title: '15%',
+          dataIndex: 'change_15',
+          slots: {
+            customRender: 'change_15',
           },
-          {
-            title: '5%',
-            dataIndex: 'change_5',
-            slots: {
-              customRender: 'change_5',
-            },
+        },
+        {
+          title: '操作',
+          dataIndex: 'operation',
+          slots: {
+            customRender: 'operation',
           },
-          {
-            title: '10%',
-            dataIndex: 'change_10',
-            slots: {
-              customRender: 'change_10',
-            },
-          },
-          {
-            title: '15%',
-            dataIndex: 'change_15',
-            slots: {
-              customRender: 'change_15',
-            },
-          },
-          {
-            title: '操作',
-            dataIndex: 'operation',
-            slots: {
-              customRender: 'operation',
-            },
-          },
-        ],
+        },
+      ],
     }
   },
   methods: {
     handleSubmit() {
       // 在这里执行敏感性分析并更新 analysisData
-      
+
       //console.log(typeof(JSON.parse(JSON.stringify(this.dataSource1))))
       this.analysisData = doAnalysis(JSON.parse(JSON.stringify(this.dataSource1)))
 
-      this.series=getSeries(JSON.parse(JSON.stringify(this.dataSource1)))
+      this.series = getSeries(JSON.parse(JSON.stringify(this.dataSource1)))
+
+      this.names = getName(this.series)
 
       // 绘制竖向柱状图
       this.drawSensitivityChart()
@@ -317,10 +320,10 @@ export default {
     drawSensitivityChart(analysisData) {
       const chart = echarts.init(document.getElementById("sensitivity-chart"))
       //取第一组数据
-      
-      
 
-      
+
+
+
 
       const option = {
         title: {
@@ -333,7 +336,7 @@ export default {
           },
         },
         legend: {
-          data: [ '亏损','收益'],
+          data: ['亏损', '收益'],
         },
         grid: {
           left: '3%',
@@ -346,7 +349,7 @@ export default {
         },
         yAxis: {
           type: 'category',
-          inverse:true,
+          inverse: true,
           data: this.analysisData.map((d) => d.name),
         },
         series: [
@@ -359,7 +362,7 @@ export default {
               position: 'insideRight',
             },
             data: this.analysisData.map((d) => d.change_2),
-          // data:[105,55,55,22]
+            // data:[105,55,55,22]
           },
           {
             name: '亏损',
@@ -446,7 +449,7 @@ export default {
     drawLineChart() {
       const chart = echarts.init(document.getElementById("line-chart"))
       console.log(111)
-      console.log(this.series)
+      console.log(this.analysisData)
 
       const option = {
         title: {
@@ -459,7 +462,7 @@ export default {
           },
         },
         legend: {
-          data: ['敏感性因素1', '敏感性因素2', '敏感性因素3'],
+          data: this.names,
         },
         grid: {
           left: '3%',
@@ -480,76 +483,76 @@ export default {
       chart.setOption(option)
     },
     handleDataSource1Update(newData) {
-        this.dataSource1 = newData;
+      this.dataSource1 = newData;
     },
     handleDataSource2Update(newData) {
-        this.dataSource2 = newData;
+      this.dataSource2 = newData;
     },
   },
 }
 
 function doAnalysis(dataSource1) {
   // 在这里执行敏感性分析并返回结果
-  class Info{
-    name:String
-    change_2:number
-    change_5:number
-    change_10:number
-    change_15:number
-    changeBasicPlan:number
-    change_minus2:number
-    change_minus5:number
-    change_minus10:number
-    change_minus15:number
+  class Info {
+    name: String
+    change_2: number
+    change_5: number
+    change_10: number
+    change_15: number
+    changeBasicPlan: number
+    change_minus2: number
+    change_minus5: number
+    change_minus10: number
+    change_minus15: number
   }
 
-  var datas=Info[dataSource1.length];
+  var datas = Info[dataSource1.length];
 
- 
 
-  var datas=[]
- 
-  
 
-  
-  for(var i=0;i<dataSource1.length;i++){
-    var newData=new Info()
+  var datas = []
 
-    newData.name=dataSource1[i].uncertainty
-    newData.change_2=dataSource1[i].change_2
-    newData.change_5=dataSource1[i].change_5
-    newData.change_10=dataSource1[i].change_10
-    newData.change_15=dataSource1[i].change_15
-    newData.changeBasicPlan=dataSource1[i].changeBasicPlan
-    newData.change_minus2=dataSource1[i].change_minus2
-    newData.change_minus5=dataSource1[i].change_minus5
-    newData.change_minus10=dataSource1[i].change_minus10
-    newData.change_minus15=dataSource1[i].change_minus15
+
+
+
+  for (var i = 0; i < dataSource1.length; i++) {
+    var newData = new Info()
+
+    newData.name = dataSource1[i].uncertainty
+    newData.change_2 = dataSource1[i].change_2
+    newData.change_5 = dataSource1[i].change_5
+    newData.change_10 = dataSource1[i].change_10
+    newData.change_15 = dataSource1[i].change_15
+    newData.changeBasicPlan = dataSource1[i].changeBasicPlan
+    newData.change_minus2 = dataSource1[i].change_minus2
+    newData.change_minus5 = dataSource1[i].change_minus5
+    newData.change_minus10 = dataSource1[i].change_minus10
+    newData.change_minus15 = dataSource1[i].change_minus15
     datas.push(newData)
   };
   console.log("datas")
   console.log(datas)
-  
 
-return datas
+
+  return datas
 }
 
-function getSeries(dataSource1){
-  class serie{
-    name:string
-    data:Number[]
-    type:string 
-    stack:string
+function getSeries(dataSource1) {
+  class serie {
+    name: string
+    data: Number[]
+    type: string
+    stack: string
   }
   console.log(dataSource1)
-  var datas=[];
- 
-  for(var i=0;i<dataSource1.length;i++){
-    var newSerie=new serie()
-    newSerie.name=dataSource1[i].uncertainty
-    newSerie.stack=dataSource1[i].uncertainty
-    newSerie.data=[]
-    newSerie.type='line'
+  var datas = [];
+
+  for (var i = 0; i < dataSource1.length; i++) {
+    var newSerie = new serie()
+    newSerie.name = dataSource1[i].uncertainty
+    newSerie.stack = dataSource1[i].uncertainty
+    newSerie.data = []
+    newSerie.type = 'line'
     newSerie.data.push(dataSource1[i].change_minus15)
     newSerie.data.push(dataSource1[i].change_minus10)
     newSerie.data.push(dataSource1[i].change_minus5)
@@ -562,32 +565,40 @@ function getSeries(dataSource1){
 
     datas.push(newSerie)
   }
-console.log(datas);
-return datas
+  console.log(datas);
+  return datas
+}
+
+function getName(dataSource1) {
+  var datas = [];
+  for (var i = 0; i < dataSource1.length; i++) {
+    datas.push(dataSource1[i].name)
+  }
+  return datas
 }
 </script>
 
 <style>
-   .ant-table-thead > tr > th {
-    background: #e9ecef !important;
-  }
+.ant-table-thead>tr>th {
+  background: #e9ecef !important;
+}
 
-  .title {
-    text-align: center;
-    font-family: sans-serif;
-    font-size: 30px;
-  }
+.title {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 30px;
+}
 
-  .secondtitle {
-      text-indent: 2em;
-      font-weight: bold;
-      margin-left: 30px;
-      margin-right: 30px;
-  }
+.secondtitle {
+  text-indent: 2em;
+  font-weight: bold;
+  margin-left: 30px;
+  margin-right: 30px;
+}
 
-  .content {
-    text-indent: 2em;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
+.content {
+  text-indent: 2em;
+  margin-left: 20px;
+  margin-right: 20px;
+}
 </style>
