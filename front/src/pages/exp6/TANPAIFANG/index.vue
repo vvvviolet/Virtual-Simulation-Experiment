@@ -7,6 +7,10 @@
                     @click="showCreateDialog = true">
                     创建实验
                 </a-button>
+                <a-button type="primary" style="float: right; margin-top: 16px; margin-right: 16px"
+                    @click="generateRandomExperiment">
+                    随机生成实验
+                </a-button>
                 <!-- 创建实验弹窗 -->
                 <a-modal title="创建实验" v-model:visible="showCreateDialog" width="30%" @ok="createExperiment">
                     <a-form ref="createForm" :model="form" :label-col="{ span: 8 }">
@@ -880,6 +884,26 @@ export default defineComponent({
             this.showCreateDialog = false;
         },
 
+        // 随机生成实验数据
+        generateRandomExperiment() {
+            let min_price = 20;
+            let max_price = 100;
+            let bid_count = 100;
+            axios({
+                method: "get",
+                url: `http://127.0.0.1:8000/random-experiment/${min_price}/${max_price}/${bid_count}`,
+            }).then((res) => {
+                // 创建实验成功
+                // 重新获取实验列表
+                this.getExperiments();
+                // 提示用户
+                message.success('随机生成实验成功');
+                // 关闭弹窗
+                this.showCreateDialog = false;
+            }).catch((err) => {
+                console.log(err);
+            })
+        },
 
     },
     mounted() {
