@@ -432,28 +432,28 @@
         let days = 0;
         for (let i = 0; i < plannedForm.timePoints.length; i++) {
           const tmp = plannedForm.timePoints[i];
-          /* let day = 0;
+          let day = 0;
           day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
           days += day;
 
           accumulation = accumulation + parseInt(tmp.PV);
           acc2 = acc2 + parseInt(tmp.cost);
           objPV[days] = accumulation;
-          objPV2[days] = acc2; */
+          objPV2[days] = acc2;
           costPersonDay[i] = parseInt(tmp.cost) / parseInt(tmp.PV);
         }
-        for (let i = 0; i < dynamicValidateForm.timePoints.length; i++) {
-          const tmpPlan = plannedForm.timePoints[i];
-          const tmp = dynamicValidateForm.timePoints[i];
-          let day = 0;
-          day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
-          days += day;
+        // for (let i = 0; i < dynamicValidateForm.timePoints.length; i++) {
+        //   const tmpPlan = plannedForm.timePoints[i];
+        //   const tmp = dynamicValidateForm.timePoints[i];
+        //   let day = 0;
+        //   day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
+        //   days += day;
 
-          accumulation = accumulation + parseInt(tmpPlan.PV);
-          acc2 = acc2 + parseInt(tmpPlan.cost);
-          objPV[days] = accumulation;
-          objPV2[days] = acc2;
-        }
+        //   accumulation = accumulation + parseInt(tmpPlan.PV);
+        //   acc2 = acc2 + parseInt(tmpPlan.cost);
+        //   objPV[days] = accumulation;
+        //   objPV2[days] = acc2;
+        // }
         //console.log(objPV)
         const PVData = Object.entries(objPV);
         const PVData2 = Object.entries(objPV2);
@@ -464,6 +464,11 @@
         const objEV2 = new Object(); //以千元为单位
         const objAC = new Object(); //以人日为单位
         const objAC2 = new Object(); //以千元为单位
+        const objEVpre = new Object();
+        const objEVpre2 = new Object();
+        const objACpre = new Object();
+        const objACpre2 = new Object();
+
         objEV[0] = 0;
         objEV2[0] = 0;
         objAC[0] = 0;
@@ -474,7 +479,7 @@
         let EV_acc2 = 0;
         let AC_acc = 0;
         let AC_acc2 = 0;
-
+        let finalDay = 0;
         console.log(dynamicValidateForm.timePoints[dynamicValidateForm.timePoints.length - 1]);
 
         for (let i = 0; i < dynamicValidateForm.timePoints.length; i++) {
@@ -482,8 +487,8 @@
           const tmpPlan = plannedForm.timePoints[i];
 
           /* let dayPlan = Math.ceil(
-            (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
-          ); */
+          (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+        ); */
 
           let day = 0;
           day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
@@ -503,6 +508,27 @@
           objEV2[days] = EV_acc2;
           objAC[days] = AC_acc;
           objAC2[days] = AC_acc2;
+          finalDay = days;
+        }
+        let completeDay1 = 0;
+        let completeDay2 = 0;
+        if (accumulation > EV_acc) {
+          let delta1 = Math.ceil(((accumulation - EV_acc) / EV_acc) * finalDay);
+          completeDay1 = finalDay + delta1;
+          objEVpre[days] = objEV[days];
+          objEVpre[completeDay1] = accumulation;
+          let finalAC1 = (AC_acc / finalDay) * delta1 + AC_acc;
+          objACpre[completeDay1] = finalAC1;
+          objACpre[days] = objAC[days];
+        }
+        if (acc2 > EV_acc2) {
+          let delta2 = Math.ceil(((acc2 - EV_acc2) / EV_acc2) * finalDay);
+          completeDay2 = finalDay + delta2;
+          objEVpre2[completeDay2] = acc2;
+          objEVpre2[days] = objEV2[days];
+          let finalAC2 = (AC_acc2 / finalDay) * delta2 + AC_acc2;
+          objACpre2[completeDay2] = finalAC2;
+          objACpre2[days] = objAC2[days];
         }
 
         for (let i = 0; i < plannedForm.timePoints.length; i++) {
@@ -513,12 +539,12 @@
             let item;
             if (i == 0) {
               /* let dayPlan = Math.ceil(
-                (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
-              );
-              let day = Math.ceil(
-                (tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24)
-              );
-              let v = dayPlan / day; */
+              (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+            );
+            let day = Math.ceil(
+              (tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+            );
+            let v = dayPlan / day; */
               item = {
                 num: 1,
                 startDay: tmp.startDay.format('YYYY-MM-DD'),
@@ -529,12 +555,12 @@
               };
             } else if (i < dynamicValidateForm.timePoints.length) {
               /* let dayPlan = Math.ceil(
-                (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
-              );
-              let day = Math.ceil(
-                (tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24)
-              );
-              let v = dayPlan / day; */
+              (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+            );
+            let day = Math.ceil(
+              (tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+            );
+            let v = dayPlan / day; */
               item = {
                 num: i + 1,
                 startDay: tmp.startDay.format('YYYY-MM-DD'),
@@ -566,10 +592,10 @@
           const tmpPlan = plannedForm.timePoints[i];
           const tmp = dynamicValidateForm.timePoints[i];
           /* let dayPlan = Math.ceil(
-            (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
-          );
-          let day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
-          let v = dayPlan / day; */
+          (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+        );
+        let day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
+        let v = dayPlan / day; */
           let index = i + 1;
           let vItem, piItem;
           if (i < dynamicValidateForm.timePoints.length) {
@@ -602,12 +628,12 @@
         piDataSource.splice(plannedForm.timePoints.length, 1);
 
         /* const tmpPlan = plannedForm.timePoints[dynamicValidateForm.timePoints.length - 1];
-        const tmp = dynamicValidateForm.timePoints[dynamicValidateForm.timePoints.length - 1];
-        let dayPlan = Math.ceil(
-          (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
-        );
-        let day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
-        let v = dayPlan / day; */
+      const tmp = dynamicValidateForm.timePoints[dynamicValidateForm.timePoints.length - 1];
+      let dayPlan = Math.ceil(
+        (tmpPlan.endDay.toDate().getTime() - tmpPlan.startDay.toDate().getTime()) / (1000 * 3600 * 24)
+      );
+      let day = Math.ceil((tmp.endDay.toDate().getTime() - tmp.startDay.toDate().getTime()) / (1000 * 3600 * 24));
+      let v = dayPlan / day; */
 
         console.log(objEV[days]);
         console.log(objPV[days]);
@@ -634,10 +660,17 @@
         const EVData2 = Object.entries(objEV2);
         const ACData = Object.entries(objAC);
         const ACData2 = Object.entries(objAC2);
+        const EVDataPre = Object.entries(objEVpre);
+        const EVDataPre2 = Object.entries(objEVpre2);
+        const ACDataPre = Object.entries(objACpre);
+        const ACDataPre2 = Object.entries(objACpre2);
+
         console.log(PVData);
         console.log(EVData);
         console.log(ACData);
         // console.log(dataSource[0])
+        let maxDay1 = Math.max(days, completeDay1);
+        let maxDay2 = Math.max(days, completeDay2);
 
         let options = {
           legend: {
@@ -646,7 +679,7 @@
           xAxis: {
             interval: Intv, // 步长
             min: Min, // 起始
-            max: (days / 10 + 1) * 10, // 终止
+            max: (maxDay1 / 10 + 1) * 10, // 终止
             name: '/天',
           },
           yAxis: {
@@ -679,6 +712,66 @@
             },
           ],
         };
+
+        let optionsPredict = {
+          legend: {
+            data: ['PV', 'EV', 'AC', 'EV_predict', 'AC_predict'],
+          },
+          xAxis: {
+            interval: Intv, // 步长
+            min: Min, // 起始
+            max: (maxDay1 / 10 + 1) * 10, // 终止
+            name: '/天',
+          },
+          yAxis: {
+            interval: 1000, // 步长
+            min: Min, // 起始
+            max: (Math.ceil(objPV[days] + objEV[days] + objAC[days]) / 10 + 1) * 10, // 终止
+            name: '/人日',
+          },
+          tooltip: {
+            trigger: 'axis',
+          },
+          series: [
+            {
+              name: 'PV',
+              data: PVData,
+              type: 'line',
+              smooth: true,
+            },
+            {
+              name: 'EV',
+              data: EVData,
+              type: 'line',
+              smooth: true,
+            },
+            {
+              name: 'AC',
+              data: ACData,
+              type: 'line',
+              smooth: true,
+            },
+            {
+              name: 'EV_predict',
+              data: EVDataPre,
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                type: 'dashed', // 设置为虚线
+              },
+            },
+            {
+              name: 'AC_predict',
+              data: ACDataPre,
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                type: 'dashed', // 设置为虚线
+              },
+            },
+          ],
+        };
+
         let options2 = {
           legend: {
             data: ['PV', 'EV', 'AC'],
@@ -686,7 +779,7 @@
           xAxis: {
             interval: Intv, // 步长
             min: Min, // 起始
-            max: (days / 10 + 1) * 10, // 终止
+            max: (maxDay2 / 10 + 1) * 10, // 终止
             name: '/天',
           },
           yAxis: {
@@ -719,14 +812,85 @@
             },
           ],
         };
-        myChart.setOption(options);
-        myChart2.setOption(options2);
+
+        let optionsPredict2 = {
+          legend: {
+            data: ['PV', 'EV', 'AC', 'EV_predict', 'AC_predict'],
+          },
+          xAxis: {
+            interval: Intv, // 步长
+            min: Min, // 起始
+            max: (maxDay2 / 10 + 1) * 10, // 终止
+            name: '/天',
+          },
+          yAxis: {
+            interval: 1000, // 步长
+            min: Min, // 起始
+            max: (Math.ceil(objPV2[days] + objEV2[days] + objAC2[days]) / 10 + 1) * 10, // 终止
+            name: '/千元',
+          },
+          tooltip: {
+            trigger: 'axis',
+          },
+          series: [
+            {
+              name: 'PV',
+              data: PVData2,
+              type: 'line',
+              smooth: true,
+            },
+            {
+              name: 'EV',
+              data: EVData2,
+              type: 'line',
+              smooth: true,
+            },
+            {
+              name: 'AC',
+              data: ACData2,
+              type: 'line',
+              smooth: true,
+            },
+            {
+              name: 'EV_predict',
+              data: EVDataPre2,
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                type: 'dashed', // 设置为虚线
+              },
+            },
+            {
+              name: 'AC_predict',
+              data: ACDataPre2,
+              type: 'line',
+              smooth: true,
+              lineStyle: {
+                type: 'dashed', // 设置为虚线
+              },
+            },
+          ],
+        };
+
+        if (accumulation <= EV_acc) {
+          myChart.setOption(options);
+        } else {
+          myChart.setOption(optionsPredict);
+        }
+
+        if (acc2 <= EV_acc2) {
+          myChart2.setOption(options2);
+        } else {
+          myChart2.setOption(optionsPredict2);
+        }
+        // myChart.setOption(options);
+
         /* var x = plannedForm.timePoints[0].endDay.toDate().getTime();
-        var y = startDay.value.toDate().getTime();
-        var gap = (x - y) / (1000 * 3600 * 24); */
+      var y = startDay.value.toDate().getTime();
+      var gap = (x - y) / (1000 * 3600 * 24); */
         /* console.log(Math.ceil(gap)); */
         /* console.log('Received values of form:', values.timePoints[0]);
-        console.log('dynamicValidateForm.timePoints:', dynamicValidateForm.timePoints[0]); */
+      console.log('dynamicValidateForm.timePoints:', dynamicValidateForm.timePoints[0]); */
       };
       return {
         plannedDays,
@@ -805,20 +969,20 @@
             key: 'sv',
           },
           /* {
-            title: 'SV含义',
-            dataIndex: 'svMeaning',
-            key: 'svMeaning',
-          }, */
+          title: 'SV含义',
+          dataIndex: 'svMeaning',
+          key: 'svMeaning',
+        }, */
           {
             title: 'CV',
             dataIndex: 'cv',
             key: 'cv',
           },
           /* {
-            title: 'CV含义',
-            dataIndex: 'cvMeaning',
-            key: 'cvMeaning',
-          }, */
+          title: 'CV含义',
+          dataIndex: 'cvMeaning',
+          key: 'cvMeaning',
+        }, */
         ],
         piColumns: [
           {
@@ -832,20 +996,20 @@
             key: 'spi',
           },
           /* {
-            title: 'SPI含义',
-            dataIndex: 'spiMeaning',
-            key: 'spiMeaning',
-          }, */
+          title: 'SPI含义',
+          dataIndex: 'spiMeaning',
+          key: 'spiMeaning',
+        }, */
           {
             title: 'CPI',
             dataIndex: 'cpi',
             key: 'cpi',
           },
           /* {
-            title: 'CPI含义',
-            dataIndex: 'cpiMeaning',
-            key: 'cpiMeaning',
-          }, */
+          title: 'CPI含义',
+          dataIndex: 'cpiMeaning',
+          key: 'cpiMeaning',
+        }, */
         ],
 
         options: {
