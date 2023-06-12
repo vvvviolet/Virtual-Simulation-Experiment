@@ -12,6 +12,12 @@ export default ({ command, mode }) => {
   return defineConfig({
     server: {
       proxy: {
+        "/api48":{
+          target:"http://127.0.0.1:5000/sensitive", 
+          ws: true,   //目标路径
+          changeOrigin:true,
+          rewrite: (path) => path.replace(/^\/api48/, ''),
+        },
         '/api': {
           // target: env.VITE_API_URL,
           target: 'http://139.196.226.104:8001/api',
