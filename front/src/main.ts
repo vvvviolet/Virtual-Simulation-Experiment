@@ -4,6 +4,7 @@ import router from '@/router';
 import stepin from 'stepin/es';
 import pinia from '@/store';
 import '@/mock';
+import Antd from 'ant-design-vue';
 // 生产打包时可去除 ant-design-vue/dist/antd.variable.less 的引用。
 // 开发引入此包是为了加载优化，防止首次打开页面过慢
 import 'ant-design-vue/dist/antd.variable.less';
@@ -23,6 +24,7 @@ app.use(pinia);
 app.use(router);
 app.use(stepin, { router });
 app.use(AuthPlugin, { action: 'disable' });
+app.use(Antd).mount('#app');
 // iconfont 插件。url为你的 iconfont 图标资源地址（你的iconfont 仓库可获取此地址）
 app.use(IconFontPlugin, { url: '//at.alicdn.com/t/c/font_3805284_ulvha6ct7d.js' });
 app.config.errorHandler = function (err) {
