@@ -63,6 +63,11 @@
           required: true,
         },
       },
+      watch: {
+        dataSource: function(newVal) {
+          this.dataSourceCopy = newVal;
+        },
+      },
       data() {
         return {
           editingKey: '',

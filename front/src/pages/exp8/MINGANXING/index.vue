@@ -78,7 +78,7 @@
       <a-table :dataSource="dataSource" :columns="columns" bordered :pagination="false" />
     </div>
 
-    <InputChart :dataSource="dataSource1" :columns="columns2" @updateData="handleDataSource2Update">
+    <InputChart :dataSource="dataSource1" :columns="columns2" @updateData="handleDataSource1Update">
       选择变化幅度
     </InputChart>
 
@@ -172,7 +172,7 @@ export default {
           change_15: 122,
         },
         {
-          key: '2',
+          key: '1',
           uncertainty: '敏感性因素2',
           value: 1200,
           change_minus15: 151,
@@ -186,7 +186,7 @@ export default {
           change_15: 16,
         },
         {
-          key: '5',
+          key: '2',
           uncertainty: '敏感性因素3',
           value: 3500,
           change_minus15: 198,
@@ -306,8 +306,7 @@ export default {
   },
   methods: {
     handleSubmit() {
-      // 在这里执行敏感性分析并更新 analysisData
-
+      // 在这里执行敏感性分析并更新 analysisData 
       //console.log(typeof(JSON.parse(JSON.stringify(this.dataSource1))))
       this.analysisData = doAnalysis(JSON.parse(JSON.stringify(this.dataSource1)))
 
