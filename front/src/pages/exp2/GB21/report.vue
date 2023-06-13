@@ -1,4 +1,28 @@
 <template>
+  <!-- 补上题头 -->
+  <div>
+    <div
+      class="all_title"
+      style="margin-top: 20px;"
+    >
+      <div class="pre_title">课程名称：软件工程管理与经济学</div>
+      <div class="pre_title">课号：420279</div>
+      <div class="pre_title">实验项目名称：软件开发成本估算-国际GB标准</div>
+    </div>
+    <div
+      class="all_title"
+      style="margin-bottom: 20px;"
+    >
+      <div class="pre_title">实验时间：<input
+          v-model="time"
+          style="width: 100px;"
+        ></div>
+      <div class="pre_title">实验报告人：<input
+          v-model="person"
+          style="width: 120px;"
+        ></div>
+    </div>
+  </div>
   <h2 style="font-weight: bold;">一、实验目的 </h2>
   <p class="content">
     <br>通过对软件开发成本进行估算，掌握和了解软件成本估算的方法和技术，同时熟悉和掌握国家标准GB/T36964-2018《软件工程软件成本估算》的相关规定和要求，以提高软件项目管理和开发能力。该实验的目的包括：
@@ -59,17 +83,18 @@ import mainTable from './mainTable.vue';
 
 export default defineComponent({
   components: {
-    // ElConfigProvider,
-    // ElInput,
-    // ElButton,
     mainTable
   },
   setup () {
     const reflection = ref('')
+    const time = ref('');
+    const person = ref('');
     return {
       zIndex: 3000,
       size: 'small',
-      reflection
+      reflection,
+      time,
+      person
     }
   },
 })
@@ -77,41 +102,12 @@ export default defineComponent({
   </script>
   
   <style scoped>
-.principle_title {
-  text-indent: 2em;
-  font-weight: bold;
-  /* margin-left: 10px; */
-  margin-right: 30px;
-}
-.download {
-  position: absolute;
-  margin-left: 75%;
-  width: 15%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.title {
-  text-align: center;
-  font-family: sans-serif;
-  font-size: 30px;
-}
-.secondtitle {
-  text-indent: 2em;
-  font-weight: bold;
-  margin-left: 30px;
-  margin-right: 30px;
-}
-.content {
+.all_title {
   text-indent: 2em;
   margin-left: 20px;
   margin-right: 20px;
 }
-.guidance {
-  font-weight: bold;
-}
-.button {
-  width: 20%;
-  margin-left: 40%;
+.pre_title {
+  display: inline-block;
 }
 </style>

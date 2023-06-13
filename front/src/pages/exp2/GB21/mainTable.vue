@@ -85,82 +85,66 @@
   <div class="content">&nbsp;Ei为第i类人员的工作量，单位为人月；</div>
   <div class="content">&nbsp;IFi为第i类人员的直接人力成本费率，单位为元每人月。</div>
   <br>
-  <div class="content">实验操作：请在下面输入人员类别数量，之后分别填写每类人员的工作量与人力成本费率，得到直接人力成本
+  <div class="content">实验操作：请在下面表格中分别填写每类人员的工作量与人力成本费率，计算得到直接人力成本
     DHC=&nbsp;{{method1.DHC}}&nbsp;元。
   </div>
   <br>
-  <div
-    :inline="true"
-    class="preInput"
-  >
-    <el-input
-      v-model="pNum"
-      placeholder="请输入人员类别数量"
-      style="height:60%; width:50%;margin-left: 2em;"
-    />
-    <el-button
-      style="height:60%; width:40%;"
-      type="primary"
-      @click="method2Number"
-    >确定</el-button>
-  </div>
-  <div v-if="flag==1 && pNum!=0">
-    <el-form
-      ref="formRef2"
-      :inline="true"
-      label-width="150px"
-      :model="method2"
-      style="max-width: 460px;"
+  <!-- ant design vue 表格形式实现人力成本估算 -->
+  <div>
+    <!-- <a-button class="renli-table" -->
+    <a-button
+      class="editable-add-btn"
+      style="margin-bottom: 15px;"
+      @click="handleAdd"
+    >添加人员类别</a-button>
+    <a-table
+      bordered
+      :data-source="renliSource"
+      :columns="renliColumns"
     >
-      <div
-        v-for="i in Number(pNum)"
-        :key="i"
-      >
-        <el-row>
-          <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人员类别 {{ i }}</h3>
-          <el-col :span="12">
-            <el-form-item label="工作量">
-              <el-input
-                v-model="method2.workload[i]"
-                :min="0"
-              ></el-input>
-              <p class="description">该类人员的工作量，单位为人月</p>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="人力成本费率">
-              <el-input
-                v-model="method2.costRate[i]"
-                :min="0"
-              ></el-input>
-              <p class="description">该类人员的人力成本费率，单位为元/人月</p>
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </div>
-      <el-form-item
-        class="button-group"
-        style="width:100%;padding-left: 33%;padding-right: 7%;"
-      >
-        <!-- <el-form-item style="width:80%;margin-right: 0;  margin-left: auto;  text-align: right;"> -->
-        <el-button
-          class="button"
-          type="primary"
-          @click="calculate_"
-        >计算</el-button>
-        <el-button
-          class="button"
-          @click="reset_"
-        >重置</el-button>
-      </el-form-item>
-      <!-- <el-form-item
-        label="DHC"
-        style="color:dodgerblue; font-weight: bold"
-      >
-        <span>{{ method1.DHC }}</span>
-      </el-form-item> -->
-    </el-form>
+      <template #bodyCell="{column,text,record}">
+        <template
+          v-if="['category','workLoad','costRate'].includes(column.dataIndex)"
+        >
+          <div>
+            <a-input
+              v-if="editableData[record.key]"
+              v-model:value="editableData[record.key][column.dataIndex]"
+              style="margin: -5px 0"
+            />
+            <template v-else>
+              {{ text }}
+            </template>
+          </div>
+        </template>
+        <template v-else-if="column.dataIndex==='operation'">
+          <div class="editable-row-operations">
+            <span v-if="editableData[record.key]">
+              <a-typography-link
+                @click="save(record.key)">保存</a-typography-link>
+              <a-popconfirm
+                title="确定要取消修改吗？"
+                @confirm="cancel(record.key)"
+              >
+                <a>取消</a></a-popconfirm>
+            </span>
+            <span v-else>
+              <a @click="edit(record.key)">编辑</a>
+              <a-popconfirm
+                v-if="renliSource.length"
+                title="确定要删除此行吗?"
+                @confirm="onDelete(record.key)"
+              >
+                <a>删除</a>
+              </a-popconfirm>
+            </span>
+          </div>
+        </template>
+      </template>
+    </a-table>
   </div>
+  <!-- 原来的 -->
+
   <br>
   <div class="procession_title">第五步：进行间接人力成本估算</div>
   <br>
@@ -235,7 +219,7 @@
     <div class="content">(1)公式：SDC=P×S+DNC</div>
     <div class="content">
       <span
-        onchange="calculate2">(2)计算过程：SDC={{ method3.P }}×{{ method3.S }}+{{ method1.DNC }}
+        onchange="calculate3">(2)计算过程：SDC={{ method3.P }}×{{ method3.S }}+{{ method1.DNC }}
         =</span>
       {{ SDC3=Number(method3.P)*Number(method3.S )+Number(method1.DNC)}}
     </div>
@@ -255,23 +239,77 @@
 </template>
   
   <script lang="ts">
-import type { FormInstance, FormRules } from 'element-plus';
-import { ElSelect, ElOption, ElForm, ElFormItem, ElInput, ElButton, ElInputNumber } from 'element-plus';
-import { reactive, ref } from 'vue';
-import { log } from 'console';
+// import type { FormInstance, FormRules } from 'element-plus';
+// import { ElSelect, ElOption, ElForm, ElFormItem, ElInput, ElButton, ElInputNumber } from 'element-plus';
+import { computed, defineComponent, reactive, ref } from 'vue';
+import type { Ref, UnwrapRef } from 'vue';
+import { cloneDeep } from 'lodash-es';
+// import { log } from 'console';
+interface DataItem {
+  key: string;
+  category: string;
+  workLoad: number;
+  costRate: number;
+}
+
 export default {
   name: 'mainTable',
-  components: {
-    ElSelect,
-    ElOption,
-    ElForm,
-    ElFormItem,
-    ElInput,
-    ElButton,
-    ElInputNumber,
-  },
+  components: {},
 
   setup() {
+    const renliColumns = [
+      {
+        title: '人员类别',
+        dataIndex: 'category',
+        // width: '30%',
+      },
+      {
+        title: '工作量',
+        dataIndex: 'workLoad',
+      },
+      {
+        title: '人力成本费率',
+        dataIndex: 'costRate',
+      },
+      {
+        title: '操作',
+        dataIndex: 'operation',
+      },
+    ];
+    const editableData: UnwrapRef<Record<string, DataItem>> = reactive({});
+    const renliSource: Ref<DataItem[]> = ref([
+      {
+        key: '0',
+        category: '第1类人员',
+        workLoad: 0,
+        costRate: 0,
+      },
+    ]);
+    const edit = (key: string) => {
+      editableData[key] = cloneDeep(renliSource.value.filter((item) => key === item.key)[0]);
+    };
+    const save = (key: string) => {
+      Object.assign(renliSource.value.filter((item) => key === item.key)[0], editableData[key]);
+      calculate2();
+      delete editableData[key];
+    };
+    const onDelete = (key: string) => {
+      renliSource.value = renliSource.value.filter((item) => item.key !== key);
+      calculate2();
+    };
+    const count = computed(() => renliSource.value.length + 1);
+    const handleAdd = () => {
+      const newData = {
+        key: `${count.value}`,
+        category: `第${count.value}类人员`,
+        workLoad: 0,
+        costRate: 0,
+      };
+      renliSource.value.push(newData);
+    };
+    const cancel = (key: string) => {
+      delete editableData[key];
+    };
     const columns = reactive([
       {
         title: '方法一 ',
@@ -352,6 +390,8 @@ export default {
     ];
     const method2Number = () => {
       flag.value = 1;
+      console.log('pNum=', pNum);
+      console.log('flag=', flag);
     };
     // const calculate = () => {
     //   if (value.value == 'Option1') {
@@ -373,12 +413,18 @@ export default {
     const calculate1 = () => {
       SDC1.value = Number(method1.DHC) + Number(method1.DNC) + Number(method1.IHC) + Number(method1.INC);
     };
+    // const calculate2 = () => {
+    //   SDC2.value = 0;
+    //   for (let i = 1; i <= pNum.value; i++) {
+    //     SDC2.value += Number(method2.workload[i]) * Number(method2.costRate[i]);
+    //   }
+    //   SDC2.value += Number(method1.DNC);
+    // };
     const calculate2 = () => {
-      SDC2.value = 0;
-      for (let i = 1; i <= pNum.value; i++) {
-        SDC2.value += Number(method2.workload[i]) * Number(method2.costRate[i]);
+      method1.DHC = 0;
+      for (let i = 0; i < renliSource.value.length; i++) {
+        method1.DHC += renliSource.value[i].workLoad * renliSource.value[i].costRate;
       }
-      SDC2.value += Number(method1.DNC);
     };
     const calculate_ = () => {
       method1.DHC = 0;
@@ -446,6 +492,14 @@ export default {
       SDC3,
       columns,
       tableData,
+      renliSource,
+      renliColumns,
+      editableData,
+      edit,
+      save,
+      onDelete,
+      handleAdd,
+      cancel,
       // DHC,
       // DNC,
       // IHC,
@@ -474,17 +528,6 @@ export default {
   text-indent: 2em;
   margin-right: 30px;
 }
-.el-select {
-  height: 7vh;
-  padding: 1vh;
-}
-.formula_desc {
-  color: darkgrey;
-  font-size: 12px;
-}
-.formula {
-  padding-left: 2vw;
-}
 .description {
   color: darkgrey;
   font-size: 12px;
@@ -499,6 +542,9 @@ export default {
   display: flex;
   justify-content: center;
   align-content: center;
+}
+.editable-row-operations a {
+  margin-right: 8px;
 }
 .preInput {
   width: 350px;
