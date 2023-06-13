@@ -14,6 +14,7 @@ export interface RouteMeta {
   cacheable?: boolean;
   link?: string;
   title?: string;
+  id?: string;
 }
 
 declare interface RouteRecordBase extends Omit<_RouteRecordBase, 'redirect'> {
@@ -50,7 +51,7 @@ export interface RouteRecordRedirect extends RouteRecordBase, Required<RedirectT
 }
 
 export interface RouteRecordLink extends RouteRecordBase {
-  link: string;
+  link: string; 
   children?: RouteOption[];
 }
 
