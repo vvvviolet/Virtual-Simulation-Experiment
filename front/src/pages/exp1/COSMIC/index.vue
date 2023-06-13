@@ -1,9 +1,29 @@
 <template>
 
     <h1 class="title" >实验1 基于COSMIC的小型软件项目规模度量实验
-      
-        <span>  <el-button  class="guidance" type="primary" text  @click="pdfHandle" ><el-icon size="25px"><Document /></el-icon>实验指导书下载</el-button></span> 
     </h1>
+    <div style="padding-top:60px;padding-bottom:20px" ref="content_1">
+        <a-config-provider :locale="locale">
+            <p style="line-height:200%;font-size: 16px;">
+                <a-row justify="center">
+                    <a-col span="6">课程名称：软件工程经济学</a-col>
+                    <a-col span="6">课号：420279</a-col>
+                    <a-col span="6">实验项目名称：软件规模度量实验</a-col>
+                </a-row>
+                <a-row justify="center">
+                    <a-col span="6">实验时间：<span style="border-bottom: 1px solid grey;border-radius: none;"><a-date-picker
+                                v-model="experimentdate" :bordered="false"
+                                style="width:150px;padding-left:3px;padding-right:3px;"
+                                placeholder="点击选择实验时间" /></span></a-col>
+                    <a-col span="6">实验报告人： <span style="border-bottom: 1px solid grey;border-radius: none;"><a-input
+                                v-model="reportername" placeholder="请输入报告人姓名" size="small" :bordered="false"
+                                style="width:18vh;"></a-input></span>
+                    </a-col>
+                    <a-col span="6"></a-col>
+                </a-row>
+            </p>
+        </a-config-provider>
+    </div>
     <hr />
     <!-- <span> {{ test }}</span> -->
     <a-row :gutter="16">
@@ -24,7 +44,8 @@
         </a-statistic-countdown>
         </a-col>
     </a-row>
-    <a-drawer
+    <div ref="content_2">
+        <a-drawer
         v-model:visible="visible"
         class="custom-class"
         style="color: black"
@@ -169,6 +190,9 @@
       <div class="image-center"><img src="./image/COSMIC_p3.png" width="500"></div>
     </a-drawer>
 
+    </div>
+    
+
     
 
     <h2 class="title">  实验内容  </h2>
@@ -179,7 +203,9 @@
         </a-steps>
         <div class="steps-content">
         <!-- {{ steps[current].content }} -->
-        <div v-if="current == 0">
+        <!-- <div ref="content1"> -->
+            <!-- <div v-if="current == 0"> -->
+            <div v-if="current == 0" ref="content1">
               <h2>
                 确定度量策略参数
               </h2>
@@ -196,21 +222,33 @@
               <p> - ● - 软件在所处软件架构中的层次：一个待测量的软件必须被限制在一个层内
               </p>
 <!--              输入数据及变量尚未考虑，后面统一处理-->
-              <a-form-item :name="['user', 'name']" label="测量目的" :rules="[{ required: true }]">
-                <a-input v-model:value="formState.user.name" />
+            <a-form
+                    ref="formRef"
+                    name="custom-validation"
+                    :model="formState1"
+                    v-bind="layout"
+            >
+              <a-form-item :name="['strategy', 'measurementPurpose']" label="测量目的" :rules="[{ required: true }]">
+                <a-input v-model:value="formState1.strategy.measurementPurpose" />
               </a-form-item>
-              <a-form-item :name="['user', 'name']" label="软件块规模" :rules="[{ required: true }]">
-                <a-input v-model:value="formState.user.name" />
+              <a-form-item :name="['strategy', 'softwareBlockSize']" label="软件块规模" :rules="[{ required: true }]">
+                <a-input v-model:value="formState1.strategy.softwareBlockSize" />
               </a-form-item>
-              <a-form-item :name="['user', 'name']" label="软件块的分解级别" :rules="[{ required: true }]">
-                <a-input v-model:value="formState.user.name" />
+              <a-form-item :name="['strategy', 'softwareBlockDecompositionLevel']" label="软件块的分解级别" :rules="[{ required: true }]">
+                <a-input v-model:value="formState1.strategy.softwareBlockDecompositionLevel" />
               </a-form-item>
-              <a-form-item :name="['user', 'name']" label="软件块的功能用户" :rules="[{ required: true }]">
-                <a-input v-model:value="formState.user.name" />
+              <a-form-item :name="['strategy', 'softwareBlockFunctionalUser']" label="软件块的功能用户" :rules="[{ required: true }]">
+                <a-input v-model:value="formState1.strategy.softwareBlockFunctionalUser" />
               </a-form-item>
-              <a-form-item :name="['user', 'name']" label="所处软件架构中的层次" :rules="[{ required: true }]">
-                <a-input v-model:value="formState.user.name" />
+              <a-form-item :name="['strategy', 'softwareArchitectureLevel']" label="所处软件架构中的层次" :rules="[{ required: true }]">
+                <a-input v-model:value="formState1.strategy.softwareArchitectureLevel" />
               </a-form-item>
+            </a-form>
+              
+        <!-- </div> -->
+              <!-- <div>
+                <pre>{{ formState1.strategy }}</pre>
+              </div> -->
                 <!-- <a-form
                     ref="formRef"
                     name="custom-validation"
@@ -233,7 +271,8 @@
                     </a-form-item>
                 </a-form> -->
             </div>
-            <div v-if="current==1">
+        <!-- <div ref="content2"> -->
+            <div v-if="current==1" ref="content2">
               <h2>
                 识别功能处理
               </h2>
@@ -250,15 +289,19 @@
               <p>5. 根据其功能用户需求（FUR），当需要达到某个时间点时是已结束的状态。
               </p>
 <!--              输入数据及变量尚未考虑，后面统一处理  and 理论上需要可变数目的输入项，这儿先用一个大输入框代替，进行分行，后面需要的话再改 -->
-              <a-form-item :name="['user', 'introduction']" label="输入分析得到的功能处理（每行输入一个功能处理项）：">
-                <a-textarea v-model:value="formState.user.introduction" />
+              <a-form-item :name="['input', 'functionprocessing']" label="输入分析得到的功能处理（每行输入一个功能处理项）：">
+                <a-textarea v-model:value="formState2.input.functionprocessing" />
               </a-form-item>
-              <a-form-item :wrapper-col="{ ...layout.wrapperCol, offset: 8 }">
+              <!-- <a-form-item :wrapper-col="{ ...layout.wrapperCol, offset: 8 }">
                 <a-button type="primary" html-type="submit">Submit</a-button>
-              </a-form-item>
+              </a-form-item> -->
+        <!-- </div> -->
+              <!-- <div>
+                <pre>{{ formState2.input.functionprocessing }}</pre>
+              </div> -->
             </div>
-
-            <div v-if="current==2">
+        <!-- <div ref="content3"> -->
+            <div v-if="current==2" ref="content3">
                 <!-- <h2>
                     识别数据则
                 </h2>
@@ -302,17 +345,22 @@
                 <p class="content"> ⭕注：功能处理内部的常量或变量，或计算过程的中间结果，或是由功能处理直接从实现结果得到而不是从功能用户需求（FUR）中得到而存储的数据，都不是数据组
                 </p>
                 <a-form
-                    :model="formState"
+                    :model="formState2"
                     v-bind="layout"
                     name="nest-messages"
                     :validate-messages="validateMessages"
                 >
-                    <a-form-item :name="['user', 'shujuxiang']" label="识别到的数据项">
-                    <a-textarea v-model:value="formState.user.shujuxiang" />
+                    <a-form-item :name="['input', 'dataItem']" label="识别到的数据项">
+                    <a-textarea v-model:value="formState2.input.dataItem" />
                     </a-form-item>
                 </a-form>
+        <!-- </div> -->
+                <!-- <div>
+                <pre>{{ formState2.input.dataItem }}</pre>
+                </div> -->
             </div>
-            <div v-if="current==3">
+        <!-- <div ref="content4"> -->
+            <div v-if="current==3" ref="content4">
                 <p>步骤二中识别的每个功能处理应该分解成部件，即数据移动（包括输入、输出、读、写）。
                 </p>
                 <p class="content">对于任何一个功能处理，按照功能用户需求（FUR）的要求，输入的描述了同一个兴趣对象的所有数据都应该被识别并计算为一个单独的输入，除非FUR明确要求同一个兴趣对象的数据在同一个功能处理中被多次输入。相似地，对于按照功能用户需求（FUR）描述某个兴趣对象的输出、读或写数据移动都应该被一样地识别和计数，除非在FUR中明确表示，在同一个功能处理中，需要多次输出、读或写同一个兴趣对象的数据。
@@ -321,31 +369,75 @@
                     <a-image
                         src="http://blog.nsfocus.net/wp-content/uploads/2018/06/4-4.png"
                     />
+                    <!-- <a-image
+                        src="./images/4-4.png"
+                    /> -->
                 </div>
-                <p class="content">数据输入个数分别为：
-                    <a-form
-                    :model="formState"
+                <div>
+    <a-button type="primary" @click="addRow">新增行</a-button>
+    <a-table :columns="columns" :data-source="tableData" row-key="id" :pagination="false" :row-selection="rowSelection">
+        <template #inputs="{ text, record, index }">
+            <a-input v-model="tableData[index].input" @change="updateTotal(index, 'input', $event.target.value)" />
+</template>
+<template #outputs="{ text, record, index }">
+            <a-input v-model="tableData[index].output" @change="updateTotal(index, 'output', $event.target.value)" />
+</template>
+
+<template #reads="{ text, record, index }">
+            <a-input v-model="tableData[index].read" @change="updateTotal(index, 'read', $event.target.value)" />
+</template>
+<template #writes="{ text, record, index }">
+            <a-input v-model="tableData[index].write" @change="updateTotal(index, 'write', $event.target.value)" />
+</template>
+      <template #statistics="scope">
+        {{ scope.record.total }}
+      </template>
+    </a-table>
+  </div>
+                <div class="content">数据输入个数分别为：
+                    <!-- <a-form
+                    :model="formState2"
                     v-bind="layout"
                     name="nest-messages"
                     :validate-messages="validateMessages"
                     >
-                    <a-form-item :name="['user', 'input']" label="输入" :rules="[{ type: 'number', min: 0, max: 99 }]">
-                    <a-input-number v-model:value="formState.user.input" />
+                    <a-form-item :name="['input', 'input']" label="输入" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="formState2.input.input" />
                     </a-form-item>
-                    <a-form-item :name="['user', 'output']" label="输出" :rules="[{ type: 'number', min: 0, max: 99 }]">
-                    <a-input-number v-model:value="formState.user.output" />
+                    <a-form-item :name="['input', 'output']" label="输出" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="formState2.input.output" />
                     </a-form-item>
-                    <a-form-item :name="['user', 'write']" label="写" :rules="[{ type: 'number', min: 0, max: 99 }]">
-                    <a-input-number v-model:value="formState.user.write" />
+                    <a-form-item :name="['input', 'write']" label="写" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="formState2.input.write" />
                     </a-form-item>
-                    <a-form-item :name="['user', 'read']" label="读" :rules="[{ type: 'number', min: 0, max: 99 }]">
-                    <a-input-number v-model:value="formState.user.read" />
+                    <a-form-item :name="['input', 'read']" label="读" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="formState2.input.read" />
                     </a-form-item>
-                </a-form>
-                </p>
+                </a-form> -->
+                <a-form-item :name="['input', 'input']" label="输入" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="sumInput" />
+                    </a-form-item>
+                    <a-form-item :name="['input', 'output']" label="输出" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="sumOutput" />
+                    </a-form-item>
+                    <a-form-item :name="['input', 'write']" label="写" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="sumWrite" />
+                    </a-form-item>
+                    <a-form-item :name="['input', 'read']" label="读" :rules="[{ type: 'number', min: 0, max: 99 }]">
+                    <a-input-number v-model:value="sumRead" />
+                    </a-form-item>
+                </div>
+        <!-- </div> -->
+                <!-- <div>
+                <pre>input:  {{ formState2.input.input }}</pre>
+                <pre>output:  {{ formState2.input.output }}</pre>
+                <pre>write:  {{ formState2.input.write }}</pre>
+                <pre>read:  {{ formState2.input.read }}</pre>
+                </div> -->
+                
             </div>
-
-            <div v-if="current==4">
+        <!-- <div ref="content5"> -->
+            <div v-if="current==4" ref="content5">
                 <p class="content"> 对于并非以数据移动为主的软件，如果觉得基本的COSMIC方法有所不足，可以可以为例外的功能（如为了解决复杂算法的度量问题时）设置一个本地化标准。
                 </p>
                 <p class="content"> ----示例：“在我们组织中，诸如《算法示例列表》的数学算法计作1个本地FP。《另一个算法示例列表》计作2个本地FP。”
@@ -354,20 +446,28 @@
                 </p>
                 <p class="content"> 得到软件块的功能规模（拓展）为：y LocalFP
                 </p>
-                <a-form-item :name="['user', 'LocalFP']" label="LocalFP" :rules="[{ type: 'LocalFP' }]">
-                    <a-input v-model:value="formState.user.email" />
+                <a-form-item :name="['input', 'LocalFP']" label="LocalFP" :rules="[{ type: 'LocalFP' }]">
+                    <a-input v-model:value="formState2.input.LocalFP" />
                  </a-form-item>
+        <!-- </div> -->
+                 <!-- <div>
+                    <pre>LocalFP:  {{ formState2.input.LocalFP }}</pre>
+                </div> -->
             </div>
-
-            <div v-if="current==5">
+        <!-- <div ref="content6"> -->
+            <div v-if="current==5" ref="content6">
                 <p class="content"> 基于上述实验过程，得到最终度量结果为：x CFP(5.0)+y LocalFP
                 </p>
-                <a-form-item :name="['user', 'SumFP']" label="CFP + LocalFP" :rules="[{ type: 'SumFP' }]">
+                <!-- <a-form-item :name="['user', 'SumFP']" label="CFP + LocalFP" :rules="[{ type: 'SumFP' }]">
                     <a-input v-model:value="formState.user.email" />
+                </a-form-item> -->
+                <a-form-item :name="['output', 'SumFP']" label="CFP + LocalFP" :rules="[{ type: 'number', message: 'sunFP为' }]">
+                    <a-input v-model:value="sumFP" />
                 </a-form-item>
             </div>
-
-            <div v-if="current==6">
+        <!-- </div> -->
+        <!-- <div ref="content7"> -->
+            <div v-if="current==6" ref="content7">
                 <h2>
                     思考题
                 </h2>
@@ -381,22 +481,27 @@
                     答案：判断采用这种方法度量的规模数据与实际工作量数据之间的相关性
                 </p>
             </div>
-
-            <div v-if="current==7">
-                <h2>
+        <!-- </div> -->
+        <!-- <div ref="content8"> -->
+            <div v-if="current==7" ref="content8">
+                <div>
                     实验心得
                     <a-form
-                    :model="formState"
+                    :model="formState2"
                     v-bind="layout"
                     name="nest-messages"
                     :validate-messages="validateMessages"
                 >
-                    <a-form-item :name="['user', 'experience']" label="实验心得" :rules="[{ required: true }]">
-                    <a-textarea v-model:value="formState.user.experience" />
+                    <a-form-item :name="['input', 'experience']" label="实验心得" :rules="[{ required: true }]">
+                    <a-textarea v-model:value="formState2.input.experience" />
                     </a-form-item>
 
                 </a-form>
-                </h2>
+                </div>
+        <!-- </div> -->
+                <!-- <div>
+                    <pre> {{ formState2.input.experience }} </pre>
+                </div> -->
             </div>
         </div>
         <div class="steps-action">
@@ -405,9 +510,10 @@
             v-if="current == steps.length - 1"
             type="primary"
             style="float: right;"
-            @click="message.success('Processing complete!')"
+            @click="generatePDF1"
         >
             Done
+            <!-- @click="message.success('Processing complete!')" -->
         </a-button>
         <a-button v-if="current > 0" style="margin-left: 8px" @click="prev"><step-backward-outlined />Previous</a-button>
         </div>
@@ -416,6 +522,7 @@
 
 </template>
 
+
 <script lang="ts">
 import { Document } from '@element-plus/icons-vue'
 import { ref } from 'vue';
@@ -423,6 +530,10 @@ import { message } from 'ant-design-vue';
 //import type { FormInstance } from 'ant-design-vue';
 //import type { Rule } from 'ant-design-vue/es/form';
 import { reactive } from 'vue';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable'
+import html2canvas from 'html2canvas';
+import html2pdf from 'html2pdf.js';
 
 export default {
     name: 'Exp1_COSMIC',
@@ -430,7 +541,9 @@ export default {
         return{     
             test:'21111',
             sum:'',
-            visible: true,
+            visible: false,
+            experimentdate: 0,//实验时间
+            reportername: '',//实验人姓名
             current: 0,
             message,
             // formRef: ref(),
@@ -463,6 +576,21 @@ export default {
                     range: '${label} must be between ${min} and ${max}',
                 },
             },
+            tableData: [],
+      idCounter: 0,
+      rowSelection: {
+        onChange: (selectedRowKeys) => {
+          console.log('Selected Row Keys:', selectedRowKeys);
+        },
+      },
+      columns: [
+        { title: '功能处理', dataIndex: 'process', key: 'process' },
+        { title: '输入', dataIndex: 'input', key: 'input', slots: { customRender: 'inputs' } },
+        { title: '输出', dataIndex: 'output', key: 'output', slots: { customRender: 'outputs' } },
+        { title: '读', dataIndex: 'read', key: 'read', slots: { customRender: 'reads' } },
+        { title: '写', dataIndex: 'write', key: 'write', slots: { customRender: 'writes' } },
+        { title: '统计', dataIndex: 'total', key: 'total', slots: { customRender: 'statistics' } },
+      ],
             formState: reactive({
                 user: {
                     name: '',
@@ -480,6 +608,35 @@ export default {
                     SumFP: '',
                 },
             }),
+            strategy: {
+                    measurementPurpose: '',
+                    softwareBlockSize: '',
+                    softwareBlockDecompositionLevel: '',
+                    softwareBlockFunctionalUser: '',
+                    softwareArchitectureLevel: '',
+            },
+            formState1: reactive({
+                strategy: {
+                    measurementPurpose: '',
+                    softwareBlockSize: '',
+                    softwareBlockDecompositionLevel: '',
+                    softwareBlockFunctionalUser: '',
+                    softwareArchitectureLevel: '',
+                },
+            }),
+            formState2: reactive({
+                input: {
+                    functionprocessing: '',
+                    dataItem: '',
+                    input: 0,
+                    output: 0,
+                    write: 0,
+                    read: 0,
+                    LocalFP: '',
+                    experience: '',
+                },
+            }),
+            content: [],
             steps: [{
                 title: '确定度量策略参数',
                 content: 'First-content',
@@ -510,88 +667,242 @@ export default {
                 title: '实验心得',
                 content: 'Last-content',
             }],
-            tableData: [
-                {
-                    component: 'EI',
-                    number: '2',
-                    A: '',
-                    B: '3',
-                    C: '',
-                    D: '',
-                    E: '4',
-                    F: '',
-                    G: '',
-                    H: '6',
-                    I: '',
-                    nonum:'',
-                },
-                {
-                    component: 'EO',
-                    number: '2',
-                    A: '',
-                    B: '4',
-                    C: '',
-                    D: '',
-                    E: '5',
-                    F: '',
-                    G: '',
-                    H: '7',
-                    I: '',
-                    nonum:'',
-                },
-                {
-                    component: 'EQ',
-                    number: '2',
-                    A: '',
-                    B: '3',
-                    C: '',
-                    D: '',
-                    E: '4',
-                    F: '',
-                    G: '',
-                    H: '6',
-                    I: '',
-                    nonum:'',
-                },
-                {
-                    component: 'ILF',
-                    number: '2',
-                    A: '',
-                    B: '7',
-                    C: '',
-                    D: '',
-                    E: '10',
-                    F: '',
-                    G: '',
-                    H: '15',
-                    I: '',
-                    nonum:'',
-                },
-                {
-                    component: 'EIF',
-                    number: '2',
-                    A: '',
-                    B: '5',
-                    C: '',
-                    D: '',
-                    E: '7',
-                    F: '',
-                    G: '',
-                    H: '10',
-                    I: '',
-                    nonum:'',
-                },
-            ],
+            // tableData: [
+            //     {
+            //         component: 'EI',
+            //         number: '2',
+            //         A: '',
+            //         B: '3',
+            //         C: '',
+            //         D: '',
+            //         E: '4',
+            //         F: '',
+            //         G: '',
+            //         H: '6',
+            //         I: '',
+            //         nonum:'',
+            //     },
+            //     {
+            //         component: 'EO',
+            //         number: '2',
+            //         A: '',
+            //         B: '4',
+            //         C: '',
+            //         D: '',
+            //         E: '5',
+            //         F: '',
+            //         G: '',
+            //         H: '7',
+            //         I: '',
+            //         nonum:'',
+            //     },
+            //     {
+            //         component: 'EQ',
+            //         number: '2',
+            //         A: '',
+            //         B: '3',
+            //         C: '',
+            //         D: '',
+            //         E: '4',
+            //         F: '',
+            //         G: '',
+            //         H: '6',
+            //         I: '',
+            //         nonum:'',
+            //     },
+            //     {
+            //         component: 'ILF',
+            //         number: '2',
+            //         A: '',
+            //         B: '7',
+            //         C: '',
+            //         D: '',
+            //         E: '10',
+            //         F: '',
+            //         G: '',
+            //         H: '15',
+            //         I: '',
+            //         nonum:'',
+            //     },
+            //     {
+            //         component: 'EIF',
+            //         number: '2',
+            //         A: '',
+            //         B: '5',
+            //         C: '',
+            //         D: '',
+            //         E: '7',
+            //         F: '',
+            //         G: '',
+            //         H: '10',
+            //         I: '',
+            //         nonum:'',
+            //     },
+            // ],
         }
     },
+    computed: {
+    sumFP() {
+      const { functionprocessing, dataItem, input, output, write, read, LocalFP, experience } = this.formState2.input;
+      const regex = /\d+/g;
+      const numbers = LocalFP.match(regex);
+      const sum = numbers.reduce((acc, cur) => acc + Number(cur), 0);
+      return Number(input) + Number(output) + Number(write) + Number(read) + sum;
+    //   const sum = Number(intpu) + Number(output) + Number(write) + Number(read) + Number(LocalFP);
+    //   console.log('LocalFP:', LocalFP, typeof LocalFP);
+    //   return sum;
+    },
+    sumInput() {
+      //将tableData中的input列的值相加
+        let sum = 0;
+        for (let i = 0; i < this.tableData.length; i++) {
+            sum += parseInt(this.tableData[i].input);
+        }
+        this.formState2.input.input = sum;
+        return sum;
+    },
+    sumOutput() {
+      //将tableData中的output列的值相加
+        let sum = 0;
+        for (let i = 0; i < this.tableData.length; i++) {
+            sum += parseInt(this.tableData[i].output);
+        }
+        this.formState2.input.output = sum;
+        return sum;
+    },
+    sumRead() {
+      //将tableData中的read列的值相加
+        let sum = 0;
+        for (let i = 0; i < this.tableData.length; i++) {
+            sum += parseInt(this.tableData[i].read);
+        }
+        this.formState2.input.read = sum;
+        return sum;
+    },
+    sumWrite() {
+      //将tableData中的write列的值相加
+        let sum = 0;
+        for (let i = 0; i < this.tableData.length; i++) {
+            sum += parseInt(this.tableData[i].write);
+        }
+        this.formState2.input.write = sum;
+        return sum;
+    },
+    calculateTotal() {
+      let total = 0;
+      for (const row of this.tableData) {
+        const input = parseInt(row.input);
+        const output = parseInt(row.output);
+        const read = parseInt(row.read);
+        const write = parseInt(row.write);
+        if (!isNaN(input)) total += input;
+        if (!isNaN(output)) total += output;
+        if (!isNaN(read)) total += read;
+        if (!isNaN(write)) total += write;
+        row.total = total;
+      }
+      console.log('total:', total);
+      return total;
+    },
+  },
     methods:{
         showDrawer() {
             this.visible = true;
+            const content_2 = this.$refs.content_2;
+            this.content.push(content_2);
         },
+        created() {
+    const functionProcessings = this.formState2.input.functionprocessing.split('\n');
+    for (let i = 0; i < functionProcessings.length; i++) {
+      const processing = functionProcessings[i].trim();
+      const newRow = {
+        id: this.idCounter++,
+        process: processing,
+        input: 0,
+        output: 0,
+        read: 0,
+        write: 0,
+        total: 0,
+      };
+      this.tableData.push(newRow);
+    }
+    console.log("钩子函数创建")
+  },
         next() {
+            if(this.current == 0){
+                const content_1 = this.$refs.content_1;
+                this.content.push(content_1);
+                
+                const content1 = this.$refs.content1;
+                this.content.push(content1);
+                
+            }
+            if(this.current == 1){
+                const content2 = this.$refs.content2;
+                this.content.push(content2);
+            }
+            if(this.current == 2){
+                const content3 = this.$refs.content3;
+                this.content.push(content3);
+                this.created();
+            }
+            if(this.current == 3){
+                const content4 = this.$refs.content4;
+                this.content.push(content4);
+            }
+            if(this.current == 4){
+                const content5 = this.$refs.content5;
+                this.content.push(content5);
+            }
+            if(this.current == 5){
+                const content6 = this.$refs.content6;
+                this.content.push(content6);
+            }
+            if(this.current == 6){
+                const content7 = this.$refs.content7;
+                this.content.push(content7);
+            }
+            if(this.current == 7){
+                const content8 = this.$refs.content8;
+                this.content.push(content8);
+            }
             this.current++;
+            // this.generatePDF1();
+            
         },
         prev() {
+            if(this.current == 0){
+                const content1 = this.$refs.content1;
+                this.content.push(content1);
+            }
+            if(this.current == 1){
+                const content2 = this.$refs.content2;
+                this.content.push(content2);
+            }
+            if(this.current == 2){
+                const content3 = this.$refs.content3;
+                this.content.push(content3);
+            }
+            if(this.current == 3){
+                const content4 = this.$refs.content4;
+                this.content.push(content4);
+            }
+            if(this.current == 4){
+                const content5 = this.$refs.content5;
+                this.content.push(content5);
+            }
+            if(this.current == 5){
+                const content6 = this.$refs.content6;
+                this.content.push(content6);
+            }
+            if(this.current == 6){
+                const content7 = this.$refs.content7;
+                this.content.push(content7);
+            }
+            if(this.current == 7){
+                const content8 = this.$refs.content8;
+                this.content.push(content8);
+            }
             this.current--;
         },
         // checkAge = async (_rule, value) => {
@@ -634,9 +945,7 @@ export default {
             console.log('finished!');
             message.info('time is over!');
         },
-        created() {
-        	this.gettableData()
-        },
+        
         updated() {
         // 用于防止表格合计行不显示
         	this.$nextTick(() => {
@@ -667,7 +976,184 @@ export default {
             return sums;
         },
         count(){
-        }
+        },
+        addRow() {
+            const newRow = {
+        id: this.idCounter++,
+        process: '',
+        input: 0,
+        output: 0,
+        read: 0,
+        write: 0,
+        total: 0,
+      };
+      this.tableData.push(newRow);
+    },
+    // updateTotal(rowIndex, property, value) {
+        updateTotal(index, field, value) {
+    //   console.log('rowIndex', rowIndex-1);
+    //   const rowData = this.tableData[rowIndex-1];
+    //   console.log('rowData', rowData);
+    //   rowData[property] = value;
+    //   const { id, process, input, output, read, write, total } = rowData;
+    //   rowData.total = Number(input) + Number(output) + Number(read) + Number(write);
+        this.tableData[index][field] = value;
+        console.log('tableData', this.tableData[index][field]);
+        const rowData = this.tableData[index];
+        const { id, process, input, output, read, write, total } = rowData;
+        rowData.total = Number(input) + Number(output) + Number(read) + Number(write);
+    },
+        generatePDF() {
+            // 创建一个新的 jsPDF 实例
+            const doc = new jsPDF();
+
+            // 添加标题
+            doc.setFontSize(20);
+             doc.text('Form Data', 10, 10);
+
+            // 添加表格
+            const data = [
+                ['measurementPurpose', this.formState1.strategy.measurementPurpose],
+                ['softwareBlockSize', this.formState1.strategy.softwareBlockSize],
+                ['softwareBlockDecompositionLevel', this.formState1.strategy.softwareBlockDecompositionLevel],
+                ['softwareBlockFunctionalUser', this.formState1.strategy.softwareBlockFunctionalUser],
+                ['softwareArchitectureLevel', this.formState1.strategy.softwareArchitectureLevel],
+                ['input', this.formState2.input.input],
+                ['output', this.formState2.input.output],
+                ['write', this.formState2.input.write],
+                ['read', this.formState2.input.read],
+                ['LocalFP', this.formState2.input.LocalFP],
+                ['experience', this.formState2.input.experience],
+            ];
+            autoTable(doc,{
+                startY: 20,
+                head: [['Field', 'Value']],
+                body: data,
+            });
+
+            // 保存 PDF 文件
+            doc.save('Form Data.pdf');
+        },
+        // 在生成 PDF 之前预加载所有图片
+preloadImages(images) {
+  const promises = images.map((src) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = resolve;
+      img.onerror = reject;
+      img.src = src;
+    });
+  });
+
+  return Promise.all(promises);
+},
+        generatePDF1() {
+            // const content = this.$refs.content;
+            // html2pdf().from(content).save('Form Data.pdf');
+            // // 要转换为 PDF 的多个内容
+            // const contents = [this.$refs.content1, this.$refs.content2, this.$refs.content3, this.$refs.content4, this.$refs.content5, this.$refs.content6, this.$refs.content7, this.$refs.content8];
+            this.generatePDF();
+            const content8 = this.$refs.content8;
+            this.content.push(content8);
+
+            // 创建一个空白的 HTML 元素，用于存储所有内容
+            const container = document.createElement('div');
+
+            /// 设置内容之间的间距
+            const spacing = 10; // 间距大小，单位为像素
+            let topOffset = 0; // 初始的上偏移量
+
+            // 将所有内容追加到容器中，并设置间距
+            this.content.forEach((content) => {
+            // 创建一个包装元素用于设置间距
+            const wrapper = document.createElement('div');
+            wrapper.style.marginBottom = `${spacing}px`; // 设置下边距
+
+            // 将内容添加到包装元素中
+            wrapper.appendChild(content);
+
+            // 设置包装元素的位置
+            wrapper.style.position = 'relative';
+            wrapper.style.top = `${topOffset}px`;
+
+            // 更新上偏移量
+            topOffset += spacing;
+
+            // 将包装元素添加到容器中
+            container.appendChild(wrapper);
+            });
+
+            html2pdf().from(container).set({ margin: [0, 20] }).save('Merged Content.pdf');
+            // 在生成 PDF 之前预加载图片资源
+// const imageUrls = ['./image/4-4.png']; // 将图片 URL 替换为实际的图片 URL
+// this.preloadImages(imageUrls).then(() => {
+//   // 所有图片加载完成后执行转换操作
+//   html2pdf().from(container).set({ margin: [0, 20] }).save('Merged Content.pdf');
+// });
+
+
+
+            //使用 html2pdf.js 将容器内的内容转换为 PDF 文件
+            // html2pdf().from(container).save('Merged Content.pdf');
+
+
+            // // 获取要转换为 PDF 的内容
+            // const content1 = this.$refs.content1;
+            // const content2 = this.$refs.content2;
+            // const content3 = this.$refs.content3;
+            // const content4 = this.$refs.content4;
+            // const content5 = this.$refs.content5;
+            // const content6 = this.$refs.content6;
+            // const content7 = this.$refs.content7;
+            // const content8 = this.$refs.content8;
+            // console.log("开始转换");
+
+            // // 创建一个新的 jsPDF 实例
+            // const doc = new jsPDF();
+
+            // // 定义图像的位置和大小
+            // const x = 10;
+            // const y = 10;
+            // const width = 180;
+            // const height = 150;
+
+            // // 将 HTML 元素转换为 Canvas，并将 Canvas 添加到 PDF 文件中
+            // html2canvas(this.$refs.content1).then(canvas1 => {
+            // doc.addImage(canvas1.toDataURL('image/png'), 'PNG', x, y, width, height);
+
+            //     html2canvas(this.$refs.content2).then(canvas2 => {
+            //     doc.addImage(canvas2.toDataURL('image/png'), 'PNG', x, y + height + 10, width, height);
+
+            //     html2canvas(this.$refs.content3).then(canvas3 => {
+            //         doc.addImage(canvas3.toDataURL('image/png'), 'PNG', x, y + height * 2 + 20, width, height);
+
+            //         html2canvas(this.$refs.content4).then(canvas4 => {
+            //         doc.addImage(canvas4.toDataURL('image/png'), 'PNG', x, y + height * 3 + 30, width, height);
+
+            //         html2canvas(this.$refs.content5).then(canvas5 => {
+            //             doc.addImage(canvas5.toDataURL('image/png'), 'PNG', x, y + height * 4 + 40, width, height);
+
+            //             html2canvas(this.$refs.content6).then(canvas6 => {
+            //             doc.addImage(canvas6.toDataURL('image/png'), 'PNG', x, y + height * 5 + 50, width, height);
+
+            //             html2canvas(this.$refs.content7).then(canvas7 => {
+            //                 doc.addImage(canvas7.toDataURL('image/png'), 'PNG', x, y + height * 6 + 60, width, height);
+
+            //                 html2canvas(this.$refs.content8).then(canvas8 => {
+            //                 doc.addImage(canvas8.toDataURL('image/png'), 'PNG', x, y + height * 7 + 70, width, height);
+
+            //                 // 保存 PDF 文件
+            //                 doc.save('images.pdf');
+            //                 });
+            //             });
+            //             });
+            //         });
+            //         });
+            //     });
+            //     });
+            // });
+        },
+
     }
 }
 </script>
