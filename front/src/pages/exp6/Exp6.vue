@@ -10,7 +10,7 @@
       <a-button style="margin-right:20px" type="primary" shape="round" @click="downLoadFile">
         <template #icon >
           <DownloadOutlined  />
-        </template>实验指导书下载 
+        </template><a href="https://wc-project.oss-cn-shanghai.aliyuncs.com/%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A%20%281%29.pdf" style="color:white">实验指导书下载 </a>
       </a-button>
       
     </div>
@@ -98,22 +98,22 @@ function uploadFile(report:Blob){
     });
 }
 function downLoadFile(){
-  getExperiment(rt.meta.id)
-    .then((res) => {
-      console.log(res.file)
-      const filePath = res.file
-      if (!filePath) {
-        return;
-      }
-      // let url = window.URL.createObjectURL(new Blob(filePath));
-      let link = document.createElement('a');
-      link.style.display = 'none';
-      link.href = filePath;
-      link.setAttribute('download', filePath);
-      document.body.appendChild(link);
-      // link.click();
-      window.open(filePath)
-    })
+  // getExperiment(rt.meta.id)
+  //   .then((res) => {
+  //     console.log(res.file)
+  //     const filePath = res.file
+  //     if (!filePath) {
+  //       return;
+  //     }
+  //     // let url = window.URL.createObjectURL(new Blob(filePath));
+  //     let link = document.createElement('a');
+  //     link.style.display = 'none';
+  //     link.href = filePath;
+  //     link.setAttribute('download', filePath);
+  //     document.body.appendChild(link);
+  //     // link.click();
+  //     window.open(filePath)
+  //   })
 }
 
 </script>

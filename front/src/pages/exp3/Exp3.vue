@@ -37,17 +37,17 @@
       <div class="header-wrapper">
           <p class="title ml-2">实验内容-碳排放权供需模拟</p>
       </div>
-      <p class="secondtitle">一：实验背景说明</p>
+      <p class="secondtitle">一、实验背景</p>
       <p class="content">
          碳排放交易，是指运用市场经济来促进环境保护的重要机制，允许企业在碳排放交易规定的排放总量不突破的前提下，可以用这些减少的碳排放量，使用或交易企业内部以及国内外的能源。
           <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           本实验中，教师将讲解市场上正常的碳排放市场交易的情况。注：一个单位碳排放权的定价只是一个名义价格，并非真实的市场交易价格。
       </p>
-      <p class="secondtitle">二：实验目的说明</p>
+      <p class="secondtitle">二、实验目的</p>
       <p class="content">
         本实验将模拟一个完全竞争的碳排放权供需市场，学生作为供给者或需求者的角色参与市场中的碳排放权拍卖，在竞价过程中理解完全竞争市场上的供给方和需求方，如何通过自发行为、在竞争中促使市场合理价格的形成。
       </p>
-      <p class="secondtitle">三：实验原理说明</p>
+      <p class="secondtitle">三、实验原理</p>
       <p class="content">
         (1)供给者面临的问题是：他不知道在哪种价格下，能出售多少数量。假设他将价格定得过高，销售量就可能太少，从而失去盈利机
         会；假如他将价格设定得很低，可能就会有很多实验参与者有意购买，但是过低的价格又会造成他的利润可能少于必要的水平。
@@ -56,7 +56,7 @@
         (2)考虑到市场交易的公平性，当前市场的供需价格需要公开透明，从而供给者和需求者才能更好地根据当前市场进行出价，也可以防止
         由于隐瞒价格导致的幕后操纵拍卖结果的情况。
       </p>
-      <p class="secondtitle">四：实验步骤说明</p>
+      <p class="secondtitle">四、实验步骤</p>
       <p class="content">
         1.进入在线实验，选择成为供给方或需求方。
         <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -66,59 +66,76 @@
         3.等待所有学生完成报价，根据折线图以及自动计算的当前均衡价格，完成实验报告。
       </p>
     </a-tab-pane>
-    <a-tab-pane key="2" tab="在线实验" :force-render="true" style="text-align:center">
-      <div style="text-align: center;">
-        <a-button @click="showModal" v-if="myrole==null" type="primary" style="margin-bottom:10px">进入在线报价</a-button>
-        <a-modal v-model:visible="visible" title="选择你的角色" :footer="null">
-          <div style="text-align:center">
-            <a-button style="height:80px;width:200px;font-size: large;" @click="chooseRole('supply')" >供给者</a-button>
-            <a-button style="height:80px;width:200px;font-size: large;" @click="chooseRole('demand')">需求者</a-button>
+    <a-tab-pane key="2" tab="在线实验" :force-render="true" style="text-align:left">
+      <div >
+        <div>
+          <div class="secondtitle">
+          第一步 &nbsp;&nbsp;选择角色
           </div>
-        </a-modal>
-        <a-button @click="showModal2" v-if="myrole!=null" type="primary" style="margin-bottom:10px" :disabled="disable">输入我的报价</a-button>
-        <a-modal v-model:visible="visible2" title="输入你的报价" :footer="null" :width="1000">
-          <a-form
-            :model="formState"
-            name="horizontal_login"
-            layout="inline"
-            autocomplete="off"
-          >
-            <a-form-item
-              label="id"
-              name="id"
-              :rules="[{ required: true, message: 'Please input your id!' }]"
+          <a-button @click="showModal" :disabled="myrole!=null" type="primary" style="margin-top:20px;margin-bottom:20px;margin-left:50px">选择角色</a-button>
+          <a-modal v-model:visible="visible" title="选择你的角色" :footer="null">
+            <div style="text-align:center">
+              <a-button style="height:80px;width:200px;font-size: large;" @click="chooseRole('supply')" >供给者</a-button>
+              <a-button style="height:80px;width:200px;font-size: large;" @click="chooseRole('demand')">需求者</a-button>
+            </div>
+          </a-modal>
+        </div>
+        <div>
+          <div class="secondtitle" >
+          第二步 &nbsp;&nbsp;输入个人学号，购买数量以及报价
+          </div>
+          <a-button @click="showModal2" type="primary" style="margin-top:20px;margin-bottom:20px;margin-left:50px" :disabled="myrole==null||disable">输入报价</a-button>
+          <a-modal v-model:visible="visible2" title="输入你的报价" :footer="null" :width="1000">
+            <a-form
+              :model="formState"
+              name="horizontal_login"
+              layout="inline"
+              autocomplete="off"
             >
-              <a-input v-model:value="formState.id">
-              </a-input>
-            </a-form-item>
+              <a-form-item
+                label="id"
+                name="id"
+                :rules="[{ required: true, message: 'Please input your id!' }]"
+              >
+                <a-input v-model:value="formState.id">
+                </a-input>
+              </a-form-item>
 
-            <a-form-item
-              label="amount"
-              name="amount"
-              :rules="[{ required: true, message: 'Please input amount!' }]"
-            >
-              <a-input v-model:value="formState.amount">
-              </a-input>
-            </a-form-item>
+              <a-form-item
+                label="amount"
+                name="amount"
+                :rules="[{ required: true, message: 'Please input amount!' }]"
+              >
+                <a-input v-model:value="formState.amount">
+                </a-input>
+              </a-form-item>
 
-            <a-form-item
-              label="price"
-              name="price"
-              :rules="[{ required: true, message: 'Please input price!' }]"
-            >
-              <a-input v-model:value="formState.price">
-              </a-input>
-            </a-form-item>
+              <a-form-item
+                label="price"
+                name="price"
+                :rules="[{ required: true, message: 'Please input price!' }]"
+              >
+                <a-input v-model:value="formState.price">
+                </a-input>
+              </a-form-item>
 
-            <a-form-item>
-              <a-button :disabled="disabled" type="primary" @click="handleSendBtnClick">确定</a-button>
-            </a-form-item>
-          </a-form>
-        </a-modal>
+              <a-form-item>
+                <a-button :disabled="disabled" type="primary" @click="handleSendBtnClick">确定</a-button>
+              </a-form-item>
+            </a-form>
+          </a-modal>
+        </div>
+        
       </div>
-      <Table ref="supply" :title='`供给`' @drawLine="updateChat"/>
-      <Table ref="demand" :title='`需求`' @drawLine="updateChat"/>
-      <div id="myChart123" :style="{width: '1500px', height: '550px'}"></div>
+      <div  class="secondtitle" style="margin-bottom:20px">
+        第三步 &nbsp;&nbsp;查看当前供给/需求表格
+      </div>
+      <Table v-if="myrole=='supply'" ref="supply" :title='`供给`' @drawLine="updateChat"/>
+      <Table v-if="myrole=='demand'" ref="demand" :title='`需求`' @drawLine="updateChat"/>
+      <div class="secondtitle" style="margin-bottom:20px">
+        第四步 &nbsp;&nbsp;查看当前供需折线图
+      </div>
+      <div id="myChart123" :style="{width: '1350px', height: '550px'}"></div>
       <div v-if="intersectionPoint.length==0" style="text-align: center;font-weight: bold;font-size: 15px;" >暂无均衡价格</div>
       <div v-if="intersectionPoint.length>0" style="text-align: center;font-weight: bold;font-size: 15px;">均衡价格为{{ intersectionPoint[0][1] }}元/吨</div>
     </a-tab-pane>
@@ -151,7 +168,7 @@
           <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           请输入最终均衡价格：<a-input-number v-model:value="value1" addon-after="元/吨" style="width:200px"></a-input-number>
         </p>
-        <p class="secondtitle">五、实验心得</p>
+        <p class="secondtitle">五、实验小结与心得</p>
         <div class="feedback-wrapper">
             <a-textarea v-model="experimentFeedback" :auto-size="{ minRows: 3 }" 
                 placeholder="请输入实验心得"></a-textarea>
@@ -368,11 +385,11 @@ export default defineComponent({
           x: 'left',
         },
         xAxis: {
-          min:Math.min(...xdata),
+          min:0,
           name:"数量(吨)"
         },
         yAxis: {
-          min:Math.min(...ydata),
+          min:0,
           name:"价格(元/吨)"
         },
         tooltip: {

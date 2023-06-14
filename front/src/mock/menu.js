@@ -182,7 +182,7 @@ const presetList = [
         title: '碳排放权供需方法',
         target: '_self',
         path: '/exp6/tanpaifang',
-        component: '@/pages/exp6/Exp6_TANPAIFANG/index.vue',
+        component: '@/pages/exp6/Exp6_TANPAIFANG33/index.vue',
         renderMenu: true,
         permission: null,
         cacheable: true,
