@@ -5,7 +5,7 @@
   <div style="padding:2%">
 
   <div type="flex" justify-content="center" style="height:50px">
-    <div style="float:left">
+    <div style="float:center">
       <h1 class="title">{{ $route.meta.title }} </h1>
     </div>
     <div style="float:right">
