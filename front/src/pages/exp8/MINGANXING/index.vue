@@ -332,10 +332,11 @@ export default {
     handleSubmit() {
       // 在这里执行敏感性分析并更新 analysisData 
       //console.log(typeof(JSON.parse(JSON.stringify(this.dataSource1))))
+      //console.log("ddata",this.dataSource1)
       this.analysisData = doAnalysis(JSON.parse(JSON.stringify(this.dataSource1)))
-
+      //console.log("san",this.analysisData)
       this.series = getSeries(JSON.parse(JSON.stringify(this.dataSource1)))
-
+      //console.log("ser",this.series)
       this.names = getName(this.series)
 
       // 绘制竖向柱状图
@@ -344,13 +345,9 @@ export default {
       // 绘制最后的折线图
       this.drawLineChart()
     },
-    drawSensitivityChart(analysisData) {
+    drawSensitivityChart() {
       const chart = echarts.init(document.getElementById("sensitivity-chart"))
       //取第一组数据
-
-
-
-
 
       const option = {
         title: {
@@ -470,13 +467,12 @@ export default {
           },
         ],
       }
-
+      chart.clear()
       chart.setOption(option)
     },
     drawLineChart() {
       const chart = echarts.init(document.getElementById("line-chart"))
-      console.log(111)
-      console.log(this.analysisData)
+       console.log("ser",this.series)
 
       const option = {
         title: {
@@ -506,7 +502,7 @@ export default {
         },
         series: this.series
       }
-
+      chart.clear()
       chart.setOption(option)
     },
     handleDataSource1Update(newData) {
