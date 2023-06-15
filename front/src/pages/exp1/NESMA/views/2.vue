@@ -108,6 +108,7 @@
     return tableData7.value.reduce((amt, item) => amt + parseInt(item.C), 0);
   });
   const ALL = computed(() => (SUM.value * VAF.value).toFixed(2));
+  
 </script>
 
 <style scoped>
