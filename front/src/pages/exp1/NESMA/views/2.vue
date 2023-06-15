@@ -91,28 +91,27 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import { useExp1Store } from '../stores';
-import { ref, computed } from 'vue';
-import table1 from '../components/table1.vue';
-import table2 from '../components/table2.vue';
-import table3 from '../components/table3.vue';
-import table4 from '../components/table4.vue';
-import table5 from '../components/table5.vue';
-import table6 from '../components/table6.vue';
-import table7 from '../components/table7.vue';
+  import { storeToRefs } from 'pinia';
+  import { useExp1Store } from '../stores';
+  import { ref, computed } from 'vue';
+  import table1 from '../components/table1.vue';
+  import table2 from '../components/table2.vue';
+  import table3 from '../components/table3.vue';
+  import table4 from '../components/table4.vue';
+  import table5 from '../components/table5.vue';
+  import table6 from '../components/table6.vue';
+  import table7 from '../components/table7.vue';
 
-const { VAF, tableData7 } = storeToRefs(useExp1Store());
-// 总的未调整功能点数
-const SUM = computed(() => {
-  return tableData7.value.reduce((amt, item) => amt + parseInt(item.C), 0);
-});
-const ALL = computed(() => (SUM.value * VAF.value).toFixed(2));
-
+  const { VAF, tableData7 } = storeToRefs(useExp1Store());
+  // 总的未调整功能点数
+  const SUM = computed(() => {
+    return tableData7.value.reduce((amt, item) => amt + parseInt(item.C), 0);
+  });
+  const ALL = computed(() => (SUM.value * VAF.value).toFixed(2));
 </script>
 
 <style scoped>
-#two {
-  margin-top: 20px;
-}
+  #two {
+    margin-top: 20px;
+  }
 </style>

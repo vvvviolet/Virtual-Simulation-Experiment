@@ -50,7 +50,9 @@
   <p class="content">
     为了有效反应软件系统非功能因素对软件项目工作量的影响，IFPUG方法使用14个通用系统特征因子修正未调整功能点数，这些特征因子包括数据通信、分布式数据处理、性能、复杂处理、可重用性等。将这14个因子根据其对软件系统影响程度的不同分别赋予0～5数值中的某个权重值，按照以下公式对应用系统的功能点进行调整，最终得到软件系统工作量的功能点数。功能点公式如下：
   </p>
-  <p class="content">FP = UFP x VAF &nbsp;&nbsp;&nbsp;&nbsp;上式中，UFP是未调整功能点数，VAF是功能点调整因子，FP是功能点数。</p>
+  <p class="content">
+    FP = UFP x VAF &nbsp;&nbsp;&nbsp;&nbsp;上式中，UFP是未调整功能点数，VAF是功能点调整因子，FP是功能点数。
+  </p>
   <p class="content">
     VAF计算式： VAF = 0.65 +0.01x ΣAi(1-14)
     &nbsp;&nbsp;&nbsp;&nbsp;上式中，Ai的取值0～5，因此VAF的取值范围为0.65～1.35。
