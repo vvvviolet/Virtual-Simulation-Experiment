@@ -100,8 +100,8 @@
         <div  class="secondtitle" style="margin-bottom:20px">
           第三步 &nbsp;&nbsp;查看当前供给/需求表格
         </div>
-        <Table v-if="myrole=='supply'" ref="supply" :title='`供给`' @drawLine="updateChat"/>
-        <Table v-if="myrole=='demand'" ref="demand" :title='`需求`' @drawLine="updateChat"/>
+        <Table v-show="myrole=='supply'" ref="supply" :title='`供给`' @drawLine="updateChat"/>
+        <Table v-show="myrole=='demand'" ref="demand" :title='`需求`' @drawLine="updateChat"/>
         <div class="secondtitle" style="margin-bottom:20px">
           第四步 &nbsp;&nbsp;查看当前供需折线图
         </div>
@@ -443,7 +443,7 @@
       };
   
       const updateChat=()=>{
-        draw(supply.value.getDataSource(),demand.value.getDataSource());
+          draw(supply.value.getDataSource(),demand.value.getDataSource())
       }
   
       const { getExperiment,uploadReport } = useExperimentStore();
