@@ -103,7 +103,12 @@
       </a-collapse-panel>
     </a-collapse>
     <h2>四、实验步骤</h2>
+    <a-button type="primary" ghost @click="restart" class="buttons">开始实验</a-button>
+    <a-button type="primary" ghost @click="endtest" class="buttons">结束实验</a-button>
+    <br>
+    <br>
     <p class="content buttons">1. 实验开始，分为买家和卖家，用户可以点击下面两个按钮进行买家信息和卖家信息的录入:</p>
+    <br>
     <a-button type="primary" ghost @click="showmaiform = true" class="buttons">我是买家</a-button>
     <a-modal v-model:visible="showmaiform" title="此次买方信息" @ok="maievent">
       <a-form :model="maiformtext" id="maiform">
@@ -125,6 +130,14 @@
         </a-form-item>
       </a-form>
     </a-modal>
+    <hr />
+    <p class="table-title">市场买入记录</p>
+    <a-table
+      :dataSource="marketMaiData"
+      :columns="maiColumn"
+      :pagination="{ pageSize: 5 }"
+      bordered
+    />
     <a-button type="primary" ghost @click="showsellform = true" class="buttons">我是卖家</a-button>
     <a-modal v-model:visible="showsellform" title="此次卖方信息" @ok="sellevent">
       <a-form :model="sellformtext" id="sellform">
@@ -146,6 +159,14 @@
         </a-form-item>
       </a-form>
     </a-modal>
+    <hr />
+    <p class="table-title">市场卖出记录</p>
+    <a-table
+      :dataSource="marketSellData"
+      :columns="sellColumn"
+      :pagination="{ pageSize: 5 }"
+      bordered
+    />
     <p class="content buttons">2. 买家和卖家的信息录入后，考虑到交易的公平性，排除极端价格:</p>
     <a-button type="primary" ghost @click="showvalueform = true" class="buttons">价格筛选</a-button>
     <a-modal v-model:visible="showvalueform" title="剔除极端价格" @ok="valueevent">
@@ -172,8 +193,6 @@
       3.
       在实验的过程中，统计买家数量和卖家数量和总的参与人数，以及当前的实验已经进行的时间等:
     </p>
-    <a-button type="primary" ghost @click="restart" class="buttons">开始实验</a-button>
-    <a-button type="primary" ghost @click="endtest" class="buttons">结束实验</a-button>
     <a-descriptions title="实验详情" class="content" :column="4" bordered>
       <a-descriptions-item label="实验进行情况">
         <a-tag color="blue">{{ nowsitua }}</a-tag>
@@ -184,22 +203,8 @@
     </a-descriptions>
     <p class="table-title">供需曲线图</p>
     <div id="char" style="width: 800px; height: 600px"></div>
-    <hr />
-    <p class="table-title">市场买入记录</p>
-    <a-table
-      :dataSource="marketMaiData"
-      :columns="maiColumn"
-      :pagination="{ pageSize: 5 }"
-      bordered
-    />
-    <hr />
-    <p class="table-title">市场卖出记录</p>
-    <a-table
-      :dataSource="marketSellData"
-      :columns="sellColumn"
-      :pagination="{ pageSize: 5 }"
-      bordered
-    />
+
+
 
     <h2>五、实验结果</h2>
 
