@@ -76,6 +76,7 @@
   const EIF = ref<number>();
   const SUM = computed(() => 35 * (ILF.value ? ILF.value : 0) + 15 * (EIF.value ? EIF.value : 0));
   const ALL = computed(() => (SUM.value * VAF.value).toFixed(2));
+  
 </script>
 
 <style scoped>
