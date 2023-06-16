@@ -1,5 +1,5 @@
 <template>
-  <div class="common-view">
+  <!-- <div class="common-view">
     <div class="common-header">
       <div class="common-header-main">
         <div class="logo">
@@ -29,7 +29,7 @@
         <router-view />
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 <script lang="ts" setup></script>
 <style scoped lang="less">

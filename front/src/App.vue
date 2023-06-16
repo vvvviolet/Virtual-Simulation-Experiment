@@ -40,14 +40,16 @@
 
   const { logout, profile } = useAccountStore();
   const { setAuthorities } = useAuthStore();
+  
+  // onMounted(()=>{console.log(1)}) 
 
   // 获取个人信息
   profile().then((response) => {
     const { permissions, account } = response;
     setAuthorities(permissions);
-    user.name = account.username;
-    // user.avatar = account.avatar;
-  });
+    user.name = account.name;
+    user.avatar = account.avatar;
+  }).catch((e)=>{console.log(e)});
 
   const showSetting = ref(false);
   const router = useRouter();
@@ -57,10 +59,9 @@
   const { navigation, useTabs, theme, contentClass } = storeToRefs(useSettingStore());
 
   const user = reactive({
-    name: 'admin',
+    name: '',
     avatar: avatar,
     menuList: [
-      // { title: '个人中心', key: 'personal', icon: 'UserOutlined', onClick: () => router.push('/profile') },
       { title: '设置', key: 'setting', icon: 'SettingOutlined', onClick: () => (showSetting.value = true) },
       { type: 'divider' },
       {
