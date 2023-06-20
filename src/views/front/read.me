@@ -1,0 +1,230 @@
+<template>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>年份</th>
+          <th>净现金流量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in cashFlows" :key="index">
+          <td><input v-model="item.year" type="number" /></td>
+          <td><input v-model="item.cashFlow" type="number" /></td>
+          <td><button @click="deleteRow(index)">删除</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <button @click="addRow">添加一行</button>
+      <button @click="computeEnpv">计算期望净现值</button>
+      <div v-if="enpvData.length > 0">
+        <p>期望净现值：{{ enpv }}</p>
+        <p>现金流量标准差：{{ cashFlowsStdDev }}</p>
+        <table>
+          <thead>
+            <tr>
+              <th>年份</th>
+              <th>净现金流量</th>
+              <th>折现系数</th>
+              <th>折现现金流量</th>
+              <th>期望净现值</th>
+              <th>累计期望净现值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in enpvData" :key="index">
+              <td>{{ item.year }}</td>
+              <td>{{ item.cashFlow }}</td>
+              <td>{{ item.discountFactor.toFixed(4) }}</td>
+              <td>{{ item.presentValue.toFixed(2) }}</td>
+              <td>{{ enpvData[index - 1]?.cumulativePresentValue.toFixed(2) ?? 0 }}</td>
+              <td>{{ item.cumulativePresentValue.toFixed(2) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      cashFlows: [{ year: null, cashFlow: null }],
+      initialInvestment: 0,
+      discountRate: 10,
+      enpvData: [],
+      enpv: 0,
+    };
+  },
+  methods: {
+    addRow() {
+      this.cashFlows.push({ year: null, cashFlow: null });
+    },
+    deleteRow(index) {
+      if (this.cashFlows.length > 1) {
+        this.cashFlows.splice(index, 1);
+      }
+    },
+    computeEnpv() {
+      let totalPV = 0;
+      let totalCashFlow = 0;
+      for (let i = 0; i < this.cashFlows.length; i++) {
+        const item = this.cashFlows[i];
+        if (!item.year || !item.cashFlow) {
+          continue;
+        }
+        totalCashFlow += item.cashFlow;
+        const discountFactor = 1 / Math.pow(1 + this.discountRate / 100, item.year);
+        const presentValue = item.cashFlow *
+          discountFactor;
+        totalPV += presentValue;
+        this.enpvData.push({
+          year: item.year,
+          cashFlow: item.cashFlow,
+          discountFactor: discountFactor,
+          presentValue: presentValue,
+          cumulativePresentValue: totalPV,
+        });
+      } this.enpv = totalPV - this.initialInvestment;
+
+      // 计算现金流量标准差
+      const cashFlowsArray = this.cashFlows.map(item => item.cashFlow).filter(item => item !== null);
+      const cashFlowsMean = cashFlowsArray.reduce((a, b) => a + b, 0) / cashFlowsArray.length;
+      const cashFlowsVariance = cashFlowsArray.reduce((a, b) => a + (b - cashFlowsMean) ** 2, 0) / cashFlowsArray.length;
+      this.cashFlowsStdDev = Math.sqrt(cashFlowsVariance).toFixed(2);
+    },
+  },
+};
+</script>
+
+
+<template>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>年份</th>
+          <th>净现金流量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in cashFlows" :key="index">
+          <td><input v-model="item.year" type="number" /></td>
+          <td><input v-model="item.cashFlow" type="number" /></td>
+          <td>{{ item.cashFlowsStdDev ?? '-' }}</td>
+          <td><button @click="deleteRow(index)">删除</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <button @click="addRow">添加一行</button>
+      <button @click="computeEnpv">计算期望净现值</button>
+      <div v-if="enpvData.length > 0">
+        <p>期望净现值：{{ enpv }}</p>
+        <p>现金流量标准差：{{ cashFlowsStdDev }}</p>
+        <table>
+          <thead>
+            <tr>
+              <th>年份</th>
+              <th>净现金流量</th>
+              <th>折现系数</th>
+              <th>折现现金流量</th>
+              <th>期望净现值</th>
+              <th>累计期望净现值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in enpvData" :key="index">
+              <td>{{ item.year }}</td>
+              <td>{{ item.cashFlow }}</td>
+              <td>{{ item.discountFactor.toFixed(4) }}</td>
+              <td>{{ item.presentValue.toFixed(2) }}</td>
+              <td>{{ enpvData[index - 1]?.cumulativePresentValue.toFixed(2) ?? 0 }}</td>
+              <td>{{ item.cumulativePresentValue.toFixed(2) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      cashFlows: [{ year: null, cashFlow: null }],
+      initialInvestment: 0,
+      discountRate: 10,
+      enpvData: [],
+      enpv: 0,
+    };
+  },
+  methods: {
+    addRow() {
+      this.cashFlows.push({ year: null, cashFlow: null });
+    },
+    deleteRow(index) {
+      if (this.cashFlows.length > 1) {
+        this.cashFlows.splice(index, 1);
+      }
+    },
+    computeEnpv() {
+      let totalPV = 0;
+      let totalCashFlow = 0;
+      for (let i = 0; i < this.cashFlows.length; i++) {
+        const item = this.cashFlows[i];
+        if (!item.year || !item.cashFlow) {
+          continue;
+        }
+        totalCashFlow += item.cashFlow;
+        const discountFactor = 1 / Math.pow(1 + this.discountRate / 100, item.year);
+        const presentValue = item.cashFlow *
+          discountFactor;
+        totalPV += presentValue;
+        this.enpvData.push({
+          year: item.year,
+          cashFlow: item.cashFlow,
+          discountFactor: discountFactor,
+          presentValue: presentValue,
+          cumulativePresentValue: totalPV,
+        });
+      } this.enpv = totalPV - this.initialInvestment;
+
+      // 计算现金流量标准差
+      const cashFlowsArray = this.cashFlows.map(item => item.cashFlow).filter(item => item !== null);
+      const cashFlowsMean = cashFlowsArray.reduce((a, b) => a + b, 0) / cashFlowsArray.length;
+      const cashFlowsVariance = cashFlowsArray.reduce((a, b) => a + (b - cashFlowsMean) ** 2, 0) / cashFlowsArray.length;
+      this.cashFlowsStdDev = Math.sqrt(cashFlowsVariance).toFixed(2);
+      // 计算每个年份的现金流量标准差
+      const cashFlowsByYear = {};
+      for (let i = 0; i < this.cashFlows.length; i++) {
+        const item = this.cashFlows[i];
+        if (item.year && item.cashFlow) {
+          if (cashFlowsByYear[item.year]) {
+            cashFlowsByYear[item.year].push(item.cashFlow);
+          } else {
+            cashFlowsByYear[item.year] = [item.cashFlow];
+          }
+        }
+      }
+      const cashFlowsStdDevByYear = {};
+      for (let year in cashFlowsByYear) {
+        const cashFlowsArray = cashFlowsByYear[year];
+        const cashFlowsMean = cashFlowsArray.reduce((a, b) => a + b, 0) / cashFlowsArray.length;
+        const cashFlowsVariance = cashFlowsArray.reduce((a, b) => a + (b - cashFlowsMean) ** 2, 0) / cashFlowsArray.length;
+        cashFlowsStdDevByYear[year] = Math.sqrt(cashFlowsVariance).toFixed(2);
+      }
+      console.log(cashFlowsStdDevByYear); // 打印每个年份的现金流量标准差
+    },
+  },
+};
+</script>
+
+
+
