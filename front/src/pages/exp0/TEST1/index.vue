@@ -8,9 +8,10 @@
 
 
 <script lang="ts">
-
+import { Document } from '@element-plus/icons-vue'
+import { defineComponent } from 'vue'
 export default {
-    name: 'YOUR_NAME',
+    name: 'DONGTAITOUZI',
 }
 </script >
 
