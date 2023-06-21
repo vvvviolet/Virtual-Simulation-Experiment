@@ -33,6 +33,7 @@
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.10.1",
     "increase-memory-limit": "^1.0.7",
+    "jquery": "^3.7.0",
     "js-cookie": "^2.2.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.29",
