@@ -7,18 +7,22 @@
       <h1 class="title">{{ $route.meta.title }} </h1>
     </div>
     <div style="float:right">
-      <a-button style="margin-right:20px" type="primary" shape="round" @click="downLoadFile">
-        <template #icon >
-          <DownloadOutlined  />
-        </template>实验指导书下载 
+      <a-button style="margin-right:20px" type="primary" shape="round" @click="downloadpdf">
+        <template #icon>
+          <DownloadOutlined />
+        </template>实验指导书下载
       </a-button>
-      
+      <a-button class="button2" type="primary" shape="round" @click="downloaddoc">
+        <template #icon>
+          <DownloadOutlined />
+        </template>实验报告模板下载
+      </a-button>
     </div>
   </div>
 
   <hr />
   <RouterView />
-  <div     style="float:right">
+  <div style="float:right">
     <a-upload
     name="file"
     :before-upload="uploadFile"
@@ -32,7 +36,55 @@
 </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
+export default {
+  name: 'Exp6',
+  mounted() {
+    const rt = useRoute()
+    console.log(rt.meta)
+    const d = getExperiment(rt.meta.id)
+    // console.log(d)
+  },
+  methods: {
+    downloadpdf() {
+      const url ="http://1.15.177.18:8080/碳排放权供给与需求实验指导书.pdf"
+      const downloadWindow = window.open(url, "_blank");
+      downloadWindow?.focus();
+    },
+    downloaddoc() {
+      const url ="http://1.15.177.18:8080/碳排放权供给与需求实验报告模版.docx"
+      const downloadWindow = window.open(url, "_blank");
+      downloadWindow?.focus();
+      setTimeout(() => {
+        downloadWindow?.close();
+      }, 2000);
+    },
+    
+ uploadFile(report:Blob){
+  // 生成一个表单文件
+  let formData = new FormData();
+  // formData.append("course_id","1")
+  formData.append("experiment_id",rt.meta.id.toString())
+  formData.append("report",report)
+  const date = new Date();
+  const formatDate = formatDateTime(date, 'yyyy-MM-dd HH:mm:ss');
+  console.log(formatDate);
+  formData.append("submit_time",formatDate)
+  axios({
+	    method:"post",
+	    url:"/report/submit",
+	    headers: {
+		  "Content-Type": "multipart/form-data"
+	    },
+	    withCredentials:true,
+	    data:formData
+	  }).then((res)=>{
+            console.log(res);
+            message.success("上传成功")
+    });
+}
+  }
+};
 import { useExperimentStore } from '@/store/experiment';
 import { onMounted, ref,defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
