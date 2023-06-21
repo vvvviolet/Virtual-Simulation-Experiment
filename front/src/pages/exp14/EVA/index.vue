@@ -10,6 +10,40 @@
   <!--  </p>-->
   <!--  <h2>二、实验参数  </h2>-->
   <div>
+    <div style="padding-top: 60px; padding-bottom: 20px">
+      <a-config-provider :locale="locale">
+        <p style="line-height: 200%; font-size: 16px">
+          <a-row justify="center">
+            <a-col span="6">课程名称：软件工程经济学</a-col>
+            <a-col span="4">课号：420279</a-col>
+            <a-col span="8">实验项目名称：软件项目进度监督与控制实验</a-col>
+          </a-row>
+          <a-row justify="center">
+            <a-col span="6"
+              >实验时间：<span style="border-bottom: 1px solid grey; border-radius: none"
+                ><a-date-picker
+                  v-model="experimentdate"
+                  :bordered="false"
+                  style="width: 150px; padding-left: 3px; padding-right: 3px"
+                  placeholder="点击选择实验时间" /></span
+            ></a-col>
+            <a-col span="6"
+              >实验报告人：
+              <span style="border-bottom: 1px solid grey; border-radius: none"
+                ><a-input
+                  v-model="reportername"
+                  placeholder="请输入报告人姓名"
+                  size="small"
+                  :bordered="false"
+                  style="width: 18vh"
+                ></a-input
+              ></span>
+            </a-col>
+            <a-col span="6"></a-col>
+          </a-row>
+        </p>
+      </a-config-provider>
+    </div>
     <h2>一、实验目的</h2>
     <a-space direction="vertical" style="width: 100%">
       <div style="margin-left: 30px">
@@ -893,6 +927,8 @@
       console.log('dynamicValidateForm.timePoints:', dynamicValidateForm.timePoints[0]); */
       };
       return {
+        experimentdate: 0, //实验时间
+        reportername: '', //实验人姓名
         plannedDays,
         planStageNum,
         actualStageNum,
