@@ -20,7 +20,7 @@
               <template #title>
                 <span>1. 软件规模估算实验(FP 方法)</span>
               </template>
-                <el-menu-item index="/exp1_1">IFPUG 方法</el-menu-item>
+                <el-menu-item index="1-2">IFPUG 方法</el-menu-item>
                 <el-menu-item index="/exp1_2">NESMA 方法</el-menu-item>
                 <el-menu-item index="1-2">MARK II 方法</el-menu-item>
                 <el-menu-item index="1-2">COSMIC 方法</el-menu-item>
@@ -30,7 +30,7 @@
               <span>2. 软件开发成本估算实验</span>
             </el-menu-item>
     
-            <el-menu-item index="3">
+            <el-menu-item index="/exp3">
               <span>3. 碳排放权供给与需求实验</span>
             </el-menu-item>
     

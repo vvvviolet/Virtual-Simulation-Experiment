@@ -6,7 +6,9 @@
     },
     "target": "ES6",
     "module": "ESNext",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+
   },
   "exclude": ["node_modules", "dist"]
 }
