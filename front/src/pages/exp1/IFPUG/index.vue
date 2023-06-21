@@ -1,6 +1,6 @@
 <template>
     <div style="padding-top:60px;padding-bottom:20px">
-        <a-config-provider :locale="locale">
+        <a-config-provider  >
             <p style="line-height:200%;font-size: 16px;">
                 <a-row justify="center">
                     <a-col span="6">课程名称：软件工程经济学</a-col>
