@@ -14,6 +14,9 @@
   const router = useRouter();
 
   function onLoginSuccess() { 
+    // router.go(0);s
+    router.push('/system/menu');
+    // router.push('/system/menu');
     router.push('/exp1/ifpug');
     // profile().then((response) => {
     // const { account } = response;

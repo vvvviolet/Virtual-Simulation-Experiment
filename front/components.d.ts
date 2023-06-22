@@ -9,6 +9,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+<<<<<<< HEAD
+    ABackTop: typeof import('ant-design-vue/es')['BackTop']
+    AButton: typeof import('ant-design-vue/es')['Button']
+    ACard: typeof import('ant-design-vue/es')['Card']
+    ACol: typeof import('ant-design-vue/es')['Col']
+=======
     AAutoComplete: typeof import('ant-design-vue/es')['AutoComplete']
     AAvatar: typeof import('ant-design-vue/es')['Avatar']
     ABackTop: typeof import('ant-design-vue/es')['BackTop']
@@ -28,6 +34,7 @@ declare module '@vue/runtime-core' {
     ADatePicker: typeof import('ant-design-vue/es')['DatePicker']
     ADescriptions: typeof import('ant-design-vue/es')['Descriptions']
     ADescriptionsItem: typeof import('ant-design-vue/es')['DescriptionsItem']
+>>>>>>> upstream/main
     ADivider: typeof import('ant-design-vue/es')['Divider']
     ADrawer: typeof import('ant-design-vue/es')['Drawer']
     AEmpty: typeof import('ant-design-vue/es')['Empty']
@@ -38,6 +45,8 @@ declare module '@vue/runtime-core' {
     AInput: typeof import('ant-design-vue/es')['Input']
     AInputGroup: typeof import('ant-design-vue/es')['InputGroup']
     AInputNumber: typeof import('ant-design-vue/es')['InputNumber']
+<<<<<<< HEAD
+=======
     AInputPassword: typeof import('ant-design-vue/es')['InputPassword']
     AInputSearch: typeof import('ant-design-vue/es')['InputSearch']
     ALayout: typeof import('ant-design-vue/es')['Layout']
@@ -48,6 +57,7 @@ declare module '@vue/runtime-core' {
     AMentionsOption: typeof import('ant-design-vue/es')['MentionsOption']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
+>>>>>>> upstream/main
     AModal: typeof import('ant-design-vue/es')['Modal']
     AMonthPicker: typeof import('ant-design-vue/es')['MonthPicker']
     APagination: typeof import('ant-design-vue/es')['Pagination']
@@ -57,8 +67,11 @@ declare module '@vue/runtime-core' {
     ARadio: typeof import('ant-design-vue/es')['Radio']
     ARadioButton: typeof import('ant-design-vue/es')['RadioButton']
     ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
+<<<<<<< HEAD
+=======
     ARangePicker: typeof import('ant-design-vue/es')['RangePicker']
     ARate: typeof import('ant-design-vue/es')['Rate']
+>>>>>>> upstream/main
     ARow: typeof import('ant-design-vue/es')['Row']
     ASelect: typeof import('ant-design-vue/es')['Select']
     ASelectOption: typeof import('ant-design-vue/es')['SelectOption']
@@ -76,6 +89,9 @@ declare module '@vue/runtime-core' {
     ATableSummaryRow: typeof import('ant-design-vue/es')['TableSummaryRow']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
+<<<<<<< HEAD
+    ATextarea: typeof import('ant-design-vue/es')['Textarea']
+=======
     ATag: typeof import('ant-design-vue/es')['Tag']
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
     ATimeline: typeof import('ant-design-vue/es')['Timeline']
@@ -86,6 +102,7 @@ declare module '@vue/runtime-core' {
     ATypographyParagraph: typeof import('ant-design-vue/es')['TypographyParagraph']
     ATypographyText: typeof import('ant-design-vue/es')['TypographyText']
     ATypographyTitle: typeof import('ant-design-vue/es')['TypographyTitle']
+>>>>>>> upstream/main
     AUpload: typeof import('ant-design-vue/es')['Upload']
     AvatarList: typeof import('./src/components/avatar/AvatarList.vue')['default']
     AWeekPicker: typeof import('ant-design-vue/es')['WeekPicker']
