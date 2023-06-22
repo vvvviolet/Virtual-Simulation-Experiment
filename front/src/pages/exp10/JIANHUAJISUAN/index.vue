@@ -1,13 +1,35 @@
 <!-- 8.软件项目/产品的财务评价实验
 包括: 净现值法、IRR 法、投资回收期法等 -->
 <template>
+      <div style="padding-top:60px;padding-bottom:20px">
+        <a-config-provider  >
+            <p style="line-height:200%;font-size: 16px;">
+                <a-row justify="center">
+                    <a-col span="6">课程名称：软件工程经济学</a-col>
+                    <a-col span="6">课号：420279</a-col>
+                    <a-col span="6">实验项目名称：简化计算模型实验</a-col>
+                </a-row>
+                <a-row justify="center">
+                    <a-col span="6">实验时间：<span style="border-bottom: 1px solid grey;border-radius: none;"><a-date-picker
+                                v-model="experimentdate" :bordered="false"
+                                style="width:150px;padding-left:3px;padding-right:3px;"
+                                placeholder="点击选择实验时间" /></span></a-col>
+                    <a-col span="6">实验报告人： <span style="border-bottom: 1px solid grey;border-radius: none;"><a-input
+                                v-model="reportername" placeholder="请输入报告人姓名" size="small" :bordered="false"
+                                style="width:18vh;"></a-input></span>
+                    </a-col>
+                    <a-col span="6"></a-col>
+                </a-row>
+            </p>
+        </a-config-provider>
+    </div>
   <h2>一、实验目的</h2>
   <p class="content">基于业务目标及市场信息的分析，设计课程设计项目的营销策略和软件定价策略方法，构建课程设计项目财务评价模型，根据本地区及实验期内的经济参数，通过本实验测算课程设计项目盈利能力和项目生存能力。
   </p>
   <h2>二、实验步骤</h2>
   <h3>1.前置输入</h3>
   <p class="content">本实验中，独立项目的生命周期设定为
-  <a-input-number id="inputNumber" v-model:value="year" :bordered="false" :min="1" :max="10" />
+  <a-input-number id="inputNumber" v-model:value="year" :bordered="false" :min="1" :max="5" />
   年</p>
   <h3>2.项目现金流入</h3>
   <p class="content">项目的现金流入包括独立方案的年收入，其中，独立方案是指各工程项目方案的现金流是独立的、不相关，而且任何一个方案的采用与否都不会对是否采纳其他方案的决策产生影响。例如:阿里集团的淘宝和闲鱼，分别投资开发各自平台新产品方案，如果选择某个方案，不会影响到另一个方案，则这两个方案就是独立方案。请按照下列表格填写项目每年的现金流入：</p>
@@ -231,7 +253,7 @@
 </p>
 <p class="formula">第n年的净现金流量现值=第n年的净现金流量×现值系数  </p>
 <p class="content">本实验中，现值系数设定为
-  <a-input-number id="inputNumber" v-model:value="discountRate" :min="1" :max="20" />
+  <a-input-number id="inputNumber" v-model:value="discountRate" :bordered="false" :min="1" :max="20" />
   %</p>
 <a-table :columns="columns_1" :data-source="netCashFlow" :pagination="false">
       <template #bodyCell="{ column,record,index}">
@@ -353,16 +375,16 @@
   <p class="content">根据所提取的财务评价所需基础数据进行项目财务分析，重在考察项目盈利能力是否能够满足要求。编制项目资本金现金流量表，计算项目资本金财务内部收益率IRR、净现值NPV以及动态投资回收期（年），考察项目资本金可获得的收益水平。
   </p>
   <p class="content">1. 净现值NPV是指按照一定的折现率（通常为基准折现率ic），将各年的净现金流量折现到同一时点（通常是期初时点）的现值之和,公式如下：</p>
-  <img class="formula" src="src\pages\exp10\JIANHUAJISUAN\img\NPV.png">
+  <img class="formula" :src="npvSrc"/>
   <p class="content">（CI-CO）t为第t年的净现金流量，n为方案寿命期，ic为设定的折现率（基准收益率）。</p>
   <p class="content">2. 项目资本金财务内部收益率IRR是指在整个计算期内净现值等于零时所对应的折现率,公式如下：</p>
-  <img class="formula" src="src\pages\exp10\JIANHUAJISUAN\img\IRR.png">
+  <img class="formula" :src="irrSrc">
   <p class="content">其中，IRR为内部收益率，（CI-CO）t为第t年净现金流量，n为方案寿命期。</p>
   <p class="content">3. 动态投资回收期（年）是指按照设定的基准收益率ic回收全部投资所需的时间,公式如下：</p>
-  <img class="formula" src="src\pages\exp10\JIANHUAJISUAN\img\DPP.png">
+  <img class="formula" :src="dppSrc">
   <p class="content">其中，DPP为动态投资回收期、（CI-CO）t为第t年净现金流量，ic为设定的基准收益率。</p>
   <p class="content">根据计算，本项目的财务指标如下</p>
-  <a-table :dataSource="Index" :columns="columns_2" :pagination="false">
+  <a-table :data-source="Index" :columns="columns_2" :pagination="false">
       <template #bodyCell="{column,record,index}">
         <template v-if="column.dataIndex === 'value'">
           <template v-if="record.key === '15'">
@@ -381,20 +403,26 @@
   <p class="content">根据上述步骤，汇总编制出的项目资本金现金流量表，计算出的项目资本金财务内部收益率IRR、净现值NPV以及动态投资回收期（年），考察项目资本金可获得的收益水平，综合判断项目的财务状况，并且做出评价。
   </p>
   <a-button @click="sum">总表</a-button>
-  <a-table sticky :dataSource="Sum" :columns="columns_1" :pagination="false"></a-table>
+  <a-table sticky :data-source="Sum" :columns="columns_1" :pagination="false"></a-table>
 </template>
-  
+
   <script lang="ts">
-    import { Input } from 'ant-design-vue';
-import { defineComponent, ref } from 'vue';
+    import { defineComponent, ref } from 'vue';
+    import npv from '/src/pages/exp10/JIANHUAJISUAN/img/NPV.png'
+    import irr from '/src/pages/exp10/JIANHUAJISUAN/img/IRR.png'
+    import dpp from '/src/pages/exp10/JIANHUAJISUAN/img/DPP.png'
      export default{
-      name: 'Exp8',
       setup() {
-        const year = ref<number>(5);
+        var year = ref<number>(5);
         var discountRate = ref<number>(10);
         return {
           year,
           discountRate,
+          npvSrc: npv,
+          irrSrc: irr,
+          dppSrc: dpp,
+          experimentdate: 0,//实验时间
+          reportername: '',//实验人姓名
         }
       },
         data(){
@@ -565,19 +593,19 @@ import { defineComponent, ref } from 'vue';
               key: '15',
               number: '6',
               project: '净现值 NPV',
-              value: "0",
+              value: "",
             },
             {
               key: '16',
               number: '7',
               project: '内部收益率 IRR',
-              value: "0",
+              value: "",
             },
             {
               key: '17',
               number: '8',
               project: '动态投资回收期(年) DPP',
-              value: "0",
+              value: "",
             },
           ],           
           columns_1: [
@@ -843,7 +871,7 @@ import { defineComponent, ref } from 'vue';
               cashFlow[5] = parseInt(this.netCashFlow[0].year5) ? parseInt(this.netCashFlow[0].year5):0
               const discountRate = this.discountRate / 100
               var npv = 0
-              for(var t = 0; t <= 5; t++)
+              for(var t = 0; t <= this.year; t++)
                 npv += cashFlow[t] / Math.pow(1 + discountRate, t);
               this.Index[0].value = npv.toFixed(2)
               return this.Index[0].value 
@@ -856,7 +884,7 @@ import { defineComponent, ref } from 'vue';
             var irr = 0.1  //初始irr值设为0.1
             var count = 0  //计数
             const epsilon =  0.0001  //迭代精度
-            const max_iter = 1000  //最大迭代次数
+            const max_iter = 10000  //最大迭代次数
 
             const cashFlow = [0,0,0,0,0,0]  //净现金流量
             cashFlow[0] = parseInt(this.netCashFlow[0].year0) ? parseInt(this.netCashFlow[0].year0):0
@@ -865,13 +893,13 @@ import { defineComponent, ref } from 'vue';
             cashFlow[3] = parseInt(this.netCashFlow[0].year3) ? parseInt(this.netCashFlow[0].year3):0
             cashFlow[4] = parseInt(this.netCashFlow[0].year4) ? parseInt(this.netCashFlow[0].year4):0
             cashFlow[5] = parseInt(this.netCashFlow[0].year5) ? parseInt(this.netCashFlow[0].year5):0
-            if(!(parseInt(this.netCashFlow[0].year0) && parseInt(this.netCashFlow[0].year1) && parseInt(this.netCashFlow[0].year2) && parseInt(this.netCashFlow[0].year3) && parseInt(this.netCashFlow[0].year4) && parseInt(this.netCashFlow[0].year5)))
-              return this.Index[1].value = 0
+            // if(!(parseInt(this.netCashFlow[0].year0) && parseInt(this.netCashFlow[0].year1) && parseInt(this.netCashFlow[0].year2) && parseInt(this.netCashFlow[0].year3) && parseInt(this.netCashFlow[0].year4) && parseInt(this.netCashFlow[0].year5)))
+            //   return this.Index[1].value = 0
 
             do{
               count++
               npv=0
-              for(var t = 0; t <= 5; t++)
+              for(var t = 0; t <= this.year; t++)
                 npv += cashFlow[t] / Math.pow(1 + irr, t);
               if(npv > 0)
                 irr += epsilon
@@ -901,10 +929,10 @@ import { defineComponent, ref } from 'vue';
             cashFlow[3] = parseInt(this.netCashFlow[0].year3) ? parseInt(this.netCashFlow[0].year3):0
             cashFlow[4] = parseInt(this.netCashFlow[0].year4) ? parseInt(this.netCashFlow[0].year4):0
             cashFlow[5] = parseInt(this.netCashFlow[0].year5) ? parseInt(this.netCashFlow[0].year5):0
-            if(!(parseInt(this.netCashFlow[0].year0) && parseInt(this.netCashFlow[0].year1) && parseInt(this.netCashFlow[0].year2) && parseInt(this.netCashFlow[0].year3) && parseInt(this.netCashFlow[0].year4) && parseInt(this.netCashFlow[0].year5)))
-              return this.Index[2].value = 0
+            // if(!(parseInt(this.netCashFlow[0].year0) && parseInt(this.netCashFlow[0].year1) && parseInt(this.netCashFlow[0].year2) && parseInt(this.netCashFlow[0].year3) && parseInt(this.netCashFlow[0].year4) && parseInt(this.netCashFlow[0].year5)))
+            //   return this.Index[2].value = 0
 
-            for(var t = 0; t <= 5; t++)
+            for(var t = 0; t <= this.year; t++)
             {
                 npv += cashFlow[t] / Math.pow(1 + discountRate, t);
                 if(npv >= 0)
@@ -930,16 +958,17 @@ import { defineComponent, ref } from 'vue';
             project: '',    
           }
           )
+
           this.Sum.push({   
             number: '序号',
             project: '指标',   
             year0: '值',   
           }
-          )
+          )          
           this.Sum.push({   
             number: '6',
             project: '净现值 NPV',
-            year0: this.Index[0].value,       
+            year0: this.Index[0].value,                  
           }
           )
           this.Sum.push({   
@@ -952,6 +981,7 @@ import { defineComponent, ref } from 'vue';
             number: '8',
             project: '动态投资回收期(年) DPP',
             year0: this.Index[2].value,       
+
           }
           )
         },
