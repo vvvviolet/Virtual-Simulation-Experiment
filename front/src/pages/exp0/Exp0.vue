@@ -10,16 +10,14 @@
             </template>指导书下载
         </a-button>
       </a-col>
-    <a-col :span="2">
-      <a-button  type="primary" shape="round">
-            <template #icon>
-                <DownloadOutlined />
-            </template>报告模板下载
-        </a-button>
-      </a-col>
   </a-row>
   <hr />
   <RouterView />
+  <a-button  type="primary" shape="round">
+            <template #icon>
+                <DownloadOutlined />
+            </template>报告模板下载
+  </a-button>
 </template>
 
 <script lang="ts" setup>

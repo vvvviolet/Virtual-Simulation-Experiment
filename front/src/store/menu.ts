@@ -87,7 +87,7 @@ export const useMenuStore = defineStore('menu', () => {
           cacheable: true,
         })
       })
-      console.log(tmp)
+      // console.log(tmp)
     return tmp
   }
   async function getMenuList() {
