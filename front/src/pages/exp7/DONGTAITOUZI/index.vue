@@ -5,7 +5,7 @@
             <a-row justify="center">
                 <a-col span="6">课程名称：软件工程经济学</a-col>
                 <a-col span="6">课号：420279</a-col>
-                <a-col span="6">实验项目名称：软件规模度量实验</a-col>
+                <a-col span="6">实验项目名称：动态投资回收期实验</a-col>
             </a-row>
             <a-row justify="center">
                 <a-col span="6">实验时间：<span style="border-bottom: 1px solid grey;border-radius: none;"><a-date-picker
