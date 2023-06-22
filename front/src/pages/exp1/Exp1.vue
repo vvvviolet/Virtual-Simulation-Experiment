@@ -2,39 +2,32 @@
 包括:IFPUG方法、NESMA方法、MARK II方法、COSMIC方法 -->
 <template>
   <div style="padding:2%">
-  <div type="flex" justify-content="center" style="height:50px">
-    <div style="float:left">
-      <h1 class="title">{{ $route.meta.title }} </h1>
+    <div type="flex" justify-content="center" style="height:50px">
+      <center>
+        <div>
+          <h1 class="title">{{ $route.meta.title }} </h1>
+        </div>
+      </center>
+      <div style="text-align:right;">
+        <a-button style="margin-right:20px" type="primary" shape="round" @click="downLoadFile">
+          <template #icon>
+            <DownloadOutlined />
+          </template>实验指导书下载
+        </a-button>
+      </div>
     </div>
+
+    <RouterView />
     <div style="float:right">
-      <a-button style="margin-right:20px" type="primary" shape="round" @click="downLoadFile">
-        <template #icon >
-          <DownloadOutlined  />
-        </template>实验指导书下载 
-      </a-button>
-      
+      <a-upload :file-list="fileList" name="file" :before-upload="uploadFile" maxCount="1" action="" method="get"
+        @change="handleChange">
+        <a-button>
+          <upload-outlined />
+          提交报告
+        </a-button>
+      </a-upload>
     </div>
   </div>
-
-  <hr />
-  <RouterView />
-  <div style="float:right">
-    <a-upload
-    :file-list="fileList"
-    name="file"
-    :before-upload="uploadFile"
-    maxCount="1"
-    action=""
-    method="get"
-    @change="handleChange"
-    >
-    <a-button>
-      <upload-outlined/>
-      提交报告
-    </a-button>
-  </a-upload>
-</div>
-</div>
 </template>
 
 <script lang="ts" setup>
@@ -77,52 +70,52 @@ function formatDateTime(date, format) {
   }
   return format;
 }
-onMounted(()=>{
+onMounted(() => {
   // console.log(rt.meta)
 })
 
 const fileList = ref<UploadProps['fileList']>([])
 
-const handleChange = (info: UploadChangeParam) => {      
-      if (info.file.status !== 'uploading') {
-        // console.log('uploading')
-      }
-      if (info.file.status === 'done') {
-        // console.log(fileList)
-        fileList.value = [];
-        // message.success(`${info.file.name} 上传成功`);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} 上传失败`);
-      }
-    };
-  
-const uploadFile = (report)=>{
+const handleChange = (info: UploadChangeParam) => {
+  if (info.file.status !== 'uploading') {
+    // console.log('uploading')
+  }
+  if (info.file.status === 'done') {
+    // console.log(fileList)
+    fileList.value = [];
+    // message.success(`${info.file.name} 上传成功`);
+  } else if (info.file.status === 'error') {
+    message.error(`${info.file.name} 上传失败`);
+  }
+};
+
+const uploadFile = (report) => {
   // 生成一个表单文件
   let formData = new FormData();
 
-  formData.append("experiment_id",rt.meta.id.toString())
-  formData.append("report",report)
+  formData.append("experiment_id", rt.meta.id.toString())
+  formData.append("report", report)
 
   const date = new Date();
   const formatDate = formatDateTime(date, 'yyyy-MM-dd HH:mm:ss');
 
-  formData.append("submit_time",formatDate)
+  formData.append("submit_time", formatDate)
 
   new Promise(resolve => axios({
-	    method:"post",
-	    url:"api/report/submit",
-	    headers: {
-		    "Content-Type": "multipart/form-data",
-        "Authorization":Cookies.get('Authorization'),
-	    },
-	    data:formData
-	  }).then((res)=>{
-      // fileList.value=report
-      message.success('上传成功')
-    }));
-    
+    method: "post",
+    url: "api/report/submit",
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Authorization": Cookies.get('Authorization'),
+    },
+    data: formData
+  }).then((res) => {
+    // fileList.value=report
+    message.success('上传成功')
+  }));
+
 }
-function downLoadFile(){
+function downLoadFile() {
   getExperiment(rt.meta.id)
     .then((res) => {
       console.log(res.file)
