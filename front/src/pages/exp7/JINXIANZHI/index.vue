@@ -113,12 +113,10 @@
 
 <script lang="ts">
 import { cloneDeep } from 'lodash-es';
-import { defineComponent, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import type { UnwrapRef } from 'vue';
 import * as echarts from 'echarts';
-import { Document } from '@element-plus/icons-vue';
 import { onMounted } from 'vue';
-import { TableColumn } from 'element-ui/types/table-column';
 import type { TableColumnType } from 'ant-design-vue';
 
 interface DataItem {
