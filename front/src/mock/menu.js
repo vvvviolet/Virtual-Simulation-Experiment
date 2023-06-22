@@ -1,89 +1,9 @@
 import Mock from 'mockjs';
 
 const presetList = [
-  // {
-  //   id: 111,
-  //   name: 'system',
-  //   title: '系统配置',
-  //   icon: 'SettingOutlined',
-  //   badge: '',
-  //   target: '_self',
-  //   path: '/system',
-  //   component: '@/components/layout/BlankView.vue',
-  //   renderMenu: true,
-  //   parent: null,
-  //   permission: null,
-  //   cacheable: true,
-  //   children:[
-  //     {
-  //       id: 1111,
-  //       name: 'menu',
-  //       title: '菜单管理',
-  //       badge: '12',
-  //       target: '_self',
-  //       path: '/system/menu',
-  //       component: '@/pages/system',
-  //       renderMenu: true,
-  //       parent: 'system',
-  //       permission: null,
-  //       cacheable: true,
-  //     }
-  //   ]
-  // },
-  // {
-  //   id: 222,
-  //   name: 'bilibili',
-  //   title: 'B站',
-  //   icon: 'BoldOutlined',
-  //   badge: 'iframe',
-  //   target: '_self',
-  //   path: '/bilibili',
-  //   component: 'iframe',
-  //   renderMenu: true,
-  //   permission: 'edit',
-  //   cacheable: true,
-  //   link: 'https://www.bilibili.com',
-  // },
-  {
-    id: 99990,
-    name: `exp0`,
-    title: '实验模板',
-    target: '_self',
-    path: '/exp0',
-    component: '@/pages/exp0', 
-    renderMenu: true,
-    parent: null,
-    permission: null,
-    cacheable: true,
-    children: [
-      {
-        id: 99991,
-        name: 'test0',
-        title: '测试实验0-子标题',
-        path: '/exp0/test0',
-        component: '@/pages/exp0/Exp0_TEST0/index.vue',
-        target: '_self',
-        renderMenu: true,
-        permission: null,
-        cacheable: true,
-      },
-      {
-        id: 99992,
-        name: 'test1',
-        title: '测试实验1-子标题',
-        target: '_self',
-        path: '/exp0/test1',
-        component: '@/pages/exp0/Exp0_TEST1/index.vue',
-        renderMenu: true,
-        permission: null,
-        cacheable: true,
-      }
-    ]
-  },
   {
     id: 1,
     name: 'exp1',
-    // title: '软件规模估算实验(FP方法)',
     title: '软件规模估算实验(FP方法)',
     target: '_self',
     path: '/exp1',
@@ -99,7 +19,7 @@ const presetList = [
         title: 'IFPUG方法',
         target: '_self',
         path: '/exp1/ifpug',
-        component: '@/pages/exp1/Exp1_IFPUG/index.vue',
+        component: '@/pages/exp1/IFPUG/index.vue',
         renderMenu: true,
         permission: null,
         cacheable: true,
@@ -110,7 +30,7 @@ const presetList = [
         title: 'NESMA方法',
         target: '_self',
         path: '/exp1/nesma',
-        component: '@/pages/exp1/Exp1_NESMA/index.vue',
+        component: '@/pages/exp1/NESMA/index.vue',
         renderMenu: true,
         permission: null,
         cacheable: true,
@@ -121,7 +41,7 @@ const presetList = [
         title: 'MARKII方法',
         target: '_self',
         path: '/exp1/markii',
-        component: '@/pages/exp1/Exp1_MARKII/index.vue',
+        component: '@/pages/exp1/MARKII/index.vue',
         renderMenu: true,
         permission: null,
         cacheable: true,
@@ -132,7 +52,18 @@ const presetList = [
         title: 'COSMIC方法',
         target: '_self',
         path: '/exp1/cosmic',
-        component: '@/pages/exp1/Exp1_COSMIC/index.vue',
+        component: '@/pages/exp1/COSMIC/index.vue',
+        renderMenu: true,
+        permission: null,
+        cacheable: true,
+      },
+      {
+        id: 15,
+        name: 'TANPAIFANG',
+        title: '碳排放交易配额优化算法',
+        target: '_self',
+        path: '/exp1/tanpaifang15',
+        component: '@/pages/exp1/TANPAIFANG15/index.vue',
         renderMenu: true,
         permission: null,
         cacheable: true,
@@ -213,9 +144,7 @@ const presetList = [
         cacheable: true,
       }
     ]
-
   },
-
 ];
 
 function getMenuList() {

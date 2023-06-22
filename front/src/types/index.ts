@@ -5,6 +5,7 @@ export interface LoginForm {
 
 export interface Response<T = never> {
   message: string;
+  msg:string;
   code: number;
   data: T;
 }
