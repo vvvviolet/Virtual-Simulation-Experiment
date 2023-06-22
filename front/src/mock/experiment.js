@@ -110,7 +110,7 @@ Mock.mock('api/menu/student_experiment', 'get', ({ body }) => {
             {
                 "id": "61",
                 "title": "碳排放权供给与需求-实验",
-                "name": "tanpaifang",
+                "name": "tanpaifang61",
                 "kind": "软件产品的供给与需求",
                 "content": null,
                 "file": null
