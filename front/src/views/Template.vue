@@ -30,7 +30,7 @@
               <span>2. 软件开发成本估算实验</span>
             </el-menu-item>
     
-            <el-menu-item index="3">
+            <el-menu-item index="/exp3">
               <span>3. 碳排放权供给与需求实验</span>
             </el-menu-item>
     
