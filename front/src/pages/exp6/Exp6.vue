@@ -22,7 +22,7 @@
 
   <hr />
   <RouterView />
-  <div     style="float:right">
+  <div style="float:right">
     <a-upload
     name="file"
     :before-upload="uploadFile"
@@ -42,7 +42,7 @@ export default {
   mounted() {
     const rt = useRoute()
     console.log(rt.meta)
-    const d = getExperimentInfo(rt.meta.id)
+    const d = getExperiment(rt.meta.id)
     // console.log(d)
   },
   methods: {
@@ -58,7 +58,31 @@ export default {
       setTimeout(() => {
         downloadWindow?.close();
       }, 2000);
-    }
+    },
+    
+ uploadFile(report:Blob){
+  // 生成一个表单文件
+  let formData = new FormData();
+  // formData.append("course_id","1")
+  formData.append("experiment_id",rt.meta.id.toString())
+  formData.append("report",report)
+  const date = new Date();
+  const formatDate = formatDateTime(date, 'yyyy-MM-dd HH:mm:ss');
+  console.log(formatDate);
+  formData.append("submit_time",formatDate)
+  axios({
+	    method:"post",
+	    url:"/report/submit",
+	    headers: {
+		  "Content-Type": "multipart/form-data"
+	    },
+	    withCredentials:true,
+	    data:formData
+	  }).then((res)=>{
+            console.log(res);
+            message.success("上传成功")
+    });
+}
   }
 };
 import { useExperimentStore } from '@/store/experiment';
