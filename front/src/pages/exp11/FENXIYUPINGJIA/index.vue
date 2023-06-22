@@ -52,19 +52,19 @@
            <a-typography-text strong>·净现值(NPV):</a-typography-text>
            净现值是指按一定的折现率（一般采用基准收益率ic），将各年的净现金流量折现到同一时点（通常是初期时点）的现值之和。计算公式：
            <br>
-           <img src="../../../assets/image/NPV.png">其中，(CI-CO)t是第t年的净现金流量。
+           <img src="./NPV.png">其中，(CI-CO)t是第t年的净现金流量。
          </a-typography-paragraph>
          <a-typography-paragraph>
            <a-typography-text strong>·内部收益率(IRR):</a-typography-text>
            内部收益率是指项目在整个计算期内净现值等于零时所对应的折现率。计算公式：
            <br>
-           <img src="../../../assets/image/IRR.png">其中，(CI-CO)t是第t年的净现金流量，n为方案寿命周期。
+           <img src="./IRR.png">其中，(CI-CO)t是第t年的净现金流量，n为方案寿命周期。
          </a-typography-paragraph>
          <a-typography-paragraph>
            <a-typography-text strong>·动态投资回收期(DPP):</a-typography-text>
            动态投资回收期是指按照设定的基准收益率ic收回全部投资所需的时间。计算公式：
            <br>
-           <img src="../../../assets/image/DPP.png">其中，(CI-CO)t是第t年的净现金流量，DPP为所求动态投资回收期。
+           <img src="./DPP.png">其中，(CI-CO)t是第t年的净现金流量，DPP为所求动态投资回收期。
          </a-typography-paragraph>
          </a-collapse-panel>
        </a-collapse>
