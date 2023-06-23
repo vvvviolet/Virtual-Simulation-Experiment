@@ -258,15 +258,15 @@
     <p class="content buttons">
       2. 买家和卖家的信息录入后，考虑到交易的公平性，排除极端价格:
     </p>
-    <a-button type="primary" ghost @click="showvalueform = true" class="buttons"
+    <a-button type="primary"   class="buttons"
       >价格筛选</a-button
     >
-    <a-modal v-model:visible="showvalueform" title="剔除极端价格" @ok="valueevent">
-      <a-form :model="valueformtext" id="valueform">
+    <a-modal   title="剔除极端价格"  >
+      <a-form   id="valueform">
         <a-form-item label="最低价格">
           <a-input
             clearable
-            v-model:value="valueformtext.min"
+             
             style="width: 180px"
             placeholder="请输入最低价格"
           ></a-input>
@@ -274,7 +274,7 @@
         <a-form-item label="最高价格">
           <a-input
             clearable
-            v-model:value="valueformtext.max"
+            
             style="width: 180px"
             placeholder="请输入最高价格"
           ></a-input>
