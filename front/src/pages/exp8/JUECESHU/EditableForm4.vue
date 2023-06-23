@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 // 可以编辑，增减行列的表格
 import { cloneDeep } from 'lodash-es';
 import { Table } from 'ant-design-vue';

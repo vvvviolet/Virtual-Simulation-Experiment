@@ -1,28 +1,26 @@
 <template>
-
-  <div class="wrapper" style="margin-top: 50px;">
-    <div class="wrapper-content">
-      课程名称：软件工程管理与经济
+    <div style="padding-top:60px;padding-bottom:20px">
+        <a-config-provider  >
+            <p style="line-height:200%;font-size: 16px;">
+                <a-row justify="center">
+                    <a-col span="6">课程名称：软件工程经济学</a-col>
+                    <a-col span="6">课号：420279</a-col>
+                    <a-col span="6">实验项目名称：软件规模度量实验</a-col>
+                </a-row>
+                <a-row justify="center">
+                    <a-col span="6">实验时间：<span style="border-bottom: 1px solid grey;border-radius: none;"><a-date-picker
+                         :bordered="false"
+                        style="width:150px;padding-left:3px;padding-right:3px;"
+                        placeholder="点击选择实验时间" /></span></a-col>
+                    <a-col span="6">实验报告人： <span style="border-bottom: 1px solid grey;border-radius: none;"><a-input
+                        placeholder="请输入报告人姓名" size="small" :bordered="false"
+                        style="width:18vh;"></a-input></span>
+                    </a-col>
+                    <a-col span="6"></a-col>
+                </a-row>
+            </p>
+        </a-config-provider>
     </div>
-    <div class="wrapper-content1">
-      课号：420279
-    </div>
-    <div class="wrapper-content2">
-      实验项目名称：基于MARK II的小型软件项目规模度量实验
-    </div>
-  </div>
-  <div class="wrapper" style="margin-top: 10px; margin-bottom: 20px;">
-    <div class="wrapper-content">
-      实验时间：
-      <a-date-picker v-model:value="date" placeholder="" :bordered="false" style="border:none; border-bottom: 1px solid black;"/>
-    </div>
-    <div class="wrapper-content">
-      实验报告人：
-      <a-input v-model:value="reporter" :bordered="false" placeholder="" style="width: 40%; "/>
-    </div>
-    <div class="wrapper-content">
-    </div>
-  </div>
   <h2>一、实验目的 </h2>
   <a-textarea v-model:value="purpose" :autoSize="{ minRows: 3}"
               style="margin-top: 10px; margin-bottom: 10px"></a-textarea>
@@ -126,7 +124,7 @@
       </template>
     </template>
   </a-table>
-  <div v-show="checked" class="unadjusted">技术复杂度调整系数：<span style="font-weight: bold; font-style: italic">{{
+  <div v-show="checked" class="unadjusted">（可选）技术复杂度调整系数：<span style="font-weight: bold; font-style: italic">{{
       adjustedRate
     }}</span></div>
   <h3 v-show="checked">3. 计算调整后功能点数</h3>

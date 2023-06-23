@@ -1,7 +1,7 @@
 <template>
   <!-- 补上题头 -->
   <div>
-    <!-- <div
+    <div
       class="all_title"
       style="margin-top: 20px;"
     >
@@ -9,7 +9,6 @@
       <div class="pre_title">课号：420279</div>
       <div class="pre_title">实验项目名称：软件开发成本估算-国际GB标准</div>
     </div>
-    
     <div
       class="all_title"
       style="margin-bottom: 20px;"
@@ -22,40 +21,6 @@
           v-model="person"
           style="width: 120px;"
         ></div>
-    </div> -->
-    <div style="padding-top: 60px; padding-bottom: 20px">
-      <a-config-provider  >
-        <p style="line-height: 200%; font-size: 16px">
-          <a-row justify="center">
-            <a-col span="6">课程名称：软件工程经济学</a-col>
-            <a-col span="6">课号：420279</a-col>
-            <a-col span="6">实验项目名称：软件开发成本估算-国际GB标准</a-col>
-          </a-row>
-          <a-row justify="center">
-            <a-col span="6"
-              >实验时间：<span style="border-bottom: 1px solid grey; border-radius: none"
-                ><a-date-picker
-                  v-model="experimentdate"
-                  :bordered="false"
-                  style="width: 150px; padding-left: 3px; padding-right: 3px"
-                  placeholder="点击选择实验时间" /></span
-            ></a-col>
-            <a-col span="6"
-              >实验报告人：
-              <span style="border-bottom: 1px solid grey; border-radius: none"
-                ><a-input
-                  v-model="reportername"
-                  placeholder="请输入报告人姓名"
-                  size="small"
-                  :bordered="false"
-                  style="width: 18vh"
-                ></a-input
-              ></span>
-            </a-col>
-            <a-col span="6"></a-col>
-          </a-row>
-        </p>
-      </a-config-provider>
     </div>
   </div>
   <h2 style="font-weight: bold;">一、实验目的 </h2>
@@ -67,7 +32,7 @@
     <br>4.提高软件项目管理和开发能力：通过掌握软件成本估算的方法和技术，提高软件项目管理和开发能力，以更好地满足用户需求，提高软件质量和效率。
   </p>
   <h2 style="font-weight: bold;">二、实验原理 </h2>
-  <p class="content">
+  <div class="content"></div>
   <p
     class="principle_title"
     style="font-weight: bold;"
@@ -97,21 +62,21 @@
     width="700"
     height="300"
   />
-  </p>
+  <!-- </p> -->
   <h2 style="font-weight: bold;">三、实验步骤 </h2>
   <main-table> </main-table>
   <h2 style="font-weight: bold;">四、实验小结与心得 </h2>
-  <p class="content">
-    <div style="margin: 20px 0" />
+  <div class="content">
+    <div style="margin: 20px 0"></div>
     <a-textarea
-      v-model:value="reflexion"
+      v-model:value="reflection"
       placeholder="请输入实验心得"
       :auto-size="{ minRows: 2 }"
     />
-  </p>
+  </div>
 </template>
   
-  <script>
+  <script lang="ts">
 import { defineComponent } from 'vue'
 import { ref } from 'vue'
 import mainTable from './mainTable.vue';

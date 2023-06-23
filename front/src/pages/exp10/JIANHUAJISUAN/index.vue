@@ -1,6 +1,26 @@
 <!-- 8.软件项目/产品的财务评价实验
 包括: 净现值法、IRR 法、投资回收期法等 -->
 <template>
+   <div style="padding-top: 60px; padding-bottom: 20px">
+         <p style="line-height:200%;font-size: 16px;">
+             <a-row justify="center">
+                 <a-col span="6">课程名称：软件工程经济学</a-col>
+                 <a-col span="6">课号：420279</a-col>
+                 <a-col span="6">实验项目名称：简化计算模型实验</a-col>
+             </a-row>
+             <a-row justify="center">
+                 <a-col span="6">实验时间：<span style="border-bottom: 1px solid grey;border-radius: none;"><a-date-picker
+                              :bordered="false"
+                             style="width:150px;padding-left:3px;padding-right:3px;"
+                             placeholder="点击选择实验时间" /></span></a-col>
+                 <a-col span="6">实验报告人： <span style="border-bottom: 1px solid grey;border-radius: none;"><a-input
+                               placeholder="请输入报告人姓名" size="small" :bordered="false"
+                             style="width:18vh;"></a-input></span>
+                 </a-col>
+                 <a-col span="6"></a-col>
+             </a-row>
+         </p>
+        </div>
   <h2>一、实验目的</h2>
   <p class="content">基于业务目标及市场信息的分析，设计课程设计项目的营销策略和软件定价策略方法，构建课程设计项目财务评价模型，根据本地区及实验期内的经济参数，通过本实验测算课程设计项目盈利能力和项目生存能力。
   </p>
@@ -353,13 +373,13 @@
   <p class="content">根据所提取的财务评价所需基础数据进行项目财务分析，重在考察项目盈利能力是否能够满足要求。编制项目资本金现金流量表，计算项目资本金财务内部收益率IRR、净现值NPV以及动态投资回收期（年），考察项目资本金可获得的收益水平。
   </p>
   <p class="content">1. 净现值NPV是指按照一定的折现率（通常为基准折现率ic），将各年的净现金流量折现到同一时点（通常是期初时点）的现值之和,公式如下：</p>
-  <img class="formula" src="./img/NPV.png">
+  <img class="formula" src="src\pages\exp10\JIANHUAJISUAN\img\NPV.png">
   <p class="content">（CI-CO）t为第t年的净现金流量，n为方案寿命期，ic为设定的折现率（基准收益率）。</p>
   <p class="content">2. 项目资本金财务内部收益率IRR是指在整个计算期内净现值等于零时所对应的折现率,公式如下：</p>
-  <img class="formula" src="./img/IRR.png">
+  <img class="formula" src="src\pages\exp10\JIANHUAJISUAN\img\IRR.png">
   <p class="content">其中，IRR为内部收益率，（CI-CO）t为第t年净现金流量，n为方案寿命期。</p>
   <p class="content">3. 动态投资回收期（年）是指按照设定的基准收益率ic回收全部投资所需的时间,公式如下：</p>
-  <img class="formula" src="./img/DPP.png">
+  <img class="formula" src="src\pages\exp10\JIANHUAJISUAN\img\DPP.png">
   <p class="content">其中，DPP为动态投资回收期、（CI-CO）t为第t年净现金流量，ic为设定的基准收益率。</p>
   <p class="content">根据计算，本项目的财务指标如下</p>
   <a-table :dataSource="Index" :columns="columns_2" :pagination="false">

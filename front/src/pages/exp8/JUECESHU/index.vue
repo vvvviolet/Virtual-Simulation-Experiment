@@ -151,7 +151,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import { Table } from 'ant-design-vue';
   import HorizontalTree from '@/pages/exp8/JUECESHU/HorizontalTree.vue';
   import EditableForm1 from '@/pages/exp8/JUECESHU/EditableForm1.vue';
