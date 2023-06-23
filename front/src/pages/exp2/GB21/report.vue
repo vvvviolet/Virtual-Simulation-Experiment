@@ -1,28 +1,28 @@
 <template>
   <!-- 补上题头 -->
-  <div>
-    <div
-      class="all_title"
-      style="margin-top: 20px;"
-    >
-      <div class="pre_title">课程名称：软件工程管理与经济学</div>
-      <div class="pre_title">课号：420279</div>
-      <div class="pre_title">实验项目名称：软件开发成本估算-国际GB标准</div>
+  <div style="padding-top:60px;padding-bottom:20px">
+        <a-config-provider  >
+            <p style="line-height:200%;font-size: 16px;">
+                <a-row justify="center">
+                    <a-col span="6">课程名称：软件工程经济学</a-col>
+                    <a-col span="6">课号：420279</a-col>
+                    <a-col span="6">实验项目名称：软件规模度量实验</a-col>
+                </a-row>
+                <a-row justify="center">
+                    <a-col span="6">实验时间：<span style="border-bottom: 1px solid grey;border-radius: none;"><a-date-picker
+                         :bordered="false"
+                        style="width:150px;padding-left:3px;padding-right:3px;"
+                        placeholder="点击选择实验时间" /></span></a-col>
+                    <a-col span="6">实验报告人： <span style="border-bottom: 1px solid grey;border-radius: none;"><a-input
+                          placeholder="请输入报告人姓名" size="small" :bordered="false"
+                        style="width:18vh;"></a-input></span>
+                    </a-col>
+                    <a-col span="6"></a-col>
+                </a-row>
+            </p>
+        </a-config-provider>
     </div>
-    <div
-      class="all_title"
-      style="margin-bottom: 20px;"
-    >
-      <div class="pre_title">实验时间：<input
-          v-model="time"
-          style="width: 100px;"
-        ></div>
-      <div class="pre_title">实验报告人：<input
-          v-model="person"
-          style="width: 120px;"
-        ></div>
-    </div>
-  </div>
+
   <h2 style="font-weight: bold;">一、实验目的 </h2>
   <p class="content">
     <br>通过对软件开发成本进行估算，掌握和了解软件成本估算的方法和技术，同时熟悉和掌握国家标准GB/T36964-2018《软件工程软件成本估算》的相关规定和要求，以提高软件项目管理和开发能力。该实验的目的包括：
