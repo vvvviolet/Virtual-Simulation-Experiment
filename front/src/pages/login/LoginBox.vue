@@ -67,6 +67,12 @@
   import { reactive, ref, onMounted } from 'vue';
   import { useAccountStore } from '@/store';
   import useThemeStore from 'stepin/es/theme-editor/store';
+
+  interface LoginFormProps {
+    username: string;
+    password: string;
+  }
+    
   const visible = ref<boolean>(false);
 
   const showModal = () => {
@@ -91,10 +97,8 @@
         console.log(res.data)
       })
     };
-  export interface LoginFormProps {
-      username: string;
-      password: string;
-    }
+    
+
 
   const { setBgSeriesColors } = useThemeStore();
 
