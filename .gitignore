@@ -2,6 +2,7 @@
 .DS_Store
 
 # 不小心加上的文件
-yarn.lock
 node_modules
-package-lock.json
+/yarn.lock
+/package-lock.json
+/package.json

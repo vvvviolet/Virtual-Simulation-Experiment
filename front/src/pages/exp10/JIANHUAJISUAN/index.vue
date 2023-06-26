@@ -1,6 +1,26 @@
 <!-- 8.软件项目/产品的财务评价实验
 包括: 净现值法、IRR 法、投资回收期法等 -->
 <template>
+   <div style="padding-top: 60px; padding-bottom: 20px">
+         <p style="line-height:200%;font-size: 16px;">
+             <a-row justify="center">
+                 <a-col span="6">课程名称：软件工程经济学</a-col>
+                 <a-col span="6">课号：420279</a-col>
+                 <a-col span="6">实验项目名称：简化计算模型实验</a-col>
+             </a-row>
+             <a-row justify="center">
+                 <a-col span="6">实验时间：<span style="border-bottom: 1px solid grey;border-radius: none;"><a-date-picker
+                              :bordered="false"
+                             style="width:150px;padding-left:3px;padding-right:3px;"
+                             placeholder="点击选择实验时间" /></span></a-col>
+                 <a-col span="6">实验报告人： <span style="border-bottom: 1px solid grey;border-radius: none;"><a-input
+                               placeholder="请输入报告人姓名" size="small" :bordered="false"
+                             style="width:18vh;"></a-input></span>
+                 </a-col>
+                 <a-col span="6"></a-col>
+             </a-row>
+         </p>
+        </div>
   <h2>一、实验目的</h2>
   <p class="content">基于业务目标及市场信息的分析，设计课程设计项目的营销策略和软件定价策略方法，构建课程设计项目财务评价模型，根据本地区及实验期内的经济参数，通过本实验测算课程设计项目盈利能力和项目生存能力。
   </p>
@@ -386,7 +406,7 @@
   
   <script lang="ts">
     import { Input } from 'ant-design-vue';
-import { defineComponent, ref } from 'vue';
+import {  ref } from 'vue';
      export default{
       name: 'Exp8',
       setup() {
