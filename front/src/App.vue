@@ -1,7 +1,7 @@
 <template>
   <stepin-view
-    system-name="Stepin"
-    logo-src="@/assets/vite.svg"
+    system-name="软件工程经济学"
+    logo-src="@/assets/TJlogo.svg"
     :class="`${contentClass}`"
     :user="user"
     :navMode="navigation"

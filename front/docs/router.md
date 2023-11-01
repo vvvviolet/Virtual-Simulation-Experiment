@@ -10,7 +10,7 @@ stepin template 的路由使用 `vue-router` 来实现，如果你熟悉 `vue-ro
 路由配置文件在 `src/router/routes.ts`，它完全遵循 vue-router 的 `RouteRecordRaw` 类型定义。
 其中，我们扩展了 `RouterMeta` 类型：
 
-```ts {5,9-18}
+```ts
 interface RouteRecordRaw {
  path: string;
  name: string;
@@ -35,7 +35,7 @@ interface RouteMeta {
 
 路由守卫在 `src/router/guards.ts` 文件中配置：
 
-```ts {24,25}
+```ts
 import { NavigationGuard, NavigationHookAfter } from 'vue-router';
 import http from '@/store/http';
 import { useAccountStore } from '@/store';
@@ -207,7 +207,7 @@ Stepin Template 默认使用路由数据渲染菜单。如果需要，你也可�
 
 如下配置，意味着使用 path 为 `/admin` 的路由的所有子路由渲染菜单：
 
-```vue {5}
+```vue
 <template>
   <stepin-view
     system-name="Stepin"
@@ -228,7 +228,7 @@ Stepin Template 默认使用路由数据渲染菜单。如果需要，你也可�
 
 如果需要自定义菜单，给 `src/App.vue#stepin-view` 配置 menuList 即可：
 
-```vue {5,15-25}
+```vue
 <template>
   <stepin-view
     system-name="Stepin"
@@ -286,7 +286,6 @@ interface MenuMeta {
 路由配置和菜单配置映射关系如下：
 
 ```ts
-
 interface RouteRecordRaw {
   name: 'personal',                  // - MenuConfig.title 当 `meta.title` 未配置时取此属性作为菜单标题
   path: '/personal',                 // - MenuConfig.path 菜单 path

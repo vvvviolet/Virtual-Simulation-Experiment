@@ -30,7 +30,7 @@
         <a-col :span="19">
             <a-button type="primary" @click="showDrawer">  实验理论指导  </a-button>
         </a-col>
-        <a-col :span="4">
+        <!-- <a-col :span="4">
         <a-statistic-countdown :value="deadline" style="margin-right: 50px" @finish="onFinish">
             <template #title>
             <span>Countdown</span>
@@ -42,7 +42,7 @@
             </a-tooltip>
             </template>
         </a-statistic-countdown>
-        </a-col>
+        </a-col> -->
     </a-row>
     <div ref="content_2">
         <a-drawer

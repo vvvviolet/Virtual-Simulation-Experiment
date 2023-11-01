@@ -41,6 +41,7 @@ import { useRoute } from 'vue-router';
 import { UploadOutlined } from '@ant-design/icons-vue';
 import message from 'ant-design-vue/es/message';
 import axios from 'axios';
+import instructionfile from '@/assets/exp2_instruction.pdf'
 
 const { getExperiment,uploadReport } = useExperimentStore();
 const rt = useRoute()
@@ -100,22 +101,23 @@ function uploadFile(report:Blob){
     });
 }
 function downLoadFile(){
-  getExperiment(rt.meta.id)
-    .then((res) => {
-      console.log(res.file)
-      const filePath = res.file
-      if (!filePath) {
-        return;
-      }
-      // let url = window.URL.createObjectURL(new Blob(filePath));
-      let link = document.createElement('a');
-      link.style.display = 'none';
-      link.href = filePath;
-      link.setAttribute('download', filePath);
-      document.body.appendChild(link);
-      // link.click();
-      window.open(filePath)
-    })
+  // getExperiment(rt.meta.id)
+  //   .then((res) => {
+  //     console.log(res.file)
+  //     const filePath = res.file
+  //     if (!filePath) {
+  //       return;
+  //     }
+  //     // let url = window.URL.createObjectURL(new Blob(filePath));
+  //     let link = document.createElement('a');
+  //     link.style.display = 'none';
+  //     link.href = filePath;
+  //     link.setAttribute('download', filePath);
+  //     document.body.appendChild(link);
+  //     // link.click();
+  //     window.open(filePath)
+  //   })
+  window.open(instructionfile,'_blank');
 }
 
 </script>

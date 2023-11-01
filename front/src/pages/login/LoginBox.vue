@@ -1,7 +1,8 @@
 <template>
   <div class="login-box">
     <a-form :model="form" :wrapperCol="{ span: 24 }" @finish="login" class="login-form">
-      <h1>虚拟仿真实验平台</h1>
+      <h1>软件工程管理与经济</h1>
+      <h2>虚拟仿真实验平台</h2>
       <a-form-item :required="true" name="username">
         <a-input
           v-model:value="form.username"
