@@ -1,0 +1,50 @@
+p {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.title {
+  margin-bottom: 5px;
+  text-indent: 2em;
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.maintable {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 30px;
+}
+
+.button1 {
+  margin-left: 25px;
+}
+
+.button2 {
+  margin-left: 15px;
+}
+
+.button3 {
+  float: right;
+  margin-top: 10px;
+  margin-right: 50px;
+}
+
+.button4 {
+  margin-left: 250px;
+}
+
+.content {
+  text-indent: 2em;
+  text-align: justify;
+  margin-top: 0px;
+}
+
+.guidance {
+  position: absolute;
+  right: 50px;
+  font-weight: bold;
+}
