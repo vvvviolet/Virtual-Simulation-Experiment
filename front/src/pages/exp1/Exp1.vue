@@ -39,6 +39,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { UploadProps } from 'ant-design-vue/lib/upload';
 import { UploadChangeParam } from 'ant-design-vue/es/upload/interface';
+import instructionfile from '@/assets/exp1_instruction.pdf'
 
 const { getExperiment } = useExperimentStore();
 const rt = useRoute()
@@ -116,15 +117,18 @@ const uploadFile = (report) => {
 
 }
 function downLoadFile() {
-  getExperiment(rt.meta.id)
-    .then((res) => {
-      console.log(res.file)
-      const filePath = res.file
-      if (!filePath) {
-        return;
-      }
-      window.open(filePath)
-    })
+  // getExperiment(rt.meta.id)
+  //   .then((res) => {
+  //     console.log(res.file)
+  //     const filePath = res.file
+  //     if (!filePath) {
+  //       return;
+  //     }
+  //     window.open(filePath)
+  //   })
+
+
+  window.open(instructionfile,'_blank');
 }
 
 </script>
