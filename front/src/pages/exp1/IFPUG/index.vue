@@ -1,5 +1,5 @@
 <template>
-    <div style="padding-top:60px;padding-bottom:20px">
+    <div style="padding-top:60px;padding-bottom:20px" ref="content_1">
         <a-config-provider  >
             <p style="line-height:200%;font-size: 16px;">
                 <a-row justify="center">
@@ -22,178 +22,224 @@
         </a-config-provider>
     </div>
     <!-- <span> {{ test }}</span> -->
-    <h2>一、实验目的  </h2>
-    <p class="content">理解软件项目规模度量功能点法原理，通过实验操作掌握功能点法。 学生应以小组为单位，根据本小组“软件工程管理与经济”课程设计项目架构及组件等设计成果，以功能点方法测量该项目的规模(功能点数量)。 建议选用某一种功能点方法度量课程设计项目的功能点，并采用另外一种功能点方法或其他的软件规模度量方法对前一种方法的度量结果进行验证。 本实验为课内设计性实验项目，实验学时 1 学时，完成实验报告 1 学时。
-    </p>
-    
-    <h2>二、实验步骤 </h2>
-    <!-- <p class="content" > -->
-    <p class="secondtitle">第一步：识别数据功能点和事务处理功能点</p>
-    <p class="content">数据功能是指更新、引用和检索而储存的可用的逻辑数据。数据块及控制信
-        息是逻辑上的并且用户可确认的。数据功能分为内部逻辑文件(ILF)和外部接口
-        文件(EIF)。事务处理是指外部输入、外部输出、外部查询、完成更新、检索和输
-        出等操作，分为外部输入(EI)、外部输出(EO)和外部查询(EQ)。
-        <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请详细阅读文档中提供的系统设计模型。
-    </p>
+    <h2 class="title">  实验内容  </h2>
 
-    <p class="secondtitle">第二步：测量内部逻辑文件(ILF)</p>
-    <p class="content">内部逻辑文件(ILF)是用户可确认的，在应用程序内部维护、逻辑上相关的数
-        据块或控制信息。内部逻辑文件(ILF)用来保存经由应用程序的一个或多个处理
-        后的数据。一旦应用程序内部的一个数据块被标识为 ILF，即使它被另一个事务
-        处理所引用，它也不能再被同一个应用程序当作 EIF。<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 ILF 数量。</p>
-
-    <p class="secondtitle">第三步：测量外部接口文件(EIF) </p>
-    <p class="content">外部接口文件(EIF)是用户可确认的、由被测应用程序引用，但在其他应用程
-        序内部维护的、逻辑上相关的数据块或控制信息。外部接口文件(EIF)用来存放被
-        测应用程序中的一个或多个基本处理所引用的数据。数据或控制数据通过诸如增
-        加、变更、更新等事务来维护，一个 EIF 可以被多个应用程序引用和计算，但是
-        对于一个应用程序来讲，一个 EIF 只应被计算一次。 <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EIF 数量。</p>
-
-
-    <p class="secondtitle">第四步：计算 ILF 和 EIF 复杂度</p>
-    <p class="content">根据 IFPUG 功能点计算实践手册(4.1 版)，识别 ILF 和 EIF 组件的复杂程度，
-        并按照下表的参数并赋值(简单、平均或复杂)。 <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：复杂度为简单的 ILF 数量和复杂的 ILF 数量各占 50%。EIF 的复
-        杂度均为复杂。填写下表。</p>
-    <h2 style="text-align: center">ILF 和 EIF 数据复杂度认定表</h2>
-    <a-table :pagination="false" :columns="columns1" :data-source="tableData1" bordered size="middle"
-        style="word-break: break-all;" />
-    <br>
-
-    <p class="secondtitle">第五步：测量外部输入(EI)</p>
-    <p class="content">外部输入(EI)是应用程序处理来自系统边界以外的数据或控制信息的基本
-        过程。EI 的作用是维护一个或多个 ILF 以及通过其处理逻辑来改变系统的行为。<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EI 数量。 </p>
-
-
-    <p class="secondtitle">第六步：测量外部输出(EO) </p>
-    <p class="content">外部输出(EO)是应用程序向其边界之外提供数据或控制信息的基本处理。
-        EO 的作用是向用户提供经过处理逻辑加工的，除了检索信息或控制信息之外的
-        信息或附加信息。处理逻辑中必须至少包含一个数学公式或者计算，创建导出数
-        据或者维护一个或多个 ILF，并且改变系统的行为。<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EO 数量。 </p>
-
-    <p class="secondtitle">第七步：测量外部查询(EQ) </p>
-    <p class="content">外部查询(EQ)是应用程序向其边界之外提供数据或控制信息查询的基本处
-        理。EQ 的作用是通过查询数据或控制信息来为用户提供信息，处理逻辑中既不
-        包含数学公式或计算，也不产生导出数据。处理过程中不维护 ILF，系统行为不
-        受影响。<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EQ 数量。 </p>
-
-
-    <p class="secondtitle">第八步：计算 EI、EO 和 EQ 复杂度 </p>
-    <p class="content">根据 IFPUG 功能点计算实践手册(4.1 版)，分别识别 EI 以及 EO 和 EQ 组件
-        的复杂程度，并按照以下两个表格的参数并赋值(简单、平均或复杂)。<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：复杂度为简单的 EI 数量和复杂的 EI 数量各占 50%。复杂度为平
-        均的 EO 数量占 2/3，复杂度为复杂的 EO 数量占 1/3。复杂度为简单、平均和复
-        杂的 EQ 数量各占 1/3。</p>
-    <h2 style="text-align: center">EI 复杂度认定表</h2>
-    <a-table :pagination="false" :columns="columns2" :data-source="tableData2" bordered size="middle"
-        style="word-break: break-all;" />
-    <br>
-
-    <h2 style="text-align: center">EO 和 EQ 复杂度认定表</h2>
-    <a-table :pagination="false" :columns="columns3" :data-source="tableData3" bordered size="middle"
-        style="word-break: break-all;" />
-    <br>
-
-    <p class="secondtitle">第九步：计算未调整功能点 </p>
-    <p class="content"> 按照 IFPUG 功能点计算实践手册(4.1 版)组件复杂度等级与功能点数对应关
-        系表 4，计算得到未调整功能点数(UFP)。 <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：将上述各步得到的数据，填写在下面的“未调整功能点计算表”中
-        的合适位置，计算本实验案例的未调整功能点。 </p>
-
-
-    <p class="secondtitle">第十步：计算调整后功能点 </p>
-    <p class="content">考虑本实验案例的非功能性，从表 6 采集相对复杂度调整因子(标红数值)，
-        得到本实验案例的功能点调整因子(VAF)为 41。将 VAF 数值代入(IFPUG 法)功能
-        点计算公式，计算得到本实验案例的功能点为_____________。 <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：运用 IFPUG 标准规则，计算实验案例的调整后功能点。 </p>
-    <br />
-    <h2 style="text-align: center">每个组件复杂度等级与功能点数对应关系表 </h2>
-    <a-table :pagination="false" :columns="columns4" :data-source="tableData4" bordered size="middle"
-        style="word-break: break-all;" />
-    <br>
-
-
-
-    <h2>三、实验参数 </h2>
-
-    <h2 style="text-align: center;">表1：未调整功能点计算表 </h2>
-    <a-table :pagination="false" :columns="columns" :data-source="tableData" bordered size="middle"
-        style="word-break: break-all;">
-        <template #bodyCell="{ column, record, index }">
-            <template v-if="column.dataIndex === 'A' && tableData !== undefined">
-                <a-input v-model:value="record.A" style="width:100px; " />
-            </template>
-            <template v-if="column.dataIndex === 'D' && tableData !== undefined">
-                <a-input v-model:value="record.D" style="width:100px;" />
-            </template>
-            <template v-if="column.dataIndex === 'G' && tableData !== undefined">
-                <a-input v-model:value="record.G" style="width:100px;" />
-            </template>
-            <template v-if="column.dataIndex === 'C' && tableData !== undefined">
-                {{ c(index) }}
-            </template>
-            <template v-if="column.dataIndex === 'F' && tableData !== undefined">
-                {{ f(index) }}
-            </template>
-            <template v-if="column.dataIndex === 'I' && tableData !== undefined">
-                {{ i(index) }}
-            </template>
-            <template v-if="column.dataIndex === 'number' && tableData !== undefined">
-                {{ number(index) }}
-            </template>
-            <template v-if="column.dataIndex === 'unchanged' && tableData !== undefined">
-                {{ unchanged(index) }}
-            </template>
-        </template>
-    </a-table>
-    <br>
-
-    <div style="width:100%;text-align:right">
-        <span style="width:30%;display:inline-block" class="secondtitle">本实验未调整功能点总计为 </span>
-        <span style="display:inline-block;font-size:20px;">{{ SUM }}</span>
+    <div content>
+        <a-steps v-model:current="current" size="small">
+            <a-step v-for="item in steps" :key="item.title" :title="item.title" />
+            </a-steps>
+            <div class="steps-content">
+                <div v-if="current == 0" ref="content1">
+                    <h2>
+                        步骤1
+                    </h2>
+                    <p class="secondtitle">第一步：识别数据功能点和事务处理功能点</p>
+                    <p class="content">数据功能是指更新、引用和检索而储存的可用的逻辑数据。数据块及控制信
+                    息是逻辑上的并且用户可确认的。数据功能分为内部逻辑文件(ILF)和外部接口
+                    文件(EIF)。事务处理是指外部输入、外部输出、外部查询、完成更新、检索和输
+                    出等操作，分为外部输入(EI)、外部输出(EO)和外部查询(EQ)。
+                    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请详细阅读文档中提供的系统设计模型。
+                    </p>
+                </div>
+                <div v-if="current == 1" ref="content2">
+                    <h2>
+                        步骤2
+                    </h2>
+                    <p class="secondtitle">第二步：测量内部逻辑文件(ILF)</p>
+                    <p class="content">内部逻辑文件(ILF)是用户可确认的，在应用程序内部维护、逻辑上相关的数
+                        据块或控制信息。内部逻辑文件(ILF)用来保存经由应用程序的一个或多个处理
+                        后的数据。一旦应用程序内部的一个数据块被标识为 ILF，即使它被另一个事务
+                        处理所引用，它也不能再被同一个应用程序当作 EIF。<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 ILF 数量。</p>
+                </div>
+                <div v-if="current == 2" ref="content3">
+                    <h2>
+                        步骤3
+                    </h2>
+                    <p class="secondtitle">第三步：测量外部接口文件(EIF) </p>
+                    <p class="content">外部接口文件(EIF)是用户可确认的、由被测应用程序引用，但在其他应用程
+                        序内部维护的、逻辑上相关的数据块或控制信息。外部接口文件(EIF)用来存放被
+                        测应用程序中的一个或多个基本处理所引用的数据。数据或控制数据通过诸如增
+                        加、变更、更新等事务来维护，一个 EIF 可以被多个应用程序引用和计算，但是
+                        对于一个应用程序来讲，一个 EIF 只应被计算一次。 <br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EIF 数量。</p>
+                </div>
+                <div v-if="current == 3" ref="content4">
+                    <h2>
+                        步骤4
+                    </h2>
+                    <p class="secondtitle">第四步：计算 ILF 和 EIF 复杂度</p>
+                    <p class="content">根据 IFPUG 功能点计算实践手册(4.1 版)，识别 ILF 和 EIF 组件的复杂程度，
+                        并按照下表的参数并赋值(简单、平均或复杂)。 <br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：复杂度为简单的 ILF 数量和复杂的 ILF 数量各占 50%。EIF 的复
+                        杂度均为复杂。填写下表。</p>
+                    <h2 style="text-align: center">ILF 和 EIF 数据复杂度认定表</h2>
+                    <a-table :pagination="false" :columns="columns1" :data-source="tableData1" bordered size="middle"
+                        style="word-break: break-all;" />
+                </div>
+                <div v-if="current == 4" ref="content5">
+                    <h2>
+                        步骤5
+                    </h2>
+                    <p class="secondtitle">第五步：测量外部输入(EI)</p>
+                    <p class="content">外部输入(EI)是应用程序处理来自系统边界以外的数据或控制信息的基本
+                        过程。EI 的作用是维护一个或多个 ILF 以及通过其处理逻辑来改变系统的行为。<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EI 数量。 </p>
+                </div>
+                <div v-if="current == 5" ref="content6">
+                    <h2>
+                        步骤6
+                    </h2>
+                    <p class="secondtitle">第六步：测量外部输出(EO) </p>
+                    <p class="content">外部输出(EO)是应用程序向其边界之外提供数据或控制信息的基本处理。
+                        EO 的作用是向用户提供经过处理逻辑加工的，除了检索信息或控制信息之外的
+                        信息或附加信息。处理逻辑中必须至少包含一个数学公式或者计算，创建导出数
+                        据或者维护一个或多个 ILF，并且改变系统的行为。<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EO 数量。 </p>
+                </div>
+                <div v-if="current == 6" ref="content7">
+                    <h2>
+                        步骤7
+                    </h2>
+                    <p class="secondtitle">第七步：测量外部查询(EQ) </p>
+                    <p class="content">外部查询(EQ)是应用程序向其边界之外提供数据或控制信息查询的基本处
+                        理。EQ 的作用是通过查询数据或控制信息来为用户提供信息，处理逻辑中既不
+                        包含数学公式或计算，也不产生导出数据。处理过程中不维护 ILF，系统行为不
+                        受影响。<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：清点实验案例中 EQ 数量。 </p>
+                </div>
+                <div v-if="current == 7" ref="content8">
+                    <h2>
+                        步骤8
+                    </h2>
+                    <p class="secondtitle">第八步：计算 EI、EO 和 EQ 复杂度 </p>
+                    <p class="content">根据 IFPUG 功能点计算实践手册(4.1 版)，分别识别 EI 以及 EO 和 EQ 组件
+                        的复杂程度，并按照以下两个表格的参数并赋值(简单、平均或复杂)。<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：复杂度为简单的 EI 数量和复杂的 EI 数量各占 50%。复杂度为平
+                        均的 EO 数量占 2/3，复杂度为复杂的 EO 数量占 1/3。复杂度为简单、平均和复
+                        杂的 EQ 数量各占 1/3。</p>
+                    <h2 style="text-align: center">EI 复杂度认定表</h2>
+                    <a-table :pagination="false" :columns="columns2" :data-source="tableData2" bordered size="middle"
+                        style="word-break: break-all;" />
+                    <br>
+                
+                    <h2 style="text-align: center">EO 和 EQ 复杂度认定表</h2>
+                    <a-table :pagination="false" :columns="columns3" :data-source="tableData3" bordered size="middle"
+                        style="word-break: break-all;" />
+                    <br>
+                </div>
+                <div v-if="current == 8" ref="content9">
+                    <h2>
+                        步骤9
+                    </h2>
+                    <p class="secondtitle">第九步：计算未调整功能点 </p>
+                    <p class="content"> 按照 IFPUG 功能点计算实践手册(4.1 版)组件复杂度等级与功能点数对应关
+                        系表 4，计算得到未调整功能点数(UFP)。 <br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：将上述各步得到的数据，填写在下面的“未调整功能点计算表”中
+                        的合适位置，计算本实验案例的未调整功能点。 </p>
+                        <h2 style="text-align: center;">表1：未调整功能点计算表 </h2>
+                        <a-table :pagination="false" :columns="columns" :data-source="tableData" bordered size="middle"
+                            style="word-break: break-all;">
+                            <template #bodyCell="{ column, record, index }">
+                                <template v-if="column.dataIndex === 'A' && tableData !== undefined">
+                                    <a-input v-model:value="record.A" style="width:100px; " />
+                                </template>
+                                <template v-if="column.dataIndex === 'D' && tableData !== undefined">
+                                    <a-input v-model:value="record.D" style="width:100px;" />
+                                </template>
+                                <template v-if="column.dataIndex === 'G' && tableData !== undefined">
+                                    <a-input v-model:value="record.G" style="width:100px;" />
+                                </template>
+                                <template v-if="column.dataIndex === 'C' && tableData !== undefined">
+                                    {{ c(index) }}
+                                </template>
+                                <template v-if="column.dataIndex === 'F' && tableData !== undefined">
+                                    {{ f(index) }}
+                                </template>
+                                <template v-if="column.dataIndex === 'I' && tableData !== undefined">
+                                    {{ i(index) }}
+                                </template>
+                                <template v-if="column.dataIndex === 'number' && tableData !== undefined">
+                                    {{ number(index) }}
+                                </template>
+                                <template v-if="column.dataIndex === 'unchanged' && tableData !== undefined">
+                                    {{ unchanged(index) }}
+                                </template>
+                            </template>
+                        </a-table>
+                        <br>
+                    
+                        <div style="width:100%;text-align:right">
+                            <span style="width:30%;display:inline-block" class="secondtitle">本实验未调整功能点总计为 </span>
+                            <span style="display:inline-block;font-size:20px;">{{ SUM }}</span>
+                        </div>
+                        <br>
+                        <br>
+                </div>
+                <div v-if="current == 9" ref="content10">
+                    <h2>
+                        步骤10
+                    </h2>
+                    <p>第十步：计算调整后功能点 </p>
+                    <p>考虑本实验案例的非功能性，从表 6 采集相对复杂度调整因子(标红数值)，
+                        得到本实验案例的功能点调整因子(VAF)为 41。将 VAF 数值代入(IFPUG 法)功能
+                        点计算公式，计算得到本实验案例的功能点为_____________。 <br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实验操作：运用 IFPUG 标准规则，计算实验案例的调整后功能点。 </p>
+                    <br />
+                    <h2 style="text-align: center">每个组件复杂度等级与功能点数对应关系表 </h2>
+                    <a-table :pagination="false" :columns="columns4" :data-source="tableData4" bordered size="middle"
+                        style="word-break: break-all;" />
+                    <br>
+                    <h2 style="text-align: center;">表2：系统特征因子表及计算表 </h2>
+                    <a-table :columns="columnsadjust" :pagination="false" :data-source="dataadjust" bordered size="middle"
+                        style="word-break: break-all;">
+                        <template #bodyCell="{ column, record }">
+                            <template v-if="column.dataIndex === 'grade'">
+                                <a-input-group compact>
+                                    <a-select v-model:value="record.grade">
+                                        <a-select-option value="0">0</a-select-option>
+                                        <a-select-option value="1">1</a-select-option>
+                                        <a-select-option value="2">2</a-select-option>
+                                        <a-select-option value="3">3</a-select-option>
+                                        <a-select-option value="4">4</a-select-option>
+                                        <a-select-option value="5">5</a-select-option>
+                                    </a-select>
+                
+                                </a-input-group>
+                
+                            </template>
+                        </template>
+                    </a-table>
+                    <br>
+                    <div style="width:100%;text-align:right">
+                        <span style="width:30%;display:inline-block" class="secondtitle">合计数 </span>
+                        <span style="display:inline-block;font-size:20px;">{{ SUM_A }}</span>
+                    </div>
+                    <br>
+                    <br>
+                
+                    <span class="secondtitle">功能点调整因子(VAF)为 </span>
+                    <span style="font-size:20px">{{ VAF }}</span>
+                    <br /><br />
+                    <span class="secondtitle">本实验案例的功能点为</span>
+                    <span style="font-size:20px">{{ ALL }}</span>
+                    <br /><br />
+                </div>
+            </div>
+            <div class="steps-action">
+                <a-button v-if="current < steps.length - 1" type="primary" style="float: right;" @click="next"><step-forward-outlined />Next</a-button>
+                <a-button
+                    v-if="current == steps.length - 1"
+                    type="primary"
+                    style="float: right;"
+                    @click="generatePDF1"
+                >
+                    Done
+                    <!-- @click="message.success('Processing complete!')" -->
+                </a-button>
+                <a-button v-if="current > 0" style="margin-left: 8px" @click="prev"><step-backward-outlined />Previous</a-button>
+                </div>
     </div>
-    <br>
-    <br>
-
-    <h2 style="text-align: center;">表2：系统特征因子表及计算表 </h2>
-    <a-table :columns="columnsadjust" :pagination="false" :data-source="dataadjust" bordered size="middle"
-        style="word-break: break-all;">
-        <template #bodyCell="{ column, record }">
-            <template v-if="column.dataIndex === 'grade'">
-                <a-input-group compact>
-                    <a-select v-model:value="record.grade">
-                        <a-select-option value="0">0</a-select-option>
-                        <a-select-option value="1">1</a-select-option>
-                        <a-select-option value="2">2</a-select-option>
-                        <a-select-option value="3">3</a-select-option>
-                        <a-select-option value="4">4</a-select-option>
-                        <a-select-option value="5">5</a-select-option>
-                    </a-select>
-
-                </a-input-group>
-
-            </template>
-        </template>
-    </a-table>
-    <br>
-    <div style="width:100%;text-align:right">
-        <span style="width:30%;display:inline-block" class="secondtitle">合计数 </span>
-        <span style="display:inline-block;font-size:20px;">{{ SUM_A }}</span>
-    </div>
-    <br>
-    <br>
-
-    <span class="secondtitle">功能点调整因子(VAF)为 </span>
-    <span style="font-size:20px">{{ VAF }}</span>
-    <br /><br />
-    <span class="secondtitle">本实验案例的功能点为</span>
-    <span style="font-size:20px">{{ ALL }}</span>
-    <br /><br />
 </template>
 
 <script lang="ts">
@@ -212,6 +258,7 @@ export default {
             SUM_A: 0,
             experimentdate: 0,//实验时间
             reportername: '',//实验人姓名
+            current : 0,
             columns1: [
                 {
                     title: '记录元素类型(RET) ',
@@ -252,6 +299,46 @@ export default {
                 }
 
             ],
+            content: [],
+            steps: [{
+                title: '111',
+                content: 'First-content',
+            }, {
+                title: '222',
+                content: 'Second-content',
+            }, {
+                title: '333',
+                content: 'Third-content',
+            },
+            {
+                title: '444',
+                content: 'Fourth-content',
+            },
+            {
+                title: '555',
+                content: 'Fifth-content',
+            },
+            {
+                title: '666',
+                content: 'Sixth-content',
+            },
+            {
+                title: '777',
+                content: 'Seventh-content',
+            },
+            {
+                title: '888',
+                content: 'Eighth-content',
+            },
+            {
+                title: '999',
+                content: 'Ninth-content',
+            },
+            {
+                title: 'aaa',
+                content: 'Last-content',
+            },
+        ],
             columns2: [{
                 title: '引用的文件类型个数(FTR) ',
                 dataIndex: 'FTR',
@@ -848,6 +935,98 @@ export default {
         },
         ALL() {
             return (this.$data.SUM * this.$data.VAF).toFixed(2)
+        },
+        next() {
+            if(this.current == 0){
+                const content_1 = this.$refs.content_1;
+                this.content.push(content_1);
+                
+                const content1 = this.$refs.content1;
+                this.content.push(content1);
+                
+            }
+            if(this.current == 1){
+                const content2 = this.$refs.content2;
+                this.content.push(content2);
+            }
+            if(this.current == 2){
+                const content3 = this.$refs.content3;
+                this.content.push(content3);
+            }
+            if(this.current == 3){
+                const content4 = this.$refs.content4;
+                this.content.push(content4);
+            }
+            if(this.current == 4){
+                const content5 = this.$refs.content5;
+                this.content.push(content5);
+            }
+            if(this.current == 5){
+                const content6 = this.$refs.content6;
+                this.content.push(content6);
+            }
+            if(this.current == 6){
+                const content7 = this.$refs.content7;
+                this.content.push(content7);
+            }
+            if(this.current == 7){
+                const content8 = this.$refs.content8;
+                this.content.push(content8);
+            }
+            if(this.current == 8){
+                const content9 = this.$refs.content9;
+                this.content.push(content9);
+            }
+            if(this.current == 9){
+                const content10 = this.$refs.content10;
+                this.content.push(content10);
+            }
+            this.current++;
+            // this.generatePDF1();
+            
+        },
+        prev() {
+            if(this.current == 0){
+                const content1 = this.$refs.content1;
+                this.content.push(content1);
+            }
+            if(this.current == 1){
+                const content2 = this.$refs.content2;
+                this.content.push(content2);
+            }
+            if(this.current == 2){
+                const content3 = this.$refs.content3;
+                this.content.push(content3);
+            }
+            if(this.current == 3){
+                const content4 = this.$refs.content4;
+                this.content.push(content4);
+            }
+            if(this.current == 4){
+                const content5 = this.$refs.content5;
+                this.content.push(content5);
+            }
+            if(this.current == 5){
+                const content6 = this.$refs.content6;
+                this.content.push(content6);
+            }
+            if(this.current == 6){
+                const content7 = this.$refs.content7;
+                this.content.push(content7);
+            }
+            if(this.current == 7){
+                const content8 = this.$refs.content8;
+                this.content.push(content8);
+            }
+            if(this.current == 8){
+                const content9 = this.$refs.content9;
+                this.content.push(content9);
+            }
+            if(this.current == 9){
+                const content10 = this.$refs.content10;
+                this.content.push(content10);
+            }
+            this.current--;
         }
     },
     methods: {
@@ -949,4 +1128,33 @@ export default {
 :deep(.ant-table .ant-table-thead > tr > th) {
     border-width: 1px;
 }
+
+.steps-content {
+    margin-top: 16px;
+    border: 1px dashed #e9e9e9;
+    border-radius: 6px;
+    background-color: #fafafa;
+    min-height: 200px;
+    text-align: left;
+    padding-top: 10px;
+  }
+  
+  .image-center {
+    margin-top: 16px;
+    border: 1px dashed #e9e9e9;
+    border-radius: 16px;
+    background-color: #fafafa;
+    min-height: 200px;
+    text-align: center;
+    padding-top: 10px;
+  }
+  
+  .steps-action {
+    margin-top: 24px;
+  }
+  
+  [data-theme='dark'] .steps-content {
+    background-color: #2f2f2f;
+    border: 1px dashed #404040;
+  }
 </style> 
