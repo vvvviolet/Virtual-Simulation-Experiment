@@ -1,9 +1,61 @@
-<mxfile host="app.diagrams.net" modified="2024-01-21T23:28:17.890Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="Y3XESD_kPvDVZMlW48Ax" version="22.1.21" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-21T23:34:52.765Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="zGZVjQRNku5F8tBgTXJD" version="22.1.21" type="github">
   <diagram name="Page-1" id="ZP0yd-9Lp6tsqzpkCZrf">
     <mxGraphModel dx="2314" dy="1132" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-3" value="客户端-教师端" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="280" width="200" height="690" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="U2fmvMKoh8nz1Tkkg2wb-3" source="U2fmvMKoh8nz1Tkkg2wb-5" target="U2fmvMKoh8nz1Tkkg2wb-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-5" value="准备实验报告模板（.docx）" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="U2fmvMKoh8nz1Tkkg2wb-3">
+          <mxGeometry x="40" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="U2fmvMKoh8nz1Tkkg2wb-3" source="U2fmvMKoh8nz1Tkkg2wb-6" target="U2fmvMKoh8nz1Tkkg2wb-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-6" value="填充模板字符" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="U2fmvMKoh8nz1Tkkg2wb-3">
+          <mxGeometry x="40" y="130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-8" value="上传到管理端" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="U2fmvMKoh8nz1Tkkg2wb-3">
+          <mxGeometry x="40" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-4" value="客户端-学生端" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="280" width="200" height="690" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="U2fmvMKoh8nz1Tkkg2wb-4" source="U2fmvMKoh8nz1Tkkg2wb-10" target="U2fmvMKoh8nz1Tkkg2wb-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-10" value="在学生端做实验，填充数据" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="U2fmvMKoh8nz1Tkkg2wb-4">
+          <mxGeometry x="30" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-13" value="提交，发送实验数据" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="U2fmvMKoh8nz1Tkkg2wb-4">
+          <mxGeometry x="30" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-11" value="后端" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="280" width="200" height="690" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="U2fmvMKoh8nz1Tkkg2wb-11" source="U2fmvMKoh8nz1Tkkg2wb-12" target="U2fmvMKoh8nz1Tkkg2wb-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-12" value="接受实验数据，根据模板进行替换" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="U2fmvMKoh8nz1Tkkg2wb-11">
+          <mxGeometry x="40" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-15" value="将替换后的docx转为pdf，上传到oss" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="U2fmvMKoh8nz1Tkkg2wb-11">
+          <mxGeometry x="40" y="460" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="U2fmvMKoh8nz1Tkkg2wb-13" target="U2fmvMKoh8nz1Tkkg2wb-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2fmvMKoh8nz1Tkkg2wb-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="U2fmvMKoh8nz1Tkkg2wb-8" target="U2fmvMKoh8nz1Tkkg2wb-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
